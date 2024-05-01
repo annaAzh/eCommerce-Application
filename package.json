@@ -1,0 +1,9 @@
+{
+  "name": "ecommerce-application",
+  "version": "1.0.0",
+  "description": "The final task for the JS/Front-end RSS course (2023Q4)",
+  "main": "index.js",
+  "scripts": {},
+  "author": "",
+  "license": "ISC"
+}
