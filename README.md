@@ -13,3 +13,9 @@ We care for every pet and offer products for animals of all sizes and breeds. Wh
 - **Frontend**: HTML, CSS, TypeScript, React
 - **Code Quality**: ESLint, StyleLint, Prettier, Husky, Jest
 - **Backend**: Commercetools
+
+## Authors
+
+- [annaAzh](https://github.com/annaAzh)
+- [IrinaFileva](https://github.com/IrinaFileva)
+- [rredq](https://github.com/rRedq)
