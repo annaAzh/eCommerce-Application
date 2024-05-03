@@ -1,0 +1,31 @@
+{
+	"parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:react/recommended"
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+  ],
+	"parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true,
+    },
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest": true
+  },
+	"plugins": ["react", "@typescript-eslint", "import"],
+	"rules": {
+		"no-debugger": "off",
+    "no-console": "off",
+		"no-param-reassign": "off",
+    "@typescript-eslint/no-explicit-any": "error",
+	},
+}
