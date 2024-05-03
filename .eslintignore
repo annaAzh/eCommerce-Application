@@ -10,8 +10,3 @@
 
   # 3rd party libs
   /src/public/
-
-  # Ignore project configs
-  webpack.config.js
-  webpack.dev.config.js
-  webpack.prod.config.js
