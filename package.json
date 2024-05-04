@@ -4,7 +4,9 @@
   "description": "The final task for the JS/Front-end RSS course (2023Q4)",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix ./src"
   },
   "author": "",
   "license": "ISC",
