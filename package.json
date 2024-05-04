@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "The final task for the JS/Front-end RSS course (2023Q4)",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "jest"
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
