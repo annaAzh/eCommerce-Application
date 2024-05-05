@@ -11,6 +11,7 @@
     "lint":  "eslint . --ext .ts --ext .tsx",
     "lint-fix": "eslint . --ext .ts --ext .tsx --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "ci:format": "prettier --check \"src/**/*.{ts,tsx,json,css}\""
   },
   "author": "",
   "license": "ISC",
