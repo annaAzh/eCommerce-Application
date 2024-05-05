@@ -9,7 +9,8 @@
     "build:prod": "webpack --env mode=production",
     "test": "jest",
     "lint":  "eslint . --ext .ts --ext .tsx",
-    "lint-fix": "eslint . --ext .ts --ext .tsx --fix"
+    "lint-fix": "eslint . --ext .ts --ext .tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
   },
   "author": "",
   "license": "ISC",
