@@ -7,7 +7,9 @@
     "start": "webpack serve --env mode=development",
     "build:dev": "webpack --env mode=development",
     "build:prod": "webpack --env mode=production",
-    "test": "jest"
+    "test": "jest",
+    "lint":  "eslint . --ext .ts --ext .tsx",
+    "lint-fix": "eslint . --ext .ts --ext .tsx --fix"
   },
   "author": "",
   "license": "ISC",
