@@ -5,6 +5,7 @@
     "airbnb-typescript",
     "plugin:@typescript-eslint/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
   ],
 	"parserOptions": {
     "ecmaFeatures": {
@@ -24,7 +25,7 @@
     "browser": true,
     "jest": true
   },
-	"plugins": ["react", "@typescript-eslint", "import"],
+	"plugins": ["react", "@typescript-eslint", "import", "prettier"],
 	"rules": {
 		"no-debugger": "off",
     "no-console": "off",
