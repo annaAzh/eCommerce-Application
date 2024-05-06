@@ -14,6 +14,20 @@ We care for every pet and offer products for animals of all sizes and breeds. Wh
 - **Code Quality**: ESLint, StyleLint, Prettier, Husky, Jest
 - **Backend**: Commercetools
 
+## Available Scripts
+
+- `npm start`: runs the app in development mode. Open [http://localhost:5005](http://localhost:5005) to view the project locally.
+- `npm run build:dev`: builds the app for development to the `build` folder.
+- `npm run build:prod`: builds the app for production to the `build` folder.
+- `npm test`: runs Jest test runner to run all available tests.
+- `npm test:coverage`: runs Jest tests with coverage reporting and additional reporters..
+- `npm run lint`: runs ESLint to check for eslint errors in TypeScript and TypeScript React files.
+- `npm run lint-fix`: runs ESLint to fix eslint errors in TypeScript and TypeScript React files.
+- `npm run format`: formats the code using Prettier according to the rules in `.prettierrc`.
+- `npm run ci:format`: checks the code formatting using Prettier according to the rules in `.prettierrc`.
+- `npm run lint:css`: runs Stylelint to check the files with `.css` extension.
+- `npm run lint:css:fix"`: runs Stylelint to format the files with `.css` extension.
+
 ## Setting up and running locally
 
 clone the project
