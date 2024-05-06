@@ -14,6 +14,32 @@ We care for every pet and offer products for animals of all sizes and breeds. Wh
 - **Code Quality**: ESLint, StyleLint, Prettier, Husky, Jest
 - **Backend**: Commercetools
 
+## Setting up and running locally
+
+clone the project
+
+```bash
+  git clone https://github.com/annaAzh/eCommerce-Application.git
+```
+
+go to the project folder
+
+```bash
+  cd eCommerce-Application
+```
+
+install dependencies
+
+```bash
+  npm install
+```
+
+start the server
+
+```bash
+  npm start
+```
+
 ## Authors
 
 - [annaAzh](https://github.com/annaAzh)
