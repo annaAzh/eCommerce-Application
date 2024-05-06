@@ -8,8 +8,10 @@
     "build:dev": "webpack --env mode=development",
     "build:prod": "webpack --env mode=production",
     "test": "jest",
-    "lint": "eslint . --ext .ts --ext .tsx",
+    "lint":  "eslint . --ext .ts --ext .tsx",
     "lint-fix": "eslint . --ext .ts --ext .tsx --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
+    "ci:format": "prettier --check \"src/**/*.{ts,tsx,json,css}\"",
     "lint:css": "stylelint \"**/*.css\"",
     "lint:css:fix": "stylelint \"**/*.css\" --fix"
   },
