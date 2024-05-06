@@ -1,8 +1,8 @@
 import path from 'path';
-import webpack from 'webpack';
+import { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
+import 'webpack-dev-server';
 
 type Mode = 'production' | 'development';
 
@@ -15,7 +15,7 @@ module.exports = (env: EnvVar) => {
   const isDev = env.mode === 'development';
   const isProd = env.mode === 'production';
 
-  const config: webpack.Configuration = {
+  const config: Configuration = {
     mode: env.mode ?? 'development',
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
@@ -45,7 +45,7 @@ module.exports = (env: EnvVar) => {
       ],
     },
     resolve: {
-      extensions: ['.tsx', '.ts', '.js']
+      extensions: ['.tsx', '.ts', '.js'],
     },
     devServer: isDev
       ? {
