@@ -20,9 +20,9 @@ We care for every pet and offer products for animals of all sizes and breeds. Wh
 - `npm run build:dev`: builds the app for development to the `build` folder.
 - `npm run build:prod`: builds the app for production to the `build` folder.
 - `npm test`: runs Jest test runner to run all available tests.
-- `npm test:coverage`: runs Jest tests with coverage reporting and additional reporters..
+- `npm test:coverage`: runs Jest tests with coverage reporting and additional reporters.
 - `npm run lint`: runs ESLint to check for eslint errors in TypeScript and TypeScript React files.
-- `npm run lint-fix`: runs ESLint to fix eslint errors in TypeScript and TypeScript React files.
+- `npm run lint:fix`: runs ESLint to fix eslint errors in TypeScript and TypeScript React files.
 - `npm run format`: formats the code using Prettier according to the rules in `.prettierrc`.
 - `npm run ci:format`: checks the code formatting using Prettier according to the rules in `.prettierrc`.
 - `npm run lint:css`: runs Stylelint to check the files with `.css` extension.
