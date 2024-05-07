@@ -13,7 +13,6 @@ interface EnvVar {
 
 module.exports = (env: EnvVar) => {
   const isDev = env.mode === 'development';
-  const isProd = env.mode === 'production';
 
   const config: Configuration = {
     mode: env.mode ?? 'development',
@@ -59,7 +58,7 @@ module.exports = (env: EnvVar) => {
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
       }),
-      isProd &&
+      !isDev &&
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash:8].css',
           chunkFilename: '[name].[contenthash:8].css',
