@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Button, Form, Input } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { checkEmail, checkPassword } from '../model/LoginUser-model';
 import styled from 'styled-components';
 import './LoginUser.css';
 
@@ -20,17 +21,13 @@ const StyledButton = styled(Button)`
 `;
 
 const LoginUser: FC = () => {
-  const onFinish = (values: unknown) => {
-    console.log('Received values of form: ', values);
-  };
-
   return (
     <div className="form-content">
-      <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
-        <Form.Item name="username" rules={[{ required: true, message: 'Please input your Username!' }]}>
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+      <Form name="normal_login" className="login-form" initialValues={{ remember: true }}>
+        <Form.Item name="email" rules={checkEmail()}>
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
         </Form.Item>
-        <Form.Item name="password" rules={[{ required: true, message: 'Please input your Password!' }]}>
+        <Form.Item name="password" rules={checkPassword()}>
           <Input.Password
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
