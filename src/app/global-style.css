@@ -1,0 +1,22 @@
+#root {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+
+  --light-0: #f6f2f6;
+  --light-1: #dee2e6;
+  --light-2: #e1d5d9;
+  --light-3: #58545b;
+  --light-4: #1c252c;
+  --red: #e45545;
+  --green: #6d972e;
+  --blue: #0353a4;
+
+  background-color: var(--light-2);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
