@@ -1,7 +1,6 @@
 import { createRoot } from 'react-dom/client';
 
 import App from './app';
-document.body.innerHTML = '<div id="app"></div>';
 
-const root = createRoot(document.getElementById('app') as HTMLDivElement);
+const root = createRoot(document.getElementById('root') as HTMLDivElement);
 root.render(<App />);
