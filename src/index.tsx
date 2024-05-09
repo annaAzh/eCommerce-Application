@@ -1,5 +1,10 @@
 import { createRoot } from 'react-dom/client';
-import { App } from './app/App';
+import { StoreProvider } from 'app/providers/storeProvider';
+import { App } from 'app/App';
 
-const root = createRoot(document.getElementById('root') as HTMLDivElement);
-root.render(<App />);
+const root = createRoot(document.getElementById('root') as HTMLElement);
+root.render(
+  <StoreProvider>
+    <App />
+  </StoreProvider>,
+);
