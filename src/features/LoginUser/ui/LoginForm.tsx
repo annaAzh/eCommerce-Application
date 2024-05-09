@@ -2,10 +2,10 @@ import { FC } from 'react';
 import { Form, Input, Flex } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { checkEmail, checkPassword } from '../../../shared/lib/checkValid';
-import StyledLoginFormButton from './StyledLoginFormButton/StyledLoginFormButton';
+import { PrimaryControlButton } from '../../../shared/ui';
 import './LoginForm.css';
 
-const LoginUser: FC = () => {
+const LoginForm: FC = () => {
   return (
     <div className="form-content">
       <Form name="normal_login" className="login-form" initialValues={{ remember: true }}>
@@ -21,9 +21,9 @@ const LoginUser: FC = () => {
         </Form.Item>
         <Form.Item>
           <Flex align="center" gap="small">
-            <StyledLoginFormButton type="primary" htmlType="submit" className="login-form-button">
+            <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
               Log in
-            </StyledLoginFormButton>
+            </PrimaryControlButton>
             or <a href="">register now!</a>
           </Flex>
         </Form.Item>
@@ -32,4 +32,4 @@ const LoginUser: FC = () => {
   );
 };
 
-export { LoginUser };
+export { LoginForm };

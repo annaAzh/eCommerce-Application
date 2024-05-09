@@ -1,7 +1,7 @@
 import { Button } from 'antd';
 import styled from 'styled-components';
 
-const StyledLoginFormButton = styled(Button)`
+const PrimaryControlButton = styled(Button)`
   width: 6rem;
   background: var(--green);
   &:hover {
@@ -9,4 +9,4 @@ const StyledLoginFormButton = styled(Button)`
   }
 `;
 
-export default StyledLoginFormButton;
+export { PrimaryControlButton };
