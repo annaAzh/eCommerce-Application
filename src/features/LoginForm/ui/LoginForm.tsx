@@ -1,24 +1,9 @@
 import { FC } from 'react';
-import { Button, Form, Input } from 'antd';
+import { Form, Input, Flex } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { checkEmail, checkPassword } from '../model/LoginUser-model';
-import styled from 'styled-components';
-import './LoginUser.css';
-
-const FormItem = styled(Form.Item)`
-  .ant-form-item-control-input-content {
-    display: flex;
-    gap: 0.5rem;
-    align-items: center;
-  }
-`;
-const StyledButton = styled(Button)`
-  width: 6rem;
-  background: green;
-  &:hover {
-    background: grey !important;
-  }
-`;
+import { checkEmail, checkPassword } from '../../../shared/lib/checkValid';
+import StyledLoginFormButton from './StyledLoginFormButton/StyledLoginFormButton';
+import './LoginForm.css';
 
 const LoginUser: FC = () => {
   return (
@@ -34,12 +19,14 @@ const LoginUser: FC = () => {
             placeholder="Password"
           />
         </Form.Item>
-        <FormItem>
-          <StyledButton type="primary" htmlType="submit" className="login-form-button">
-            Log in
-          </StyledButton>
-          or <a href="">register now!</a>
-        </FormItem>
+        <Form.Item>
+          <Flex align="center" gap="small">
+            <StyledLoginFormButton type="primary" htmlType="submit" className="login-form-button">
+              Log in
+            </StyledLoginFormButton>
+            or <a href="">register now!</a>
+          </Flex>
+        </Form.Item>
       </Form>
     </div>
   );

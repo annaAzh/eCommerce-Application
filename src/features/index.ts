@@ -1,3 +1,1 @@
-import { LoginUser } from './LoginUser/ui/LoginUser';
-
-export { LoginUser };
+export { LoginUser } from './LoginForm/ui/LoginForm';

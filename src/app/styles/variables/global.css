@@ -1,0 +1,16 @@
+:root {
+  --main-color-0: #f6f2f6;
+  --main-color-1: #dee2e6;
+  --main-color-2: #e1d5d9;
+  --main-color-3: #58545b;
+  --main-color-4: #1c252c;
+  --red: #e45545;
+  --green: #6d972e;
+  --blue: #0353a4;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

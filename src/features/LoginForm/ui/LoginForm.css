@@ -1,0 +1,8 @@
+.form-content {
+  width: 400px;
+  margin: auto;
+  border-radius: 3px;
+  background: var(--main-color-1);
+  border: 1px solid var(--main-color-4);
+  padding: 3rem 1rem 1rem;
+}
