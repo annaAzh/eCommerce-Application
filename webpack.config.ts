@@ -48,7 +48,7 @@ module.exports = (env: EnvVar) => {
       preferAbsolute: true,
       modules: [resolve(__dirname, 'src'), 'node_modules'],
       mainFiles: ['index'],
-      alias: {}
+      alias: {},
     },
     devServer: isDev
       ? {
