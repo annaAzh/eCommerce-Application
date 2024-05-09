@@ -1,10 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { StateSchema, rootReducer } from './combineReducers';
-
-
+import { StateSchema } from './StateSchema';
+import { rootReducer } from './rootReducer';
 
 export const store = configureStore<StateSchema>({
-  reducer: {...rootReducer},
+  reducer: rootReducer,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

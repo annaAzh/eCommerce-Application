@@ -4,4 +4,4 @@ const App: FC = () => {
   return <></>;
 };
 
-export default App;
+export { App };

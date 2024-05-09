@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 
-import App from './app';
-import StoreProvider from './app/providers/storeProvider';
+import { StoreProvider } from 'app/Providers/StoreProvider';
+import { App } from 'app/App';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(

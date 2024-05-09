@@ -1,4 +1,4 @@
-import path from 'path';
+import path, { resolve } from 'path';
 import { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -45,6 +45,10 @@ module.exports = (env: EnvVar) => {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      preferAbsolute: true,
+      modules: [resolve(__dirname, 'src'), 'node_modules'],
+      mainFiles: ['index'],
+      alias: {}
     },
     devServer: isDev
       ? {
