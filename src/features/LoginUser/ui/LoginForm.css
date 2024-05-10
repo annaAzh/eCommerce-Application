@@ -6,7 +6,3 @@
   border: 1px solid var(--main-color-4);
   padding: 3rem 1rem 1rem;
 }
-
-.validation-field {
-  min-height: 80px;
-}
