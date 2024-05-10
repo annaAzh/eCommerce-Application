@@ -8,10 +8,10 @@ export const checkPostalCode = (): Rule[] => [
   ({ getFieldValue }: GetFieldValueType) => ({
     validator(_, value: string) {
       if (!value || !getFieldValue('country')) {
-        return Promise.reject(new Error('Please, choose country before'));
+        return Promise.reject('Please, choose country before');
       }
       if (postalCodes.validate(getFieldValue('country'), value) !== true) {
-        return Promise.reject(new Error('Incorrect postal code!'));
+        return Promise.reject('Incorrect postal code!');
       }
       return Promise.resolve();
     },

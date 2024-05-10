@@ -10,7 +10,7 @@ export const checkBirthday = (): Rule[] => [
       const dateOfBirth = dayjs(value);
       const age = today.diff(dateOfBirth, 'year');
       if (age < minimumAge) {
-        return Promise.reject(new Error(`You should be at least ${minimumAge} years old to make an order!`));
+        return Promise.reject(`You should be at least ${minimumAge} years old to make an order!`);
       }
       return Promise.resolve();
     },

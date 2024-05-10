@@ -9,7 +9,7 @@ export const checkConfirmPassword = (): Rule[] => [
       if (!value || getFieldValue('password') === value) {
         return Promise.resolve();
       }
-      return Promise.reject(new Error('The new password that you entered do not match!'));
+      return Promise.reject('The new password that you entered do not match!');
     },
   }),
 ];
