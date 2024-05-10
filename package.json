@@ -14,7 +14,8 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
     "ci:format": "prettier --check \"src/**/*.{ts,tsx,json,css}\"",
     "lint:css": "stylelint \"src/**/*.css\"",
-    "lint:css:fix": "stylelint \"src/**/*.css\" --fix"
+    "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
+    "prepare": "husky"
   },
   "author": "",
   "license": "ISC",
