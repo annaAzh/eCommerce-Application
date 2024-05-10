@@ -1,0 +1,13 @@
+.form-content {
+  width: 600px;
+  margin: auto;
+  border-radius: 3px;
+  background: var(--main-color-1);
+  border: 1px solid var(--main-color-4);
+  padding: 3rem 1rem 1rem;
+}
+
+.formRegistration-title {
+  text-align: center;
+  margin-bottom: 20px;
+}
