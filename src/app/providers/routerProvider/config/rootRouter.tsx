@@ -3,10 +3,10 @@ import { Main } from 'pages/main/Main';
 import { Registration } from 'pages/registration/Registration';
 
 enum Paths {
-  Start = '/',
-  Main = 'main',
-  Login = 'login',
-  Registration = 'registration'
+  start = '/',
+  main = 'main',
+  login = 'login',
+  registration = 'registration'
 }
 
 export interface Router {
@@ -16,19 +16,19 @@ export interface Router {
 
 export const rootRouter: Router[] = [
   {
-    path: Paths.Start,
+    path: Paths.start,
     element: <Main />,
   },
   {
-    path: Paths.Main,
+    path: Paths.main,
     element: <Main />,
   },
   {
-    path: Paths.Login,
+    path: Paths.login,
     element: <Login />,
   },
   {
-    path: Paths.Registration,
+    path: Paths.registration,
     element: <Registration />,
   },
 ];
