@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { Form, Input, Flex } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { checkEmail, checkPassword } from '../../../shared/lib/checkValid';
-import { PrimaryControlButton } from '../../../shared/ui';
+import { checkEmail, checkPassword } from 'shared/lib/checkValid';
+import { PrimaryControlButton } from 'shared/ui';
 import './LoginForm.css';
 
 const LoginForm: FC = () => {
