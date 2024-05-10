@@ -11,3 +11,9 @@
   text-align: center;
   margin-bottom: 20px;
 }
+
+@media (max-width: 575px) {
+  .ant-form-item {
+    margin-bottom: 8px;
+  }
+}
