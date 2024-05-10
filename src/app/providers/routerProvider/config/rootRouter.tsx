@@ -6,7 +6,7 @@ enum Paths {
   start = '/',
   main = 'main',
   login = 'login',
-  registration = 'registration'
+  registration = 'registration',
 }
 
 export interface Router {

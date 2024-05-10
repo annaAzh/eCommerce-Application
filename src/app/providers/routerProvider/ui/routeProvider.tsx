@@ -5,9 +5,11 @@ export const RouteProvider = () => {
   return (
     <BrowserRouter>
       <Routes>
-        {rootRouter.map((route: Router) =>
+        (
+        {rootRouter.map((route: Router) => (
           <Route key={route.path} path={route.path} element={route.element}></Route>
-        )}
+        ))}
+        )
       </Routes>
     </BrowserRouter>
   );
