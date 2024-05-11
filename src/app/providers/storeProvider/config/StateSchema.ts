@@ -1,4 +1,7 @@
+import { Reducer } from '@reduxjs/toolkit';
+import { Token } from 'shared/api/actions/types/tokenTypes';
+
 export interface StateSchema {
-  // Here you will need to import schemas from slices
-  // In format user: UserSchema
+  accessToken: Reducer<Token>;
+  refreshToken: Reducer<Token>;
 }
