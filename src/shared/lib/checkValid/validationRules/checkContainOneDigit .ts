@@ -1,4 +1,4 @@
 export function checkContainOneDigit(str: string): boolean {
-  const regex = /[\!\@\#\$\%\^\&\*]/;
+  const regex = /\d/;
   return !regex.test(str);
 }
