@@ -3,12 +3,21 @@ import { Form, Input, Flex } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { checkEmail, checkPassword } from 'shared/lib/checkValid';
 import { PrimaryControlButton } from 'shared/ui';
+import { requestRefreshToken } from 'shared/api/actions/actionCreators/requestRefreshToken';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 
 const LoginForm: FC = () => {
+  const dispatch = useAppDispatch();
+
+  const onFinish = (values: { email: string; password: string }) => {
+    const { email, password } = values;
+    dispatch(requestRefreshToken({ username: email, password }));
+  };
+
   return (
     <div className="form-content">
-      <Form name="normal_login" className="login-form" initialValues={{ remember: true }}>
+      <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
         <Form.Item style={{ height: '60px' }} name="email" rules={checkEmail()}>
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
         </Form.Item>
