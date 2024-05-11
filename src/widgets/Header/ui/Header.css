@@ -1,0 +1,18 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0;
+  width: 100%;
+  min-height: 6rem;
+  padding: 0 2rem;
+  margin: 0;
+  background-color: #000;
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #000;
+}
