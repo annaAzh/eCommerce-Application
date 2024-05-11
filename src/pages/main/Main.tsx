@@ -1,9 +1,11 @@
 import { FC } from 'react';
+import ImgKittens from './../../shared/assets/img/kittens.png';
+import './Main.css';
 
 export const Main: FC = () => {
   return (
     <div>
-      <h1>Page Main</h1>
+      <img className="img-kittens" src={ImgKittens} alt="kittens"></img>
     </div>
   );
 };
