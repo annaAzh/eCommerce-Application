@@ -1,16 +1,15 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { AccessTokenReject, AccessTokenSuccess, ErrorWithResponse } from 'shared/api/actions/types/tokenTypes';
-import { BASE_URL, CLIENT_ID, CLIENT_SECRET } from 'shared/consts/Commercetools';
 
 export const requestAccessToken = createAsyncThunk('token/requestAccessToken', async (_, thunkAPI) => {
   try {
     const res = await axios.post<AccessTokenSuccess>('oauth/token', null, {
-      baseURL: `${BASE_URL}`,
+      baseURL: `${process.env.AUTH_URL}`,
       params: { grant_type: `client_credentials` },
       auth: {
-        username: CLIENT_ID,
-        password: CLIENT_SECRET,
+        username: process.env.CLIENT_ID || '',
+        password: process.env.CLIENT_SECRET || '',
       },
     });
     const success: AccessTokenSuccess = res.data;

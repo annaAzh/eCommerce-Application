@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RefreshTokenSucces, ErrorWithResponse, RefreshTokenReject } from 'shared/api/actions/types/tokenTypes';
-import { PROJECT_KEY, BASE_URL, CLIENT_ID, CLIENT_SECRET } from 'shared/consts/Commercetools';
 
 type LoginData = {
   username: string;
@@ -12,12 +11,12 @@ export const requestRefreshToken = createAsyncThunk(
   async (loginData: LoginData, thunkAPI) => {
     try {
       const { username, password } = loginData;
-      const res = await axios.post<RefreshTokenSucces>(`oauth/${PROJECT_KEY}/customers/token`, null, {
-        baseURL: `${BASE_URL}`,
+      const res = await axios.post<RefreshTokenSucces>(`oauth/${process.env.PROJECT_KEY}/customers/token`, null, {
+        baseURL: `${process.env.AUTH_URL}`,
         params: { grant_type: `password`, username, password },
         auth: {
-          username: CLIENT_ID,
-          password: CLIENT_SECRET,
+          username: process.env.CLIENT_ID || '',
+          password: process.env.CLIENT_SECRET || '',
         },
       });
       const success: RefreshTokenSucces = res.data;
