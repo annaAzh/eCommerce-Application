@@ -23,29 +23,35 @@ const RegistrationForm: FC = () => {
     <div className="form-content">
       <h2 className="formRegistration-title">New Customer</h2>
       <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
-        <Form.Item name="email" label="E-mail" required={true} rules={checkEmail()}>
+        <Form.Item name="email" label="E-mail" required rules={checkEmail()}>
           <Input placeholder="example@email.com" />
         </Form.Item>
-        <Form.Item name="password" label="Password" required={true} rules={checkPassword()}>
+        <Form.Item name="password" label="Password" required rules={checkPassword()}>
           <Input.Password />
         </Form.Item>
-        <Form.Item name="confirm" label="Confirm Password" dependencies={['password']} rules={checkConfirmPassword()}>
+        <Form.Item
+          name="confirm"
+          label="Confirm Password"
+          required
+          dependencies={['password']}
+          rules={checkConfirmPassword()}
+        >
           <Input.Password />
         </Form.Item>
-        <Form.Item name="firstname" label="First name" rules={checkInput('first name')}>
+        <Form.Item name="firstname" label="First name" required rules={checkInput('First name')}>
           <Input />
         </Form.Item>
-        <Form.Item name="lastname" label="Last name" rules={checkInput('last name')}>
+        <Form.Item name="lastname" label="Last name" required rules={checkInput('Last name')}>
           <Input />
         </Form.Item>
-        <Form.Item name="dateOfBirth" label="Date of Birth" rules={checkBirthday()}>
+        <Form.Item name="dateOfBirth" label="Date of Birth" required rules={checkBirthday()}>
           <DatePicker />
         </Form.Item>
         <Divider orientation="center">Address</Divider>
-        <Form.Item name="street" label="Street" rules={checkStreet()}>
+        <Form.Item name="street" label="Street" required rules={checkStreet()}>
           <Input />
         </Form.Item>
-        <Form.Item name="city" label="City" rules={checkInput('city')}>
+        <Form.Item name="city" label="City" required rules={checkInput('City')}>
           <Input />
         </Form.Item>
         <Form.Item name="country" label="Country" rules={[{ required: true, message: 'Please select Country!' }]}>
@@ -57,7 +63,7 @@ const RegistrationForm: FC = () => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="postal" label="Postal code" dependencies={['country']} rules={checkPostalCode()}>
+        <Form.Item name="postal" label="Postal code" required dependencies={['country']} rules={checkPostalCode()}>
           <Input />
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
