@@ -1,5 +1,6 @@
 import { Login } from 'pages/login/Login';
 import { Main } from 'pages/main/Main';
+import { NotFound } from 'pages/notFound/NotFound';
 import { Registration } from 'pages/registration/Registration';
 
 enum Paths {
@@ -7,6 +8,7 @@ enum Paths {
   main = 'main',
   login = 'login',
   registration = 'registration',
+  notFound = '*',
 }
 
 export interface Router {
@@ -30,5 +32,9 @@ export const rootRouter: Router[] = [
   {
     path: Paths.registration,
     element: <Registration />,
+  },
+  {
+    path: Paths.notFound,
+    element: <NotFound />,
   },
 ];
