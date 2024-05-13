@@ -34,4 +34,6 @@ export const userAccessTokenSlice = createSlice({
   },
 });
 
-export const { reducer: userAccessTokenReducer, actions: userAction } = userAccessTokenSlice;
+export const { reducer: userAccessTokenReducer } = userAccessTokenSlice;
+
+export const { setUserId } = userAccessTokenSlice.actions;

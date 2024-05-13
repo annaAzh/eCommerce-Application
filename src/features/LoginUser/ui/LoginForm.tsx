@@ -7,8 +7,8 @@ import { requestLogin } from 'features/LoginUser/model/services/requestLogin';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
-import { userAction } from 'entities/User';
 import { Link } from 'react-router-dom';
+import { setUserId } from 'entities/User';
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,7 +17,6 @@ const LoginForm: FC = () => {
 
   useEffect(() => {
     if (customerId) {
-      const { setUserId } = userAction;
       dispatch(setUserId(customerId));
     }
   }, [customerId, dispatch]);
@@ -27,7 +26,7 @@ const LoginForm: FC = () => {
     if (accessToken) {
       dispatch(requestLogin({ username: email, password, token: accessToken }));
     } else {
-      console.error('There will be a mistake here in the future');
+      console.error('There will be an error here in the future');
     }
   };
 
