@@ -8,6 +8,7 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { userAction } from 'entities/User';
+import { Link } from 'react-router-dom';
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -48,7 +49,7 @@ const LoginForm: FC = () => {
             <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
               Log in
             </PrimaryControlButton>
-            or <a href="">register now!</a>
+            or <Link to="/registration">register now!</Link>
           </Flex>
         </Form.Item>
       </Form>
