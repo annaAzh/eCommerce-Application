@@ -1,4 +1,3 @@
-import Header from 'antd/es/layout/layout';
 import Menu from 'antd/es/menu';
 import ConfigProvider from 'antd/es/config-provider';
 import { Link } from 'react-router-dom';
@@ -28,28 +27,25 @@ const links: LinkOfPage[] = [
   },
 ];
 
-export const TotalHeader = (): JSX.Element => {
+export const Header = (): JSX.Element => {
   return (
-    <Header className="header">
+    <header className="header">
       <ConfigProvider
         theme={{
           components: {
             Menu: {
-              horizontalItemSelectedColor: '#000000',
-              darkItemBg: '#000000',
-              horizontalItemHoverColor: '#d7f5da',
-              darkItemSelectedBg: '#000000',
-              darkItemColor: '#7ee286',
-              darkSubMenuItemBg: '#000000',
-              darkPopupBg: '#000000',
-              fontSize: 24,
-              motionDurationMid: '0.1s',
+              darkItemBg: '#1c252c',
+              darkItemSelectedBg: ' #1c252c',
+              darkSubMenuItemBg: '#1c252c',
+              darkPopupBg: '#1c252c',
+              darkItemColor: '#6d972e',
+              fontSize: 20,
             },
           },
         }}
       >
         <Menu className="menu" theme="dark" mode="horizontal" triggerSubMenuAction="click" items={links} />
       </ConfigProvider>
-    </Header>
+    </header>
   );
 };

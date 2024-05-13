@@ -1,1 +1,1 @@
-export { TotalHeader } from './ui/Header';
+export { Header } from './ui/Header';
