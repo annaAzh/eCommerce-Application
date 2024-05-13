@@ -1,9 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Router, rootRouter } from '../config/rootRouter';
+import { Header } from 'widgets/Header';
 
 export const RouteProvider = () => {
   return (
     <BrowserRouter>
+      <Header />
       <Routes>
         (
         {rootRouter.map((route: Router) => (
