@@ -1,5 +1,11 @@
+.wrapper-main {
+  display: flex;
+}
+
 .img-kittens {
   display: block;
-  width: 90%;
+  width: 80%;
   margin: 1rem auto;
+  object-fit: contain;
+  object-position: top;
 }
