@@ -1,18 +1,33 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Form, Input, Flex } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { checkEmail, checkPassword } from 'shared/lib/checkValid';
 import { PrimaryControlButton } from 'shared/ui';
-import { requestRefreshToken } from 'shared/api/actions/actionCreators/requestRefreshToken';
+import { requestLogin } from 'features/LoginUser/model/services/requestLogin';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
+import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
+import { userAction } from 'entities/User';
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
+  const { accessToken } = useAppSelector((state) => state.userAccessToken.user);
+  const { customerId } = useAppSelector((state) => state.login);
+
+  useEffect(() => {
+    if (customerId) {
+      const { setUserId } = userAction;
+      dispatch(setUserId(customerId));
+    }
+  }, [customerId, dispatch]);
 
   const onFinish = (values: { email: string; password: string }) => {
     const { email, password } = values;
-    dispatch(requestRefreshToken({ username: email, password }));
+    if (accessToken) {
+      dispatch(requestLogin({ username: email, password, token: accessToken }));
+    } else {
+      console.error('There will be a mistake here in the future');
+    }
   };
 
   return (

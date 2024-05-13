@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { AccessTokenReject, AccessTokenSuccess, ErrorWithResponse } from 'shared/api/actions/types/tokenTypes';
+import { ErrorWithResponse, AccessTokenReject, AccessTokenSuccess } from '../types/tokenTypes';
 
-export const requestAccessToken = createAsyncThunk('token/requestAccessToken', async (_, thunkAPI) => {
+export const requestAccessToken = createAsyncThunk('user/requestAccessToken', async (_, thunkAPI) => {
   try {
     const res = await axios.post<AccessTokenSuccess>('oauth/token', null, {
       baseURL: `${process.env.AUTH_URL}`,
@@ -15,7 +15,7 @@ export const requestAccessToken = createAsyncThunk('token/requestAccessToken', a
     const success: AccessTokenSuccess = res.data;
     return success;
   } catch (error) {
-    let errorMsg = 'damn error';
+    let errorMsg = 'error';
     if (error instanceof Error) {
       const reject: ErrorWithResponse = error as ErrorWithResponse;
       if (reject.response && reject.response.data) {

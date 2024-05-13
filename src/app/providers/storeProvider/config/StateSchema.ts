@@ -1,7 +1,8 @@
 import { Reducer } from '@reduxjs/toolkit';
-import { Token } from 'shared/api/actions/types/tokenTypes';
+import { UserSchema } from 'entities/User';
+import { LoginSchema } from 'features/LoginUser';
 
 export interface StateSchema {
-  accessToken: Reducer<Token>;
-  refreshToken: Reducer<Token>;
+  userAccessToken: Reducer<UserSchema>;
+  login: Reducer<LoginSchema>;
 }

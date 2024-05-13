@@ -1,23 +1,28 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { requestAccessToken } from 'shared/api/actions/actionCreators/requestAccessToken';
-import { AccessTokenSuccess, Token } from 'shared/api/actions/types/tokenTypes';
+import { UserSchema } from '../types/userTypes';
+import { AccessTokenSuccess } from '../types/tokenTypes';
+import { requestAccessToken } from '../services/requestAccessToken';
 
-const initialState: Token = {
-  token: '',
+const initialState: UserSchema = {
+  user: {},
   isLoading: false,
-  error: '',
+  error: undefined,
 };
 
 export const userAccessTokenSlice = createSlice({
-  name: 'token',
+  name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    setUserId(state: UserSchema, action: PayloadAction<string>) {
+      state.user.userId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(requestAccessToken.fulfilled, (state, action: PayloadAction<AccessTokenSuccess>) => {
         state.isLoading = false;
-        state.error = '';
-        state.token = action.payload.access_token;
+        state.error = undefined;
+        state.user.accessToken = action.payload.access_token;
       })
       .addCase(requestAccessToken.pending, (state) => {
         state.isLoading = true;
@@ -28,3 +33,5 @@ export const userAccessTokenSlice = createSlice({
       });
   },
 });
+
+export const { reducer: userAccessTokenReducer, actions: userAction } = userAccessTokenSlice;
