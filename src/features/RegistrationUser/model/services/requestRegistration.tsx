@@ -3,11 +3,8 @@ import axios from 'axios';
 import { ErrorResponse, UserCredentials } from '../types/registrationTypes';
 import { RefreshTokenSucces } from 'features/LoginUser/model/types/loginTypes';
 
-const AUTH_URL = process.env.AUTH_URL;
 const API_URL = process.env.API_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 export const register = createAsyncThunk('auth/register', async (params: UserCredentials, thunkAPI) => {
   try {
@@ -45,7 +42,7 @@ export const register = createAsyncThunk('auth/register', async (params: UserCre
   } catch (error) {
     console.log(error);
     const err = error as ErrorResponse;
-    let errorMsg = 'An error occurred during registration';
+    const errorMsg = 'An error occurred during registration';
     if (err.response.data.statusCode === 400) {
       const message = err.response.data.message;
       console.log(message ?? errorMsg);

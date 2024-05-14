@@ -1,4 +1,4 @@
-import { registerReducer } from './model/slices/registrationSlice';
+export { registerReducer } from './model/slices/registrationSlice';
 
 export { RegisterSchema } from './model/types/registrationTypes';
 
