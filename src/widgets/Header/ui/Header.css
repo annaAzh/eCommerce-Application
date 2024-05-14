@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0;
+  width: 100%;
+  min-height: 6rem;
+  padding: 0 2rem;
+  margin: 0;
+  background-color: var(--main-color-4);
+}
+
+.menu {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: inherit;
+}
+
+.link-header {
+  border: 2px solid var(--green);
+  border-radius: 10px;
+  padding: 0.3rem 0.5rem;
+  transition: all 20ms;
+}
+
+.link-header:hover {
+  border-color: var(--main-color-0);
+}
+
+.ant-menu-item-selected .link-header {
+  border-color: var(--main-color-0);
+}
