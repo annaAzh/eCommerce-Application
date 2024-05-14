@@ -2,18 +2,15 @@ import { FC } from 'react';
 import Cat from 'shared/assets/img/catNotFound.png';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Button } from 'antd';
+import { PrimaryControlButton } from 'shared/ui';
 import './NotFound.css';
 
-const ButtonLink = styled(Button)`
+const ButtonLink = styled(PrimaryControlButton)`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 12rem;
-  height: 3rem;
-  background: var(--green);
-  &:hover {
-    background: var(--main-color-3) !important;
+  width: auto;
+  padding: 7% 3%;
   }
 `;
 

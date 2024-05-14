@@ -32,3 +32,25 @@
 .link-page-notFound {
   font-size: 24px;
 }
+
+@media (width <= 768px) {
+  .container-page-notFound {
+    flex-direction: column;
+  }
+
+  .img-cat-page-notFound {
+    width: 70%;
+  }
+
+  .description-page-notFound {
+    font-size: 28px;
+
+    & span {
+      font-size: inherit;
+    }
+  }
+
+  .link-page-notFound {
+    font-size: 18px;
+  }
+}
