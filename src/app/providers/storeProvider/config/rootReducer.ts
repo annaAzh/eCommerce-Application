@@ -1,6 +1,9 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { StateSchema } from './StateSchema';
+import { userAccessTokenReducer } from 'entities/User';
+import { loginReducer } from 'features/LoginUser';
 
 export const rootReducer = combineReducers<StateSchema>({
-  // Here you will need to import reducers from slices
+  userAccessToken: userAccessTokenReducer,
+  login: loginReducer,
 });

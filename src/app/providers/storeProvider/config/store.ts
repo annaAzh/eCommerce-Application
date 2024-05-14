@@ -1,8 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { StateSchema } from './StateSchema';
 import { rootReducer } from './rootReducer';
 
-export const store = configureStore<StateSchema>({
+export const store = configureStore({
   reducer: rootReducer,
 });
 

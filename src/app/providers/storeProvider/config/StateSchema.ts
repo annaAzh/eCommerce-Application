@@ -1,4 +1,8 @@
+import { Reducer } from '@reduxjs/toolkit';
+import { UserSchema } from 'entities/User';
+import { LoginSchema } from 'features/LoginUser';
+
 export interface StateSchema {
-  // Here you will need to import schemas from slices
-  // In format user: UserSchema
+  userAccessToken: Reducer<UserSchema>;
+  login: Reducer<LoginSchema>;
 }

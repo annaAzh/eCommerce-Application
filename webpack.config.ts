@@ -1,8 +1,9 @@
 import path, { resolve } from 'path';
-import { Configuration } from 'webpack';
+import { Configuration, DefinePlugin } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import 'webpack-dev-server';
+import dotenv from 'dotenv';
 
 type Mode = 'production' | 'development';
 
@@ -13,6 +14,7 @@ interface EnvVar {
 
 module.exports = (env: EnvVar) => {
   const isDev = env.mode === 'development';
+  const dotenvPath = dotenv.config({ path: path.resolve(__dirname, '.env') });
 
   const config: Configuration = {
     mode: env.mode ?? 'development',
@@ -61,6 +63,9 @@ module.exports = (env: EnvVar) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
+      }),
+      new DefinePlugin({
+        'process.env': JSON.stringify(dotenvPath.parsed),
       }),
       !isDev &&
         new MiniCssExtractPlugin({
