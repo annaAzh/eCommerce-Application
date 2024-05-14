@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { register } from '../services/requestRegistration';
 import { RegisterSchema } from '../types/registrationTypes';
-import { RefreshTokenSucces } from 'features/LoginUser/model/types/loginTypes';
+import { RefreshTokenSucces } from '../types/registrationTypes';
 
 const initialState: RegisterSchema = {
   customerId: undefined,

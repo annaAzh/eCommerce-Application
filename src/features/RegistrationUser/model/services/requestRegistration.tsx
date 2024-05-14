@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ErrorResponse, UserCredentials } from '../types/registrationTypes';
-import { RefreshTokenSucces } from 'features/LoginUser/model/types/loginTypes';
+import { RefreshTokenSucces } from '../types/registrationTypes';
 
 const API_URL = process.env.API_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
@@ -34,9 +34,6 @@ export const register = createAsyncThunk('auth/register', async (params: UserCre
     const customerResponse = await axios.post<RefreshTokenSucces>(`${API_URL}/${PROJECT_KEY}/customers`, body, {
       headers: headersRegisterUser,
     });
-    const customerRes = customerResponse.data;
-
-    console.log(customerRes);
     const success: RefreshTokenSucces = customerResponse.data;
     return success;
   } catch (error) {

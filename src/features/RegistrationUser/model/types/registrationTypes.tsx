@@ -45,4 +45,42 @@ interface FormDataCredentials extends UserCredentials {
   streetName: string;
 }
 
-export { ErrorResponse, UserCredentials, FormDataCredentials, RegisterSchema };
+interface RefreshTokenSucces {
+  customer: {
+    addresses: string[];
+    authenticationMode: string;
+    billingAddressIds: string[];
+    createdAt: string;
+    createdBy: {
+      isPlatformClient: boolean;
+      user: {
+        id: string;
+        typeId: string;
+      };
+    };
+    email: string;
+    firstName: string;
+    id: string;
+    isEmailVerified: boolean;
+    lastMessageSequenceNumber: number;
+    lastModifiedAt: string;
+    lastModifiedBy: {
+      isPlatformClient: boolean;
+    };
+    user: {
+      id: string;
+      typeId: string;
+    };
+    lastName: string;
+    middleName: string;
+    password: string;
+    salutation: string;
+    shippingAddressIds: string[];
+    stores: string[];
+    title: string;
+    version: number;
+    versionModifiedAt: string;
+  };
+}
+
+export { ErrorResponse, UserCredentials, FormDataCredentials, RegisterSchema, RefreshTokenSucces };
