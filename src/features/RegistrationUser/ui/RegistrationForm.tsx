@@ -14,15 +14,40 @@ import {
 } from 'shared/lib/checkValid';
 import { COUNTRIES } from 'shared/consts';
 import './RegistrationForm.css';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import dayjs from 'dayjs';
+import { FormDataCredentials } from '../model/types/registrationTypes';
+import { register } from '../model/services/requestRegistration';
+import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 
 const RegistrationForm: FC = () => {
   const [form] = Form.useForm();
   const { Option } = Select;
+  const dispatch = useAppDispatch();
+
+  const { accessToken } = useAppSelector((state) => state.userAccessToken.user);
+
+  const handleForm = (formData: FormDataCredentials) => {
+    const userCredentialData = {
+      token: accessToken,
+      email: formData.email,
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      password: formData.password,
+      dateOfBirth: dayjs(formData.dateOfBirth).format('YYYY-MM-DD'),
+      shippingCountry: formData.country,
+      shippingPostalCode: formData.postalCode,
+      shippingCity: formData.city,
+      shippingStreet: formData.streetName,
+    };
+
+    dispatch(register(userCredentialData));
+  };
 
   return (
     <div className="form-content">
       <h2 className="formRegistration-title">New Customer</h2>
-      <Form {...formItemLayout} form={form} name="register" scrollToFirstError>
+      <Form {...formItemLayout} form={form} name="register" onFinish={handleForm} scrollToFirstError>
         <Form.Item name="email" label="E-mail" required rules={checkEmail()}>
           <Input placeholder="example@email.com" />
         </Form.Item>
@@ -38,17 +63,17 @@ const RegistrationForm: FC = () => {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item name="firstname" label="First name" required rules={checkInput('First name')}>
+        <Form.Item name="firstName" label="First name" required rules={checkInput('First name')}>
           <Input />
         </Form.Item>
-        <Form.Item name="lastname" label="Last name" required rules={checkInput('Last name')}>
+        <Form.Item name="lastName" label="Last name" required rules={checkInput('Last name')}>
           <Input />
         </Form.Item>
         <Form.Item name="dateOfBirth" label="Date of Birth" required rules={checkBirthday()}>
-          <DatePicker />
+          <DatePicker format="YYYY-MM-DD" />
         </Form.Item>
         <Divider orientation="center">Address</Divider>
-        <Form.Item name="street" label="Street" required rules={checkStreet()}>
+        <Form.Item name="streetName" label="Street" required rules={checkStreet()}>
           <Input />
         </Form.Item>
         <Form.Item name="city" label="City" required rules={checkInput('City')}>
@@ -63,7 +88,7 @@ const RegistrationForm: FC = () => {
             ))}
           </Select>
         </Form.Item>
-        <Form.Item name="postal" label="Postal code" required dependencies={['country']} rules={checkPostalCode()}>
+        <Form.Item name="postalCode" label="Postal code" required dependencies={['country']} rules={checkPostalCode()}>
           <Input />
         </Form.Item>
         <Form.Item {...tailFormItemLayout}>
