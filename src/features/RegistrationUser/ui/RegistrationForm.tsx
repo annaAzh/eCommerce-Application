@@ -35,11 +35,12 @@ const RegistrationForm: FC = () => {
   const handleForm = (formData: FormDataCredentials) => {
     const billingCountry = isSameAddress ? formData.country : formData.billingCountry;
     const billingPostalCode = isSameAddress ? formData.postalCode : formData.billingPostalCode;
-    const billingCity = isDefaultBillingAddress ? formData.city : formData.billingCity;
+    const billingCity = isSameAddress ? formData.city : formData.billingCity;
     const billingStreet = isSameAddress ? formData.streetName : formData.billingStreet;
 
     const userCredentialData: UserCredentials = {
       token: accessToken,
+      isSameAddress,
       email: formData.email,
       firstName: formData.firstName,
       lastName: formData.lastName,

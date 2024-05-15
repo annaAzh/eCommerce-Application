@@ -8,14 +8,15 @@ interface RegisterSchema {
 
 interface UserCredentials {
   token?: string;
+  isSameAddress: boolean;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   dateOfBirth: string;
-  addresses?: Address[];
-  defaultBillingAddress?: boolean;
-  defaultShippingAddress?: boolean;
+  addresses: Address[];
+  defaultBillingAddress: boolean;
+  defaultShippingAddress: boolean;
 }
 
 interface Address {

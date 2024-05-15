@@ -9,7 +9,7 @@ const PROJECT_KEY = process.env.PROJECT_KEY;
 
 export const register = createAsyncThunk('auth/register', async (params: UserCredentials, thunkAPI) => {
   try {
-    const { token, defaultShippingAddress, defaultBillingAddress, ...body } = params;
+    const { token, isSameAddress, defaultShippingAddress, defaultBillingAddress, ...body } = params;
 
     const headersRegisterUser = {
       Authorization: `Bearer ${token}`,
@@ -23,6 +23,13 @@ export const register = createAsyncThunk('auth/register', async (params: UserCre
     const customerData = customerResponse.data;
 
     const actions = [];
+
+    if (defaultShippingAddress && isSameAddress) {
+      actions.push({
+        action: 'setDefaultBillingAddress',
+        addressId: customerData.customer.addresses[1].id,
+      });
+    }
 
     if (defaultBillingAddress) {
       actions.push({
