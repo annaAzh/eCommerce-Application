@@ -1,6 +1,7 @@
 import Menu from 'antd/es/menu';
 import ConfigProvider from 'antd/es/config-provider';
-import { Link } from 'react-router-dom';
+import Logo from 'shared/assets/img/logoHeader.png';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 interface LinkOfPage {
@@ -28,8 +29,12 @@ const links: LinkOfPage[] = [
 ];
 
 export const Header = (): JSX.Element => {
+  const location: string = useLocation().pathname.replace('/', '');
   return (
-    <header className="header">
+    <header className="header no-active">
+      <Link to="main">
+        <img className="logo-header" src={Logo} alt="logo"></img>
+      </Link>
       <ConfigProvider
         theme={{
           components: {
@@ -44,7 +49,14 @@ export const Header = (): JSX.Element => {
           },
         }}
       >
-        <Menu className="menu" theme="dark" mode="horizontal" triggerSubMenuAction="click" items={links} />
+        <Menu
+          className="menu"
+          theme="dark"
+          selectedKeys={[location] || ''}
+          mode="horizontal"
+          triggerSubMenuAction="click"
+          items={links}
+        />
       </ConfigProvider>
     </header>
   );
