@@ -17,3 +17,25 @@
     margin-bottom: 8px;
   }
 }
+
+.form-notification {
+  border-radius: 10px;
+  border: 1px solid var(--main-color-1);
+  padding: 40px;
+  margin: auto;
+  text-align: center;
+  background-color: var(--main-color-1);
+  box-shadow: 0 4px 8px 6px rgba(#111, 10%);
+}
+
+.form-title {
+  font-size: 36px;
+  color: var(--green);
+  max-width: 500px;
+}
+
+.form-icon {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 20px;
+}
