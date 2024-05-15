@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ErrorResponse, UserCredentials } from '../types/registrationTypes';
+import { RegistrationReject, UserCredentials } from '../types/registrationTypes';
 import { RefreshTokenSucces } from '../types/registrationTypes';
+import { ErrorWithResponse } from 'entities/User';
 
 const API_URL = process.env.API_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
@@ -25,17 +26,13 @@ export const register = createAsyncThunk('auth/register', async (params: UserCre
     const success: RefreshTokenSucces = customerResponse.data;
     return success;
   } catch (error) {
-    console.log(error);
-    const err = error as ErrorResponse;
-    const errorMsg = 'An error occurred during registration';
-    if (err.response.data.statusCode === 400) {
-      const message = err.response.data.message;
-      console.log(message ?? errorMsg);
-    }
-
-    if (err.response.data.errors) {
-      const message = err.response.data.errors[0].message;
-      console.log(message ?? errorMsg);
+    let errorMsg = 'An error occurred during registration';
+    if (error instanceof Error) {
+      const reject: ErrorWithResponse = error as ErrorWithResponse;
+      if (reject.response && reject.response.data) {
+        const errorResponse: RegistrationReject = reject.response.data as unknown as RegistrationReject;
+        errorMsg = errorResponse.message;
+      }
     }
     return thunkAPI.rejectWithValue(errorMsg);
   }

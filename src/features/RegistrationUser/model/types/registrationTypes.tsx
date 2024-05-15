@@ -6,21 +6,6 @@ interface RegisterSchema {
   error?: string;
 }
 
-interface ErrorResponse {
-  response: {
-    data: {
-      message: string;
-      statusCode: number;
-      errors: [
-        {
-          code: number;
-          message: string;
-        },
-      ];
-    };
-  };
-}
-
 interface UserCredentials {
   token?: string;
   firstName: string;
@@ -87,4 +72,4 @@ interface RefreshTokenSucces {
 
 interface RegistrationReject extends Omit<AccessTokenReject, 'error'> {}
 
-export { ErrorResponse, UserCredentials, FormDataCredentials, RegisterSchema, RefreshTokenSucces, RegistrationReject };
+export { UserCredentials, FormDataCredentials, RegisterSchema, RefreshTokenSucces, RegistrationReject };
