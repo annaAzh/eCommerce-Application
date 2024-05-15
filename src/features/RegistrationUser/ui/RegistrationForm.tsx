@@ -16,7 +16,7 @@ import { COUNTRIES } from 'shared/consts';
 import './RegistrationForm.css';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import dayjs from 'dayjs';
-import { FormDataCredentials } from '../model/types/registrationTypes';
+import { UserCredentials, FormDataCredentials } from '../model/types/registrationTypes';
 import { register } from '../model/services/requestRegistration';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import icon from 'shared/assets/img/check.png';
@@ -29,17 +29,21 @@ const RegistrationForm: FC = () => {
   const { accessToken } = useAppSelector((state) => state.userAccessToken.user);
 
   const handleForm = (formData: FormDataCredentials) => {
-    const userCredentialData = {
+    const userCredentialData: UserCredentials = {
       token: accessToken,
       email: formData.email,
       firstName: formData.firstName,
       lastName: formData.lastName,
       password: formData.password,
       dateOfBirth: dayjs(formData.dateOfBirth).format('YYYY-MM-DD'),
-      shippingCountry: formData.country,
-      shippingPostalCode: formData.postalCode,
-      shippingCity: formData.city,
-      shippingStreet: formData.streetName,
+      addresses: [
+        {
+          streetName: formData.streetName,
+          postalCode: formData.postalCode,
+          city: formData.city,
+          country: formData.country,
+        },
+      ],
     };
 
     dispatch(register(userCredentialData));

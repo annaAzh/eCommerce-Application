@@ -1,3 +1,5 @@
+import { AccessTokenReject } from 'entities/User';
+
 interface RegisterSchema {
   customerId?: string;
   isLoading: boolean;
@@ -26,16 +28,16 @@ interface UserCredentials {
   email: string;
   password: string;
   dateOfBirth: string;
-  shippingCountry?: string;
-  shippingPostalCode?: string;
-  shippingCity?: string;
-  shippingStreet?: string;
-  billingCountry?: string;
-  billingPostalCode?: string;
-  billingCity?: string;
-  billingStreet?: string;
+  addresses?: Address[];
   defaultBillingAddress?: boolean;
   defaultShippingAddress?: boolean;
+}
+
+interface Address {
+  streetName: string;
+  postalCode: string;
+  city: string;
+  country: string;
 }
 
 interface FormDataCredentials extends UserCredentials {
@@ -83,4 +85,6 @@ interface RefreshTokenSucces {
   };
 }
 
-export { ErrorResponse, UserCredentials, FormDataCredentials, RegisterSchema, RefreshTokenSucces };
+interface RegistrationReject extends Omit<AccessTokenReject, 'error'> {}
+
+export { ErrorResponse, UserCredentials, FormDataCredentials, RegisterSchema, RefreshTokenSucces, RegistrationReject };

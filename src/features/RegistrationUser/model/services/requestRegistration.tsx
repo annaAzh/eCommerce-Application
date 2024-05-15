@@ -10,20 +10,8 @@ export const register = createAsyncThunk('auth/register', async (params: UserCre
   try {
     const token = params.token;
 
-    const body = {
-      email: params.email,
-      firstName: params.firstName,
-      lastName: params.lastName,
-      password: params.password,
-      dateOfBirth: params.dateOfBirth,
-      addresses: [
-        {
-          streetName: params.shippingStreet,
-          postalCode: params.shippingPostalCode,
-          city: params.shippingCity,
-          country: params.shippingCountry,
-        },
-      ],
+    const body: Omit<UserCredentials, 'token'> = {
+      ...params,
     };
 
     const headersRegisterUser = {
