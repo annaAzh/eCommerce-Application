@@ -30,6 +30,10 @@ interface FormDataCredentials extends UserCredentials {
   postalCode: string;
   city: string;
   streetName: string;
+  billingCountry: string;
+  billingPostalCode: string;
+  billingCity: string;
+  billingStreet: string;
 }
 
 interface RefreshTokenSucces {
