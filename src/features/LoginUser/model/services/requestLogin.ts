@@ -37,7 +37,7 @@ export const requestLogin = createAsyncThunk('login/requestLoginToken', async (l
         } else if (errorResponse.statusCode === 400) {
           errorPayload = {
             header: errorResponse.message,
-            message: 'login or password is incorrect',
+            message: 'email or password is incorrect',
           };
         }
       }
