@@ -19,6 +19,7 @@ interface UserCredentials {
 }
 
 interface Address {
+  id?: string;
   streetName: string;
   postalCode: string;
   city: string;
@@ -38,7 +39,7 @@ interface FormDataCredentials extends UserCredentials {
 
 interface RefreshTokenSucces {
   customer: {
-    addresses: string[];
+    addresses: Address[];
     authenticationMode: string;
     billingAddressIds: string[];
     createdAt: string;

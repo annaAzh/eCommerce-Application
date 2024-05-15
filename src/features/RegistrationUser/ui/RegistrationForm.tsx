@@ -53,10 +53,10 @@ const RegistrationForm: FC = () => {
           country: formData.country,
         },
         {
-          streetName: billingCountry,
+          streetName: billingStreet,
           postalCode: billingPostalCode,
           city: billingCity,
-          country: billingStreet,
+          country: billingCountry,
         },
       ],
       defaultShippingAddress: isDefaultShippingAddress,
