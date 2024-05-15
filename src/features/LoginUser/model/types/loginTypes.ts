@@ -3,7 +3,7 @@ import { AccessTokenReject } from 'entities/User';
 interface LoginSchema {
   customerId?: string;
   isLoading: boolean;
-  error?: string;
+  error?: ErrorDataResponse;
   responeId?: number;
 }
 
@@ -47,4 +47,9 @@ interface RefreshTokenSucces {
 
 interface LoginReject extends Omit<AccessTokenReject, 'error'> {}
 
-export { LoginSchema, RefreshTokenSucces, LoginReject };
+type ErrorDataResponse = {
+  header: string;
+  message: string;
+};
+
+export { LoginSchema, RefreshTokenSucces, LoginReject, ErrorDataResponse };

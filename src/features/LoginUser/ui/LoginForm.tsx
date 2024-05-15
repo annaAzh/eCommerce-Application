@@ -28,9 +28,9 @@ const LoginForm: FC = () => {
     if (error && responeId !== prevResponeId) {
       dispatch(
         setNotificationMessage({
-          message: error || '',
+          message: error.header,
           type: 'error',
-          description: 'login or password is incorrect',
+          description: error.message,
         }),
       );
       setprevResponeId(responeId);
