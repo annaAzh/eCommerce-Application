@@ -128,7 +128,7 @@ const RegistrationForm: FC = () => {
               label="Postal code"
               required
               dependencies={['country']}
-              rules={checkPostalCode()}
+              rules={checkPostalCode('country')}
             >
               <Input />
             </Form.Item>
@@ -170,7 +170,7 @@ const RegistrationForm: FC = () => {
                   label="Postal code"
                   dependencies={['billingCountry']}
                   required
-                  rules={checkPostalCode()}
+                  rules={checkPostalCode('billingCountry')}
                 >
                   <Input />
                 </Form.Item>
