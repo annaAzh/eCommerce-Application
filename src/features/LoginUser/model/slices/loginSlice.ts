@@ -6,6 +6,7 @@ const initialState: LoginSchema = {
   customerId: undefined,
   isLoading: false,
   error: undefined,
+  responeId: undefined,
 };
 
 export const loginSlice = createSlice({
@@ -25,6 +26,7 @@ export const loginSlice = createSlice({
       .addCase(requestLogin.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = action.payload as string;
+        state.responeId = Math.random();
       });
   },
 });

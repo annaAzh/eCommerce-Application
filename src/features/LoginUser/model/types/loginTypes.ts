@@ -4,6 +4,7 @@ interface LoginSchema {
   customerId?: string;
   isLoading: boolean;
   error?: string;
+  responeId?: number;
 }
 
 interface RefreshTokenSucces {

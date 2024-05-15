@@ -1,25 +1,41 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Form, Input, Flex } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { checkEmail, checkPassword } from 'shared/lib/checkValid';
 import { PrimaryControlButton } from 'shared/ui';
-import { requestLogin } from 'features/LoginUser/model/services/requestLogin';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link } from 'react-router-dom';
 import { setUserId } from 'entities/User';
+import { requestLogin } from '../model/services/requestLogin';
+import { setNotificationMessage } from 'entities/NotificationTool';
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
   const { accessToken } = useAppSelector((state) => state.userAccessToken.user);
   const { customerId } = useAppSelector((state) => state.login);
+  const { error, responeId } = useAppSelector((state) => state.login);
+  const [prevResponeId, setprevResponeId] = useState(responeId);
 
   useEffect(() => {
     if (customerId) {
       dispatch(setUserId(customerId));
     }
   }, [customerId, dispatch]);
+
+  useEffect(() => {
+    if (error && responeId !== prevResponeId) {
+      dispatch(
+        setNotificationMessage({
+          message: error || '',
+          type: 'error',
+          description: 'login or password is incorrect',
+        }),
+      );
+      setprevResponeId(responeId);
+    }
+  }, [responeId]);
 
   const onFinish = (values: { email: string; password: string }) => {
     const { email, password } = values;
