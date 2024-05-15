@@ -31,7 +31,7 @@ export const register = createAsyncThunk('auth/register', async (params: UserCre
       'Content-Type': 'application/json',
     };
 
-    const customerResponse = await axios.post<RefreshTokenSucces>(`${API_URL}/${PROJECT_KEY}/customers`, body, {
+    const customerResponse = await axios.post<RefreshTokenSucces>(`${API_URL}${PROJECT_KEY}/customers`, body, {
       headers: headersRegisterUser,
     });
     const success: RefreshTokenSucces = customerResponse.data;
