@@ -10,6 +10,11 @@
   background-color: var(--main-color-4);
 }
 
+.logo-header {
+  max-width: 20rem;
+  width: 100%;
+}
+
 .menu {
   width: 100%;
   display: flex;

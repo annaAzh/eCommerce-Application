@@ -1,5 +1,4 @@
 import { DatePicker, Divider, Flex, Form, Input, Select } from 'antd';
-import Link from 'antd/es/typography/Link';
 import { FC } from 'react';
 import { formItemLayout, tailFormItemLayout } from './StyledRegistrationForm/StyledRegistrationForm';
 import { PrimaryControlButton } from 'shared/ui';
@@ -20,6 +19,7 @@ import { UserCredentials, FormDataCredentials } from '../model/types/registratio
 import { register } from '../model/services/requestRegistration';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import icon from 'shared/assets/img/check.png';
+import { Link } from 'react-router-dom';
 
 const RegistrationForm: FC = () => {
   const [form] = Form.useForm();
@@ -50,6 +50,7 @@ const RegistrationForm: FC = () => {
   };
 
   return (
+
     <>
       {registrationSuccess ? (
         <div className="form-notification">
@@ -114,7 +115,7 @@ const RegistrationForm: FC = () => {
                 <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
                   Register
                 </PrimaryControlButton>
-                or <Link>Log in now!</Link>
+                or <Link to="/login">Log in now!</Link>
               </Flex>
             </Form.Item>
           </Form>
