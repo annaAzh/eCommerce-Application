@@ -6,7 +6,7 @@ const initialState: LoginSchema = {
   customerId: undefined,
   isLoading: false,
   error: undefined,
-  responeId: undefined,
+  responeId: Math.random(),
 };
 
 export const loginSlice = createSlice({

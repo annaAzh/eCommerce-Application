@@ -7,15 +7,17 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link } from 'react-router-dom';
-import { setUserId } from 'entities/User';
+import { getAccessToken, setUserId } from 'entities/User';
 import { requestLogin } from '../model/services/requestLogin';
 import { setNotificationMessage } from 'entities/NotificationTool';
+import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
-  const { accessToken } = useAppSelector((state) => state.userAccessToken.user);
-  const { customerId } = useAppSelector((state) => state.login);
-  const { error, responeId } = useAppSelector((state) => state.login);
+  const accessToken = useAppSelector(getAccessToken);
+  const customerId = useAppSelector(getLoginCustomerId);
+  const error = useAppSelector(getLoginError);
+  const responeId = useAppSelector(getLoginResponseId);
   const [prevResponeId, setprevResponeId] = useState(responeId);
 
   useEffect(() => {

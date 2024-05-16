@@ -1,5 +1,5 @@
-import { UserSchema } from '../types/userTypes';
+import { RootState } from 'app/providers/storeProvider';
 
-export const getAccessToken = (state: UserSchema) => {
-  return state.user.accessToken;
+export const getAccessToken = (state: RootState): string | undefined => {
+  return state.userAccessToken.user.accessToken;
 };

@@ -1,3 +1,5 @@
+export { getAccessToken } from './model/selectors/userSelectors';
+
 export { ErrorWithResponse, AccessTokenReject, AccessTokenSuccess } from './model/types/tokenTypes';
 
 export { userAccessTokenReducer, setUserId } from './model/slices/userAccessTokenSlice';
