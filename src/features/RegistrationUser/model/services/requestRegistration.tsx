@@ -9,7 +9,8 @@ const PROJECT_KEY = process.env.PROJECT_KEY;
 
 export const register = createAsyncThunk('auth/register', async (params: UserCredentials, thunkAPI) => {
   try {
-    const { token, isSameAddress, defaultShippingAddress, defaultBillingAddress, ...body } = params;
+    const token = params.token;
+    const body: Omit<UserCredentials, 'token'> = params;
 
     const headersRegisterUser = {
       Authorization: `Bearer ${token}`,
@@ -19,42 +20,6 @@ export const register = createAsyncThunk('auth/register', async (params: UserCre
     const customerResponse = await axios.post<RefreshTokenSucces>(`${API_URL}${PROJECT_KEY}/customers`, body, {
       headers: headersRegisterUser,
     });
-
-    const customerData = customerResponse.data;
-
-    const actions = [];
-
-    if (defaultShippingAddress && isSameAddress) {
-      actions.push({
-        action: 'setDefaultBillingAddress',
-        addressId: customerData.customer.addresses[1].id,
-      });
-    }
-
-    if (defaultBillingAddress) {
-      actions.push({
-        action: 'setDefaultBillingAddress',
-        addressId: customerData.customer.addresses[1].id,
-      });
-    }
-
-    if (defaultShippingAddress) {
-      actions.push({
-        action: 'setDefaultShippingAddress',
-        addressId: customerData.customer.addresses[0].id,
-      });
-    }
-
-    if (actions.length > 0) {
-      const setDefaultAddressBody = {
-        version: customerData.customer.version,
-        actions,
-      };
-
-      await axios.post(`${API_URL}${PROJECT_KEY}/customers/${customerData.customer.id}`, setDefaultAddressBody, {
-        headers: headersRegisterUser,
-      });
-    }
 
     const success: RefreshTokenSucces = customerResponse.data;
     return success;

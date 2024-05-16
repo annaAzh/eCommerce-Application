@@ -15,8 +15,10 @@ interface UserCredentials {
   password: string;
   dateOfBirth: string;
   addresses: Address[];
-  defaultBillingAddress: boolean;
-  defaultShippingAddress: boolean;
+  defaultBillingAddress?: number;
+  defaultShippingAddress?: number;
+  shippingAddresses: number[];
+  billingAddresses: number[];
 }
 
 interface Address {
