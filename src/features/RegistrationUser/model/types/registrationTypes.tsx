@@ -8,17 +8,21 @@ interface RegisterSchema {
 
 interface UserCredentials {
   token?: string;
+  isSameAddress: boolean;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
   dateOfBirth: string;
-  addresses?: Address[];
-  defaultBillingAddress?: boolean;
-  defaultShippingAddress?: boolean;
+  addresses: Address[];
+  defaultBillingAddress?: number;
+  defaultShippingAddress?: number;
+  shippingAddresses: number[];
+  billingAddresses: number[];
 }
 
 interface Address {
+  id?: string;
   streetName: string;
   postalCode: string;
   city: string;
@@ -30,11 +34,15 @@ interface FormDataCredentials extends UserCredentials {
   postalCode: string;
   city: string;
   streetName: string;
+  billingCountry: string;
+  billingPostalCode: string;
+  billingCity: string;
+  billingStreet: string;
 }
 
 interface RefreshTokenSucces {
   customer: {
-    addresses: string[];
+    addresses: Address[];
     authenticationMode: string;
     billingAddressIds: string[];
     createdAt: string;
