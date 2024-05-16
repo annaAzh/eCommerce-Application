@@ -19,4 +19,16 @@ interface AccessTokenSuccess {
   token_type: string;
 }
 
-export { ErrorWithResponse, AccessTokenReject, AccessTokenSuccess };
+interface PasswordFlowSuccess {
+  access_token: string;
+  expires_in: number;
+  scope: string;
+  token_type: string;
+  refresh_token: string;
+}
+
+interface PasswordFlownReject extends AccessTokenReject {
+  error_description: string;
+}
+
+export { ErrorWithResponse, AccessTokenReject, AccessTokenSuccess, PasswordFlowSuccess, PasswordFlownReject };

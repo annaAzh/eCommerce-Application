@@ -1,10 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { UserSchema } from '../types/userTypes';
-import { AccessTokenSuccess } from '../types/tokenTypes';
+import { AccessTokenSuccess, PasswordFlowSuccess } from '../types/tokenTypes';
 import { requestAccessToken } from '../services/requestAccessToken';
+import { passwordFlow } from '../services/passwordFlow';
 
 const initialState: UserSchema = {
-  user: {},
+  user: {
+    isLogined: false,
+  },
   isLoading: false,
   error: undefined,
 };
@@ -30,6 +33,12 @@ export const userAccessTokenSlice = createSlice({
       .addCase(requestAccessToken.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = action.payload as string;
+      })
+      .addCase(passwordFlow.fulfilled, (state, action: PayloadAction<PasswordFlowSuccess>) => {
+        state.isLoading = false;
+        state.error = undefined;
+        state.user.accessToken = action.payload.access_token;
+        state.user.isLogined = true;
       });
   },
 });

@@ -1,3 +1,5 @@
+export { passwordFlow } from './model/services/passwordFlow';
+
 export { ErrorWithResponse, AccessTokenReject, AccessTokenSuccess } from './model/types/tokenTypes';
 
 export { userAccessTokenReducer, setUserId } from './model/slices/userAccessTokenSlice';
