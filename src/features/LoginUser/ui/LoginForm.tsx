@@ -42,7 +42,13 @@ const LoginForm: FC = () => {
     if (accessToken) {
       dispatch(requestLogin({ username: email, password, token: accessToken }));
     } else {
-      console.error('There will be an error here in the future');
+      dispatch(
+        setNotificationMessage({
+          message: 'connection problems',
+          type: 'error',
+          description: 'missing access',
+        }),
+      );
     }
   };
 
