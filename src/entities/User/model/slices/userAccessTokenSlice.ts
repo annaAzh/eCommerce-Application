@@ -3,6 +3,7 @@ import { UserSchema } from '../types/userTypes';
 import { AccessTokenSuccess, PasswordFlowSuccess } from '../types/tokenTypes';
 import { requestAccessToken } from '../services/requestAccessToken';
 import { passwordFlow } from '../services/passwordFlow';
+import { setLocalStoreState } from 'shared/lib/storeState/storeState';
 
 const initialState: UserSchema = {
   user: {
@@ -18,6 +19,9 @@ export const userAccessTokenSlice = createSlice({
   reducers: {
     setUserId(state: UserSchema, action: PayloadAction<string>) {
       state.user.userId = action.payload;
+    },
+    setUserIsLoginedStatus(state: UserSchema, action: PayloadAction<boolean>) {
+      state.user.isLogined = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -38,6 +42,7 @@ export const userAccessTokenSlice = createSlice({
         state.isLoading = false;
         state.error = undefined;
         state.user.accessToken = action.payload.access_token;
+        setLocalStoreState(state.user.accessToken);
         state.user.isLogined = true;
       });
   },
@@ -45,4 +50,4 @@ export const userAccessTokenSlice = createSlice({
 
 export const { reducer: userAccessTokenReducer } = userAccessTokenSlice;
 
-export const { setUserId } = userAccessTokenSlice.actions;
+export const { setUserId, setUserIsLoginedStatus } = userAccessTokenSlice.actions;
