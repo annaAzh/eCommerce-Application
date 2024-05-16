@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Form, Input, Flex } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { checkEmail, checkPassword } from 'shared/lib/checkValid';
@@ -8,23 +8,30 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link } from 'react-router-dom';
-import { setUserId } from 'entities/User';
+import { passwordFlow, setUserId } from 'entities/User';
+
+type LoginData = { email: string; password: string };
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
   const { accessToken } = useAppSelector((state) => state.userAccessToken.user);
   const { customerId } = useAppSelector((state) => state.login);
 
-  useEffect(() => {
-    if (customerId) {
-      dispatch(setUserId(customerId));
-    }
-  }, [customerId, dispatch]);
+  const [loginData, setLoginData] = useState<LoginData>();
 
-  const onFinish = (values: { email: string; password: string }) => {
+  useEffect(() => {
+    if (customerId && loginData) {
+      const { email, password } = loginData;
+      dispatch(setUserId(customerId));
+      dispatch(passwordFlow({ username: email, password }));
+    }
+  }, [customerId, dispatch, loginData]);
+
+  const onFinish = (values: LoginData) => {
     const { email, password } = values;
     if (accessToken) {
       dispatch(requestLogin({ username: email, password, token: accessToken }));
+      setLoginData({ email, password });
     } else {
       console.error('There will be an error here in the future');
     }
