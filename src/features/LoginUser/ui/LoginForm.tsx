@@ -7,22 +7,29 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link, useNavigate } from 'react-router-dom';
-import { passwordFlow, getAccessToken, setUserId } from 'entities/User';
+import { passwordFlow, getAccessToken, setUserId, getUserIsLoginedStatus } from 'entities/User';
 import { requestLogin } from '../model/services/requestLogin';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
+import { Paths } from 'shared/types';
 
 type LoginData = { email: string; password: string };
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const accessToken = useAppSelector(getAccessToken);
   const customerId = useAppSelector(getLoginCustomerId);
   const error = useAppSelector(getLoginError);
   const responeId = useAppSelector(getLoginResponseId);
+  const isLogined = useAppSelector(getUserIsLoginedStatus);
+
   const [prevResponeId, setprevResponeId] = useState(responeId);
-  const navigate = useNavigate();
   const [loginData, setLoginData] = useState<LoginData>();
+
+  useEffect(() => {
+    if (isLogined) navigate(Paths.start);
+  }, [isLogined]);
 
   useEffect(() => {
     if (customerId && loginData) {
@@ -34,7 +41,6 @@ const LoginForm: FC = () => {
         }),
       );
       dispatch(passwordFlow({ username: email, password }));
-      navigate('/');
     }
   }, [customerId, dispatch]);
 
