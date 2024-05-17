@@ -6,13 +6,13 @@ import { PrimaryControlButton } from 'shared/ui';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { passwordFlow, getAccessToken, setUserId } from 'entities/User';
-
-type LoginData = { email: string; password: string };
 import { requestLogin } from '../model/services/requestLogin';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
+
+type LoginData = { email: string; password: string };
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -21,14 +21,20 @@ const LoginForm: FC = () => {
   const error = useAppSelector(getLoginError);
   const responeId = useAppSelector(getLoginResponseId);
   const [prevResponeId, setprevResponeId] = useState(responeId);
-
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState<LoginData>();
 
   useEffect(() => {
     if (customerId && loginData) {
       const { email, password } = loginData;
       dispatch(setUserId(customerId));
+      dispatch(
+        setNotificationMessage({
+          message: 'Successful  login',
+        }),
+      );
       dispatch(passwordFlow({ username: email, password }));
+      navigate('/');
     }
   }, [customerId, dispatch]);
 
