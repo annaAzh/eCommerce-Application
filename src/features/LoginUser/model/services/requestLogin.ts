@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { LoginReject, RefreshTokenSucces } from '../types/loginTypes';
+import { ErrorDataResponse, LoginReject, RefreshTokenSucces } from '../types/loginTypes';
 import { ErrorWithResponse } from 'entities/User';
 
 type LoginData = {
@@ -20,14 +20,28 @@ export const requestLogin = createAsyncThunk('login/requestLoginToken', async (l
     const success: RefreshTokenSucces = res.data;
     return success;
   } catch (error) {
-    let errorMsg = 'error';
+    let errorPayload: ErrorDataResponse = {
+      header: 'error',
+      message: 'something went wrong',
+    };
+
     if (error instanceof Error) {
       const reject: ErrorWithResponse = error as ErrorWithResponse;
       if (reject.response && reject.response.data) {
         const errorResponse: LoginReject = reject.response.data as unknown as LoginReject;
-        errorMsg = errorResponse.message;
+        if (errorResponse.statusCode === 401) {
+          errorPayload = {
+            header: errorResponse.message,
+            message: 'having problems accessing the server',
+          };
+        } else if (errorResponse.statusCode === 400) {
+          errorPayload = {
+            header: errorResponse.message,
+            message: 'email or password is incorrect',
+          };
+        }
       }
     }
-    return thunkAPI.rejectWithValue(errorMsg);
+    return thunkAPI.rejectWithValue(errorPayload);
   }
 });

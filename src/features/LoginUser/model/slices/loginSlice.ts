@@ -1,11 +1,12 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { RefreshTokenSucces, LoginSchema } from '../types/loginTypes';
+import { RefreshTokenSucces, LoginSchema, ErrorDataResponse } from '../types/loginTypes';
 import { requestLogin } from '../services/requestLogin';
 
 const initialState: LoginSchema = {
   customerId: undefined,
   isLoading: false,
   error: undefined,
+  responeId: Math.random(),
 };
 
 export const loginSlice = createSlice({
@@ -24,7 +25,8 @@ export const loginSlice = createSlice({
       })
       .addCase(requestLogin.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload as ErrorDataResponse;
+        state.responeId = Math.random();
       });
   },
 });

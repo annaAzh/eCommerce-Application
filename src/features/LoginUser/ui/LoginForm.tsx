@@ -3,19 +3,24 @@ import { Form, Input, Flex } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { checkEmail, checkPassword } from 'shared/lib/checkValid';
 import { PrimaryControlButton } from 'shared/ui';
-import { requestLogin } from 'features/LoginUser/model/services/requestLogin';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link } from 'react-router-dom';
-import { passwordFlow, setUserId } from 'entities/User';
+import { passwordFlow, getAccessToken, setUserId } from 'entities/User';
 
 type LoginData = { email: string; password: string };
+import { requestLogin } from '../model/services/requestLogin';
+import { setNotificationMessage } from 'entities/NotificationTool';
+import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
-  const { accessToken } = useAppSelector((state) => state.userAccessToken.user);
-  const { customerId } = useAppSelector((state) => state.login);
+  const accessToken = useAppSelector(getAccessToken);
+  const customerId = useAppSelector(getLoginCustomerId);
+  const error = useAppSelector(getLoginError);
+  const responeId = useAppSelector(getLoginResponseId);
+  const [prevResponeId, setprevResponeId] = useState(responeId);
 
   const [loginData, setLoginData] = useState<LoginData>();
 
@@ -25,7 +30,20 @@ const LoginForm: FC = () => {
       dispatch(setUserId(customerId));
       dispatch(passwordFlow({ username: email, password }));
     }
-  }, [customerId, dispatch, loginData]);
+  }, [customerId, dispatch]);
+
+  useEffect(() => {
+    if (error && responeId !== prevResponeId) {
+      dispatch(
+        setNotificationMessage({
+          message: error.header,
+          type: 'error',
+          description: error.message,
+        }),
+      );
+      setprevResponeId(responeId);
+    }
+  }, [responeId]);
 
   const onFinish = (values: LoginData) => {
     const { email, password } = values;
@@ -33,7 +51,13 @@ const LoginForm: FC = () => {
       dispatch(requestLogin({ username: email, password, token: accessToken }));
       setLoginData({ email, password });
     } else {
-      console.error('There will be an error here in the future');
+      dispatch(
+        setNotificationMessage({
+          message: 'connection problems',
+          type: 'error',
+          description: 'missing access',
+        }),
+      );
     }
   };
 
