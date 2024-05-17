@@ -23,6 +23,9 @@ export const userAccessTokenSlice = createSlice({
     setUserIsLoginedStatus(state: UserSchema, action: PayloadAction<boolean>) {
       state.user.isLogined = action.payload;
     },
+    clearUserError(state: UserSchema) {
+      state.error = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -50,4 +53,4 @@ export const userAccessTokenSlice = createSlice({
 
 export const { reducer: userAccessTokenReducer } = userAccessTokenSlice;
 
-export const { setUserId, setUserIsLoginedStatus } = userAccessTokenSlice.actions;
+export const { setUserId, setUserIsLoginedStatus, clearUserError } = userAccessTokenSlice.actions;

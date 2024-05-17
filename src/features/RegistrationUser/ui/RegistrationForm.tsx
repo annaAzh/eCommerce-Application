@@ -1,7 +1,15 @@
 import { Checkbox, DatePicker, Divider, Flex, Form, Input, Select } from 'antd';
 import { FC, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import dayjs from 'dayjs';
 import { formItemLayout, tailFormItemLayout } from './StyledRegistrationForm/StyledRegistrationForm';
 import { PrimaryControlButton } from 'shared/ui';
+import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
+import { getAccessToken, passwordFlow, setUserId } from 'entities/User';
+import { clearUserError } from 'entities/User/model/slices/userAccessTokenSlice';
+import { setNotificationMessage } from 'entities/NotificationTool';
+import { COUNTRIES } from 'shared/consts';
 import {
   checkEmail,
   checkPassword,
@@ -11,17 +19,15 @@ import {
   checkConfirmPassword,
   checkPostalCode,
 } from 'shared/lib/checkValid';
-import { COUNTRIES } from 'shared/consts';
-import './RegistrationForm.css';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import dayjs from 'dayjs';
 import { UserCredentials, FormDataCredentials } from '../model/types/registrationTypes';
 import { register } from '../model/services/requestRegistration';
-import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
-import { Link } from 'react-router-dom';
-import { getAccessToken, passwordFlow, setUserId } from 'entities/User';
-import { setNotificationMessage } from 'entities/NotificationTool';
-import { getRegistrationCustomerId } from '../model/selectors/registrationSelectors';
+import {
+  getRegisterError,
+  getRegistrationCustomerId,
+  getUserRegistrationError,
+} from '../model/selectors/registrationSelectors';
+import { clearRegisterError } from '../model/slices/registrationSlice';
+import './RegistrationForm.css';
 
 const RegistrationForm: FC = () => {
   const [form] = Form.useForm();
@@ -29,6 +35,8 @@ const RegistrationForm: FC = () => {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(getAccessToken);
   const customerId = useAppSelector(getRegistrationCustomerId);
+  const registerError = useAppSelector(getRegisterError);
+  const userError = useAppSelector(getUserRegistrationError);
 
   const [isDefaultBillingAddress, setIsDefaultBilling] = useState<boolean>(false);
   const [isDefaultShippingAddress, setIsDefaultShipping] = useState<boolean>(false);
@@ -37,8 +45,38 @@ const RegistrationForm: FC = () => {
   useEffect(() => {
     if (customerId) {
       dispatch(setUserId(customerId));
+      dispatch(
+        setNotificationMessage({
+          message: 'Registartion Successful',
+          type: 'success',
+          description: 'You have been registered successfully!',
+        }),
+      );
     }
-  }, [customerId]);
+  }, [customerId, dispatch]);
+
+  useEffect(() => {
+    if (!registerError) return;
+    dispatch(
+      setNotificationMessage({
+        message: registerError.header,
+        type: 'error',
+        description: registerError.message,
+      }),
+    );
+    dispatch(clearRegisterError());
+  }, [registerError, dispatch]);
+
+  useEffect(() => {
+    if (!userError) return;
+    dispatch(
+      setNotificationMessage({
+        message: userError,
+        type: 'error',
+      }),
+    );
+    dispatch(clearUserError());
+  }, [userError, dispatch]);
 
   const handleForm = (formData: FormDataCredentials) => {
     const billingCountry = isSameAddress ? formData.country : formData.billingCountry;
@@ -80,29 +118,18 @@ const RegistrationForm: FC = () => {
       }),
     };
 
-    dispatch(register(userCredentialData))
-      .unwrap()
-      .then(() => {
-        dispatch(passwordFlow({ username: userCredentialData.email, password: userCredentialData.password }));
-      })
-      .then(() => {
-        dispatch(
-          setNotificationMessage({
-            message: 'Registartion Successful',
-            type: 'success',
-            description: 'You have been registered successfully!',
-          }),
-        );
-      })
-      .catch((error: string) => {
-        dispatch(
-          setNotificationMessage({
-            message: `Registration Failed`,
-            type: 'error',
-            description: `${error}`,
-          }),
-        );
-      });
+    if (accessToken) {
+      dispatch(register(userCredentialData));
+      dispatch(passwordFlow({ username: userCredentialData.email, password: userCredentialData.password }));
+    } else {
+      dispatch(
+        setNotificationMessage({
+          message: 'connection problems',
+          type: 'error',
+          description: 'missing access',
+        }),
+      );
+    }
   };
 
   return (
