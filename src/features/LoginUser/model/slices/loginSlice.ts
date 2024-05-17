@@ -12,13 +12,18 @@ const initialState: LoginSchema = {
 export const loginSlice = createSlice({
   name: 'login',
   initialState,
-  reducers: {},
+  reducers: {
+    clearLoginError(state: LoginSchema) {
+      state.error = undefined;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(requestLogin.fulfilled, (state, action: PayloadAction<RefreshTokenSucces>) => {
         state.isLoading = false;
         state.error = undefined;
         state.customerId = action.payload.customer.id;
+        state.responeId = Math.random();
       })
       .addCase(requestLogin.pending, (state) => {
         state.isLoading = true;
@@ -30,5 +35,7 @@ export const loginSlice = createSlice({
       });
   },
 });
+
+export const { clearLoginError } = loginSlice.actions;
 
 export const { reducer: loginReducer } = loginSlice;

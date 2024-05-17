@@ -7,43 +7,55 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link } from 'react-router-dom';
-import { passwordFlow, getAccessToken, setUserId } from 'entities/User';
-
-type LoginData = { email: string; password: string };
+import { passwordFlow, getAccessToken, setUserId, getUserError, clearUserError } from 'entities/User';
 import { requestLogin } from '../model/services/requestLogin';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
+import { clearLoginError } from '../model/slices/loginSlice';
+
+type LoginData = { email: string; password: string };
 
 const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
   const accessToken = useAppSelector(getAccessToken);
-  const customerId = useAppSelector(getLoginCustomerId);
-  const error = useAppSelector(getLoginError);
-  const responeId = useAppSelector(getLoginResponseId);
-  const [prevResponeId, setprevResponeId] = useState(responeId);
-
+  const loginCustomerId = useAppSelector(getLoginCustomerId);
+  const loginError = useAppSelector(getLoginError);
+  const loginResponseId = useAppSelector(getLoginResponseId);
+  const userError = useAppSelector(getUserError);
   const [loginData, setLoginData] = useState<LoginData>();
 
   useEffect(() => {
-    if (customerId && loginData) {
+    if (loginCustomerId && loginData) {
       const { email, password } = loginData;
-      dispatch(setUserId(customerId));
+      dispatch(setUserId(loginCustomerId));
       dispatch(passwordFlow({ username: email, password }));
     }
-  }, [customerId, dispatch]);
+  }, [loginResponseId]);
 
   useEffect(() => {
-    if (error && responeId !== prevResponeId) {
+    if (loginError) {
       dispatch(
         setNotificationMessage({
-          message: error.header,
+          message: loginError.header,
           type: 'error',
-          description: error.message,
+          description: loginError.message,
         }),
       );
-      setprevResponeId(responeId);
+      dispatch(clearLoginError());
     }
-  }, [responeId]);
+  }, [loginError]);
+
+  useEffect(() => {
+    if (userError) {
+      dispatch(
+        setNotificationMessage({
+          message: userError,
+          type: 'error',
+        }),
+      );
+      dispatch(clearUserError());
+    }
+  }, [userError]);
 
   const onFinish = (values: LoginData) => {
     const { email, password } = values;
