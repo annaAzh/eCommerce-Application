@@ -1,5 +1,5 @@
 import { Checkbox, DatePicker, Divider, Flex, Form, Input, Select } from 'antd';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { formItemLayout, tailFormItemLayout } from './StyledRegistrationForm/StyledRegistrationForm';
 import { PrimaryControlButton } from 'shared/ui';
 import {
@@ -19,16 +19,26 @@ import { UserCredentials, FormDataCredentials } from '../model/types/registratio
 import { register } from '../model/services/requestRegistration';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link } from 'react-router-dom';
+import { getAccessToken, passwordFlow, setUserId } from 'entities/User';
+import { setNotificationMessage } from 'entities/NotificationTool';
+import { getRegistrationCustomerId } from '../model/selectors/registrationSelectors';
 
 const RegistrationForm: FC = () => {
   const [form] = Form.useForm();
   const { Option } = Select;
   const dispatch = useAppDispatch();
-  const { accessToken } = useAppSelector((state) => state.userAccessToken.user);
+  const accessToken = useAppSelector(getAccessToken);
+  const customerId = useAppSelector(getRegistrationCustomerId);
 
   const [isDefaultBillingAddress, setIsDefaultBilling] = useState<boolean>(false);
   const [isDefaultShippingAddress, setIsDefaultShipping] = useState<boolean>(false);
   const [isSameAddress, setSameAddress] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (customerId) {
+      dispatch(setUserId(customerId));
+    }
+  }, [customerId]);
 
   const handleForm = (formData: FormDataCredentials) => {
     const billingCountry = isSameAddress ? formData.country : formData.billingCountry;
@@ -70,7 +80,29 @@ const RegistrationForm: FC = () => {
       }),
     };
 
-    dispatch(register(userCredentialData));
+    dispatch(register(userCredentialData))
+      .unwrap()
+      .then(() => {
+        dispatch(passwordFlow({ username: userCredentialData.email, password: userCredentialData.password }));
+      })
+      .then(() => {
+        dispatch(
+          setNotificationMessage({
+            message: 'Registartion Successful',
+            type: 'success',
+            description: 'You have been registered successfully!',
+          }),
+        );
+      })
+      .catch((error: string) => {
+        dispatch(
+          setNotificationMessage({
+            message: `Registration Failed`,
+            type: 'error',
+            description: `${error}`,
+          }),
+        );
+      });
   };
 
   return (
