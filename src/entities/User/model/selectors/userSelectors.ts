@@ -1,5 +1,11 @@
 import { RootState } from 'app/providers/storeProvider';
 
-export const getAccessToken = (state: RootState): string | undefined => {
+const getAccessToken = (state: RootState): string | undefined => {
   return state.userAccessToken.user.accessToken;
 };
+
+const getUserIsLoginedStatus = (state: RootState): boolean => {
+  return state.userAccessToken.user.isLogined;
+};
+
+export { getUserIsLoginedStatus, getAccessToken };

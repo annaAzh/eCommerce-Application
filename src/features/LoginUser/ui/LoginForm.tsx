@@ -7,7 +7,9 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link } from 'react-router-dom';
-import { getAccessToken, setUserId } from 'entities/User';
+import { passwordFlow, getAccessToken, setUserId } from 'entities/User';
+
+type LoginData = { email: string; password: string };
 import { requestLogin } from '../model/services/requestLogin';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
@@ -20,9 +22,13 @@ const LoginForm: FC = () => {
   const responeId = useAppSelector(getLoginResponseId);
   const [prevResponeId, setprevResponeId] = useState(responeId);
 
+  const [loginData, setLoginData] = useState<LoginData>();
+
   useEffect(() => {
-    if (customerId) {
+    if (customerId && loginData) {
+      const { email, password } = loginData;
       dispatch(setUserId(customerId));
+      dispatch(passwordFlow({ username: email, password }));
     }
   }, [customerId, dispatch]);
 
@@ -39,10 +45,11 @@ const LoginForm: FC = () => {
     }
   }, [responeId]);
 
-  const onFinish = (values: { email: string; password: string }) => {
+  const onFinish = (values: LoginData) => {
     const { email, password } = values;
     if (accessToken) {
       dispatch(requestLogin({ username: email, password, token: accessToken }));
+      setLoginData({ email, password });
     } else {
       dispatch(
         setNotificationMessage({

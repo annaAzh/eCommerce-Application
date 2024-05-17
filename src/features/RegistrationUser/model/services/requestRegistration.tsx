@@ -10,10 +10,7 @@ const PROJECT_KEY = process.env.PROJECT_KEY;
 export const register = createAsyncThunk('auth/register', async (params: UserCredentials, thunkAPI) => {
   try {
     const token = params.token;
-
-    const body: Omit<UserCredentials, 'token'> = {
-      ...params,
-    };
+    const body: Omit<UserCredentials, 'token'> = params;
 
     const headersRegisterUser = {
       Authorization: `Bearer ${token}`,
@@ -23,6 +20,7 @@ export const register = createAsyncThunk('auth/register', async (params: UserCre
     const customerResponse = await axios.post<RefreshTokenSucces>(`${API_URL}${PROJECT_KEY}/customers`, body, {
       headers: headersRegisterUser,
     });
+
     const success: RefreshTokenSucces = customerResponse.data;
     return success;
   } catch (error) {

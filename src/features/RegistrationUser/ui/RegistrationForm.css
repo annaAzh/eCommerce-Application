@@ -1,5 +1,6 @@
 .form-content {
-  width: 600px;
+  max-width: 600px;
+  width: 100%;
   margin: auto;
   border-radius: 3px;
   background: var(--main-color-1);
@@ -38,4 +39,32 @@
   width: 100px;
   height: 100px;
   margin-bottom: 20px;
+}
+
+.checkbox-inner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-left: 190px;
+  gap: 8px;
+}
+
+.checkox-default {
+  border: 1px solid var(--main-color-3);
+  padding: 5px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.checkox-same {
+  border: 1px solid var(--green);
+  padding: 5px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+@media (width <= 575px) {
+  .checkbox-inner {
+    margin-left: 0;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

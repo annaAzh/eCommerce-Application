@@ -7,6 +7,7 @@ interface UserSchema {
 interface UserProperties {
   accessToken?: string;
   userId?: string;
+  isLogined: boolean;
 }
 
 export { UserSchema };
