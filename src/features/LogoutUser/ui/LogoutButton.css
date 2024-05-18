@@ -1,0 +1,15 @@
+.logOut-header-button {
+  display: flex;
+  align-items: center;
+  height: 2.5rem;
+  border: 2px solid var(--green);
+  border-radius: 10px;
+  background-color: var(--main-color-4) !important;
+  color: var(--green);
+  font-size: 20px;
+}
+
+.logOut-header-button:hover {
+  color: var(--main-color-0);
+  border-color: var(--main-color-0);
+}
