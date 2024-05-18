@@ -4,7 +4,6 @@ interface RegisterSchema {
   customerId?: string;
   isLoading: boolean;
   error?: ErrorRegistretionDataResponse;
-  responeId: number;
 }
 
 interface UserCredentials {
@@ -28,6 +27,11 @@ interface Address {
   postalCode: string;
   city: string;
   country: string;
+}
+
+interface UserData {
+  username: string;
+  password: string;
 }
 
 interface FormDataCredentials extends UserCredentials {
@@ -93,4 +97,5 @@ export {
   RefreshTokenSucces,
   RegistrationReject,
   ErrorRegistretionDataResponse,
+  UserData,
 };

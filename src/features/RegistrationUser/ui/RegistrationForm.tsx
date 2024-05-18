@@ -6,7 +6,7 @@ import { formItemLayout, tailFormItemLayout } from './StyledRegistrationForm/Sty
 import { PrimaryControlButton } from 'shared/ui';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getAccessToken, passwordFlow, setUserId } from 'entities/User';
+import { getAccessToken, getUserError, passwordFlow, setUserId } from 'entities/User';
 import { clearUserError } from 'entities/User/model/slices/userAccessTokenSlice';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { COUNTRIES } from 'shared/consts';
@@ -19,13 +19,9 @@ import {
   checkConfirmPassword,
   checkPostalCode,
 } from 'shared/lib/checkValid';
-import { UserCredentials, FormDataCredentials } from '../model/types/registrationTypes';
+import { UserCredentials, FormDataCredentials, UserData } from '../model/types/registrationTypes';
 import { register } from '../model/services/requestRegistration';
-import {
-  getRegisterError,
-  getRegistrationCustomerId,
-  getUserRegistrationError,
-} from '../model/selectors/registrationSelectors';
+import { getRegisterError, getRegistrationCustomerId } from '../model/selectors/registrationSelectors';
 import { clearRegisterError } from '../model/slices/registrationSlice';
 import './RegistrationForm.css';
 
@@ -36,8 +32,9 @@ const RegistrationForm: FC = () => {
   const accessToken = useAppSelector(getAccessToken);
   const customerId = useAppSelector(getRegistrationCustomerId);
   const registerError = useAppSelector(getRegisterError);
-  const userError = useAppSelector(getUserRegistrationError);
+  const userError = useAppSelector(getUserError);
 
+  const [isUserData, setUserData] = useState<UserData>({ username: '', password: '' });
   const [isDefaultBillingAddress, setIsDefaultBilling] = useState<boolean>(false);
   const [isDefaultShippingAddress, setIsDefaultShipping] = useState<boolean>(false);
   const [isSameAddress, setSameAddress] = useState<boolean>(false);
@@ -45,10 +42,10 @@ const RegistrationForm: FC = () => {
   useEffect(() => {
     if (customerId) {
       dispatch(setUserId(customerId));
+      dispatch(passwordFlow(isUserData));
       dispatch(
         setNotificationMessage({
           message: 'Registartion Successful',
-          type: 'success',
           description: 'You have been registered successfully!',
         }),
       );
@@ -120,7 +117,7 @@ const RegistrationForm: FC = () => {
 
     if (accessToken) {
       dispatch(register(userCredentialData));
-      dispatch(passwordFlow({ username: userCredentialData.email, password: userCredentialData.password }));
+      setUserData({ username: userCredentialData.email, password: userCredentialData.password });
     } else {
       dispatch(
         setNotificationMessage({

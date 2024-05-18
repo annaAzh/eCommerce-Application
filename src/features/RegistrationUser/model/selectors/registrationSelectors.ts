@@ -9,8 +9,4 @@ const getRegisterError = (state: RootState): ErrorRegistretionDataResponse | und
   return state.auth.error;
 };
 
-const getUserRegistrationError = (state: RootState): string | undefined => {
-  return state.userAccessToken.error;
-};
-
-export { getRegistrationCustomerId, getUserRegistrationError, getRegisterError };
+export { getRegistrationCustomerId, getRegisterError };

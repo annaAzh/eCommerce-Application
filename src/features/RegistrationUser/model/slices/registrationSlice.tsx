@@ -7,7 +7,6 @@ const initialState: RegisterSchema = {
   customerId: undefined,
   isLoading: false,
   error: undefined,
-  responeId: Math.random(),
 };
 
 export const RegisterSlice = createSlice({
@@ -31,7 +30,6 @@ export const RegisterSlice = createSlice({
       .addCase(register.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = action.payload as ErrorRegistretionDataResponse;
-        state.responeId = Math.random();
       });
   },
 });
