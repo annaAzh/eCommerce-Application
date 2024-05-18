@@ -9,3 +9,36 @@
   object-fit: contain;
   object-position: top;
 }
+
+.sider-menu {
+  text-align: center;
+  font-size: 18px;
+  background-color: var(--main-color-4);
+}
+
+.sider-link {
+  position: relative;
+  line-height: 1;
+}
+
+.sider-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 1px;
+  background-color: var(--main-color-2);
+  transition: width 0.3s ease-out;
+}
+
+.sider-link:hover::after,
+.sider-link:focus::after {
+  width: 100%;
+}
+
+@media (width <= 1050px) {
+  .wrapper-main {
+    flex-direction: column;
+  }
+}

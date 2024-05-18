@@ -1,15 +1,11 @@
+import { Card } from 'pages/card/Card';
+import { Catalog } from 'pages/catalog/Catalog';
 import { Login } from 'pages/login/Login';
 import { Main } from 'pages/main/Main';
 import { NotFound } from 'pages/notFound/NotFound';
+import { Profile } from 'pages/profile/Profile';
 import { Registration } from 'pages/registration/Registration';
-
-enum Paths {
-  start = '/',
-  main = 'main',
-  login = 'login',
-  registration = 'registration',
-  notFound = '*',
-}
+import { Paths } from 'shared/types';
 
 export interface Router {
   path: Paths;
@@ -36,5 +32,17 @@ export const rootRouter: Router[] = [
   {
     path: Paths.notFound,
     element: <NotFound />,
+  },
+  {
+    path: Paths.catalog,
+    element: <Catalog />,
+  },
+  {
+    path: Paths.card,
+    element: <Card />,
+  },
+  {
+    path: Paths.profile,
+    element: <Profile />,
   },
 ];
