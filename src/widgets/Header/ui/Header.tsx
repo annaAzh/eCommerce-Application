@@ -2,11 +2,14 @@ import Menu from 'antd/es/menu';
 import ConfigProvider from 'antd/es/config-provider';
 import Logo from 'shared/assets/img/logoHeader.png';
 import { Link, useLocation } from 'react-router-dom';
+import { getUserIsLoginedStatus } from 'entities/User';
+import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
+import { ButtonLogOut } from 'features/LogoutUser';
 import { Paths } from 'shared/types';
 import './Header.css';
 
 interface LinkOfPage {
-  key: string;
+  key: Paths;
   label: JSX.Element;
 }
 
@@ -43,6 +46,9 @@ const links: LinkOfPage[] = [
       </Link>
     ),
   },
+];
+
+const notLoginLinks: LinkOfPage[] = [
   {
     key: Paths.registration,
     label: (
@@ -61,8 +67,16 @@ const links: LinkOfPage[] = [
   },
 ];
 
+const loginLinks: LinkOfPage[] = [
+  {
+    key: Paths.main,
+    label: <ButtonLogOut />,
+  },
+];
+
 export const Header = (): JSX.Element => {
   const location: string = useLocation().pathname.replace('/', '');
+  const isLogin: boolean = useAppSelector(getUserIsLoginedStatus);
   return (
     <header className="header no-active">
       <Link to={Paths.main}>
@@ -88,7 +102,7 @@ export const Header = (): JSX.Element => {
           selectedKeys={location !== '' ? [location] : [Paths.main]}
           mode="horizontal"
           triggerSubMenuAction="click"
-          items={links}
+          items={isLogin ? links.concat(loginLinks) : links.concat(notLoginLinks)}
         />
       </ConfigProvider>
     </header>
