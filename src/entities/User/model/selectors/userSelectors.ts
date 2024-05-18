@@ -8,4 +8,8 @@ const getUserIsLoginedStatus = (state: RootState): boolean => {
   return state.userAccessToken.user.isLogined;
 };
 
-export { getUserIsLoginedStatus, getAccessToken };
+const getUserError = (state: RootState): string | undefined => {
+  return state.userAccessToken.error;
+};
+
+export { getUserIsLoginedStatus, getAccessToken, getUserError };

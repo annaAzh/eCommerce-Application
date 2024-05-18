@@ -7,10 +7,18 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import './LoginForm.css';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { Link, useNavigate } from 'react-router-dom';
-import { passwordFlow, getAccessToken, setUserId, getUserIsLoginedStatus } from 'entities/User';
+import {
+  passwordFlow,
+  getAccessToken,
+  setUserId,
+  getUserError,
+  clearUserError,
+  getUserIsLoginedStatus,
+} from 'entities/User';
 import { requestLogin } from '../model/services/requestLogin';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
+import { clearLoginError } from '../model/slices/loginSlice';
 import { Paths } from 'shared/types';
 
 type LoginData = { email: string; password: string };
@@ -19,12 +27,11 @@ const LoginForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const accessToken = useAppSelector(getAccessToken);
-  const customerId = useAppSelector(getLoginCustomerId);
-  const error = useAppSelector(getLoginError);
-  const responeId = useAppSelector(getLoginResponseId);
+  const loginCustomerId = useAppSelector(getLoginCustomerId);
+  const loginError = useAppSelector(getLoginError);
+  const loginResponseId = useAppSelector(getLoginResponseId);
+  const userError = useAppSelector(getUserError);
   const isLogined = useAppSelector(getUserIsLoginedStatus);
-
-  const [prevResponeId, setprevResponeId] = useState(responeId);
   const [loginData, setLoginData] = useState<LoginData>();
 
   useEffect(() => {
@@ -32,30 +39,39 @@ const LoginForm: FC = () => {
   }, [isLogined]);
 
   useEffect(() => {
-    if (customerId && loginData) {
-      const { email, password } = loginData;
-      dispatch(setUserId(customerId));
-      dispatch(
-        setNotificationMessage({
-          message: 'Successful  login',
-        }),
-      );
-      dispatch(passwordFlow({ username: email, password }));
-    }
-  }, [customerId, dispatch]);
+    if (!loginCustomerId || !loginData) return;
+    const { email, password } = loginData;
+    dispatch(setUserId(loginCustomerId));
+    dispatch(passwordFlow({ username: email, password }));
+    dispatch(
+      setNotificationMessage({
+        message: 'Successful  login',
+      }),
+    );
+  }, [loginResponseId]);
 
   useEffect(() => {
-    if (error && responeId !== prevResponeId) {
-      dispatch(
-        setNotificationMessage({
-          message: error.header,
-          type: 'error',
-          description: error.message,
-        }),
-      );
-      setprevResponeId(responeId);
-    }
-  }, [responeId]);
+    if (!loginError) return;
+    dispatch(
+      setNotificationMessage({
+        message: loginError.header,
+        type: 'error',
+        description: loginError.message,
+      }),
+    );
+    dispatch(clearLoginError());
+  }, [loginError]);
+
+  useEffect(() => {
+    if (!userError) return;
+    dispatch(
+      setNotificationMessage({
+        message: userError,
+        type: 'error',
+      }),
+    );
+    dispatch(clearUserError());
+  }, [userError]);
 
   const onFinish = (values: LoginData) => {
     const { email, password } = values;

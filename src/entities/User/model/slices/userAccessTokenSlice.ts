@@ -23,31 +23,41 @@ export const userAccessTokenSlice = createSlice({
     setUserIsLoginedStatus(state: UserSchema, action: PayloadAction<boolean>) {
       state.user.isLogined = action.payload;
     },
+    clearUserError(state: UserSchema) {
+      state.error = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(requestAccessToken.fulfilled, (state, action: PayloadAction<AccessTokenSuccess>) => {
+      .addCase(requestAccessToken.fulfilled, (state, { payload }: PayloadAction<AccessTokenSuccess>) => {
         state.isLoading = false;
         state.error = undefined;
-        state.user.accessToken = action.payload.access_token;
+        state.user.accessToken = payload.access_token;
       })
       .addCase(requestAccessToken.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(requestAccessToken.rejected, (state, action: PayloadAction<unknown>) => {
+      .addCase(requestAccessToken.rejected, (state, { payload }: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = payload as string;
       })
-      .addCase(passwordFlow.fulfilled, (state, action: PayloadAction<PasswordFlowSuccess>) => {
+      .addCase(passwordFlow.fulfilled, (state, { payload }: PayloadAction<PasswordFlowSuccess>) => {
         state.isLoading = false;
         state.error = undefined;
-        state.user.accessToken = action.payload.access_token;
+        state.user.accessToken = payload.access_token;
         setLocalStoreState(state.user.accessToken);
         state.user.isLogined = true;
+      })
+      .addCase(passwordFlow.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(passwordFlow.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
       });
   },
 });
 
 export const { reducer: userAccessTokenReducer } = userAccessTokenSlice;
 
-export const { setUserId, setUserIsLoginedStatus } = userAccessTokenSlice.actions;
+export const { setUserId, setUserIsLoginedStatus, clearUserError } = userAccessTokenSlice.actions;
