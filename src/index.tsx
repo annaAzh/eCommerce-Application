@@ -4,6 +4,7 @@ import { App } from 'app/App';
 import { BrowserRouter } from 'react-router-dom';
 import { Header } from 'widgets/Header';
 import { NotificationTool } from 'entities/NotificationTool';
+import { Footer } from 'widgets/Footer';
 
 const root = createRoot(document.getElementById('root') as HTMLElement);
 root.render(
@@ -12,6 +13,7 @@ root.render(
       <NotificationTool />
       <Header />
       <App />
+      <Footer />
     </StoreProvider>
   </BrowserRouter>,
 );

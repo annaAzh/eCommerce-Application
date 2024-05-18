@@ -63,6 +63,7 @@ module.exports = (env: EnvVar) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
+        favicon: './public/svg/favicon.svg',
       }),
       new DefinePlugin({
         'process.env': JSON.stringify(dotenvPath.parsed),
