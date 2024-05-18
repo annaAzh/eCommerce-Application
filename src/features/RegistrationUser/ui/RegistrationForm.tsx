@@ -1,13 +1,19 @@
 import { Checkbox, DatePicker, Divider, Flex, Form, Input, Select } from 'antd';
 import { FC, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { formItemLayout, tailFormItemLayout } from './StyledRegistrationForm/StyledRegistrationForm';
 import { PrimaryControlButton } from 'shared/ui';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { getAccessToken, getUserError, passwordFlow, setUserId } from 'entities/User';
-import { clearUserError } from 'entities/User/model/slices/userAccessTokenSlice';
+import {
+  clearUserError,
+  getAccessToken,
+  getUserError,
+  getUserIsLoginedStatus,
+  passwordFlow,
+  setUserId,
+} from 'entities/User';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { COUNTRIES } from 'shared/consts';
 import {
@@ -24,6 +30,7 @@ import { register } from '../model/services/requestRegistration';
 import { getRegisterError, getRegistrationCustomerId } from '../model/selectors/registrationSelectors';
 import { clearRegisterError } from '../model/slices/registrationSlice';
 import './RegistrationForm.css';
+import { Paths } from 'shared/types';
 
 const RegistrationForm: FC = () => {
   const [form] = Form.useForm();
@@ -39,21 +46,28 @@ const RegistrationForm: FC = () => {
   const [isDefaultShippingAddress, setIsDefaultShipping] = useState<boolean>(false);
   const [isSameAddress, setSameAddress] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (customerId) {
-      dispatch(setUserId(customerId));
-      dispatch(passwordFlow(isUserData));
-      dispatch(
-        setNotificationMessage({
-          message: 'Registartion Successful',
-          description: 'You have been registered successfully!',
-        }),
-      );
-    }
-  }, [customerId, dispatch]);
+  const isLogined = useAppSelector(getUserIsLoginedStatus);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (!registerError) return;
+    if (isLogined) navigate(Paths.start);
+  }, [isLogined]);
+
+  useEffect(() => {
+    if (!customerId || !isUserData || isLogined) return;
+    dispatch(setUserId(customerId));
+    dispatch(passwordFlow(isUserData));
+    dispatch(
+      setNotificationMessage({
+        message: 'Registartion Successful',
+        description: 'You have been registered successfully!',
+      }),
+    );
+    return setUserData({ username: '', password: '' });
+  }, [customerId]);
+
+  useEffect(() => {
+    if (!registerError || isLogined) return;
     dispatch(
       setNotificationMessage({
         message: registerError.header,
@@ -62,10 +76,10 @@ const RegistrationForm: FC = () => {
       }),
     );
     dispatch(clearRegisterError());
-  }, [registerError, dispatch]);
+  }, [registerError]);
 
   useEffect(() => {
-    if (!userError) return;
+    if (!userError || isLogined) return;
     dispatch(
       setNotificationMessage({
         message: userError,
@@ -73,7 +87,7 @@ const RegistrationForm: FC = () => {
       }),
     );
     dispatch(clearUserError());
-  }, [userError, dispatch]);
+  }, [userError]);
 
   const handleForm = (formData: FormDataCredentials) => {
     const billingCountry = isSameAddress ? formData.country : formData.billingCountry;
@@ -115,7 +129,7 @@ const RegistrationForm: FC = () => {
       }),
     };
 
-    if (accessToken) {
+    if (accessToken && !isLogined) {
       dispatch(register(userCredentialData));
       setUserData({ username: userCredentialData.email, password: userCredentialData.password });
     } else {
