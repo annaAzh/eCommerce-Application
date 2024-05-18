@@ -56,7 +56,7 @@ const links: LinkOfPage[] = [
 
 export const Main: FC = () => {
   return (
-    <div className="wrapper-main">
+    <div className="wrapper-main wrapper-page">
       <Sider>
         <Menu className="sider-menu" theme="dark" items={links}></Menu>
       </Sider>
