@@ -52,4 +52,10 @@ type ErrorDataResponse = {
   message: string;
 };
 
-export { LoginSchema, RefreshTokenSucces, LoginReject, ErrorDataResponse };
+type LoginData = {
+  username: string;
+  password: string;
+  token: string;
+};
+
+export { LoginSchema, RefreshTokenSucces, LoginReject, ErrorDataResponse, LoginData };

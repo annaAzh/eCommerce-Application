@@ -1,13 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ErrorDataResponse, LoginReject, RefreshTokenSucces } from '../types/loginTypes';
+import { ErrorDataResponse, LoginData, LoginReject, RefreshTokenSucces } from '../types/loginTypes';
 import { ErrorWithResponse } from 'entities/User';
 
-type LoginData = {
-  username: string;
-  password: string;
-  token: string;
-};
 export const requestLogin = createAsyncThunk('login/requestLoginToken', async (loginData: LoginData, thunkAPI) => {
   try {
     const { username, password, token } = loginData;
