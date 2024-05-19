@@ -100,6 +100,7 @@ const LoginForm: FC = () => {
             prefix={<LockOutlined className="site-form-item-icon" />}
             type="password"
             placeholder="Password"
+            autoComplete="on"
           />
         </Form.Item>
         <Form.Item>
