@@ -14,3 +14,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.wrapper-page {
+  text-align: center;
+  flex: 1 1 auto;
+}

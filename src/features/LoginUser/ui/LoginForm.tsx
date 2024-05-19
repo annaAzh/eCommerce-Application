@@ -90,27 +90,29 @@ const LoginForm: FC = () => {
   };
 
   return (
-    <div className="form-content">
-      <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
-        <Form.Item style={{ height: '60px' }} name="email" rules={checkEmail()}>
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
-        </Form.Item>
-        <Form.Item style={{ height: '60px' }} name="password" rules={checkPassword()}>
-          <Input.Password
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Flex align="center" gap="small">
-            <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
-              Log in
-            </PrimaryControlButton>
-            or <Link to="/registration">register now!</Link>
-          </Flex>
-        </Form.Item>
-      </Form>
+    <div className="wrapper-page wrapper-login-form">
+      <div className="form-content">
+        <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
+          <Form.Item style={{ height: '60px' }} name="email" rules={checkEmail()}>
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
+          </Form.Item>
+          <Form.Item style={{ height: '60px' }} name="password" rules={checkPassword()}>
+            <Input.Password
+              prefix={<LockOutlined className="site-form-item-icon" />}
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Item>
+          <Form.Item>
+            <Flex align="center" gap="small">
+              <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
+                Log in
+              </PrimaryControlButton>
+              or <Link to="/registration">register now!</Link>
+            </Flex>
+          </Form.Item>
+        </Form>
+      </div>
     </div>
   );
 };

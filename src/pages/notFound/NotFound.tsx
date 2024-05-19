@@ -16,7 +16,7 @@ const ButtonLink = styled(PrimaryControlButton)`
 
 export const NotFound: FC = () => {
   return (
-    <div className="container-page-notFound">
+    <div className="container-page-notFound wrapper-page">
       <img className="img-cat-page-notFound" src={Cat} alt="Cat"></img>
       <div className="container-description-page-notFound">
         <h1 className="description-page-notFound">
