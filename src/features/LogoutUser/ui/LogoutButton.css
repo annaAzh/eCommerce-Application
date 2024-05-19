@@ -1,7 +1,7 @@
 .logOut-header-button {
   display: flex;
   align-items: center;
-  height: 2.5rem;
+  height: 2.4rem;
   border: 2px solid var(--green);
   border-radius: 10px;
   margin-top: 2px;

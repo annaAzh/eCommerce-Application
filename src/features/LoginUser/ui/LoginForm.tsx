@@ -107,7 +107,10 @@ const LoginForm: FC = () => {
             <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
               Log in
             </PrimaryControlButton>
-            or <Link to="/registration">register now!</Link>
+            or
+            <Link to="/registration" className={styles.registerLink}>
+              register now!
+            </Link>
           </Flex>
         </Form.Item>
       </Form>

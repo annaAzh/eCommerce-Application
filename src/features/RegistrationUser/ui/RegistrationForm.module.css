@@ -1,43 +1,22 @@
+.container {
+  padding: 0 10px;
+}
+
 .formContent {
   max-width: 600px;
   width: 100%;
-  margin: 20px auto;
+  margin: 40px auto;
   border-radius: 3px;
   background: var(--main-color-1);
-  border: 1px solid var(--main-color-4);
   padding: 3rem 1rem 1rem;
+  box-shadow: 0 4px 8px 6px rgb(1 1 1 / 10%);
 }
 
 .formRegistrationTitle {
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 28px;
   text-align: center;
-  margin-bottom: 20px;
-}
-
-@media (width <= 575px) {
-  .ant-form-item {
-    margin-bottom: 8px;
-  }
-}
-
-.formNotification {
-  border-radius: 10px;
-  border: 1px solid var(--main-color-1);
-  padding: 40px;
-  margin: auto;
-  text-align: center;
-  background-color: var(--main-color-1);
-  box-shadow: 0 4px 8px 6px rgba(#111, 10%);
-}
-
-.formTitle {
-  font-size: 36px;
-  color: var(--green);
-  max-width: 500px;
-}
-
-.formIcon {
-  width: 100px;
-  height: 100px;
   margin-bottom: 20px;
 }
 
@@ -49,17 +28,17 @@
 }
 
 .checkoxDefault {
-  border: 1px solid var(--main-color-3);
   padding: 5px;
   border-radius: 4px;
   width: fit-content;
+  color: var(--main-color-3);
 }
 
 .checkoxSame {
-  border: 1px solid var(--green);
   padding: 5px;
   border-radius: 4px;
   width: fit-content;
+  color: var(--main-color-3);
 }
 
 @media (width <= 575px) {
@@ -67,4 +46,14 @@
     margin-left: 0;
     grid-template-columns: repeat(1, 1fr);
   }
+}
+
+.registerLink {
+  transition: all 0.3s ease-in;
+  color: var(--green);
+}
+
+.registerLink:hover {
+  color: var(--green);
+  filter: brightness(65%);
 }

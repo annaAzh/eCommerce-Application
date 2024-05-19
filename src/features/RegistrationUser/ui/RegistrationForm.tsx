@@ -30,6 +30,7 @@ import { register } from '../model/services/requestRegistration';
 import { getRegisterError, getRegistrationCustomerId } from '../model/selectors/registrationSelectors';
 import { clearRegisterError } from '../model/slices/registrationSlice';
 import styles from './RegistrationForm.module.css';
+import './RegistrationForm.css';
 import { Paths } from 'shared/types';
 
 const RegistrationForm: FC = () => {
@@ -145,130 +146,135 @@ const RegistrationForm: FC = () => {
 
   return (
     <>
-      <div className={styles.formContent}>
-        <h2 className={styles.formRegistrationTitle}>New Customer</h2>
-        <Form {...formItemLayout} form={form} name="register" onFinish={handleForm} scrollToFirstError>
-          <Form.Item name="email" label="E-mail" required rules={checkEmail()}>
-            <Input placeholder="example@email.com" />
-          </Form.Item>
-          <Form.Item name="password" label="Password" required rules={checkPassword()}>
-            <Input.Password />
-          </Form.Item>
-          <Form.Item
-            name="confirm"
-            label="Confirm Password"
-            required
-            dependencies={['password']}
-            rules={checkConfirmPassword()}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item name="firstName" label="First name" required rules={checkInput('First name')}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="lastName" label="Last name" required rules={checkInput('Last name')}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="dateOfBirth" label="Date of Birth" required rules={checkBirthday()}>
-            <DatePicker format="YYYY-MM-DD" />
-          </Form.Item>
-
-          {isSameAddress ? (
-            <Divider orientation="center">Shipping and billing address</Divider>
-          ) : (
-            <Divider orientation="center">Shipping address</Divider>
-          )}
-
-          <Form.Item name="streetName" label="Street" required rules={checkStreet()}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="city" label="City" required rules={checkInput('City')}>
-            <Input />
-          </Form.Item>
-          <Form.Item name="country" label="Country" rules={[{ required: true, message: 'Please select Country!' }]}>
-            <Select placeholder="Select your country">
-              {COUNTRIES.map(({ title, value }) => (
-                <Option key={title} value={value}>
-                  {title}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Form.Item
-            name="postalCode"
-            label="Postal code"
-            required
-            dependencies={['country']}
-            rules={checkPostalCode('country')}
-          >
-            <Input />
-          </Form.Item>
-
-          <div className={styles.checkboxInner}>
-            <Checkbox
-              onChange={() => setIsDefaultShipping(!isDefaultShippingAddress)}
-              className={styles.checkoxDefault}
+      <div className={styles.container}>
+        <div className={styles.formContent}>
+          <h2 className={styles.formRegistrationTitle}>Sign up</h2>
+          <Form {...formItemLayout} form={form} name="register" onFinish={handleForm} scrollToFirstError>
+            <Form.Item name="email" label="E-mail" required rules={checkEmail()}>
+              <Input placeholder="example@email.com" />
+            </Form.Item>
+            <Form.Item name="password" label="Password" required rules={checkPassword()}>
+              <Input.Password />
+            </Form.Item>
+            <Form.Item
+              name="confirm"
+              label="Confirm Password"
+              required
+              dependencies={['password']}
+              rules={checkConfirmPassword()}
             >
-              Set as a default address
-            </Checkbox>
-            <Checkbox onChange={() => setSameAddress(!isSameAddress)} className={styles.checkoxSame}>
-              Set the same shipping and billing address
-            </Checkbox>
-          </div>
+              <Input.Password />
+            </Form.Item>
+            <Form.Item name="firstName" label="First name" required rules={checkInput('First name')}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="lastName" label="Last name" required rules={checkInput('Last name')}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="dateOfBirth" label="Date of Birth" required rules={checkBirthday()}>
+              <DatePicker format="YYYY-MM-DD" />
+            </Form.Item>
 
-          {!isSameAddress && (
-            <>
-              <Divider orientation="center">Billing address</Divider>
+            {isSameAddress ? (
+              <Divider orientation="left">Shipping and billing address</Divider>
+            ) : (
+              <Divider orientation="left">Shipping address</Divider>
+            )}
 
-              <Form.Item name="billingStreet" label="Street" required rules={checkStreet()}>
-                <Input />
-              </Form.Item>
-              <Form.Item name="billingCity" label="City" required rules={checkInput('city')}>
-                <Input />
-              </Form.Item>
-              <Form.Item
-                name="billingCountry"
-                label="Country"
-                rules={[{ required: true, message: 'Please select Country!' }]}
+            <Form.Item name="streetName" label="Street" required rules={checkStreet()}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="city" label="City" required rules={checkInput('City')}>
+              <Input />
+            </Form.Item>
+            <Form.Item name="country" label="Country" rules={[{ required: true, message: 'Please select Country!' }]}>
+              <Select placeholder="Select your country">
+                {COUNTRIES.map(({ title, value }) => (
+                  <Option key={title} value={value}>
+                    {title}
+                  </Option>
+                ))}
+              </Select>
+            </Form.Item>
+            <Form.Item
+              name="postalCode"
+              label="Postal code"
+              required
+              dependencies={['country']}
+              rules={checkPostalCode('country')}
+            >
+              <Input />
+            </Form.Item>
+
+            <div className={styles.checkboxInner}>
+              <Checkbox
+                onChange={() => setIsDefaultShipping(!isDefaultShippingAddress)}
+                className={styles.checkoxDefault}
               >
-                <Select placeholder="Select your country">
-                  {COUNTRIES.map(({ title, value }) => (
-                    <Option key={title} value={value}>
-                      {title}
-                    </Option>
-                  ))}
-                </Select>
-              </Form.Item>
-              <Form.Item
-                name="billingPostalCode"
-                label="Postal code"
-                dependencies={['billingCountry']}
-                required
-                rules={checkPostalCode('billingCountry')}
-              >
-                <Input />
-              </Form.Item>
+                Set as a default address
+              </Checkbox>
+              <Checkbox onChange={() => setSameAddress(!isSameAddress)} className={styles.checkoxSame}>
+                Set the same shipping and billing address
+              </Checkbox>
+            </div>
 
-              <div className={styles.checkboxInner}>
-                <Checkbox
-                  onChange={() => setIsDefaultBilling(!isDefaultBillingAddress)}
-                  className={styles.checkoxDefault}
+            {!isSameAddress && (
+              <>
+                <Divider orientation="left">Billing address</Divider>
+
+                <Form.Item name="billingStreet" label="Street" required rules={checkStreet()}>
+                  <Input />
+                </Form.Item>
+                <Form.Item name="billingCity" label="City" required rules={checkInput('city')}>
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  name="billingCountry"
+                  label="Country"
+                  rules={[{ required: true, message: 'Please select Country!' }]}
                 >
-                  Set as a default address
-                </Checkbox>
-              </div>
-            </>
-          )}
+                  <Select placeholder="Select your country">
+                    {COUNTRIES.map(({ title, value }) => (
+                      <Option key={title} value={value}>
+                        {title}
+                      </Option>
+                    ))}
+                  </Select>
+                </Form.Item>
+                <Form.Item
+                  name="billingPostalCode"
+                  label="Postal code"
+                  dependencies={['billingCountry']}
+                  required
+                  rules={checkPostalCode('billingCountry')}
+                >
+                  <Input />
+                </Form.Item>
 
-          <Form.Item {...tailFormItemLayout}>
-            <Flex align="center" gap="small" style={{ marginTop: '20px' }}>
-              <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
-                Register
-              </PrimaryControlButton>
-              or <Link to="/login">Log in now!</Link>
-            </Flex>
-          </Form.Item>
-        </Form>
+                <div className={styles.checkboxInner}>
+                  <Checkbox
+                    onChange={() => setIsDefaultBilling(!isDefaultBillingAddress)}
+                    className={styles.checkoxDefault}
+                  >
+                    Set as a default address
+                  </Checkbox>
+                </div>
+              </>
+            )}
+
+            <Form.Item {...tailFormItemLayout}>
+              <Flex align="center" gap="small" style={{ marginTop: '20px' }}>
+                <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
+                  Register
+                </PrimaryControlButton>
+                or
+                <Link to="/login" className={styles.registerLink}>
+                  Log in now!
+                </Link>
+              </Flex>
+            </Form.Item>
+          </Form>
+        </div>
       </div>
     </>
   );
