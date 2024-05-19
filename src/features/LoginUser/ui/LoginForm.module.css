@@ -1,14 +1,9 @@
-.form-content {
-  width: 400px;
+.formContent {
+  max-width: 400px;
+  width: 100%;
   margin: auto;
   border-radius: 3px;
   background: var(--main-color-1);
   border: 1px solid var(--main-color-4);
   padding: 3rem 1rem 1rem;
-}
-
-.wrapper-login-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

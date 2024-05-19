@@ -1,4 +1,4 @@
-.form-content {
+.formContent {
   max-width: 600px;
   width: 100%;
   margin: 20px auto;
@@ -8,7 +8,7 @@
   padding: 3rem 1rem 1rem;
 }
 
-.formRegistration-title {
+.formRegistrationTitle {
   text-align: center;
   margin-bottom: 20px;
 }
@@ -19,7 +19,7 @@
   }
 }
 
-.form-notification {
+.formNotification {
   border-radius: 10px;
   border: 1px solid var(--main-color-1);
   padding: 40px;
@@ -29,33 +29,33 @@
   box-shadow: 0 4px 8px 6px rgba(#111, 10%);
 }
 
-.form-title {
+.formTitle {
   font-size: 36px;
   color: var(--green);
   max-width: 500px;
 }
 
-.form-icon {
+.formIcon {
   width: 100px;
   height: 100px;
   margin-bottom: 20px;
 }
 
-.checkbox-inner {
+.checkboxInner {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   margin-left: 190px;
   gap: 8px;
 }
 
-.checkox-default {
+.checkoxDefault {
   border: 1px solid var(--main-color-3);
   padding: 5px;
   border-radius: 4px;
   width: fit-content;
 }
 
-.checkox-same {
+.checkoxSame {
   border: 1px solid var(--green);
   padding: 5px;
   border-radius: 4px;
@@ -63,7 +63,7 @@
 }
 
 @media (width <= 575px) {
-  .checkbox-inner {
+  .checkboxInner {
     margin-left: 0;
     grid-template-columns: repeat(1, 1fr);
   }

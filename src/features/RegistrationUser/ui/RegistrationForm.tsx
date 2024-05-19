@@ -29,7 +29,7 @@ import { UserCredentials, FormDataCredentials, UserData } from '../model/types/r
 import { register } from '../model/services/requestRegistration';
 import { getRegisterError, getRegistrationCustomerId } from '../model/selectors/registrationSelectors';
 import { clearRegisterError } from '../model/slices/registrationSlice';
-import './RegistrationForm.css';
+import styles from './RegistrationForm.module.css';
 import { Paths } from 'shared/types';
 
 const RegistrationForm: FC = () => {
@@ -145,8 +145,8 @@ const RegistrationForm: FC = () => {
 
   return (
     <>
-      <div className="form-content">
-        <h2 className="formRegistration-title">New Customer</h2>
+      <div className={styles.formContent}>
+        <h2 className={styles.formRegistrationTitle}>New Customer</h2>
         <Form {...formItemLayout} form={form} name="register" onFinish={handleForm} scrollToFirstError>
           <Form.Item name="email" label="E-mail" required rules={checkEmail()}>
             <Input placeholder="example@email.com" />
@@ -204,11 +204,14 @@ const RegistrationForm: FC = () => {
             <Input />
           </Form.Item>
 
-          <div className="checkbox-inner">
-            <Checkbox onChange={() => setIsDefaultShipping(!isDefaultShippingAddress)} className="checkox-default">
+          <div className={styles.checkboxInner}>
+            <Checkbox
+              onChange={() => setIsDefaultShipping(!isDefaultShippingAddress)}
+              className={styles.checkoxDefault}
+            >
               Set as a default address
             </Checkbox>
-            <Checkbox onChange={() => setSameAddress(!isSameAddress)} className="checkox-same">
+            <Checkbox onChange={() => setSameAddress(!isSameAddress)} className={styles.checkoxSame}>
               Set the same shipping and billing address
             </Checkbox>
           </div>
@@ -246,8 +249,11 @@ const RegistrationForm: FC = () => {
                 <Input />
               </Form.Item>
 
-              <div className="checkbox-inner">
-                <Checkbox onChange={() => setIsDefaultBilling(!isDefaultBillingAddress)} className="checkox-default">
+              <div className={styles.checkboxInner}>
+                <Checkbox
+                  onChange={() => setIsDefaultBilling(!isDefaultBillingAddress)}
+                  className={styles.checkoxDefault}
+                >
                   Set as a default address
                 </Checkbox>
               </div>
