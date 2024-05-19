@@ -3,7 +3,7 @@ import { AccessTokenReject } from 'entities/User';
 interface RegisterSchema {
   customerId?: string;
   isLoading: boolean;
-  error?: string;
+  error?: ErrorRegistretionDataResponse;
 }
 
 interface UserCredentials {
@@ -27,6 +27,11 @@ interface Address {
   postalCode: string;
   city: string;
   country: string;
+}
+
+interface UserData {
+  username: string;
+  password: string;
 }
 
 interface FormDataCredentials extends UserCredentials {
@@ -78,6 +83,19 @@ interface RefreshTokenSucces {
   };
 }
 
+type ErrorRegistretionDataResponse = {
+  header: string;
+  message: string;
+};
+
 interface RegistrationReject extends Omit<AccessTokenReject, 'error'> {}
 
-export { UserCredentials, FormDataCredentials, RegisterSchema, RefreshTokenSucces, RegistrationReject };
+export {
+  UserCredentials,
+  FormDataCredentials,
+  RegisterSchema,
+  RefreshTokenSucces,
+  RegistrationReject,
+  ErrorRegistretionDataResponse,
+  UserData,
+};
