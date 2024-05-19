@@ -3,9 +3,9 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 6rem;
-  padding: 0 2rem;
   margin: 0;
+  min-height: 5rem;
+  padding: 0 1rem;
   background-color: var(--main-color-4);
 }
 
@@ -28,6 +28,8 @@
   border-radius: 10px;
   padding: 0.3rem 0.5rem;
   transition: all 20ms;
+  font-family: Poppins, sans-serif;
+  font-weight: 300;
 }
 
 .link-header:hover {
@@ -36,4 +38,12 @@
 
 .ant-menu-item-selected .link-header {
   border-color: var(--main-color-0);
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected {
+  background-color: transparent;
+}
+
+.ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected:hover {
+  background-color: transparent;
 }

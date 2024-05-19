@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 const PrimaryControlButton = styled(Button)`
   width: 6rem;
-  background: var(--green);
+  background: var(--main-color-3);
   &:hover {
-    background: var(--main-color-3) !important;
+    background: var(--green) !important;
   }
 `;
 

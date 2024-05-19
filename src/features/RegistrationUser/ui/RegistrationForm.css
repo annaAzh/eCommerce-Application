@@ -1,70 +1,16 @@
-.form-content {
-  max-width: 600px;
-  width: 100%;
-  margin: 20px auto;
-  border-radius: 3px;
-  background: var(--main-color-1);
-  border: 1px solid var(--main-color-4);
-  padding: 3rem 1rem 1rem;
+#register .ant-form-item-label {
+  text-transform: uppercase;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
 }
 
-.formRegistration-title {
-  text-align: center;
-  margin-bottom: 20px;
+#register .ant-form-item .ant-form-item-label > label {
+  color: var(--main-color-3);
+  font-size: 12px;
 }
 
 @media (width <= 575px) {
-  .ant-form-item {
+  #register > .ant-form-item {
     margin-bottom: 8px;
-  }
-}
-
-.form-notification {
-  border-radius: 10px;
-  border: 1px solid var(--main-color-1);
-  padding: 40px;
-  margin: auto;
-  text-align: center;
-  background-color: var(--main-color-1);
-  box-shadow: 0 4px 8px 6px rgba(#111, 10%);
-}
-
-.form-title {
-  font-size: 36px;
-  color: var(--green);
-  max-width: 500px;
-}
-
-.form-icon {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 20px;
-}
-
-.checkbox-inner {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  margin-left: 190px;
-  gap: 8px;
-}
-
-.checkox-default {
-  border: 1px solid var(--main-color-3);
-  padding: 5px;
-  border-radius: 4px;
-  width: fit-content;
-}
-
-.checkox-same {
-  border: 1px solid var(--green);
-  padding: 5px;
-  border-radius: 4px;
-  width: fit-content;
-}
-
-@media (width <= 575px) {
-  .checkbox-inner {
-    margin-left: 0;
-    grid-template-columns: repeat(1, 1fr);
   }
 }
