@@ -67,7 +67,7 @@ const RegistrationForm: FC = () => {
   }, [customerId]);
 
   useEffect(() => {
-    if (!registerError || isLogined) return;
+    if (!registerError) return;
     dispatch(
       setNotificationMessage({
         message: registerError.header,
@@ -79,7 +79,7 @@ const RegistrationForm: FC = () => {
   }, [registerError]);
 
   useEffect(() => {
-    if (!userError || isLogined) return;
+    if (!userError) return;
     dispatch(
       setNotificationMessage({
         message: userError,
