@@ -31,4 +31,16 @@ interface PasswordFlownReject extends AccessTokenReject {
   error_description: string;
 }
 
-export { ErrorWithResponse, AccessTokenReject, AccessTokenSuccess, PasswordFlowSuccess, PasswordFlownReject };
+type LoginData = {
+  username: string;
+  password: string;
+};
+
+export {
+  ErrorWithResponse,
+  AccessTokenReject,
+  AccessTokenSuccess,
+  PasswordFlowSuccess,
+  PasswordFlownReject,
+  LoginData,
+};
