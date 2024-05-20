@@ -1,6 +1,6 @@
 import { checkContainOnlyLetters } from './validationRules/checkContainOnlyLetters';
 
-const validValues = ['SCvsdfd', 'S', 'Skdal', 't'];
+const validValues = ['SCvsdfd', 'S', 'Skdal', 't', 'Los Angeles'];
 const invalidValues = ['1', 'С', 'ш'];
 
 describe('testing checkInput validation rules', () => {
