@@ -14,15 +14,17 @@ const state: DeepPartial<RootState> = {
   },
 };
 
+const rootState = state as RootState;
+
 describe('testing Login selectors', () => {
   it('test getLoginResponseId', () => {
-    expect(getLoginResponseId(state as RootState)).toEqual(randomNumberMock);
+    expect(getLoginResponseId(rootState)).toEqual(randomNumberMock);
   });
   it('test getLoginCustomerId', () => {
-    expect(getLoginCustomerId(state as RootState)).toBeUndefined();
+    expect(getLoginCustomerId(rootState)).toBeUndefined();
   });
   it('test getLoginError', () => {
-    expect(getLoginError(state as RootState)).toBeDefined();
-    expect(getLoginError(state as RootState)).toEqual(testError);
+    expect(getLoginError(rootState)).toBeDefined();
+    expect(getLoginError(rootState)).toEqual(testError);
   });
 });

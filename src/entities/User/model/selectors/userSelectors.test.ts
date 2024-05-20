@@ -13,14 +13,16 @@ const state: DeepPartial<RootState> = {
   },
 };
 
+const rootState = state as RootState;
+
 describe('testing user selectors', () => {
   it('test getAccessToken', () => {
-    expect(getAccessToken(state as RootState)).toBeUndefined();
+    expect(getAccessToken(rootState)).toBeUndefined();
   });
   it('test getUserIsLoginedStatus', () => {
-    expect(getUserIsLoginedStatus(state as RootState)).toBeFalsy();
+    expect(getUserIsLoginedStatus(rootState)).toBeFalsy();
   });
   it('test getUserError', () => {
-    expect(getUserError(state as RootState)).toEqual(errorMsg);
+    expect(getUserError(rootState)).toEqual(errorMsg);
   });
 });
