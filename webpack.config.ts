@@ -21,6 +21,7 @@ module.exports = (env: EnvVar) => {
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
       path: path.resolve(__dirname, 'build'),
+      publicPath: '/',
       filename: '[name][contenthash].js',
       clean: true,
     },

@@ -8,3 +8,9 @@ declare module '*.module.css' {
   const classNames: ClassNames;
   export = classNames;
 }
+
+type DeepPartial<T> = T extends object
+  ? {
+      [P in keyof T]?: DeepPartial<T[P]>;
+    }
+  : T;

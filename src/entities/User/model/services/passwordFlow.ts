@@ -1,16 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ErrorWithResponse } from 'entities/User';
-import { PasswordFlowSuccess, PasswordFlownReject } from '../types/tokenTypes';
+import { LoginData, PasswordFlowSuccess, PasswordFlownReject } from '../types/tokenTypes';
 
 const AUTH_URL = process.env.AUTH_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const CLIENT_ID = process.env.CLIENT_ID || '';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
-type LoginData = {
-  username: string;
-  password: string;
-};
+
 export const passwordFlow = createAsyncThunk('user/passwordFlow', async (loginData: LoginData, thunkAPI) => {
   try {
     const { username, password } = loginData;
