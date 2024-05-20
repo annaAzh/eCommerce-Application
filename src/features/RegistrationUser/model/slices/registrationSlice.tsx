@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { register } from '../services/requestRegistration';
-import { RegisterSchema } from '../types/registrationTypes';
+import { ErrorRegistretionDataResponse, RegisterSchema } from '../types/registrationTypes';
 import { RefreshTokenSucces } from '../types/registrationTypes';
 
 const initialState: RegisterSchema = {
@@ -12,7 +12,11 @@ const initialState: RegisterSchema = {
 export const RegisterSlice = createSlice({
   name: 'authUser',
   initialState,
-  reducers: {},
+  reducers: {
+    clearRegisterError(state: RegisterSchema) {
+      state.error = undefined;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(register.fulfilled, (state, action: PayloadAction<RefreshTokenSucces>) => {
@@ -25,9 +29,11 @@ export const RegisterSlice = createSlice({
       })
       .addCase(register.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
-        state.error = action.payload as string;
+        state.error = action.payload as ErrorRegistretionDataResponse;
       });
   },
 });
+
+export const { clearRegisterError } = RegisterSlice.actions;
 
 export const { reducer: registerReducer } = RegisterSlice;

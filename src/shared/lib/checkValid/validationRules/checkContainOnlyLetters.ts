@@ -1,4 +1,4 @@
 export function checkContainOnlyLetters(str: string): boolean {
-  const regex = /^[A-Za-z]+$/;
+  const regex = /^(?!\s)[A-Za-z\s]+$/;
   return !regex.test(str);
 }

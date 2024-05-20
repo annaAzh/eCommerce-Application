@@ -3,8 +3,11 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 2rem;
+  padding: 1rem;
   background-color: var(--main-color-4);
   color: var(--main-color-2);
-  font-size: 24px;
+  font-size: 18px;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
 }
