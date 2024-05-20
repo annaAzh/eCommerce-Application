@@ -3,7 +3,7 @@ import { RootState } from 'app/providers/storeProvider';
 
 const errorMsg = 'test error';
 const state: DeepPartial<RootState> = {
-  userAccessToken: {
+  user: {
     user: {
       isLogined: false,
       accessToken: undefined,

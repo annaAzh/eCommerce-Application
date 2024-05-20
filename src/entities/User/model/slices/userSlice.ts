@@ -12,7 +12,7 @@ const initialState: UserSchema = {
   error: undefined,
 };
 
-export const userAccessTokenSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -56,6 +56,6 @@ export const userAccessTokenSlice = createSlice({
   },
 });
 
-export const { reducer: userAccessTokenReducer } = userAccessTokenSlice;
+export const { reducer: userReducer } = userSlice;
 
-export const { setUserId, setUserIsLoginedStatus, clearUserError } = userAccessTokenSlice.actions;
+export const { setUserId, setUserIsLoginedStatus, clearUserError } = userSlice.actions;
