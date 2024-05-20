@@ -32,5 +32,11 @@
     "no-param-reassign": "off",
     "@typescript-eslint/no-explicit-any": "error",
     "react/react-in-jsx-scope": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto",
+      },
+    ],
   },
 }
