@@ -1,17 +1,22 @@
-import { initialLoginState } from '../../../../app/__mocks__/login/loginMock';
 import { requestLogin } from '../services/requestLogin';
-import { LoginData, RefreshTokenSucces } from '../types/loginTypes';
+import { LoginData, LoginSchema, RefreshTokenSucces } from '../types/loginTypes';
 import { clearLoginError, loginReducer } from './loginSlice';
 
 const loginData: LoginData = { username: 'test', password: 'test', token: 'test' };
+const initialState: LoginSchema = {
+  customerId: undefined,
+  isLoading: false,
+  error: { header: 'test', message: 'another test' },
+  responeId: Math.random(),
+};
 
 describe('Testing login slice', () => {
   it('should return default state', () => {
-    const state = loginReducer(initialLoginState, { type: '' });
-    expect(state).toEqual(initialLoginState);
+    const state = loginReducer(initialState, { type: '' });
+    expect(state).toEqual(initialState);
   });
   it('should return error equal undefined', () => {
-    const state = loginReducer(initialLoginState, { type: clearLoginError.type });
+    const state = loginReducer(initialState, { type: clearLoginError.type });
     expect(state.error).toBeUndefined();
   });
   it('should return new customer id', () => {
@@ -53,15 +58,15 @@ describe('Testing login slice', () => {
       },
     };
     const state = loginReducer(
-      initialLoginState,
-      requestLogin.fulfilled(mockData, 'login/requestLoginToken', loginData),
+      initialState,
+      requestLogin.fulfilled(mockData, 'requestLoginToken/fulfilled', loginData),
     );
     expect(state.customerId).toEqual(mockData.customer.id);
-    expect(state.responeId).not.toEqual(initialLoginState.responeId);
+    expect(state.responeId).not.toEqual(initialState.responeId);
   });
   it('should return pending equal true', () => {
-    const state = loginReducer(initialLoginState, requestLogin.pending('login/requestLoginToken', loginData));
+    const state = loginReducer(initialState, requestLogin.pending('requestLoginToken/pending', loginData));
     expect(state.isLoading).toBeTruthy();
-    expect(state.responeId).toEqual(initialLoginState.responeId);
+    expect(state.responeId).toEqual(initialState.responeId);
   });
 });

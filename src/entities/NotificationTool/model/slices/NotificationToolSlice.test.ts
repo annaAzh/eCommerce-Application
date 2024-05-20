@@ -1,19 +1,35 @@
-import { initialNotificationState, payload } from '../../../../app/__mocks__/notification/notificationMock';
+import { NotificationToolSchema } from 'entities/NotificationTool';
 import { notificationReducer, setNotificationMessage } from './NotificationToolSlice';
 
 const randomNumberMock = 0.5;
+jest.spyOn(global.Math, 'random').mockImplementation(() => randomNumberMock);
+
+const initialState: NotificationToolSchema = {
+  message: 'test',
+  type: 'info',
+  description: 'another test',
+  placement: 'bottomRight',
+  messageId: Math.random(),
+};
+
+const expectedState: NotificationToolSchema = {
+  message: 'new value',
+  type: 'error',
+  description: 'new description value',
+  placement: 'top',
+};
 
 describe('Testing NotificationTool slice', () => {
   it('should return default state', () => {
-    const state = notificationReducer(initialNotificationState, { type: '' });
-    expect(state).toEqual(initialNotificationState);
+    const state = notificationReducer(initialState, { type: '' });
+    expect(state).toEqual(initialState);
   });
   it('should return a value equal to the payload', () => {
-    const state = notificationReducer(initialNotificationState, {
+    const state = notificationReducer(initialState, {
       type: setNotificationMessage.type,
-      payload: payload,
+      payload: expectedState,
     });
-    expect(state).not.toEqual(initialNotificationState);
-    expect(state).toEqual({ ...payload, messageId: randomNumberMock });
+    expect(state).not.toEqual(initialState);
+    expect(state).toEqual({ ...expectedState, messageId: randomNumberMock });
   });
 });

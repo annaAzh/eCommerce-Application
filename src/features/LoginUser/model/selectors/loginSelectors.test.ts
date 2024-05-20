@@ -1,16 +1,28 @@
 import { getLoginCustomerId, getLoginError, getLoginResponseId } from './loginSelectors';
-import { initialLoginState } from '../../../../app/__mocks__/login/loginMock';
-import { mockStore } from '../../../../app/__mocks__/store/storeMock';
+import { RootState } from 'app/providers/storeProvider';
+
+const randomNumberMock = 0.5;
+jest.spyOn(global.Math, 'random').mockImplementation(() => randomNumberMock);
+
+const testError = { header: 'test', message: 'another test' };
+const state: DeepPartial<RootState> = {
+  login: {
+    customerId: undefined,
+    isLoading: false,
+    error: testError,
+    responeId: Math.random(),
+  },
+};
 
 describe('testing Login selectors', () => {
   it('test getLoginResponseId', () => {
-    expect(getLoginResponseId(mockStore)).toEqual(initialLoginState.responeId);
+    expect(getLoginResponseId(state as RootState)).toEqual(randomNumberMock);
   });
   it('test getLoginCustomerId', () => {
-    expect(getLoginCustomerId(mockStore)).toEqual(initialLoginState.customerId);
+    expect(getLoginCustomerId(state as RootState)).toBeUndefined();
   });
   it('test getLoginError', () => {
-    expect(getLoginError(mockStore)).toBeDefined();
-    expect(getLoginError(mockStore)).toEqual(initialLoginState.error);
+    expect(getLoginError(state as RootState)).toBeDefined();
+    expect(getLoginError(state as RootState)).toEqual(testError);
   });
 });

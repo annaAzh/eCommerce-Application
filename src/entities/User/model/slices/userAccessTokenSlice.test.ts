@@ -1,31 +1,39 @@
-import { initialUserState } from '../../../../app/__mocks__/user/userMock';
+import { UserSchema } from 'entities/User';
 import { passwordFlow } from '../services/passwordFlow';
 import { requestAccessToken } from '../services/requestAccessToken';
 import { AccessTokenSuccess, LoginData, PasswordFlowSuccess } from '../types/tokenTypes';
 import { clearUserError, setUserId, setUserIsLoginedStatus, userAccessTokenReducer } from './userAccessTokenSlice';
 
 const loginData: LoginData = { username: 'test', password: 'test' };
+const initialState: UserSchema = {
+  user: {
+    isLogined: false,
+    accessToken: undefined,
+  },
+  isLoading: false,
+  error: undefined,
+};
 
 describe('Testing login slice', () => {
   it('should return default state', () => {
-    const state = userAccessTokenReducer(initialUserState, { type: '' });
-    expect(state).toEqual(initialUserState);
+    const state = userAccessTokenReducer(initialState, { type: '' });
+    expect(state).toEqual(initialState);
   });
   it('should return userId equal payload', () => {
     const payload = 'ddaSDASs';
-    const state = userAccessTokenReducer(initialUserState, { type: setUserId.type, payload });
+    const state = userAccessTokenReducer(initialState, { type: setUserId.type, payload });
     expect(state.user.userId).toBeDefined();
     expect(state.user.userId).toEqual(payload);
   });
   it('should return isLogined status equal payload', () => {
     const payload = true;
-    expect(initialUserState.isLoading).toBeFalsy();
-    const state = userAccessTokenReducer(initialUserState, { type: setUserIsLoginedStatus.type, payload });
+    expect(initialState.isLoading).toBeFalsy();
+    const state = userAccessTokenReducer(initialState, { type: setUserIsLoginedStatus.type, payload });
     expect(state.user.isLogined).toEqual(payload);
     expect(state.user.isLogined).toBeTruthy();
   });
   it('default error should be undefined', () => {
-    const state = userAccessTokenReducer(initialUserState, { type: clearUserError.type });
+    const state = userAccessTokenReducer(initialState, { type: clearUserError.type });
     expect(state.error).toBeUndefined();
   });
   it('should return new acces token', () => {
@@ -36,15 +44,15 @@ describe('Testing login slice', () => {
       token_type: 'another test',
     };
     const state = userAccessTokenReducer(
-      initialUserState,
-      requestAccessToken.fulfilled(payload, 'user/requestAccessToken'),
+      initialState,
+      requestAccessToken.fulfilled(payload, 'requestAccessToken/fulfilled'),
     );
     expect(state.error).toBeUndefined();
     expect(state.isLoading).toBeFalsy();
     expect(state.user.accessToken).toEqual(payload.access_token);
   });
   it('isLoading should be true', () => {
-    const state = userAccessTokenReducer(initialUserState, requestAccessToken.pending('user/requestAccessToken'));
+    const state = userAccessTokenReducer(initialState, requestAccessToken.pending('requestAccessToken/pending'));
     expect(state.isLoading).toBeTruthy();
   });
   it('test passwordFlow fulfilled', () => {
@@ -56,7 +64,7 @@ describe('Testing login slice', () => {
       refresh_token: 'test refresh',
     };
     const state = userAccessTokenReducer(
-      initialUserState,
+      initialState,
       passwordFlow.fulfilled(payload, 'passwordFlow/fulfilled', loginData),
     );
     expect(state.isLoading).toBeFalsy();
@@ -65,7 +73,7 @@ describe('Testing login slice', () => {
     expect(state.user.isLogined).toBeTruthy();
   });
   it('test passwordFlow pending', () => {
-    const state = userAccessTokenReducer(initialUserState, passwordFlow.pending('passwordFlow/pending', loginData));
+    const state = userAccessTokenReducer(initialState, passwordFlow.pending('passwordFlow/pending', loginData));
     expect(state.isLoading).toBeTruthy();
   });
 });

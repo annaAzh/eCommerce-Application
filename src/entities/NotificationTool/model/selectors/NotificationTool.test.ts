@@ -1,7 +1,17 @@
 import { getAllNotificationProps } from './NotificationTool';
-import { initialNotificationState } from '../../../../app/__mocks__/notification/notificationMock';
-import { mockStore } from '../../../../app/__mocks__/store/storeMock';
+import { RootState } from 'app/providers/storeProvider';
 
-test('test getLoginResponseId', () => {
-  expect(getAllNotificationProps(mockStore)).toEqual(initialNotificationState);
+const state: DeepPartial<RootState> = {
+  notification: {
+    message: 'test',
+    type: 'info',
+    description: 'another test',
+    placement: 'bottomRight',
+    messageId: Math.random(),
+  },
+};
+
+test('testing notification selector getAllNotificationProps', () => {
+  expect(getAllNotificationProps(state as RootState)).toBeDefined();
+  expect(getAllNotificationProps(state as RootState)).toEqual(state.notification);
 });
