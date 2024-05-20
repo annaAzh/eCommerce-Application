@@ -3,7 +3,6 @@ import { UserSchema } from '../types/userTypes';
 import { AccessTokenSuccess, PasswordFlowSuccess } from '../types/tokenTypes';
 import { requestAccessToken } from '../services/requestAccessToken';
 import { passwordFlow } from '../services/passwordFlow';
-import { setLocalStoreState } from '../../../../shared/lib/storeState/storeState';
 
 const initialState: UserSchema = {
   user: {
@@ -13,7 +12,7 @@ const initialState: UserSchema = {
   error: undefined,
 };
 
-export const userAccessTokenSlice = createSlice({
+export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
@@ -45,7 +44,6 @@ export const userAccessTokenSlice = createSlice({
         state.isLoading = false;
         state.error = undefined;
         state.user.accessToken = payload.access_token;
-        setLocalStoreState(state.user.accessToken);
         state.user.isLogined = true;
       })
       .addCase(passwordFlow.pending, (state) => {
@@ -58,6 +56,6 @@ export const userAccessTokenSlice = createSlice({
   },
 });
 
-export const { reducer: userAccessTokenReducer } = userAccessTokenSlice;
+export const { reducer: userReducer } = userSlice;
 
-export const { setUserId, setUserIsLoginedStatus, clearUserError } = userAccessTokenSlice.actions;
+export const { setUserId, setUserIsLoginedStatus, clearUserError } = userSlice.actions;

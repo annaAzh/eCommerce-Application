@@ -6,7 +6,7 @@ const initialState: LoginSchema = {
   customerId: undefined,
   isLoading: false,
   error: undefined,
-  responeId: Math.random(),
+  responseId: Math.random(),
 };
 
 export const loginSlice = createSlice({
@@ -23,7 +23,7 @@ export const loginSlice = createSlice({
         state.isLoading = false;
         state.error = undefined;
         state.customerId = action.payload.customer.id;
-        state.responeId = Math.random();
+        state.responseId = Math.random();
       })
       .addCase(requestLogin.pending, (state) => {
         state.isLoading = true;
@@ -31,7 +31,7 @@ export const loginSlice = createSlice({
       .addCase(requestLogin.rejected, (state, action: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = action.payload as ErrorDataResponse;
-        state.responeId = Math.random();
+        state.responseId = Math.random();
       });
   },
 });

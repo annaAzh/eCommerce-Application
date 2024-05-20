@@ -10,7 +10,7 @@ const getLoginError = (state: RootState): ErrorDataResponse | undefined => {
 };
 
 const getLoginResponseId = (state: RootState): number => {
-  return state.login.responeId;
+  return state.login.responseId;
 };
 
 export { getLoginCustomerId, getLoginError, getLoginResponseId };

@@ -5,7 +5,7 @@ import { LoginSchema } from 'features/LoginUser';
 import { RegisterSchema } from 'features/RegistrationUser';
 
 export interface StateSchema {
-  userAccessToken: Reducer<UserSchema>;
+  user: Reducer<UserSchema>;
   login: Reducer<LoginSchema>;
   auth: Reducer<RegisterSchema>;
   notification: Reducer<NotificationToolSchema>;

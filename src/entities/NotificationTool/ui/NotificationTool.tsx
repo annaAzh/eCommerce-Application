@@ -8,13 +8,12 @@ const NotificationTool: FC = () => {
   const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
-    if (message) {
-      api[type]({
-        message,
-        description,
-        placement,
-      });
-    }
+    if (!message) return;
+    api[type]({
+      message,
+      description,
+      placement,
+    });
   }, [messageId]);
 
   return <>{contextHolder}</>;

@@ -6,11 +6,6 @@ export { passwordFlow } from './model/services/passwordFlow';
 
 export { ErrorWithResponse, AccessTokenReject, AccessTokenSuccess } from './model/types/tokenTypes';
 
-export {
-  userAccessTokenReducer,
-  setUserId,
-  setUserIsLoginedStatus,
-  clearUserError,
-} from './model/slices/userAccessTokenSlice';
+export { userReducer, setUserId, setUserIsLoginedStatus, clearUserError } from './model/slices/userSlice';
 
 export { UserSchema } from './model/types/userTypes';

@@ -10,8 +10,9 @@ const state: DeepPartial<RootState> = {
     messageId: Math.random(),
   },
 };
+const rootState = state as RootState;
 
 test('testing notification selector getAllNotificationProps', () => {
-  expect(getAllNotificationProps(state as RootState)).toBeDefined();
-  expect(getAllNotificationProps(state as RootState)).toEqual(state.notification);
+  expect(getAllNotificationProps(rootState)).toBeDefined();
+  expect(getAllNotificationProps(rootState)).toEqual(state.notification);
 });
