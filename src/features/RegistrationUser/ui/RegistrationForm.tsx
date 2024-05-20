@@ -154,7 +154,7 @@ const RegistrationForm: FC = () => {
               <Input placeholder="example@email.com" />
             </Form.Item>
             <Form.Item name="password" label="Password" required rules={checkPassword()}>
-              <Input.Password />
+              <Input.Password autoComplete="on" />
             </Form.Item>
             <Form.Item
               name="confirm"
@@ -163,7 +163,7 @@ const RegistrationForm: FC = () => {
               dependencies={['password']}
               rules={checkConfirmPassword()}
             >
-              <Input.Password />
+              <Input.Password autoComplete="on" />
             </Form.Item>
             <Form.Item name="firstName" label="First name" required rules={checkInput('First name')}>
               <Input />
