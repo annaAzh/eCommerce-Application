@@ -3,7 +3,6 @@ import { UserSchema } from '../types/userTypes';
 import { AccessTokenSuccess, PasswordFlowSuccess } from '../types/tokenTypes';
 import { requestAccessToken } from '../services/requestAccessToken';
 import { passwordFlow } from '../services/passwordFlow';
-import { setLocalStoreState } from '../../../../shared/lib/storeState/storeState';
 
 const initialState: UserSchema = {
   user: {
@@ -45,7 +44,6 @@ export const userAccessTokenSlice = createSlice({
         state.isLoading = false;
         state.error = undefined;
         state.user.accessToken = payload.access_token;
-        setLocalStoreState(state.user.accessToken);
         state.user.isLogined = true;
       })
       .addCase(passwordFlow.pending, (state) => {
