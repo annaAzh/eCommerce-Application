@@ -10,7 +10,7 @@ const state: DeepPartial<RootState> = {
     customerId: undefined,
     isLoading: false,
     error: testError,
-    responeId: Math.random(),
+    responseId: Math.random(),
   },
 };
 

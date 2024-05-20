@@ -7,7 +7,7 @@ const initialState: LoginSchema = {
   customerId: undefined,
   isLoading: false,
   error: { header: 'test', message: 'another test' },
-  responeId: Math.random(),
+  responseId: Math.random(),
 };
 
 describe('Testing login slice', () => {
@@ -62,11 +62,11 @@ describe('Testing login slice', () => {
       requestLogin.fulfilled(mockData, 'requestLoginToken/fulfilled', loginData),
     );
     expect(state.customerId).toEqual(mockData.customer.id);
-    expect(state.responeId).not.toEqual(initialState.responeId);
+    expect(state.responseId).not.toEqual(initialState.responseId);
   });
   it('should return pending equal true', () => {
     const state = loginReducer(initialState, requestLogin.pending('requestLoginToken/pending', loginData));
     expect(state.isLoading).toBeTruthy();
-    expect(state.responeId).toEqual(initialState.responeId);
+    expect(state.responseId).toEqual(initialState.responseId);
   });
 });
