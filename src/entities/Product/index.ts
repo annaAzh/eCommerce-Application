@@ -1,4 +1,4 @@
-export { getProducts } from './model/productSelectors/productSelectors';
+export { getProducts, getProductIsLoading } from './model/productSelectors/productSelectors';
 
 export { ProductCard } from './ui/ProductCard';
 
