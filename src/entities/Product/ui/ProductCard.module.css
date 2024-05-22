@@ -1,26 +1,58 @@
 .card {
-  width: 200px;
+  width: 400px;
   height: 300px;
   border: 1px solid var(--main-color-4);
-  border-radius: 5px;
+  border-radius: 4px;
   display: flex;
-  flex-direction: column;
-  gap: 2%;
   align-items: center;
   text-align: center;
   padding: 0.3%;
   background: white;
+  user-select: none;
+  overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .imageCover {
-  width: 140px;
+  width: 40%;
+  margin: 0 -5%;
 }
 
 .image {
   width: 100%;
 }
 
-.description {
-  font-size: 9px;
+.descriptionCover {
+  width: 70%;
+  height: calc(100% - (2% * 2));
+  display: flex;
+  flex-direction: column;
+  gap: 4%;
   overflow: hidden;
+}
+
+.description {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--main-color-3);
+}
+
+.name {
+  width: 100%;
+  padding-bottom: 1%;
+  color: var(--blue);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--red), transparent);
+  }
 }

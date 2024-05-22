@@ -1,8 +1,8 @@
 .productList {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  flex-grow: 1;
   margin: 1%;
+  justify-content: center;
+  gap: 1rem;
+  flex-grow: 1;
 }
