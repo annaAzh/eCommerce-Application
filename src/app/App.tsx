@@ -5,8 +5,8 @@ import './styles/style.css';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getLocalStoreState } from 'shared/lib/storeState/storeState';
 import { getAccessToken, requestAccessToken, setUserIsLoginedStatus } from 'entities/User';
-import { getProducts } from 'entities/Product';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
+import { getAllProducts } from 'entities/Product';
 
 const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ const App: FC = () => {
 
   useEffect(() => {
     if (!token) return;
-    dispatch(getProducts(token));
+    dispatch(getAllProducts(token));
   }, [token]);
 
   return <RouteProvider />;

@@ -1,4 +1,5 @@
 interface ProductSchema {
+  products: Product[];
   error?: string;
   isLoading: boolean;
 }
