@@ -1,16 +1,39 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { GetProductResponse, Images, Product, ProductResponse } from '../types/productTypes';
+import { FormattedPrice, GetProductResponse, Images, Prices, Product, ProductResponse } from '../types/productTypes';
 import { BaseTokenError, ErrorWithResponse } from 'shared/types';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
+
+const setPrices = (prices: Prices): FormattedPrice => {
+  const result: FormattedPrice = {
+    currentPrice: '0$',
+  };
+
+  if (prices.value) {
+    const { currencyCode, centAmount, fractionDigits } = prices.value;
+    const currentCurrency = currencyCode === 'USD' ? '$' : '';
+    const currentPrice = `${(centAmount / 100).toFixed(fractionDigits)}${currentCurrency}`;
+    result.currentPrice = currentPrice;
+  }
+
+  if (prices.discounted) {
+    const { currencyCode, centAmount, fractionDigits } = prices.discounted.value;
+    const discountedCurrency = currencyCode === 'USD' ? '$' : '';
+    const discountedPrice = `${(centAmount / 100).toFixed(fractionDigits)}${discountedCurrency}`;
+    result.discountedPrice = discountedPrice;
+  }
+
+  return result;
+};
 
 const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product[] => {
   const result: Product[] = [];
 
   products.results.forEach((product: ProductResponse) => {
     const basePath = product.masterData.staged;
+    const basePricePath = basePath.masterVariant.prices[0];
 
     const images: string[] = basePath.masterVariant.images.map((image: Images) => image.url);
 
@@ -19,8 +42,8 @@ const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product
       name: basePath.name['en-US'] || '',
       description: basePath.description['en-US'] || '',
       images,
+      prices: setPrices(basePricePath),
     };
-
     result.push(newProductEntry);
   });
 
