@@ -4,7 +4,7 @@ interface ProductSchema {
   isLoading: boolean;
 }
 
-interface GetProdactResponse {
+interface GetProductResponse {
   results: ProductResponse[];
 }
 type ProductResponse = {
@@ -38,4 +38,4 @@ interface Product {
   images: string[];
 }
 
-export { ProductSchema, GetProdactResponse, Product, Images, ProductResponse };
+export { ProductSchema, GetProductResponse, Product, Images, ProductResponse };
