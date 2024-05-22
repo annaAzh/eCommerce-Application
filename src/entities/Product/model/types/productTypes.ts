@@ -19,10 +19,28 @@ type ProductResponse = {
       };
       masterVariant: {
         images: Images[];
+        prices: Prices[];
       };
     };
   };
 };
+
+type Prices = {
+  discounted?: {
+    value: {
+      centAmount: number;
+      currencyCode: CurrencyCodes;
+      fractionDigits: number;
+    };
+  };
+  value?: {
+    centAmount: number;
+    currencyCode: CurrencyCodes;
+    fractionDigits: number;
+  };
+};
+
+type CurrencyCodes = 'USD';
 type Images = {
   dimensions: {
     h: number;
@@ -36,6 +54,9 @@ interface Product {
   name: string;
   description: string;
   images: string[];
+  prices: FormattedPrice;
 }
 
-export { ProductSchema, GetProductResponse, Product, Images, ProductResponse };
+type FormattedPrice = { currentPrice: string; discountedPrice?: string };
+
+export { ProductSchema, GetProductResponse, Product, Images, ProductResponse, Prices, FormattedPrice };
