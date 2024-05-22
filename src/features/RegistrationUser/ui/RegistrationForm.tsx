@@ -42,7 +42,7 @@ const RegistrationForm: FC = () => {
   const registerError = useAppSelector(getRegisterError);
   const userError = useAppSelector(getUserError);
 
-  const [isUserData, setUserData] = useState<UserData>({ username: '', password: '' });
+  const [isUserData, setUserData] = useState<UserData>();
   const [isDefaultBillingAddress, setIsDefaultBilling] = useState<boolean>(false);
   const [isDefaultShippingAddress, setIsDefaultShipping] = useState<boolean>(false);
   const [isSameAddress, setSameAddress] = useState<boolean>(false);
@@ -60,11 +60,12 @@ const RegistrationForm: FC = () => {
     dispatch(passwordFlow(isUserData));
     dispatch(
       setNotificationMessage({
-        message: 'Registartion Successful',
+        message: 'Registration Successful',
         description: 'You have been registered successfully!',
       }),
     );
-    return setUserData({ username: '', password: '' });
+
+    setUserData(undefined);
   }, [customerId]);
 
   useEffect(() => {
