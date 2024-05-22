@@ -1,0 +1,26 @@
+.card {
+  width: 200px;
+  height: 300px;
+  border: 1px solid var(--main-color-4);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 2%;
+  align-items: center;
+  text-align: center;
+  padding: 0.3%;
+  background: white;
+}
+
+.imageCover {
+  width: 140px;
+}
+
+.image {
+  width: 100%;
+}
+
+.description {
+  font-size: 9px;
+  overflow: hidden;
+}
