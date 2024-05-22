@@ -1,0 +1,59 @@
+.container {
+  padding: 0 10px;
+}
+
+.formContent {
+  max-width: 600px;
+  width: 100%;
+  margin: 40px auto;
+  border-radius: 3px;
+  background: var(--main-color-1);
+  padding: 3rem 1rem 1rem;
+  box-shadow: 0 4px 8px 6px rgb(1 1 1 / 10%);
+}
+
+.formRegistrationTitle {
+  font-family: Poppins, sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.checkboxInner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin-left: 190px;
+  gap: 8px;
+}
+
+.checkoxDefault {
+  padding: 5px;
+  border-radius: 4px;
+  width: fit-content;
+  color: var(--main-color-3);
+}
+
+.checkoxSame {
+  padding: 5px;
+  border-radius: 4px;
+  width: fit-content;
+  color: var(--main-color-3);
+}
+
+@media (width <= 575px) {
+  .checkboxInner {
+    margin-left: 0;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.registerLink {
+  transition: all 0.3s ease-in;
+  color: var(--green);
+}
+
+.registerLink:hover {
+  color: var(--green);
+  filter: brightness(65%);
+}

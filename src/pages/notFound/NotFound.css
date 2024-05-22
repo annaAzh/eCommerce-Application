@@ -1,0 +1,56 @@
+.container-page-notFound {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  margin: auto;
+}
+
+.img-cat-page-notFound {
+  width: 35%;
+}
+
+.container-description-page-notFound {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rem;
+}
+
+.description-page-notFound {
+  font-size: 38px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.description-page-notFound span {
+  font-size: 135px;
+}
+
+.link-page-notFound {
+  font-size: 24px;
+}
+
+@media (width <= 768px) {
+  .container-page-notFound {
+    flex-direction: column;
+  }
+
+  .img-cat-page-notFound {
+    width: 70%;
+  }
+
+  .description-page-notFound {
+    font-size: 28px;
+
+    & span {
+      font-size: inherit;
+    }
+  }
+
+  .link-page-notFound {
+    font-size: 18px;
+  }
+}

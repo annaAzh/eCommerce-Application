@@ -1,0 +1,25 @@
+.formContent {
+  max-width: 400px;
+  width: 100%;
+  margin: auto;
+  border-radius: 3px;
+  background: var(--main-color-1);
+  padding: 3rem 1rem 1rem;
+  box-shadow: 0 4px 8px 6px rgb(1 1 1 / 10%);
+}
+
+.registerLink {
+  transition: all 0.3s ease-in;
+  color: var(--green);
+}
+
+.registerLink:hover {
+  color: var(--green);
+  filter: brightness(65%);
+}
+
+@media (width <= 400px) {
+  .formContent {
+    max-width: 380px;
+  }
+}

@@ -1,8 +1,9 @@
-import path from 'path';
-import { Configuration } from 'webpack';
+import path, { resolve } from 'path';
+import { Configuration, DefinePlugin } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import 'webpack-dev-server';
+import dotenv from 'dotenv';
 
 type Mode = 'production' | 'development';
 
@@ -13,20 +14,37 @@ interface EnvVar {
 
 module.exports = (env: EnvVar) => {
   const isDev = env.mode === 'development';
-  const isProd = env.mode === 'production';
+  const dotenvPath = dotenv.config({ path: path.resolve(__dirname, '.env') });
 
   const config: Configuration = {
     mode: env.mode ?? 'development',
     entry: path.resolve(__dirname, 'src', 'index.tsx'),
     output: {
       path: path.resolve(__dirname, 'build'),
+      publicPath: '/',
       filename: '[name][contenthash].js',
       clean: true,
     },
     module: {
       rules: [
         {
+          test: /\.module\.css$/i,
+          use: [
+            isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            {
+              loader: 'css-loader',
+              options: {
+                modules: {
+                  localIdentName: isDev ? '[path][name]__[local]--[hash:base64:5]' : '[hash:base64:8]',
+                  namedExport: false,
+                },
+              },
+            },
+          ],
+        },
+        {
           test: /\.css$/i,
+          exclude: /\.module\.css$/i,
           use: [isDev ? 'style-loader' : MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
@@ -46,6 +64,10 @@ module.exports = (env: EnvVar) => {
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      preferAbsolute: true,
+      modules: [resolve(__dirname, 'src'), 'node_modules'],
+      mainFiles: ['index'],
+      alias: {},
     },
     devServer: isDev
       ? {
@@ -58,8 +80,12 @@ module.exports = (env: EnvVar) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: path.resolve(__dirname, 'public', 'index.html'),
+        favicon: './public/svg/favicon.svg',
       }),
-      isProd &&
+      new DefinePlugin({
+        'process.env': JSON.stringify(dotenvPath.parsed),
+      }),
+      !isDev &&
         new MiniCssExtractPlugin({
           filename: '[name].[contenthash:8].css',
           chunkFilename: '[name].[contenthash:8].css',
