@@ -4,15 +4,17 @@ import './styles/variables/global.css';
 import './styles/style.css';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getLocalStoreState } from 'shared/lib/storeState/storeState';
-import { requestAccessToken, setUserIsLoginedStatus } from 'entities/User';
+import { requestAccessToken, setAccessToken, setUserIsLoginedStatus } from 'entities/User';
 
-const App: FC = () => {
+export const App: FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     const isLogined: boolean = getLocalStoreState() ? true : false;
     if (isLogined) {
       dispatch(setUserIsLoginedStatus(isLogined));
+      const token = getLocalStoreState();
+      dispatch(setAccessToken(token));
     }
 
     dispatch(requestAccessToken());
@@ -20,5 +22,3 @@ const App: FC = () => {
 
   return <RouteProvider />;
 };
-
-export { App };

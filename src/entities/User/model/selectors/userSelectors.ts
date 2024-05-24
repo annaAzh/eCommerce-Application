@@ -12,4 +12,12 @@ const getUserError = (state: RootState): string | undefined => {
   return state.user.error;
 };
 
-export { getUserIsLoginedStatus, getAccessToken, getUserError };
+const getUserProfileData = (state: RootState) => {
+  return state.user.user;
+};
+
+const getUserDataIsLoading = (state: RootState): boolean => {
+  return state.user.isLoading;
+};
+
+export { getUserIsLoginedStatus, getAccessToken, getUserError, getUserProfileData, getUserDataIsLoading };
