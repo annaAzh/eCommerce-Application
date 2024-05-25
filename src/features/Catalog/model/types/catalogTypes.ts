@@ -1,4 +1,6 @@
-interface ProductSchema {
+import { Product } from 'shared/types';
+
+interface CatalogSchema {
   products: Product[];
   error?: string;
   isLoading: boolean;
@@ -49,14 +51,4 @@ type Images = {
   url: string;
 };
 
-interface Product {
-  id: string;
-  name: string;
-  description: string;
-  images: string[];
-  prices: FormattedPrice;
-}
-
-type FormattedPrice = { currentPrice: string; discountedPrice?: string };
-
-export { ProductSchema, GetProductResponse, Product, Images, ProductResponse, Prices, FormattedPrice };
+export { CatalogSchema, GetProductResponse, Images, ProductResponse, Prices };

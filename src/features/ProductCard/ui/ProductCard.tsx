@@ -1,4 +1,4 @@
-import { Product } from '../model/types/productTypes';
+import { Product } from 'shared/types';
 import styles from './ProductCard.module.css';
 
 const ProductCard = ({ product }: { product: Product }): JSX.Element => {

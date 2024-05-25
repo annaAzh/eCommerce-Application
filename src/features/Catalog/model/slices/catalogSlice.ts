@@ -1,15 +1,16 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Product, ProductSchema } from '../types/productTypes';
+import { CatalogSchema } from '../types/catalogTypes';
 import { getAllProducts } from '../services/getAllProducts';
+import { Product } from 'shared/types';
 
-const initialState: ProductSchema = {
+const initialState: CatalogSchema = {
   products: [],
   isLoading: false,
   error: undefined,
 };
 
-export const productSlice = createSlice({
-  name: 'product',
+export const catalogSlice = createSlice({
+  name: 'catalog',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -29,6 +30,4 @@ export const productSlice = createSlice({
   },
 });
 
-export const { reducer: productReducer } = productSlice;
-
-export const {} = productSlice.actions;
+export const { reducer: catalogReducer } = catalogSlice;

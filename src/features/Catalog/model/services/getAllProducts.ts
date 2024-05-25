@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { FormattedPrice, GetProductResponse, Images, Prices, Product, ProductResponse } from '../types/productTypes';
-import { BaseTokenError, ErrorWithResponse } from 'shared/types';
+import { GetProductResponse, Images, Prices, ProductResponse } from '../types/catalogTypes';
+import { BaseTokenError, ErrorWithResponse, FormattedPrice, Product } from 'shared/types';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
@@ -50,7 +50,7 @@ const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product
   return result;
 };
 
-export const getAllProducts = createAsyncThunk('product/getAllProducts', async (token: string, thunkAPI) => {
+export const getAllProducts = createAsyncThunk('catalog/getAllProducts', async (token: string, thunkAPI) => {
   try {
     const res = await axios.get(`${API_URL}${PROJECT_KEY}/products`, {
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },

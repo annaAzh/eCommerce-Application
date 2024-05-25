@@ -1,10 +1,11 @@
-import { ProductCard, getAllProducts, getProductIsLoading, getProducts } from 'entities/Product';
+import { getAllProducts, getProductIsLoading, getProducts } from 'features/Catalog';
 import { getAccessToken } from 'entities/User';
 import { FC, useEffect } from 'react';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import styles from './ProductList.module.css';
 import { HashLoader } from 'react-spinners';
+import { ProductCard } from 'features/ProductCard';
 
 const ProductList: FC = () => {
   const dispatch = useAppDispatch();

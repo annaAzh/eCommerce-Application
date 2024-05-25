@@ -4,12 +4,12 @@ import { userReducer } from 'entities/User';
 import { loginReducer } from 'features/LoginUser';
 import { notificationReducer } from 'entities/NotificationTool';
 import { registerReducer } from 'features/RegistrationUser';
-import { productReducer } from 'entities/Product';
+import { catalogReducer } from 'features/Catalog';
 
 export const rootReducer = combineReducers<StateSchema>({
   user: userReducer,
   login: loginReducer,
   auth: registerReducer,
   notification: notificationReducer,
-  product: productReducer,
+  catalog: catalogReducer,
 });
