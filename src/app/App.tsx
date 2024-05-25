@@ -15,9 +15,9 @@ export const App: FC = () => {
       dispatch(setUserIsLoginedStatus(isLogined));
       const token = getLocalStoreState();
       dispatch(setAccessToken(token));
+    } else {
+      dispatch(requestAccessToken());
     }
-
-    dispatch(requestAccessToken());
   }, [dispatch]);
 
   return <RouteProvider />;
