@@ -11,19 +11,15 @@ interface GetProductResponse {
 }
 type ProductResponse = {
   id: string;
-  masterData: {
-    staged: {
-      description: {
-        'en-US'?: string;
-      };
-      name: {
-        'en-US'?: string;
-      };
-      masterVariant: {
-        images: Images[];
-        prices: Prices[];
-      };
-    };
+  description: {
+    'en-US'?: string;
+  };
+  name: {
+    'en-US'?: string;
+  };
+  masterVariant: {
+    images: Images[];
+    prices: Prices[];
   };
 };
 
@@ -51,4 +47,10 @@ type Images = {
   url: string;
 };
 
-export { CatalogSchema, GetProductResponse, Images, ProductResponse, Prices };
+type CatalogProps = {
+  token: string;
+  filter?: string;
+  sort?: string;
+};
+
+export { CatalogSchema, GetProductResponse, Images, ProductResponse, Prices, CatalogProps };

@@ -1,8 +1,14 @@
-.productList {
+.productListCover {
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: column;
   margin: 1%;
-  justify-content: center;
   gap: 1rem;
   flex-grow: 1;
+}
+
+.productList {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  gap: 1rem;
 }
