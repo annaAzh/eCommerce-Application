@@ -25,6 +25,15 @@ export const getUserProfile = createAsyncThunk('profile/getData', async (params:
       const reject: ErrorWithResponse = error as ErrorWithResponse;
       if (reject.response && reject.response.data) {
         const errorResponse: RegistrationReject = reject.response.data as unknown as RegistrationReject;
+
+        if (errorResponse.statusCode === 401) {
+          errorResponse.message = 'Having problems accessing the server';
+        } else if (errorResponse.statusCode === 400) {
+          errorResponse.message = 'Bad Request: The request was invalid or cannot be served.';
+        } else if (errorResponse.statusCode === 403) {
+          errorResponse.message = 'Forbidden: You do not have permission to access this resource.';
+        }
+
         defaultMessage = errorResponse.message || defaultMessage;
       }
     }

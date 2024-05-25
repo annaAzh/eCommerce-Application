@@ -41,7 +41,6 @@ const ProfileForm: FC = () => {
 
   useEffect(() => {
     if (!token) return;
-
     dispatch(getUserProfile(token));
   }, [isLogined]);
 

@@ -69,7 +69,6 @@ export const userSlice = createSlice({
         state.user.billingAddressIds = payload.billingAddressIds;
         state.user.shippingAddressIds = payload.shippingAddressIds;
         state.user.addresses = payload.addresses;
-        state.user.isLogined = true;
       })
       .addCase(getUserProfile.pending, (state) => {
         state.isLoading = true;
