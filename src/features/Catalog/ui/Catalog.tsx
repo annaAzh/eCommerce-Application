@@ -22,17 +22,18 @@ export const Catalog: FC = () => {
   };
 
   const defaultFilterHandler = (str: string) => {
-    setFilters({ ...filters, sort: str });
+    if (!str && filters) {
+      const { sort, ...rest } = filters;
+      setFilters(rest);
+    } else {
+      setFilters({ ...filters, sort: str });
+    }
   };
 
   useEffect(() => {
     if (!filters || !token) return;
     const { filter, sort } = filters;
-    if (sort) {
-      dispatch(getAllProducts({ token, sort, filter }));
-    } else {
-      dispatch(getAllProducts({ token, filter }));
-    }
+    dispatch(getAllProducts({ token, sort, filter }));
   }, [filters]);
 
   return (
