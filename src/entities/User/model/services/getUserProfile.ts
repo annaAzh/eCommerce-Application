@@ -1,10 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { UserData } from '../types/userTypes';
-import {
-  ErrorRegistretionDataResponse,
-  RegistrationReject,
-} from 'features/RegistrationUser/model/types/registrationTypes';
+import { RegistrationReject } from 'features/RegistrationUser/model/types/registrationTypes';
 import { ErrorWithResponse } from '../types/tokenTypes';
 
 const API_URL = process.env.API_URL;
@@ -22,18 +19,16 @@ export const getUserProfile = createAsyncThunk('profile/getData', async (params:
 
     return success;
   } catch (error) {
-    const errorPayload: ErrorRegistretionDataResponse = {
-      header: 'error',
-      message: 'Something went wrong',
-    };
+    let defaultMessage = 'Something went wrong';
 
     if (error instanceof Error) {
       const reject: ErrorWithResponse = error as ErrorWithResponse;
       if (reject.response && reject.response.data) {
         const errorResponse: RegistrationReject = reject.response.data as unknown as RegistrationReject;
-        console.log(errorResponse);
+        defaultMessage = errorResponse.message || defaultMessage;
       }
     }
-    return thunkAPI.rejectWithValue(errorPayload);
+
+    return thunkAPI.rejectWithValue(defaultMessage);
   }
 });

@@ -7,8 +7,10 @@ import { COUNTRIES } from 'shared/consts';
 import { FC, useEffect, useState } from 'react';
 import {
   Address,
+  clearUserError,
   getAccessToken,
   getUserDataIsLoading,
+  getUserError,
   getUserIsLoginedStatus,
   getUserProfileData,
 } from 'entities/User';
@@ -17,6 +19,7 @@ import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { getUserProfile } from 'entities/User/model/services/getUserProfile';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { HashLoader } from 'react-spinners';
+import { setNotificationMessage } from 'entities/NotificationTool';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +27,7 @@ const ProfileForm: FC = () => {
   const isLogined = useAppSelector(getUserIsLoginedStatus);
   const user = useAppSelector(getUserProfileData);
   const isLoading = useAppSelector(getUserDataIsLoading);
+  const userError = useAppSelector(getUserError);
 
   const [form] = Form.useForm();
   const { Option } = Select;
@@ -42,7 +46,7 @@ const ProfileForm: FC = () => {
   }, [isLogined]);
 
   useEffect(() => {
-    if (user) {
+    if (user && isLogined) {
       form.setFieldsValue({
         firstName: user.firstName,
         lastName: user.lastName,
@@ -58,7 +62,18 @@ const ProfileForm: FC = () => {
         shippingAddressIds: user.shippingAddressIds || [],
       });
     }
-  }, [user, form]);
+  }, [user, form, isLogined]);
+
+  useEffect(() => {
+    if (!userError) return;
+    dispatch(
+      setNotificationMessage({
+        message: userError,
+        type: 'error',
+      }),
+    );
+    dispatch(clearUserError());
+  }, [userError]);
 
   const checkShippingAddress = (addressId: string) => {
     return data.shippingAddressIds.includes(addressId);
