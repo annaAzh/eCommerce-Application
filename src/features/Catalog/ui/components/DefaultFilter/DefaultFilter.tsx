@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
 import { CatalogUiProps } from '../../Catalog';
 
-type SortBy = 'by default' | 'price asc' | 'price desc';
+type SortBy = 'by default' | 'price asc' | 'price desc' | 'name.en-US asc' | 'name.en-US desc';
 
 export const DefaultFilter: FC<CatalogUiProps> = ({ handleData }) => {
   const [sortBy, setSortBy] = useState<SortBy>('by default');
@@ -13,12 +13,24 @@ export const DefaultFilter: FC<CatalogUiProps> = ({ handleData }) => {
     handleData('');
   };
   const clickByPriceAsc = () => {
-    setSortBy('price asc');
-    handleData('price asc');
+    const value = 'price asc';
+    setSortBy(value);
+    handleData(value);
   };
   const clickByPriceDesc = () => {
-    setSortBy('price desc');
-    handleData('price desc');
+    const value = 'price desc';
+    setSortBy(value);
+    handleData(value);
+  };
+  const clickByNameAsc = () => {
+    const value = 'name.en-US asc';
+    setSortBy(value);
+    handleData(value);
+  };
+  const clickByNameDesc = () => {
+    const value = 'name.en-US desc';
+    setSortBy(value);
+    handleData(value);
   };
 
   const items: MenuProps['items'] = [
@@ -33,6 +45,14 @@ export const DefaultFilter: FC<CatalogUiProps> = ({ handleData }) => {
     {
       key: '2',
       label: <div onClick={clickByPriceDesc}>price desc</div>,
+    },
+    {
+      key: '3',
+      label: <div onClick={clickByNameAsc}>name asc</div>,
+    },
+    {
+      key: '4',
+      label: <div onClick={clickByNameDesc}>name desc</div>,
     },
   ];
   return (
