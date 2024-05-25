@@ -6,9 +6,11 @@ import { CatalogUiProps } from '../../Catalog';
 
 const indexMinPriceRange = 0;
 const indexMaxPriceRange = 1;
+const defaultMin = 0;
+const defaultMax = 100;
 
 export const PriceRangeFilter: FC<CatalogUiProps> = ({ handleData }) => {
-  const [priceRange, setPriceRange] = useState<number[]>([0, 100]);
+  const [priceRange, setPriceRange] = useState<number[]>([defaultMin, defaultMax]);
 
   const onChangeSliderHandler = (value: number[]) => {
     setPriceRange(value);
@@ -46,10 +48,10 @@ export const PriceRangeFilter: FC<CatalogUiProps> = ({ handleData }) => {
               />
             </div>
             <Slider
-              min={0}
-              max={100}
+              min={defaultMin}
+              max={defaultMax}
               range
-              defaultValue={[0, 100]}
+              defaultValue={[defaultMin, defaultMax]}
               onChange={onChangeSliderHandler}
               value={priceRange}
               onChangeComplete={onChangeCompleteSliderHandler}
