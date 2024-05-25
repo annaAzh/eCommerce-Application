@@ -2,15 +2,7 @@ import { Checkbox, DatePicker, Divider, Flex, Form, Input, Select, Tag } from 'a
 import styles from './ProfileForm.module.css';
 import { formItemLayout } from 'features/RegistrationUser/ui/StyledRegistrationForm/StyledRegistrationForm';
 
-import {
-  checkBirthday,
-  checkConfirmPassword,
-  checkEmail,
-  checkInput,
-  checkPassword,
-  checkPostalCode,
-  checkStreet,
-} from 'shared/lib/checkValid';
+import { checkBirthday, checkEmail, checkInput, checkPostalCode, checkStreet } from 'shared/lib/checkValid';
 import { COUNTRIES } from 'shared/consts';
 import { FC, useEffect, useState } from 'react';
 import {
@@ -105,25 +97,6 @@ const ProfileForm: FC = () => {
             </Form.Item>
             <Form.Item name="dateOfBirth" label="Date of Birth" required rules={checkBirthday()}>
               <DatePicker format="YYYY-MM-DD" disabled />
-            </Form.Item>
-          </Form>
-
-          <Form {...formItemLayout} name="profile-password" className={styles.form}>
-            <Divider orientation="center">Password</Divider>
-            <Form.Item name="passwordOld" label="Old password" required rules={checkPassword()}>
-              <Input.Password autoComplete="on" />
-            </Form.Item>
-            <Form.Item name="passwordNew" label="New password" required rules={checkPassword()}>
-              <Input.Password autoComplete="on" />
-            </Form.Item>
-            <Form.Item
-              name="confirm"
-              label="Confirm new password"
-              dependencies={['passwordNew']}
-              required
-              rules={checkConfirmPassword()}
-            >
-              <Input.Password autoComplete="on" />
             </Form.Item>
           </Form>
 
