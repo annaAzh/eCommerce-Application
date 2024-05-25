@@ -95,16 +95,16 @@ const ProfileForm: FC = () => {
           <Form {...formItemLayout} form={form} name="profile-details" className={styles.form}>
             <Divider orientation="center">Account Details</Divider>
             <Form.Item name="firstName" label="First name" required rules={checkInput('First name')}>
-              <Input />
+              <Input disabled />
             </Form.Item>
             <Form.Item name="lastName" label="Last name" required rules={checkInput('Last name')}>
-              <Input />
+              <Input disabled />
             </Form.Item>
             <Form.Item name="email" label="E-mail" required rules={checkEmail()}>
-              <Input />
+              <Input disabled />
             </Form.Item>
             <Form.Item name="dateOfBirth" label="Date of Birth" required rules={checkBirthday()}>
-              <DatePicker format="YYYY-MM-DD" />
+              <DatePicker format="YYYY-MM-DD" disabled />
             </Form.Item>
           </Form>
 
@@ -155,17 +155,17 @@ const ProfileForm: FC = () => {
                         </Flex>
 
                         <Form.Item name={[name, 'streetName']} label="Street" required rules={checkStreet()}>
-                          <Input />
+                          <Input disabled />
                         </Form.Item>
                         <Form.Item name={[name, 'city']} label="City" required rules={checkInput('City')}>
-                          <Input />
+                          <Input disabled />
                         </Form.Item>
                         <Form.Item
                           name={[name, 'country']}
                           label="Country"
                           rules={[{ required: true, message: 'Please select Country!' }]}
                         >
-                          <Select placeholder="Select your country">
+                          <Select placeholder="Select your country" disabled>
                             {COUNTRIES.map(({ title, value }) => (
                               <Option key={title} value={value}>
                                 {title}
@@ -180,16 +180,20 @@ const ProfileForm: FC = () => {
                           dependencies={['country']}
                           rules={checkPostalCode('country')}
                         >
-                          <Input />
+                          <Input disabled />
                         </Form.Item>
                         <div className={styles.checkboxWrapper}>
-                          <Checkbox checked={checkShippingAddress(addressId)}>Set as shipping address</Checkbox>
-                          <Checkbox checked={checkBillingAddress(addressId)}>Set as billing address</Checkbox>
+                          <Checkbox disabled checked={checkShippingAddress(addressId)}>
+                            Set as shipping address
+                          </Checkbox>
+                          <Checkbox disabled checked={checkBillingAddress(addressId)}>
+                            Set as billing address
+                          </Checkbox>
 
-                          <Checkbox checked={checkdefaultShippingAddress(addressId)}>
+                          <Checkbox disabled checked={checkdefaultShippingAddress(addressId)}>
                             Set as a default shipping address
                           </Checkbox>
-                          <Checkbox checked={checkdefaultBillingAddress(addressId)}>
+                          <Checkbox disabled checked={checkdefaultBillingAddress(addressId)}>
                             Set as a default billing address
                           </Checkbox>
                         </div>
