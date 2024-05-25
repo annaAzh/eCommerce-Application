@@ -13,22 +13,22 @@ export const DefaultFilter: FC<CatalogUiProps> = ({ handleData }) => {
     handleData('');
   };
   const clickByPriceAsc = () => {
-    const value = 'price asc';
+    const value: SortBy = 'price asc';
     setSortBy(value);
     handleData(value);
   };
   const clickByPriceDesc = () => {
-    const value = 'price desc';
+    const value: SortBy = 'price desc';
     setSortBy(value);
     handleData(value);
   };
   const clickByNameAsc = () => {
-    const value = 'name.en-US asc';
+    const value: SortBy = 'name.en-US asc';
     setSortBy(value);
     handleData(value);
   };
   const clickByNameDesc = () => {
-    const value = 'name.en-US desc';
+    const value: SortBy = 'name.en-US desc';
     setSortBy(value);
     handleData(value);
   };
