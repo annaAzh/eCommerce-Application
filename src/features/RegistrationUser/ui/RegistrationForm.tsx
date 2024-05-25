@@ -64,8 +64,6 @@ const RegistrationForm: FC = () => {
         description: 'You have been registered successfully!',
       }),
     );
-
-    setUserData(undefined);
   }, [customerId]);
 
   useEffect(() => {
