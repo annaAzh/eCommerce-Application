@@ -1,5 +1,9 @@
 .wrapper {
   padding: 0 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .title {
