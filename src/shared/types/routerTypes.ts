@@ -4,7 +4,7 @@ export enum Paths {
   login = 'login',
   registration = 'registration',
   catalog = 'catalog',
-  card = 'card',
+  product = 'catalog/:productKey',
   profile = 'profile',
   notFound = '*',
 }
