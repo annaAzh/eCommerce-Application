@@ -4,6 +4,7 @@ import { AccessTokenSuccess, PasswordFlowSuccess } from '../types/tokenTypes';
 import { requestAccessToken } from '../services/requestAccessToken';
 import { passwordFlow } from '../services/passwordFlow';
 import { getUserProfile } from '../services/getUserProfile';
+import { refreshFlow } from '../services/requestRefreshToken';
 
 const initialState: UserSchema = {
   user: {
@@ -57,6 +58,21 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.error = payload as string;
       })
+
+      .addCase(refreshFlow.fulfilled, (state, { payload }: PayloadAction<PasswordFlowSuccess>) => {
+        state.isLoading = false;
+        state.error = undefined;
+        state.user.accessToken = payload.access_token;
+        state.user.isLogined = true;
+      })
+      .addCase(refreshFlow.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(refreshFlow.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
+      })
+
       .addCase(getUserProfile.fulfilled, (state, { payload }: PayloadAction<UserData>) => {
         state.isLoading = false;
         state.error = undefined;
