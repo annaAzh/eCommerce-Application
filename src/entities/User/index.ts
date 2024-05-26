@@ -1,18 +1,10 @@
-export {
-  getAccessToken,
-  getUserIsLoginedStatus,
-  getUserError,
-  getUserProfileData,
-  getUserDataIsLoading,
-} from './model/selectors/userSelectors';
+export { getAccessToken, getUserIsLoginedStatus, getUserError } from './model/selectors/userSelectors';
 
 export { requestAccessToken } from './model/services/requestAccessToken';
 
 export { passwordFlow } from './model/services/passwordFlow';
 
 export { ErrorWithResponse, AccessTokenReject, AccessTokenSuccess } from './model/types/tokenTypes';
-
-export { Address, UserData } from './model/types/userTypes';
 
 export {
   userReducer,

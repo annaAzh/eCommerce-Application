@@ -2,6 +2,7 @@ import { Reducer } from '@reduxjs/toolkit';
 import { NotificationToolSchema } from 'entities/NotificationTool';
 import { ProductSchema } from 'entities/Product';
 import { UserSchema } from 'entities/User';
+import { ProfileSchema } from 'features/EditProfile';
 import { LoginSchema } from 'features/LoginUser';
 import { RegisterSchema } from 'features/RegistrationUser';
 
@@ -11,4 +12,5 @@ export interface StateSchema {
   auth: Reducer<RegisterSchema>;
   notification: Reducer<NotificationToolSchema>;
   product: Reducer<ProductSchema>;
+  profile: Reducer<ProfileSchema>;
 }

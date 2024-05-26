@@ -5,29 +5,24 @@ import { formItemLayout } from 'features/RegistrationUser/ui/StyledRegistrationF
 import { checkBirthday, checkEmail, checkInput, checkPostalCode, checkStreet } from 'shared/lib/checkValid';
 import { COUNTRIES } from 'shared/consts';
 import { FC, useEffect, useState } from 'react';
-import {
-  Address,
-  clearUserError,
-  getAccessToken,
-  getUserDataIsLoading,
-  getUserError,
-  getUserIsLoginedStatus,
-  getUserProfileData,
-} from 'entities/User';
+import { getAccessToken, getUserIsLoginedStatus } from 'entities/User';
 import dayjs from 'dayjs';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
-import { getUserProfile } from 'entities/User/model/services/getUserProfile';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { HashLoader } from 'react-spinners';
 import { setNotificationMessage } from 'entities/NotificationTool';
+import { getUserProfile } from '../model/services/getUserProfile';
+import { getProfileData, getProfileDataIsLoading, getProfileError } from '../model/selectors/profileSelectors';
+import { Address } from '../model/types/profileTypes';
+import { clearProfileError } from '../model/slices/profileSlice';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(getAccessToken);
   const isLogined = useAppSelector(getUserIsLoginedStatus);
-  const user = useAppSelector(getUserProfileData);
-  const isLoading = useAppSelector(getUserDataIsLoading);
-  const userError = useAppSelector(getUserError);
+  const profileData = useAppSelector(getProfileData);
+  const isLoading = useAppSelector(getProfileDataIsLoading);
+  const profileError = useAppSelector(getProfileError);
 
   const [form] = Form.useForm();
   const { Option } = Select;
@@ -45,34 +40,34 @@ const ProfileForm: FC = () => {
   }, [isLogined]);
 
   useEffect(() => {
-    if (user && isLogined) {
+    if (profileData && isLogined) {
       form.setFieldsValue({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        dateOfBirth: dayjs(user.dateOfBirth),
-        addresses: user.addresses || [],
+        firstName: profileData.firstName,
+        lastName: profileData.lastName,
+        email: profileData.email,
+        dateOfBirth: dayjs(profileData.dateOfBirth),
+        addresses: profileData.addresses || [],
       });
-      setAddresses(user.addresses || []);
+      setAddresses(profileData.addresses || []);
       setData({
-        defaultBillingAddress: user.defaultBillingAddressId || '',
-        defaultShippingAddress: user.defaultShippingAddressId || '',
-        billingAddressIds: user.billingAddressIds || [],
-        shippingAddressIds: user.shippingAddressIds || [],
+        defaultBillingAddress: profileData.defaultBillingAddressId || '',
+        defaultShippingAddress: profileData.defaultShippingAddressId || '',
+        billingAddressIds: profileData.billingAddressIds || [],
+        shippingAddressIds: profileData.shippingAddressIds || [],
       });
     }
-  }, [user, form, isLogined]);
+  }, [profileData, form, isLogined]);
 
   useEffect(() => {
-    if (!userError) return;
+    if (!profileError) return;
     dispatch(
       setNotificationMessage({
-        message: userError,
+        message: profileError,
         type: 'error',
       }),
     );
-    dispatch(clearUserError());
-  }, [userError]);
+    dispatch(clearProfileError());
+  }, [profileError]);
 
   const checkShippingAddress = (addressId: string) => {
     return data.shippingAddressIds.includes(addressId);

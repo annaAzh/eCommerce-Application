@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { UserData } from '../types/userTypes';
 import { RegistrationReject } from 'features/RegistrationUser/model/types/registrationTypes';
-import { ErrorWithResponse } from '../types/tokenTypes';
+import { ErrorWithResponse, ProfileData } from '../types/profileTypes';
 
 const API_URL = process.env.API_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
@@ -15,7 +14,7 @@ export const getUserProfile = createAsyncThunk('profile/getData', async (params:
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     });
 
-    const success: UserData = res.data;
+    const success: ProfileData = res.data;
 
     return success;
   } catch (error) {
