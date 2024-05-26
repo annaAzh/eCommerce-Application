@@ -1,22 +1,21 @@
 const STORE_KEY = 'token';
 
-interface TokenOauth {
-  access_token: string;
-  expires_in: number;
-  refresh_token: string;
-}
+// interface TokenOauth {
+//   access_token: string;
+//   expires_in: number;
+//   refresh_token: string;
+// }
 
-const setLocalStoreState = (token: TokenOauth): void => {
+const setLocalStoreState = (token: string): void => {
   localStorage.setItem(STORE_KEY, JSON.stringify(token));
 };
 
-const getLocalStoreState = (): TokenOauth => {
-  const response = localStorage.getItem(STORE_KEY);
+const getLocalStoreState = (): string => {
+  let response = localStorage.getItem(STORE_KEY) || '';
   if (response) {
-    return JSON.parse(response) as TokenOauth;
-  } else {
-    return { access_token: '', expires_in: 0, refresh_token: '' };
+    response = JSON.parse(response);
   }
+  return response;
 };
 
 const clearLocalStoreState = (): void => {

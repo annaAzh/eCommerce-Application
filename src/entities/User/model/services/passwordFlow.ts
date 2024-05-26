@@ -8,7 +8,7 @@ const AUTH_URL = process.env.AUTH_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const CLIENT_ID = process.env.CLIENT_ID || '';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
-const MILLISECONDS_IN_SECOND = 1000;
+// const MILLISECONDS_IN_SECOND = 1000;
 
 export const passwordFlow = createAsyncThunk('user/passwordFlow', async (loginData: LoginData, thunkAPI) => {
   try {
@@ -23,12 +23,13 @@ export const passwordFlow = createAsyncThunk('user/passwordFlow', async (loginDa
     });
     const success: PasswordFlowSuccess = res.data;
 
-    const tokenOauth: Omit<PasswordFlowSuccess, 'token_type' | 'scope'> = {
-      access_token: success.access_token,
-      expires_in: Date.now() + success.expires_in * MILLISECONDS_IN_SECOND,
-      refresh_token: success.refresh_token,
-    };
-    setLocalStoreState(tokenOauth);
+    // const tokenOauth: Omit<PasswordFlowSuccess, 'token_type' | 'scope'> = {
+    //   access_token: success.access_token,
+    //   expires_in: Date.now() + success.expires_in * MILLISECONDS_IN_SECOND,
+    //   refresh_token: success.refresh_token,
+    // };
+    const refresh = success.refresh_token;
+    setLocalStoreState(refresh);
 
     return success;
   } catch (error) {
