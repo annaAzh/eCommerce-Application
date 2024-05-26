@@ -1,9 +1,9 @@
+import { SelectedProduct, getSelectedError } from 'features/Product';
+import { NotFound } from 'pages/notFound/NotFound';
 import { FC } from 'react';
+import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 
 export const Product: FC = () => {
-  return (
-    <div className="wrapper-page">
-      <h1 style={{ paddingTop: '20px' }}>Page in development</h1>
-    </div>
-  );
+  const error = useAppSelector(getSelectedError);
+  return error ? <NotFound /> : <SelectedProduct />;
 };
