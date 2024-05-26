@@ -6,10 +6,8 @@ import { requestAccessToken, setUserIsLoginedStatus } from 'entities/User';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { getLocalStoreState } from 'shared/lib/storeState/storeState';
 import { refreshFlow } from 'entities/User/model/services/requestRefreshToken';
-// import { useAuthToken } from './hooks/useAuthToken';
 
 export const App: FC = () => {
-  // useAuthToken();
   const dispatch = useAppDispatch();
   useEffect(() => {
     const refreshToken = getLocalStoreState();
