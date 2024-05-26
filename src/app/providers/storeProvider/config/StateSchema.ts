@@ -4,6 +4,7 @@ import { CatalogSchema } from 'features/Catalog';
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/LoginUser';
 import { RegisterSchema } from 'features/RegistrationUser';
+import { ProductSchema } from 'features/Product';
 
 export interface StateSchema {
   user: Reducer<UserSchema>;
@@ -11,4 +12,5 @@ export interface StateSchema {
   auth: Reducer<RegisterSchema>;
   notification: Reducer<NotificationToolSchema>;
   catalog: Reducer<CatalogSchema>;
+  product: Reducer<ProductSchema>;
 }
