@@ -1,20 +1,14 @@
 import { Product } from 'shared/types';
 import styles from './ProductCard.module.css';
-import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product }: { product: Product }): JSX.Element => {
-  const { images, description, name, prices, key } = product;
+  const { images, description, name, prices } = product;
   const { discountedPrice, currentPrice } = prices;
-  const navigate = useNavigate();
   const descMaxLength = 300;
   const firstImage = images[0];
 
-  function getProduct(): void {
-    navigate(`${key}`);
-  }
-
   return (
-    <div className={styles.card} onClick={getProduct}>
+    <div className={styles.card}>
       <div className={styles.imageCover}>
         <img className={styles.image} src={firstImage} />
       </div>
