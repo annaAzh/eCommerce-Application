@@ -3,7 +3,7 @@ import { Product } from 'shared/types';
 interface CatalogSchema {
   products: Product[];
   categories: FormattedCategories[];
-  attributes?: RespType;
+  attributes?: FormattedAttributesType;
   priceRange: { min: number; max: number };
   error?: string;
   isLoading: boolean;
@@ -58,6 +58,7 @@ type CatalogProps = {
   filter?: string;
   sort?: string;
   category?: string;
+  variantFilter?: string[];
 };
 
 interface GetCategoroesResponse {
@@ -80,12 +81,12 @@ interface FormattedCategories {
   subCategory: Omit<FormattedCategories, 'subCategory'>[];
 }
 
-interface RespType {
+interface FormattedAttributesType {
   [key: string]: string[];
 }
 
 interface ParseResponse {
-  attributes: RespType;
+  attributes: FormattedAttributesType;
   priceRange: { min: number; max: number };
 }
 
@@ -99,5 +100,5 @@ export {
   GetCategoroesResponse,
   FormattedCategories,
   ParseResponse,
-  RespType as A,
+  FormattedAttributesType,
 };

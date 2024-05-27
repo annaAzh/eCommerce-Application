@@ -5,8 +5,6 @@ import { FilterLabel } from '../FilterLabel/FilterLabel';
 
 const indexMinPriceRange = 0;
 const indexMaxPriceRange = 1;
-// const defaultMin = 0;
-// const defaultMax = 100;
 
 interface PriceRangeFilterProps {
   handleData: (str: string) => void;
@@ -17,7 +15,6 @@ export const PriceRangeFilter: FC<PriceRangeFilterProps> = ({ handleData, minAnd
   const { min, max } = minAndMax;
   const [priceRange, setPriceRange] = useState<number[]>([min, max]);
   useEffect(() => {
-    console.log(minAndMax);
     setPriceRange([min, max]);
   }, [minAndMax]);
 

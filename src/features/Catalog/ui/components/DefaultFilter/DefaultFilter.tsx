@@ -56,7 +56,7 @@ export const DefaultFilter: FC<CatalogUiProps> = ({ handleData }) => {
     },
   ];
   return (
-    <Dropdown menu={{ items }} placement="bottomLeft">
+    <Dropdown menu={{ items, selectable: true, defaultSelectedKeys: ['0'] }} placement="bottomLeft">
       <FilterLabel>{sortBy}</FilterLabel>
     </Dropdown>
   );

@@ -2,7 +2,6 @@ import { FC } from 'react';
 import style from './NavMenu.module.css';
 import { Dropdown, MenuProps } from 'antd';
 import { FormattedCategories } from 'features/Catalog/model/types/catalogTypes';
-import { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 
 interface NavMenuProps {
   handleData: (value: string) => void;
@@ -16,22 +15,37 @@ export const NavMenu: FC<NavMenuProps> = ({ handleData, categories }) => {
 
   const result: MenuProps['items'][] = [];
   categories.forEach((category) => {
-    let props: ItemType[] = [];
-    category.subCategory.forEach(({ name, id }) => {
-      props = [
-        ...props,
-        {
-          key: id,
-          label: (
-            <div className={style.dropItem} onClick={() => onClick(id)}>
-              {name}
-            </div>
-          ),
-        } as ItemType,
-      ];
+    // let props: ItemType[] = [];
+    const props = category.subCategory.map(({ name, id }) => {
+      return {
+        key: id,
+        label: (
+          <div className={style.dropItem} onClick={() => onClick(id)}>
+            {name}
+          </div>
+        ),
+      };
     });
     result.push(props as MenuProps['items']);
   });
+  // const result: MenuProps['items'][] = [];
+  // categories.forEach((category) => {
+  //   let props: ItemType[] = [];
+  //   category.subCategory.forEach(({ name, id }) => {
+  //     props = [
+  //       ...props,
+  //       {
+  //         key: id,
+  //         label: (
+  //           <div className={style.dropItem} onClick={() => onClick(id)}>
+  //             {name}
+  //           </div>
+  //         ),
+  //       } as ItemType,
+  //     ];
+  //   });
+  //   result.push(props as MenuProps['items']);
+  // });
 
   const items: MenuProps[] = result.map((item: MenuProps['items']) => {
     return { items: item };
