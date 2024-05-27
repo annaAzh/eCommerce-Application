@@ -38,7 +38,7 @@ export const Catalog: FC = () => {
     }
   };
   const categoriesFilter = (value: string) => {
-    setFilters({ ...filters, category: value });
+    setFilters({ category: value });
   };
   const optionalFilterHandler = (currentValue: string, prevValue?: string) => {
     if (prevValue) {
@@ -50,7 +50,7 @@ export const Catalog: FC = () => {
       setVariantFilter((prevVariantFilter) => [...prevVariantFilter, currentValue]);
     }
   };
-  console.log(variantFilter);
+
   useEffect(() => {
     if (!token) return;
     dispatch(getAvailableCategories(token));

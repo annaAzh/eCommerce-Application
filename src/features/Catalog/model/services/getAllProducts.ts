@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { CatalogProps, GetProductResponse, Images, Prices, ProductResponse } from '../types/catalogTypes';
 import { BaseTokenError, ErrorWithResponse, FormattedPrice, Product } from 'shared/types';
+import { CARD_ON_PAGE } from 'shared/consts';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
@@ -59,6 +60,7 @@ export const getAllProducts = createAsyncThunk(
         params: {
           filter: variantFilter,
           sort,
+          limit: CARD_ON_PAGE,
         },
       });
       const success: GetProductResponse = res.data;

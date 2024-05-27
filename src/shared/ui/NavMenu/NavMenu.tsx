@@ -15,7 +15,6 @@ export const NavMenu: FC<NavMenuProps> = ({ handleData, categories }) => {
 
   const result: MenuProps['items'][] = [];
   categories.forEach((category) => {
-    // let props: ItemType[] = [];
     const props = category.subCategory.map(({ name, id }) => {
       return {
         key: id,
@@ -28,24 +27,6 @@ export const NavMenu: FC<NavMenuProps> = ({ handleData, categories }) => {
     });
     result.push(props as MenuProps['items']);
   });
-  // const result: MenuProps['items'][] = [];
-  // categories.forEach((category) => {
-  //   let props: ItemType[] = [];
-  //   category.subCategory.forEach(({ name, id }) => {
-  //     props = [
-  //       ...props,
-  //       {
-  //         key: id,
-  //         label: (
-  //           <div className={style.dropItem} onClick={() => onClick(id)}>
-  //             {name}
-  //           </div>
-  //         ),
-  //       } as ItemType,
-  //     ];
-  //   });
-  //   result.push(props as MenuProps['items']);
-  // });
 
   const items: MenuProps[] = result.map((item: MenuProps['items']) => {
     return { items: item };

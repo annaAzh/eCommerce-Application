@@ -3,10 +3,10 @@ import axios from 'axios';
 import { ErrorWithResponse } from 'entities/User';
 import { BaseTokenError } from 'shared/types';
 import { CatalogProps, GetProductResponse, ParseResponse } from '../types/catalogTypes';
+import { ITEMS_FOR_PARSING } from 'shared/consts';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
-const numberOfItemsForParsing = 200;
 
 const convertParseData = (data: GetProductResponse) => {
   const availableAttributes = new Map<string, Set<string>>();
@@ -64,8 +64,8 @@ export const getProductsForParsing = createAsyncThunk(
         params: {
           filter: [filter, category],
           sort,
-          limit: numberOfItemsForParsing,
-          count: numberOfItemsForParsing,
+          limit: ITEMS_FOR_PARSING,
+          count: ITEMS_FOR_PARSING,
         },
       });
       const success: GetProductResponse = res.data;
