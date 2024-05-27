@@ -19,7 +19,11 @@ const initialState: ProductSchema = {
 export const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    clearProductError(state: ProductSchema) {
+      state.error = undefined;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getProductByKey.fulfilled, (state, { payload }: PayloadAction<Product>) => {
@@ -38,3 +42,4 @@ export const productSlice = createSlice({
 });
 
 export const { reducer: productReducer } = productSlice;
+export const { clearProductError } = productSlice.actions;

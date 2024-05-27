@@ -26,7 +26,7 @@ export const NotFound: FC = () => {
           Oh page not found
         </h1>
         <ButtonLink type="primary" size="large">
-          <Link to="main" className="link-page-notFound">
+          <Link to="/main" className="link-page-notFound">
             &#10149; Main Page
           </Link>
         </ButtonLink>

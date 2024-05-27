@@ -1,3 +1,5 @@
+export { clearProductError } from './model/slices/selectedProductSlice';
+
 export { SelectedProduct } from './ui/SelectedProduct';
 
 export { getSelectedError } from './model/selectors/selectedProductSelectors';
