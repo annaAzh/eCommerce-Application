@@ -65,10 +65,10 @@ export const Catalog: FC = () => {
 
   useEffect(() => {
     if (!token) return;
-    let variants: string[] = [...variantFilter];
-    if (categoriesFilterValue) variants = [...variants, categoriesFilterValue];
-    if (priceRangeValue) variants = [...variants, priceRangeValue];
-    dispatch(getAllProducts({ token, sort: defaultFilterValue, filter: variants }));
+    let filter: string[] = [...variantFilter];
+    if (categoriesFilterValue) filter = [...filter, categoriesFilterValue];
+    if (priceRangeValue) filter = [...filter, priceRangeValue];
+    dispatch(getAllProducts({ token, sort: defaultFilterValue, filter }));
   }, [categoriesFilterValue, variantFilter, priceRangeValue, defaultFilterValue]);
 
   const memoNavMenu = useMemo(() => {
