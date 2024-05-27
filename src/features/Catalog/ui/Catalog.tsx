@@ -27,16 +27,6 @@ export const Catalog: FC = () => {
   const [defaultFilterValue, setDefaultFilterValue] = useState<string>();
   const [categoriesFilterValue, setCategoriesFilterValue] = useState<string>();
 
-  const priceRangeFilter = (value: string) => {
-    setPriceRangeValue(value);
-  };
-  const defaultFilterHandler = (value: string) => {
-    setDefaultFilterValue(value);
-  };
-  const categoriesFilter = (value: string) => {
-    setCategoriesFilterValue(value);
-  };
-
   const optionalFilterHandler = (currentValue: string, prevValue?: string) => {
     if (prevValue) {
       if (currentValue) {
@@ -61,6 +51,9 @@ export const Catalog: FC = () => {
   useEffect(() => {
     if (!token) return;
     dispatch(getProductsForParsing({ token, filter: categoriesFilterValue }));
+    setVariantFilter([]);
+    setPriceRangeValue(undefined);
+    setDefaultFilterValue(undefined);
   }, [categoriesFilterValue]);
 
   useEffect(() => {
@@ -69,14 +62,14 @@ export const Catalog: FC = () => {
     if (categoriesFilterValue) filter = [...filter, categoriesFilterValue];
     if (priceRangeValue) filter = [...filter, priceRangeValue];
     dispatch(getAllProducts({ token, sort: defaultFilterValue, filter }));
-  }, [categoriesFilterValue, variantFilter, priceRangeValue, defaultFilterValue]);
+  }, [variantFilter, priceRangeValue, defaultFilterValue]);
 
   const memoNavMenu = useMemo(() => {
-    return <NavMenu handleData={categoriesFilter} categories={categories} />;
+    return <NavMenu handleData={setCategoriesFilterValue} categories={categories} />;
   }, [categories]);
 
   const memoPriceRangeFilter = useMemo(() => {
-    return <PriceRangeFilter minAndMax={priceRange} handleData={priceRangeFilter} />;
+    return <PriceRangeFilter minAndMax={priceRange} handleData={setPriceRangeValue} />;
   }, [priceRange]);
 
   const memoOptionalFilter = useMemo(() => {
@@ -95,7 +88,7 @@ export const Catalog: FC = () => {
     <>
       {categories.length > 0 ? memoNavMenu : <div className={styles.nav}></div>}
       <div className={styles.container}>
-        <DefaultFilter handleData={defaultFilterHandler} />
+        <DefaultFilter handleData={setDefaultFilterValue} />
         {memoPriceRangeFilter}
         {memoOptionalFilter}
       </div>
