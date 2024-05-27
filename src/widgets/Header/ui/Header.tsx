@@ -9,7 +9,7 @@ import { Paths } from 'shared/types';
 import './Header.css';
 
 interface LinkOfPage {
-  key: Paths;
+  key: Paths | string;
   label: JSX.Element;
 }
 
@@ -69,7 +69,7 @@ const notLoginLinks: LinkOfPage[] = [
 
 const loginLinks: LinkOfPage[] = [
   {
-    key: Paths.main,
+    key: 'logout',
     label: <ButtonLogOut />,
   },
 ];
