@@ -60,7 +60,7 @@ export const Catalog: FC = () => {
 
   useEffect(() => {
     if (!token) return;
-    dispatch(getProductsForParsing({ token, category: categoriesFilterValue }));
+    dispatch(getProductsForParsing({ token, filter: categoriesFilterValue }));
   }, [categoriesFilterValue]);
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export const Catalog: FC = () => {
     let variants: string[] = [...variantFilter];
     if (categoriesFilterValue) variants = [...variants, categoriesFilterValue];
     if (priceRangeValue) variants = [...variants, priceRangeValue];
-    dispatch(getAllProducts({ token, sort: defaultFilterValue, variantFilter: variants }));
+    dispatch(getAllProducts({ token, sort: defaultFilterValue, filter: variants }));
   }, [categoriesFilterValue, variantFilter, priceRangeValue, defaultFilterValue]);
 
   const memoNavMenu = useMemo(() => {

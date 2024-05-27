@@ -54,11 +54,11 @@ export const getAllProducts = createAsyncThunk(
   'catalog/getAllProducts',
   async (data: CatalogProps, { rejectWithValue }) => {
     try {
-      const { token, sort, variantFilter } = data;
+      const { token, sort, filter } = data;
       const res = await axios.get(`${API_URL}${PROJECT_KEY}/product-projections/search`, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         params: {
-          filter: variantFilter,
+          filter,
           sort,
           limit: CARD_ON_PAGE,
         },

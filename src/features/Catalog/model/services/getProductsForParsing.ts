@@ -58,11 +58,11 @@ export const getProductsForParsing = createAsyncThunk(
   'catalog/getProductsForParsing',
   async (data: CatalogProps, { rejectWithValue }) => {
     try {
-      const { token, filter, sort, category } = data;
+      const { token, filter, sort } = data;
       const res = await axios.get(`${API_URL}${PROJECT_KEY}/product-projections/search`, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         params: {
-          filter: [filter, category],
+          filter,
           sort,
           limit: ITEMS_FOR_PARSING,
           count: ITEMS_FOR_PARSING,

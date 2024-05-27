@@ -55,10 +55,8 @@ type Images = {
 
 type CatalogProps = {
   token: string;
-  filter?: string;
+  filter?: string[] | string;
   sort?: string;
-  category?: string;
-  variantFilter?: string[];
 };
 
 interface GetCategoroesResponse {
