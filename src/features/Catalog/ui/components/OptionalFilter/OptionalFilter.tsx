@@ -1,5 +1,5 @@
-import { Dropdown } from 'antd';
-import { FC, useState } from 'react';
+import { Checkbox, Dropdown } from 'antd';
+import { FC, useEffect, useState } from 'react';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
 
 interface OptionalFilterProps {
@@ -11,17 +11,37 @@ export const OptionalFilter: FC<OptionalFilterProps> = ({ filter, handleData }) 
   const filterName = filter[0];
   const filterProps = filter[1];
   const [prevValue, setPrevValue] = useState<string>();
+  const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
   const handler = (value: string) => {
-    const newValue = `variants.attributes.${filterName}:"${value}"`;
-    handleData(newValue, prevValue);
-    setPrevValue(newValue);
+    if (checkedItems.includes(value)) {
+      setCheckedItems(checkedItems.filter((item) => item !== value));
+    } else {
+      setCheckedItems([...checkedItems, value]);
+    }
   };
+
+  useEffect(() => {
+    if (checkedItems.length === 0 && !prevValue) return;
+    if (checkedItems.length === 0 && prevValue) {
+      const newValue = '';
+      handleData(newValue, prevValue);
+      setPrevValue(newValue);
+    } else {
+      let newValue = `variants.attributes.${filterName}:`;
+      checkedItems.forEach((value, index) => {
+        if (index === 0) newValue += `"${value}"`;
+        else newValue += `, "${value}"`;
+      });
+      handleData(newValue, prevValue);
+      setPrevValue(newValue);
+    }
+  }, [checkedItems]);
 
   const items = filterProps.map((name, index) => {
     return {
       key: index,
-      label: <div onClick={() => handler(name)}>{name}</div>,
+      label: <Checkbox onClick={() => handler(name)}>{name}</Checkbox>,
     };
   });
 
