@@ -14,4 +14,12 @@ const getAllCategories = (state: RootState): FormattedCategories[] => {
   return state.catalog.categories;
 };
 
-export { getProducts, getProductIsLoading, getAllCategories };
+const getPriceRange = (state: RootState) => {
+  return state.catalog.priceRange;
+};
+
+const getAttributes = (state: RootState) => {
+  return state.catalog.attributes;
+};
+
+export { getProducts, getProductIsLoading, getAllCategories, getPriceRange, getAttributes };

@@ -11,7 +11,7 @@ interface NavMenuProps {
 
 export const NavMenu: FC<NavMenuProps> = ({ handleData, categories }) => {
   const onClick = (value: string) => {
-    handleData(value);
+    handleData(`categories.id:"${value}"`);
   };
 
   const result: MenuProps['items'][] = [];

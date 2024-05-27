@@ -3,6 +3,8 @@ import { Product } from 'shared/types';
 interface CatalogSchema {
   products: Product[];
   categories: FormattedCategories[];
+  attributes?: RespType;
+  priceRange: { min: number; max: number };
   error?: string;
   isLoading: boolean;
 }
@@ -21,8 +23,11 @@ type ProductResponse = {
   masterVariant: {
     images: Images[];
     prices: Prices[];
+    attributes: AttributesType[];
   };
 };
+
+type AttributesType = { name: string; value: string };
 
 type Prices = {
   discounted?: {
@@ -75,6 +80,15 @@ interface FormattedCategories {
   subCategory: Omit<FormattedCategories, 'subCategory'>[];
 }
 
+interface RespType {
+  [key: string]: string[];
+}
+
+interface ParseResponse {
+  attributes: RespType;
+  priceRange: { min: number; max: number };
+}
+
 export {
   CatalogSchema,
   GetProductResponse,
@@ -84,4 +98,6 @@ export {
   CatalogProps,
   GetCategoroesResponse,
   FormattedCategories,
+  ParseResponse,
+  RespType as A,
 };

@@ -49,25 +49,28 @@ const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product
   return result;
 };
 
-export const getAllProducts = createAsyncThunk('catalog/getAllProducts', async (data: CatalogProps, thunkAPI) => {
-  try {
-    const { token, filter, sort, category } = data;
-    const res = await axios.get(`${API_URL}${PROJECT_KEY}/product-projections/search`, {
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      params: {
-        filter: [filter, category],
-        sort,
-      },
-    });
-    const success: GetProductResponse = res.data;
-    return convertDataIntoAppropriateFormat(success);
-  } catch (error) {
-    let errorMsg = 'error';
-    const reject: ErrorWithResponse = error as ErrorWithResponse;
-    if (reject.response && reject.response.data) {
-      const errorResponse: BaseTokenError = reject.response.data as BaseTokenError;
-      errorMsg = errorResponse.message;
+export const getAllProducts = createAsyncThunk(
+  'catalog/getAllProducts',
+  async (data: CatalogProps, { rejectWithValue }) => {
+    try {
+      const { token, filter, sort, category } = data;
+      const res = await axios.get(`${API_URL}${PROJECT_KEY}/product-projections/search`, {
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        params: {
+          filter: [filter, category],
+          sort,
+        },
+      });
+      const success: GetProductResponse = res.data;
+      return convertDataIntoAppropriateFormat(success);
+    } catch (error) {
+      let errorMsg = 'error';
+      const reject: ErrorWithResponse = error as ErrorWithResponse;
+      if (reject.response && reject.response.data) {
+        const errorResponse: BaseTokenError = reject.response.data as BaseTokenError;
+        errorMsg = errorResponse.message;
+      }
+      return rejectWithValue(errorMsg);
     }
-    return thunkAPI.rejectWithValue(errorMsg);
-  }
-});
+  },
+);
