@@ -1,32 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { CatalogProps, GetProductResponse, Images, Prices, ProductResponse } from '../types/catalogTypes';
-import { BaseTokenError, ErrorWithResponse, FormattedPrice, Product } from 'shared/types';
+import { CatalogProps, GetProductResponse, ProductResponse } from '../types/catalogTypes';
+import { BaseTokenError, ErrorWithResponse, Images, Product } from 'shared/types';
+import { setPrices } from 'shared/lib/changeData';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
-
-const setPrices = (prices: Prices): FormattedPrice => {
-  const result: FormattedPrice = {
-    currentPrice: '0$',
-  };
-
-  if (prices.value) {
-    const { currencyCode, centAmount, fractionDigits } = prices.value;
-    const currentCurrency = currencyCode === 'USD' ? '$' : '';
-    const currentPrice = `${(centAmount / 100).toFixed(fractionDigits)}${currentCurrency}`;
-    result.currentPrice = currentPrice;
-  }
-
-  if (prices.discounted) {
-    const { currencyCode, centAmount, fractionDigits } = prices.discounted.value;
-    const discountedCurrency = currencyCode === 'USD' ? '$' : '';
-    const discountedPrice = `${(centAmount / 100).toFixed(fractionDigits)}${discountedCurrency}`;
-    result.discountedPrice = discountedPrice;
-  }
-
-  return result;
-};
 
 const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product[] => {
   const result: Product[] = [];
@@ -38,6 +17,7 @@ const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product
 
     const newProductEntry: Product = {
       id: product.id,
+      key: product.key,
       name: product.name['en-US'] || '',
       description: product.description['en-US'] || '',
       images,

@@ -1,4 +1,5 @@
 import { Product } from 'shared/types';
+import { Images, Prices } from 'shared/types/productTypes';
 
 interface CatalogSchema {
   products: Product[];
@@ -9,8 +10,10 @@ interface CatalogSchema {
 interface GetProductResponse {
   results: ProductResponse[];
 }
+
 type ProductResponse = {
   id: string;
+  key: string;
   description: {
     'en-US'?: string;
   };
@@ -23,34 +26,10 @@ type ProductResponse = {
   };
 };
 
-type Prices = {
-  discounted?: {
-    value: {
-      centAmount: number;
-      currencyCode: CurrencyCodes;
-      fractionDigits: number;
-    };
-  };
-  value?: {
-    centAmount: number;
-    currencyCode: CurrencyCodes;
-    fractionDigits: number;
-  };
-};
-
-type CurrencyCodes = 'USD';
-type Images = {
-  dimensions: {
-    h: number;
-    w: number;
-  };
-  url: string;
-};
-
 type CatalogProps = {
   token: string;
   filter?: string;
   sort?: string;
 };
 
-export { CatalogSchema, GetProductResponse, Images, ProductResponse, Prices, CatalogProps };
+export { CatalogSchema, GetProductResponse, ProductResponse, CatalogProps };

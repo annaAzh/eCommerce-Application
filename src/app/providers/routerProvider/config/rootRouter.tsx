@@ -1,4 +1,4 @@
-import { Card } from 'pages/card/Card';
+import { Product } from 'pages/product/Product';
 import { Catalog } from 'pages/catalog/Catalog';
 import { Login } from 'pages/login/Login';
 import { Main } from 'pages/main/Main';
@@ -38,8 +38,8 @@ export const rootRouter: Router[] = [
     element: <Catalog />,
   },
   {
-    path: Paths.card,
-    element: <Card />,
+    path: Paths.product,
+    element: <Product />,
   },
   {
     path: Paths.profile,
