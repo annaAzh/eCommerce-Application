@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ErrorWithResponse, Images, Product } from 'shared/types';
 import { ProductReject, ProductSelectedResponse } from '../types/productSelectedTypes';
-import { setPrices } from 'shared/lib/setPrises';
+import { setPrices } from 'shared/lib/changeData';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;

@@ -12,8 +12,8 @@ import styles from './Product.module.css';
 export const SelectedProduct = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(getAccessToken);
-  const { productKey } = useParams();
-  const { name, description, images, prices, id } = useAppSelector(getSelectedProduct);
+  const { productKey } = useParams<string>();
+  const { name, description, images, prices } = useAppSelector(getSelectedProduct);
   const isLoading = useAppSelector(getSelectedIsLoading);
   const { discountedPrice, currentPrice } = prices;
 
@@ -24,7 +24,7 @@ export const SelectedProduct = (): JSX.Element => {
 
   return (
     <div className={styles.container}>
-      {isLoading || !id ? (
+      {isLoading ? (
         <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />
       ) : (
         <>

@@ -1,1 +1,0 @@
-export { setPrices } from './setPrises';
