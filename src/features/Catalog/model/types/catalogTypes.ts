@@ -2,6 +2,7 @@ import { Product } from 'shared/types';
 
 interface CatalogSchema {
   products: Product[];
+  categories: FormattedCategories[];
   error?: string;
   isLoading: boolean;
 }
@@ -51,6 +52,36 @@ type CatalogProps = {
   token: string;
   filter?: string;
   sort?: string;
+  category?: string;
 };
 
-export { CatalogSchema, GetProductResponse, Images, ProductResponse, Prices, CatalogProps };
+interface GetCategoroesResponse {
+  results: CategoroesResponse[];
+}
+
+interface CategoroesResponse {
+  id: string;
+  name: {
+    'en-US': string;
+  };
+  parent?: {
+    id: string;
+  };
+}
+
+interface FormattedCategories {
+  id: string;
+  name: string;
+  subCategory: Omit<FormattedCategories, 'subCategory'>[];
+}
+
+export {
+  CatalogSchema,
+  GetProductResponse,
+  Images,
+  ProductResponse,
+  Prices,
+  CatalogProps,
+  GetCategoroesResponse,
+  FormattedCategories,
+};

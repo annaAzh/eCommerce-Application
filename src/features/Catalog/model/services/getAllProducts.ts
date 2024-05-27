@@ -51,11 +51,11 @@ const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product
 
 export const getAllProducts = createAsyncThunk('catalog/getAllProducts', async (data: CatalogProps, thunkAPI) => {
   try {
-    const { token, filter, sort } = data;
+    const { token, filter, sort, category } = data;
     const res = await axios.get(`${API_URL}${PROJECT_KEY}/product-projections/search`, {
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       params: {
-        filter,
+        filter: [filter, category],
         sort,
       },
     });
