@@ -1,13 +1,12 @@
 import { getAccessToken } from 'entities/User';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
-import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
-import { getProductByKey } from '../model/services/getProductByKey';
-import { getSelectedIsLoading, getSelectedProduct } from '../model/selectors/productSelectors';
+import { getProductByKey } from '../model/services/getSelectedProductByKey';
+import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
+import { getSelectedIsLoading, getSelectedProduct } from '../model/selectors/selectedProductSelectors';
 import { HashLoader } from 'react-spinners';
 import parse from 'html-react-parser';
-import styles from './Product.module.css';
+import styles from './SelectedProduct.module.css';
 
 export const SelectedProduct = (): JSX.Element => {
   const dispatch = useAppDispatch();

@@ -5,7 +5,7 @@ import { loginReducer } from 'features/LoginUser';
 import { notificationReducer } from 'entities/NotificationTool';
 import { registerReducer } from 'features/RegistrationUser';
 import { catalogReducer } from 'features/Catalog';
-import { productReducer } from 'features/Product';
+import { productReducer } from 'features/SelectedProduct';
 
 export const rootReducer = combineReducers<StateSchema>({
   user: userReducer,

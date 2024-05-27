@@ -4,7 +4,7 @@ import { CatalogSchema } from 'features/Catalog';
 import { UserSchema } from 'entities/User';
 import { LoginSchema } from 'features/LoginUser';
 import { RegisterSchema } from 'features/RegistrationUser';
-import { ProductSchema } from 'features/Product';
+import { ProductSchema } from 'features/SelectedProduct';
 
 export interface StateSchema {
   user: Reducer<UserSchema>;

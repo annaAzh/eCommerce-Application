@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { getProductByKey } from '../services/getProductByKey';
-import { ProductReject, ProductSchema } from '../types/productSelectedTypes';
+import { ProductReject, ProductSchema } from '../types/selectedProductTypes';
 import { Product } from 'shared/types';
+import { getProductByKey } from '../services/getSelectedProductByKey';
 
 const initialState: ProductSchema = {
   product: {
