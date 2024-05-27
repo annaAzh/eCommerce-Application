@@ -7,7 +7,7 @@ import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { getAllProducts } from '../model/services/getAllProducts';
 import { DefaultFilter } from './components/DefaultFilter/DefaultFilter';
 import { CatalogProps } from '../model/types/catalogTypes';
-import { NavMenu } from './components/NavMenu/NavMenu';
+import { NavMenu } from 'shared/ui/NavMenu/NavMenu';
 import { getAllCategories } from '../model/selectors/catalogSelectors';
 import { getAvailableCategories } from '../model/services/getAvailableCategories';
 

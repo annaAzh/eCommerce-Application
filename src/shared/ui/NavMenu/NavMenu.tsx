@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import style from '../../Catalog.module.css';
+import style from './NavMenu.module.css';
 import { Dropdown, MenuProps } from 'antd';
 import { FormattedCategories } from 'features/Catalog/model/types/catalogTypes';
 import { ItemType } from 'antd/es/breadcrumb/Breadcrumb';
 
 interface NavMenuProps {
-  handleData: (str: string) => void;
+  handleData: (value: string) => void;
   categories: FormattedCategories[];
 }
 
@@ -17,14 +17,14 @@ export const NavMenu: FC<NavMenuProps> = ({ handleData, categories }) => {
   const result: MenuProps['items'][] = [];
   categories.forEach((category) => {
     let props: ItemType[] = [];
-    category.subCategory.forEach((subCategory, index) => {
+    category.subCategory.forEach(({ name, id }) => {
       props = [
         ...props,
         {
-          key: index,
+          key: id,
           label: (
-            <div className={style.dropItem} onClick={() => onClick(subCategory.id)}>
-              {subCategory.name}
+            <div className={style.dropItem} onClick={() => onClick(id)}>
+              {name}
             </div>
           ),
         } as ItemType,
