@@ -7,12 +7,13 @@ import { getSelectedIsLoading, getSelectedProduct } from '../model/selectors/sel
 import { HashLoader } from 'react-spinners';
 import parse from 'html-react-parser';
 import styles from './SelectedProduct.module.css';
+import { Slider } from 'shared/ui';
 
 export const SelectedProduct = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(getAccessToken);
   const { productKey } = useParams<string>();
-  const { name, description, images, prices } = useAppSelector(getSelectedProduct);
+  const { name, description, prices } = useAppSelector(getSelectedProduct);
   const isLoading = useAppSelector(getSelectedIsLoading);
   const { discountedPrice, currentPrice } = prices;
 
@@ -28,9 +29,7 @@ export const SelectedProduct = (): JSX.Element => {
       ) : (
         <>
           <div className={styles.leftSide}>
-            {images.map((url: string, index: number) => (
-              <img className={styles.image} key={index} src={url}></img>
-            ))}
+            <Slider />
           </div>
           <div className={styles.rightSide}>
             <h2 className={styles.name}>{name}</h2>

@@ -1,0 +1,76 @@
+.swiper {
+  width: 30%;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.swiper-slide {
+  display: flex;
+  align-items: center;
+  background-size: cover cover;
+  background-position: center;
+}
+
+.mySwiper2 {
+  position: relative;
+  height: 390px;
+  width: 390px;
+  margin: 0 auto;
+}
+
+.mySwiper2 img {
+  width: 340px;
+  height: 340px;
+  border-radius: 10px;
+  border: 1px solid #a7a4a4;
+  margin: 0 auto;
+}
+
+.mySwiper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.swiper-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.mySwiper .swiper-wrapper {
+  justify-content: center;
+}
+
+.mySwiper .swiper-slide {
+  opacity: 0.4;
+}
+
+.mySwiper .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+.mySwiper img {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+  border: 1px solid #a7a4a4;
+  cursor: pointer;
+}
+
+.swiper-button-prev {
+  left: 0;
+}
+
+.swiper-button-next {
+  right: 0;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #0c0c0c;
+
+  --swiper-navigation-size: 32px;
+}

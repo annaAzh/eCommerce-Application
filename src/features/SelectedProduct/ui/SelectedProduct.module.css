@@ -1,5 +1,5 @@
 .container {
-  width: 90%;
+  width: 80%;
   flex-grow: 1;
   display: flex;
   border: 1px solid var(--main-color-4);
@@ -12,7 +12,6 @@
 .leftSide {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
 .image {
