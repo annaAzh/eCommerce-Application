@@ -5,8 +5,7 @@ const setLocalStoreState = (token: string): void => {
 };
 
 const getLocalStoreState = (): string => {
-  let response: string;
-  response = localStorage.getItem(STORE_KEY) || '';
+  let response = localStorage.getItem(STORE_KEY) || '';
   if (response) {
     response = JSON.parse(response);
   }

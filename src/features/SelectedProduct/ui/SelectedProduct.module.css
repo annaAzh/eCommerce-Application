@@ -1,0 +1,86 @@
+.container {
+  width: 80%;
+  flex-grow: 1;
+  display: flex;
+  border: 1px solid var(--main-color-4);
+  padding: 1%;
+  margin: 1% auto;
+  border-radius: 4px;
+  gap: 1rem;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+}
+
+.image {
+  width: 300px;
+  min-height: 300px;
+  border-radius: 4px;
+}
+
+.rightSide {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 5rem;
+}
+
+.name {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 600;
+  color: var(--blue);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    left: 20%;
+    width: 70%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--red), transparent);
+  }
+}
+
+.description {
+  font-style: italic;
+  color: var(--main-color-4);
+}
+
+.commonPriceClass {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2%;
+  font-size: 32px;
+}
+
+.price {
+  color: var(--blue);
+}
+
+.discountedPrice {
+  color: var(--red);
+}
+
+.crossedPrice {
+  color: var(--main-color-4);
+  opacity: 0.7;
+  font-size: 25px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 30%;
+    right: -0.3%;
+    width: 6%;
+    height: 2px;
+    background: var(--main-color-4);
+    transform: rotate(-10deg);
+    transform-origin: left top;
+  }
+}

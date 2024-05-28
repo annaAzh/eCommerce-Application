@@ -21,14 +21,6 @@ const links: LinkOfPage[] = [
     ),
   },
   {
-    key: Paths.card,
-    label: (
-      <Link className="sider-link" to={`/${Paths.card}`}>
-        Card
-      </Link>
-    ),
-  },
-  {
     key: Paths.profile,
     label: (
       <Link className="sider-link" to={`/${Paths.profile}`}>

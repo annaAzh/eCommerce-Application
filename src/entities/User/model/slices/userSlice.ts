@@ -3,6 +3,7 @@ import { UserSchema } from '../types/userTypes';
 import { AccessTokenSuccess, PasswordFlowSuccess } from '../types/tokenTypes';
 import { requestAccessToken } from '../services/requestAccessToken';
 import { passwordFlow } from '../services/passwordFlow';
+import { refreshFlow } from '../services/requestRefreshToken';
 
 const initialState: UserSchema = {
   user: {
@@ -24,6 +25,9 @@ export const userSlice = createSlice({
     },
     clearUserError(state: UserSchema) {
       state.error = undefined;
+    },
+    setAccessToken(state: UserSchema, action: PayloadAction<string>) {
+      state.user.accessToken = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,10 +56,24 @@ export const userSlice = createSlice({
       .addCase(passwordFlow.rejected, (state, { payload }: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = payload as string;
+      })
+
+      .addCase(refreshFlow.fulfilled, (state, { payload }: PayloadAction<PasswordFlowSuccess>) => {
+        state.isLoading = false;
+        state.error = undefined;
+        state.user.accessToken = payload.access_token;
+        state.user.isLogined = true;
+      })
+      .addCase(refreshFlow.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(refreshFlow.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
       });
   },
 });
 
 export const { reducer: userReducer } = userSlice;
 
-export const { setUserId, setUserIsLoginedStatus, clearUserError } = userSlice.actions;
+export const { setUserId, setUserIsLoginedStatus, clearUserError, setAccessToken } = userSlice.actions;

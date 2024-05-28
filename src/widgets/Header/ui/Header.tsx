@@ -31,14 +31,6 @@ const links: LinkOfPage[] = [
     ),
   },
   {
-    key: Paths.card,
-    label: (
-      <Link className="link-header" to={Paths.card}>
-        Card
-      </Link>
-    ),
-  },
-  {
     key: Paths.profile,
     label: (
       <Link className="link-header" to={Paths.profile}>

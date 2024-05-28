@@ -1,14 +1,24 @@
 import { Product } from 'shared/types';
 import styles from './ProductCard.module.css';
+import { useAppDispatch } from 'shared/lib/hooks';
+import { clearProductError } from 'features/SelectedProduct';
+import { useNavigate } from 'react-router-dom';
 
 const ProductCard = ({ product }: { product: Product }): JSX.Element => {
-  const { images, description, name, prices } = product;
+  const { images, description, name, prices, key } = product;
   const { discountedPrice, currentPrice } = prices;
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const descMaxLength = 300;
   const firstImage = images[0];
 
+  function selectProduct(): void {
+    dispatch(clearProductError());
+    navigate(`${key}`);
+  }
+
   return (
-    <div className={styles.card}>
+    <div className={styles.card} onClick={selectProduct}>
       <div className={styles.imageCover}>
         <img className={styles.image} src={firstImage} />
       </div>

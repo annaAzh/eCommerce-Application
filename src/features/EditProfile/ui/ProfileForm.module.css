@@ -1,0 +1,38 @@
+.wrapper {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.form {
+  margin: 40px auto;
+  padding: 20px 10px;
+  max-width: 600px;
+  width: 100%;
+  border: 0.5px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.checkboxWrapper {
+  max-width: 380px;
+  margin-left: auto;
+  margin-bottom: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.tagContainer {
+  margin-bottom: 20px;
+  justify-content: flex-end;
+}
