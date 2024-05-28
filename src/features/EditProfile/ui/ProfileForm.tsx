@@ -14,7 +14,6 @@ import { HashLoader } from 'react-spinners';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getUserProfile } from '../model/services/getUserProfile';
 import { getProfileData, getProfileDataIsLoading, getProfileError } from '../model/selectors/profileSelectors';
-import { Address } from '../model/types/profileTypes';
 import { clearProfileError } from '../model/slices/profileSlice';
 import { PrimaryControlButton } from 'shared/ui';
 
@@ -32,7 +31,7 @@ const ProfileForm: FC = () => {
   const { Option } = Select;
   const [isEditDetails, setIsEditDetails] = useState<boolean>(false);
   const [isEditAddress, setIsEditAddress] = useState<boolean>(false);
-  const [addresses, setAddresses] = useState<Address[] | []>([]);
+
   const [data, setData] = useState({
     defaultBillingAddress: '',
     defaultShippingAddress: '',
@@ -56,7 +55,7 @@ const ProfileForm: FC = () => {
       addressForm.setFieldsValue({
         addresses: profileData.addresses || [],
       });
-      setAddresses(profileData.addresses || []);
+
       setData({
         defaultBillingAddress: profileData.defaultBillingAddressId || '',
         defaultShippingAddress: profileData.defaultShippingAddressId || '',
@@ -93,6 +92,32 @@ const ProfileForm: FC = () => {
     return data.defaultBillingAddress === addressId;
   };
 
+  const handleCheckboxChange = (addressId: string, checked: boolean, type: 'shipping' | 'billing') => {
+    setData((prevData) => ({
+      ...prevData,
+      defaultShippingAddress: type === 'shipping' ? (checked ? addressId : '') : data.defaultShippingAddress,
+      defaultBillingAddress: type === 'billing' ? (checked ? addressId : '') : data.defaultBillingAddress,
+    }));
+  };
+
+  const handleAddressCheckboxChange = (addressId: string, checked: boolean, type: 'shipping' | 'billing') => {
+    setData((prevData) => ({
+      ...prevData,
+      shippingAddressIds:
+        type === 'shipping'
+          ? checked
+            ? [...data.shippingAddressIds, addressId]
+            : data.shippingAddressIds.filter((id) => id !== addressId)
+          : data.shippingAddressIds,
+      billingAddressIds:
+        type === 'billing'
+          ? checked
+            ? [...data.billingAddressIds, addressId]
+            : data.billingAddressIds.filter((id) => id !== addressId)
+          : data.billingAddressIds,
+    }));
+  };
+
   return (
     <div className={styles.wrapper}>
       {isLoading ? (
@@ -107,7 +132,7 @@ const ProfileForm: FC = () => {
             name="profile-details"
             className={styles.form}
             onFinish={(values) => {
-              console.log('Form values:', values);
+              console.log(values, 'Form values');
             }}
           >
             <div className={styles.switchContainer}>
@@ -144,7 +169,6 @@ const ProfileForm: FC = () => {
             form={addressForm}
             name="profile-address"
             className={styles.form}
-            initialValues={{ addresses }}
             onFinish={(values) => {
               console.log('Form values:', values);
             }}
@@ -219,19 +243,67 @@ const ProfileForm: FC = () => {
                           <Input disabled={!isEditAddress} />
                         </Form.Item>
                         <div className={styles.checkboxWrapper}>
-                          <Checkbox disabled={!isEditAddress} checked={checkShippingAddress(addressId)}>
-                            Set as shipping address
-                          </Checkbox>
-                          <Checkbox disabled={!isEditAddress} checked={checkBillingAddress(addressId)}>
-                            Set as billing address
-                          </Checkbox>
+                          <Form.Item
+                            name={[name, 'setAsBillingAddress']}
+                            valuePropName="checked"
+                            initialValue={checkBillingAddress(addressId)}
+                          >
+                            <Checkbox
+                              disabled={!isEditAddress}
+                              checked={checkBillingAddress(addressId)}
+                              onChange={(e) => handleAddressCheckboxChange(addressId, e.target.checked, 'billing')}
+                            >
+                              Set as billing address
+                            </Checkbox>
+                          </Form.Item>
 
-                          <Checkbox disabled={!isEditAddress} checked={checkdefaultShippingAddress(addressId)}>
-                            Set as a default shipping address
-                          </Checkbox>
-                          <Checkbox disabled={!isEditAddress} checked={checkdefaultBillingAddress(addressId)}>
-                            Set as a default billing address
-                          </Checkbox>
+                          <Form.Item
+                            name={[name, 'setAsShippingAddress']}
+                            valuePropName="checked"
+                            initialValue={checkShippingAddress(addressId)}
+                          >
+                            <Checkbox
+                              disabled={!isEditAddress}
+                              checked={checkShippingAddress(addressId)}
+                              onChange={(e) => handleAddressCheckboxChange(addressId, e.target.checked, 'shipping')}
+                            >
+                              Set as shipping address
+                            </Checkbox>
+                          </Form.Item>
+
+                          <Form.Item
+                            name={[name, 'defaultShippingAddress']}
+                            valuePropName="checked"
+                            initialValue={checkdefaultShippingAddress(addressId)}
+                          >
+                            <Checkbox
+                              disabled={
+                                !isEditAddress ||
+                                (data.defaultShippingAddress !== addressId && data.defaultShippingAddress !== '')
+                              }
+                              checked={data.defaultShippingAddress === addressId}
+                              onChange={(e) => handleCheckboxChange(addressId, e.target.checked, 'shipping')}
+                            >
+                              Set as a default shipping address
+                            </Checkbox>
+                          </Form.Item>
+
+                          <Form.Item
+                            name={[name, 'defaultBillingAddress']}
+                            valuePropName="checked"
+                            initialValue={checkdefaultBillingAddress(addressId)}
+                          >
+                            <Checkbox
+                              disabled={
+                                !isEditAddress ||
+                                (data.defaultBillingAddress !== addressId && data.defaultBillingAddress !== '')
+                              }
+                              checked={data.defaultBillingAddress === addressId}
+                              onChange={(e) => handleCheckboxChange(addressId, e.target.checked, 'billing')}
+                            >
+                              Set as a default billing address
+                            </Checkbox>
+                          </Form.Item>
                         </div>
                       </div>
                     );
