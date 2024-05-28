@@ -9,7 +9,7 @@ interface OptionalFilterProps {
 
 export const OptionalFilter: FC<OptionalFilterProps> = ({ filter, handleData }) => {
   const filterName = filter[0];
-  const filterProps = filter[1];
+  const filterValues = [...filter[1]].sort((a: string, b: string) => a.localeCompare(b));
   const [prevValue, setPrevValue] = useState<string>();
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
@@ -38,7 +38,7 @@ export const OptionalFilter: FC<OptionalFilterProps> = ({ filter, handleData }) 
     }
   }, [checkedItems]);
 
-  const items = filterProps.map((name, index) => {
+  const items = filterValues.map((name, index) => {
     return {
       key: index,
       label: <Checkbox onClick={() => handler(name)}>{name}</Checkbox>,
