@@ -36,3 +36,19 @@
   margin-bottom: 20px;
   justify-content: flex-end;
 }
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.editSpan {
+  margin-left: 10px;
+  color: var(--main-color-3);
+}
+
+.saveBtnContainer {
+  display: flex;
+  justify-content: end;
+}
