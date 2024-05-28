@@ -1,7 +1,6 @@
 .productListCover {
   display: flex;
   flex-flow: column;
-  margin: 1%;
   gap: 1rem;
   flex-grow: 1;
 }
@@ -11,4 +10,6 @@
   flex-flow: wrap;
   justify-content: center;
   gap: 1rem;
+  flex-grow: 1;
+  padding: 1%;
 }

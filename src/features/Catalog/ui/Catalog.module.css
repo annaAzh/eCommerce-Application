@@ -8,3 +8,11 @@
   align-items: center;
   display: flex;
 }
+
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  height: 50px;
+  background: var(--denim);
+}

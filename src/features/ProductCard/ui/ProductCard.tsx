@@ -1,6 +1,5 @@
 import { Product } from 'shared/types';
 import styles from './ProductCard.module.css';
-import parse from 'html-react-parser';
 import { useAppDispatch } from 'shared/lib/hooks';
 import { clearProductError } from 'features/SelectedProduct';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +25,7 @@ const ProductCard = ({ product }: { product: Product }): JSX.Element => {
       <div className={styles.descriptionCover}>
         <p className={styles.name}>{name}</p>
         <p className={styles.description}>
-          {parse(description.length > descMaxLength ? description.slice(0, descMaxLength) : description)}
+          {description.length > descMaxLength ? description.slice(0, descMaxLength).concat('...') : description}
         </p>
         {discountedPrice ? (
           <div>

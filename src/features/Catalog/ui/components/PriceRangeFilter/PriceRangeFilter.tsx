@@ -1,16 +1,22 @@
 import { MenuProps, Slider, Dropdown, Input } from 'antd';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import styles from '../../Catalog.module.css';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
-import { CatalogUiProps } from '../../Catalog';
 
 const indexMinPriceRange = 0;
 const indexMaxPriceRange = 1;
-const defaultMin = 0;
-const defaultMax = 100;
 
-export const PriceRangeFilter: FC<CatalogUiProps> = ({ handleData }) => {
-  const [priceRange, setPriceRange] = useState<number[]>([defaultMin, defaultMax]);
+interface PriceRangeFilterProps {
+  handleData: (str: string) => void;
+  minAndMax: { min: number; max: number };
+}
+
+export const PriceRangeFilter: FC<PriceRangeFilterProps> = ({ handleData, minAndMax }) => {
+  const { min, max } = minAndMax;
+  const [priceRange, setPriceRange] = useState<number[]>([min, max]);
+  useEffect(() => {
+    setPriceRange([min, max]);
+  }, [minAndMax]);
 
   const onChangeSliderHandler = (value: number[]) => {
     setPriceRange(value);
@@ -48,10 +54,10 @@ export const PriceRangeFilter: FC<CatalogUiProps> = ({ handleData }) => {
               />
             </div>
             <Slider
-              min={defaultMin}
-              max={defaultMax}
+              min={min}
+              max={max}
               range
-              defaultValue={[defaultMin, defaultMax]}
+              defaultValue={[min, max]}
               onChange={onChangeSliderHandler}
               value={priceRange}
               onChangeComplete={onChangeCompleteSliderHandler}

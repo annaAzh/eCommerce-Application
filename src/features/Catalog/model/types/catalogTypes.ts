@@ -3,6 +3,9 @@ import { Images, Prices } from 'shared/types/productTypes';
 
 interface CatalogSchema {
   products: Product[];
+  categories: FormattedCategories[];
+  attributes?: FormattedAttributesType;
+  priceRange: { min: number; max: number };
   error?: string;
   isLoading: boolean;
 }
@@ -23,13 +26,56 @@ type ProductResponse = {
   masterVariant: {
     images: Images[];
     prices: Prices[];
+    attributes: AttributesType[];
   };
 };
 
+type AttributesType = { name: string; value: string };
+
 type CatalogProps = {
   token: string;
-  filter?: string;
+  filter?: string[] | string;
   sort?: string;
 };
 
-export { CatalogSchema, GetProductResponse, ProductResponse, CatalogProps };
+interface GetCategoroesResponse {
+  results: CategoroesResponse[];
+}
+
+interface CategoroesResponse {
+  id: string;
+  name: {
+    'en-US': string;
+  };
+  parent?: {
+    id: string;
+  };
+}
+
+interface FormattedCategories {
+  id: string;
+  name: string;
+  subCategory: Omit<FormattedCategories, 'subCategory'>[];
+}
+
+interface FormattedAttributesType {
+  [key: string]: string[];
+}
+
+interface ParseResponse {
+  attributes: FormattedAttributesType;
+  priceRange: { min: number; max: number };
+}
+
+export {
+  CatalogSchema,
+  GetProductResponse,
+  Images,
+  ProductResponse,
+  Prices,
+  CatalogProps,
+  GetCategoroesResponse,
+  FormattedCategories,
+  ParseResponse,
+  FormattedAttributesType,
+};
