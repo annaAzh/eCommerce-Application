@@ -15,7 +15,7 @@ const ProductCard = ({ product }: { product: Product }): JSX.Element => {
       <div className={styles.descriptionCover}>
         <p className={styles.name}>{name}</p>
         <p className={styles.description}>
-          {description.length > descMaxLength ? description.slice(0, descMaxLength) : description}
+          {description.length > descMaxLength ? description.slice(0, descMaxLength).concat('...') : description}
         </p>
         {discountedPrice ? (
           <div>
