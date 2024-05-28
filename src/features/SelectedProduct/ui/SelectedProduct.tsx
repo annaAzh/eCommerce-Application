@@ -7,7 +7,7 @@ import { getSelectedIsLoading, getSelectedProduct } from '../model/selectors/sel
 import { HashLoader } from 'react-spinners';
 import parse from 'html-react-parser';
 import styles from './SelectedProduct.module.css';
-import { Slider } from 'widgets/Slider';
+import { Slider } from 'shared/ui';
 
 export const SelectedProduct = (): JSX.Element => {
   const dispatch = useAppDispatch();

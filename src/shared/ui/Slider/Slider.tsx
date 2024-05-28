@@ -12,7 +12,7 @@ import './Slider.css';
 export function Slider() {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
   const product = useAppSelector(getSelectedProduct);
-  const images = product.images;
+  const { images } = product;
 
   return (
     <>
