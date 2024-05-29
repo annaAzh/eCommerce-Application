@@ -6,7 +6,7 @@ import { notificationReducer } from 'entities/NotificationTool';
 import { registerReducer } from 'features/RegistrationUser';
 import { profileReducer } from 'features/EditProfile';
 import { catalogReducer } from 'features/Catalog';
-import { productReducer } from 'features/SelectedProduct';
+import { cardReducer } from 'features/SelectedProduct';
 
 export const rootReducer = combineReducers<StateSchema>({
   user: userReducer,
@@ -15,5 +15,5 @@ export const rootReducer = combineReducers<StateSchema>({
   notification: notificationReducer,
   profile: profileReducer,
   catalog: catalogReducer,
-  product: productReducer,
+  card: cardReducer,
 });

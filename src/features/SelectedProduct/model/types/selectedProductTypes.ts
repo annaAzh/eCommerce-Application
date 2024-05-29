@@ -1,7 +1,7 @@
 import { Product } from 'shared/types';
 import { Images, Prices } from 'shared/types/productTypes';
 
-interface ProductSchema {
+interface CardSchema {
   product: Product;
   error?: ProductReject;
   isLoading: boolean;
@@ -37,4 +37,4 @@ interface ProductReject {
   ];
 }
 
-export { ProductSchema, ProductSelectedResponse, ProductReject };
+export { CardSchema, ProductSelectedResponse, ProductReject };

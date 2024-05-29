@@ -1,15 +1,15 @@
 import { RootState } from 'app/providers/storeProvider';
 
 const getSelectedProduct = (state: RootState) => {
-  return state.product.product;
+  return state.card.product;
 };
 
 const getSelectedIsLoading = (state: RootState) => {
-  return state.product.isLoading;
+  return state.card.isLoading;
 };
 
 const getSelectedError = (state: RootState) => {
-  return state.product.error;
+  return state.card.error;
 };
 
 export { getSelectedProduct, getSelectedIsLoading, getSelectedError };

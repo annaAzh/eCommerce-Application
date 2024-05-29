@@ -5,7 +5,7 @@ import { UserSchema } from 'entities/User';
 import { ProfileSchema } from 'features/EditProfile';
 import { LoginSchema } from 'features/LoginUser';
 import { RegisterSchema } from 'features/RegistrationUser';
-import { ProductSchema } from 'features/SelectedProduct';
+import { CardSchema } from 'features/SelectedProduct';
 
 export interface StateSchema {
   user: Reducer<UserSchema>;
@@ -14,5 +14,5 @@ export interface StateSchema {
   notification: Reducer<NotificationToolSchema>;
   profile: Reducer<ProfileSchema>;
   catalog: Reducer<CatalogSchema>;
-  product: Reducer<ProductSchema>;
+  card: Reducer<CardSchema>;
 }
