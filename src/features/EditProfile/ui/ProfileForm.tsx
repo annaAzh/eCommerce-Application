@@ -83,7 +83,7 @@ const ProfileForm: FC = () => {
         shippingAddressIds: profileData.shippingAddressIds || [],
       });
     }
-  }, [profileData, addressForm, profileForm, isLogined]);
+  }, [profileData, addressForm, profileForm, isLogined, isEditDetails]);
 
   useEffect(() => {
     if (!profileError) return;
