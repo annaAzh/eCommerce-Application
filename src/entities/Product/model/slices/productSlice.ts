@@ -14,16 +14,6 @@ const initialState: ProductSchema = {
   error: undefined,
 };
 
-// interface A {
-//   sortField?: 'name.en-US' | 'price';
-//   sortBy?: 'asc' | 'desc';
-//   categoriesId?: string;
-//   priceRange?: string;
-//   optionalFilters?: OptionalFilter[];
-// }
-
-// type OptionalFilter = { key: string; values: string[] };
-
 export const productSlice = createSlice({
   name: 'product',
   initialState,
