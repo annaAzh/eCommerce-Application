@@ -1,8 +1,9 @@
-import { Checkbox, DatePicker, Divider, Flex, Form, Input, Select, Tag } from 'antd';
+import { Checkbox, DatePicker, Divider, Flex, Form, Input, Select, Switch, Tag } from 'antd';
 import styles from './ProfileForm.module.css';
 import { formItemLayout } from 'features/RegistrationUser/ui/StyledRegistrationForm/StyledRegistrationForm';
+import postalCodes from 'postal-codes-js';
 
-import { checkBirthday, checkEmail, checkInput, checkPostalCode, checkStreet } from 'shared/lib/checkValid';
+import { checkBirthday, checkEmail, checkInput, checkStreet } from 'shared/lib/checkValid';
 import { COUNTRIES } from 'shared/consts';
 import { FC, useEffect, useState } from 'react';
 import { getAccessToken, getUserIsLoginedStatus } from 'entities/User';
@@ -13,8 +14,8 @@ import { HashLoader } from 'react-spinners';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getUserProfile } from '../model/services/getUserProfile';
 import { getProfileData, getProfileDataIsLoading, getProfileError } from '../model/selectors/profileSelectors';
-import { Address } from '../model/types/profileTypes';
 import { clearProfileError } from '../model/slices/profileSlice';
+import { PrimaryControlButton } from 'shared/ui';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,9 +25,13 @@ const ProfileForm: FC = () => {
   const isLoading = useAppSelector(getProfileDataIsLoading);
   const profileError = useAppSelector(getProfileError);
 
-  const [form] = Form.useForm();
+  const [profileForm] = Form.useForm();
+  const [addressForm] = Form.useForm();
+
   const { Option } = Select;
-  const [addresses, setAddresses] = useState<Address[] | []>([]);
+  const [isEditDetails, setIsEditDetails] = useState<boolean>(false);
+  const [isEditAddress, setIsEditAddress] = useState<boolean>(false);
+
   const [data, setData] = useState({
     defaultBillingAddress: '',
     defaultShippingAddress: '',
@@ -41,14 +46,16 @@ const ProfileForm: FC = () => {
 
   useEffect(() => {
     if (profileData && isLogined) {
-      form.setFieldsValue({
+      profileForm.setFieldsValue({
         firstName: profileData.firstName,
         lastName: profileData.lastName,
         email: profileData.email,
         dateOfBirth: dayjs(profileData.dateOfBirth),
+      });
+      addressForm.setFieldsValue({
         addresses: profileData.addresses || [],
       });
-      setAddresses(profileData.addresses || []);
+
       setData({
         defaultBillingAddress: profileData.defaultBillingAddressId || '',
         defaultShippingAddress: profileData.defaultShippingAddressId || '',
@@ -56,7 +63,7 @@ const ProfileForm: FC = () => {
         shippingAddressIds: profileData.shippingAddressIds || [],
       });
     }
-  }, [profileData, form, isLogined]);
+  }, [profileData, addressForm, profileForm, isLogined]);
 
   useEffect(() => {
     if (!profileError) return;
@@ -85,6 +92,32 @@ const ProfileForm: FC = () => {
     return data.defaultBillingAddress === addressId;
   };
 
+  const handleCheckboxChange = (addressId: string, checked: boolean, type: 'shipping' | 'billing') => {
+    setData((prevData) => ({
+      ...prevData,
+      defaultShippingAddress: type === 'shipping' ? (checked ? addressId : '') : data.defaultShippingAddress,
+      defaultBillingAddress: type === 'billing' ? (checked ? addressId : '') : data.defaultBillingAddress,
+    }));
+  };
+
+  const handleAddressCheckboxChange = (addressId: string, checked: boolean, type: 'shipping' | 'billing') => {
+    setData((prevData) => ({
+      ...prevData,
+      shippingAddressIds:
+        type === 'shipping'
+          ? checked
+            ? [...data.shippingAddressIds, addressId]
+            : data.shippingAddressIds.filter((id) => id !== addressId)
+          : data.shippingAddressIds,
+      billingAddressIds:
+        type === 'billing'
+          ? checked
+            ? [...data.billingAddressIds, addressId]
+            : data.billingAddressIds.filter((id) => id !== addressId)
+          : data.billingAddressIds,
+    }));
+  };
+
   return (
     <div className={styles.wrapper}>
       {isLoading ? (
@@ -93,35 +126,63 @@ const ProfileForm: FC = () => {
         <>
           <h2 className={styles.title}>Profile</h2>
 
-          <Form {...formItemLayout} form={form} name="profile-details" className={styles.form}>
+          <Form
+            {...formItemLayout}
+            form={profileForm}
+            name="profile-details"
+            className={styles.form}
+            onFinish={(values) => {
+              console.log(values, 'Form values');
+            }}
+          >
+            <div className={styles.switchContainer}>
+              <Switch onChange={() => setIsEditDetails(!isEditDetails)} />
+              <span className={styles.editSpan}>Edit</span>
+            </div>
             <Divider orientation="center">Account Details</Divider>
             <Form.Item name="firstName" label="First name" required rules={checkInput('First name')}>
-              <Input disabled />
+              <Input disabled={!isEditDetails} />
             </Form.Item>
             <Form.Item name="lastName" label="Last name" required rules={checkInput('Last name')}>
-              <Input disabled />
+              <Input disabled={!isEditDetails} />
             </Form.Item>
             <Form.Item name="email" label="E-mail" required rules={checkEmail()}>
-              <Input disabled />
+              <Input disabled={!isEditDetails} />
             </Form.Item>
             <Form.Item name="dateOfBirth" label="Date of Birth" required rules={checkBirthday()}>
-              <DatePicker format="YYYY-MM-DD" disabled />
+              <DatePicker format="YYYY-MM-DD" disabled={!isEditDetails} />
             </Form.Item>
+            <div className={styles.saveBtnContainer}>
+              <PrimaryControlButton
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                disabled={!isEditDetails}
+              >
+                Save changes
+              </PrimaryControlButton>
+            </div>
           </Form>
 
           <Form
             {...formItemLayout}
-            form={form}
+            form={addressForm}
             name="profile-address"
             className={styles.form}
-            initialValues={{ addresses }}
+            onFinish={(values) => {
+              console.log('Form values:', values);
+            }}
           >
+            <div className={styles.switchContainer}>
+              <Switch onChange={() => setIsEditAddress(!isEditAddress)} />
+              <span className={styles.editSpan}>Edit</span>
+            </div>
             <Divider orientation="center">Addresses</Divider>
             <Form.List name="addresses">
               {(fields) => (
                 <>
                   {fields.map(({ key, name }) => {
-                    const addressId = form.getFieldValue(['addresses', name, 'id']);
+                    const addressId: string = addressForm.getFieldValue(['addresses', name, 'id']);
 
                     return (
                       <div key={key}>
@@ -137,19 +198,19 @@ const ProfileForm: FC = () => {
                         </Flex>
 
                         <Form.Item name={[name, 'streetName']} label="Street" required rules={checkStreet()}>
-                          <Input disabled />
+                          <Input disabled={!isEditAddress} />
                         </Form.Item>
                         <Form.Item name={[name, 'city']} label="City" required rules={checkInput('City')}>
-                          <Input disabled />
+                          <Input disabled={!isEditAddress} />
                         </Form.Item>
                         <Form.Item
                           name={[name, 'country']}
                           label="Country"
                           rules={[{ required: true, message: 'Please select Country!' }]}
                         >
-                          <Select placeholder="Select your country" disabled>
+                          <Select placeholder="Select your country" disabled={!isEditAddress}>
                             {COUNTRIES.map(({ title, value }) => (
-                              <Option key={title} value={value}>
+                              <Option key={value} value={value}>
                                 {title}
                               </Option>
                             ))}
@@ -159,25 +220,90 @@ const ProfileForm: FC = () => {
                           name={[name, 'postalCode']}
                           label="Postal code"
                           required
-                          dependencies={['country']}
-                          rules={checkPostalCode('country')}
+                          dependencies={[[name, 'country']]}
+                          // rules={checkPostalCode('country')}
+                          rules={[
+                            {
+                              validator: (_, value: string) => {
+                                const countryCode: string = addressForm.getFieldsValue().addresses[name].country;
+                                const country = COUNTRIES.find((elem) => elem.value === countryCode);
+
+                                if (!value) {
+                                  return Promise.reject('Postal code must not be empty');
+                                } else if (!countryCode) {
+                                  return Promise.reject('Please, choose country before');
+                                } else if (postalCodes.validate(countryCode, value) !== true) {
+                                  return Promise.reject(`Invalid postal code format for ${country?.title}!`);
+                                }
+                                return Promise.resolve();
+                              },
+                            },
+                          ]}
                         >
-                          <Input disabled />
+                          <Input disabled={!isEditAddress} />
                         </Form.Item>
                         <div className={styles.checkboxWrapper}>
-                          <Checkbox disabled checked={checkShippingAddress(addressId)}>
-                            Set as shipping address
-                          </Checkbox>
-                          <Checkbox disabled checked={checkBillingAddress(addressId)}>
-                            Set as billing address
-                          </Checkbox>
+                          <Form.Item
+                            name={[name, 'setAsBillingAddress']}
+                            valuePropName="checked"
+                            initialValue={checkBillingAddress(addressId)}
+                          >
+                            <Checkbox
+                              disabled={!isEditAddress}
+                              checked={checkBillingAddress(addressId)}
+                              onChange={(e) => handleAddressCheckboxChange(addressId, e.target.checked, 'billing')}
+                            >
+                              Set as billing address
+                            </Checkbox>
+                          </Form.Item>
 
-                          <Checkbox disabled checked={checkdefaultShippingAddress(addressId)}>
-                            Set as a default shipping address
-                          </Checkbox>
-                          <Checkbox disabled checked={checkdefaultBillingAddress(addressId)}>
-                            Set as a default billing address
-                          </Checkbox>
+                          <Form.Item
+                            name={[name, 'setAsShippingAddress']}
+                            valuePropName="checked"
+                            initialValue={checkShippingAddress(addressId)}
+                          >
+                            <Checkbox
+                              disabled={!isEditAddress}
+                              checked={checkShippingAddress(addressId)}
+                              onChange={(e) => handleAddressCheckboxChange(addressId, e.target.checked, 'shipping')}
+                            >
+                              Set as shipping address
+                            </Checkbox>
+                          </Form.Item>
+
+                          <Form.Item
+                            name={[name, 'defaultShippingAddress']}
+                            valuePropName="checked"
+                            initialValue={checkdefaultShippingAddress(addressId)}
+                          >
+                            <Checkbox
+                              disabled={
+                                !isEditAddress ||
+                                (data.defaultShippingAddress !== addressId && data.defaultShippingAddress !== '')
+                              }
+                              checked={data.defaultShippingAddress === addressId}
+                              onChange={(e) => handleCheckboxChange(addressId, e.target.checked, 'shipping')}
+                            >
+                              Set as a default shipping address
+                            </Checkbox>
+                          </Form.Item>
+
+                          <Form.Item
+                            name={[name, 'defaultBillingAddress']}
+                            valuePropName="checked"
+                            initialValue={checkdefaultBillingAddress(addressId)}
+                          >
+                            <Checkbox
+                              disabled={
+                                !isEditAddress ||
+                                (data.defaultBillingAddress !== addressId && data.defaultBillingAddress !== '')
+                              }
+                              checked={data.defaultBillingAddress === addressId}
+                              onChange={(e) => handleCheckboxChange(addressId, e.target.checked, 'billing')}
+                            >
+                              Set as a default billing address
+                            </Checkbox>
+                          </Form.Item>
                         </div>
                       </div>
                     );
@@ -185,6 +311,16 @@ const ProfileForm: FC = () => {
                 </>
               )}
             </Form.List>
+            <div className={styles.saveBtnContainer}>
+              <PrimaryControlButton
+                type="primary"
+                htmlType="submit"
+                className="login-form-button"
+                disabled={!isEditAddress}
+              >
+                Save changes
+              </PrimaryControlButton>
+            </div>
           </Form>
         </>
       )}

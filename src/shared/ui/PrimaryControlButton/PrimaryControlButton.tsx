@@ -2,9 +2,10 @@ import { Button } from 'antd';
 import styled from 'styled-components';
 
 const PrimaryControlButton = styled(Button)`
-  width: 6rem;
+  min-width: 6rem;
+  width: content-fit;
   background: var(--main-color-3);
-  &:hover {
+  &:not([disabled]):hover {
     background: var(--green) !important;
   }
 `;
