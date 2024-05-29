@@ -20,7 +20,7 @@ export const productSlice = createSlice({
   reducers: {
     addSearchSortBy(
       state: ProductSchema,
-      { payload }: PayloadAction<Pick<SearchQueryProps, 'sortField' | 'sortBy'> | undefined>,
+      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'sortField' | 'sortBy'>> | undefined>,
     ) {
       if (!payload) {
         if (state.searchQueryProps?.sortBy && state.searchQueryProps.sortField) {
@@ -34,7 +34,7 @@ export const productSlice = createSlice({
     },
     addSearchPriceRange(
       state: ProductSchema,
-      { payload }: PayloadAction<Pick<SearchQueryProps, 'priceRange'> | undefined>,
+      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'priceRange'>> | undefined>,
     ) {
       if (!payload) {
         if (state.searchQueryProps?.priceRange) {
@@ -46,13 +46,16 @@ export const productSlice = createSlice({
         state.searchQueryProps = { ...state.searchQueryProps, priceRange };
       }
     },
-    addSearchOptional(state: ProductSchema, { payload }: PayloadAction<Pick<SearchQueryProps, 'optionalFilters'>>) {
+    addSearchOptional(
+      state: ProductSchema,
+      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'optionalFilters'>>>,
+    ) {
       const { optionalFilters } = payload;
       state.searchQueryProps = { ...state.searchQueryProps, optionalFilters };
     },
     addSearchCategory(
       state: ProductSchema,
-      { payload }: PayloadAction<Pick<SearchQueryProps, 'categoriesId'> | undefined>,
+      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'categoriesId'>> | undefined>,
     ) {
       if (!payload) {
         if (state.searchQueryProps?.categoriesId) {
@@ -62,6 +65,20 @@ export const productSlice = createSlice({
       } else {
         const { categoriesId } = payload;
         state.searchQueryProps = { ...state.searchQueryProps, categoriesId };
+      }
+    },
+    addSearchText(
+      state: ProductSchema,
+      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'search' | 'fuzzy'>> | undefined>,
+    ) {
+      if (!payload) {
+        if (state.searchQueryProps?.search && state.searchQueryProps.fuzzy) {
+          const { search, fuzzy, ...rest } = state.searchQueryProps;
+          state.searchQueryProps = { ...rest };
+        }
+      } else {
+        const { search, fuzzy } = payload;
+        state.searchQueryProps = { ...state.searchQueryProps, search, fuzzy };
       }
     },
   },
@@ -109,4 +126,5 @@ export const productSlice = createSlice({
 
 export const { reducer: productReducer } = productSlice;
 
-export const { addSearchSortBy, addSearchPriceRange, addSearchOptional, addSearchCategory } = productSlice.actions;
+export const { addSearchSortBy, addSearchPriceRange, addSearchOptional, addSearchCategory, addSearchText } =
+  productSlice.actions;

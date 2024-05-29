@@ -3,6 +3,7 @@ import style from './NavMenu.module.css';
 import { Dropdown, MenuProps } from 'antd';
 import { addSearchCategory, getAllCategories } from 'entities/Product';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
+import { UserSearch } from 'features/UserSearch';
 
 export const NavMenu: FC = () => {
   const dispatch = useAppDispatch();
@@ -40,6 +41,7 @@ export const NavMenu: FC = () => {
           </div>
         </Dropdown>
       ))}
+      <UserSearch />
     </div>
   );
 };

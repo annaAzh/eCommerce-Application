@@ -6,7 +6,7 @@ import { SearchQueryProps } from 'shared/types';
 type SortBy = 'by default' | 'price asc' | 'price desc' | 'name asc' | 'name desc';
 
 interface DefaultFilterProps {
-  handleData: (data: Pick<SearchQueryProps, 'sortField' | 'sortBy'> | undefined) => void;
+  handleData: (data: Required<Pick<SearchQueryProps, 'sortField' | 'sortBy'>> | undefined) => void;
 }
 
 export const DefaultFilter: FC<DefaultFilterProps> = ({ handleData }) => {

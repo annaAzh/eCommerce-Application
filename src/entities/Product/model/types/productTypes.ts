@@ -37,6 +37,8 @@ type CatalogProps = {
   token: string;
   filter?: string[] | string;
   sort?: string;
+  fuzzy?: boolean;
+  search?: string;
 };
 
 interface GetCategoroesResponse {

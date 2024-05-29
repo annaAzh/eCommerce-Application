@@ -40,6 +40,8 @@ interface SearchQueryProps {
   categoriesId?: string;
   priceRange?: string;
   optionalFilters?: string[];
+  search?: string;
+  fuzzy?: boolean;
 }
 
 export { Product, Prices, Images, FormattedPrice, SearchQueryProps };
