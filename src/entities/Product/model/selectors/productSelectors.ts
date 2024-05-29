@@ -22,4 +22,7 @@ const getAttributes = (state: RootState) => {
   return state.product.attributes;
 };
 
-export { getProducts, getProductIsLoading, getAllCategories, getPriceRange, getAttributes };
+const getSearchQuery = (state: RootState) => {
+  return state.product.searchQueryProps;
+};
+export { getProducts, getProductIsLoading, getAllCategories, getPriceRange, getAttributes, getSearchQuery };

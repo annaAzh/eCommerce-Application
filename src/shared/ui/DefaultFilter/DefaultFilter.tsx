@@ -1,11 +1,12 @@
 import { Dropdown, MenuProps } from 'antd';
 import { FC, useState } from 'react';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
+import { SearchQueryProps } from 'shared/types';
 
-type SortBy = 'by default' | 'price asc' | 'price desc' | 'name.en-US asc' | 'name.en-US desc';
+type SortBy = 'by default' | 'price asc' | 'price desc' | 'name asc' | 'name desc';
 
 interface DefaultFilterProps {
-  handleData: (str: string) => void;
+  handleData: (data: Pick<SearchQueryProps, 'sortField' | 'sortBy'> | undefined) => void;
 }
 
 export const DefaultFilter: FC<DefaultFilterProps> = ({ handleData }) => {
@@ -13,27 +14,23 @@ export const DefaultFilter: FC<DefaultFilterProps> = ({ handleData }) => {
 
   const clickByDefault = () => {
     setSortBy('by default');
-    handleData('');
+    handleData(undefined);
   };
   const clickByPriceAsc = () => {
-    const value: SortBy = 'price asc';
-    setSortBy(value);
-    handleData(value);
+    setSortBy('price asc');
+    handleData({ sortBy: 'asc', sortField: 'price' });
   };
   const clickByPriceDesc = () => {
-    const value: SortBy = 'price desc';
-    setSortBy(value);
-    handleData(value);
+    setSortBy('price desc');
+    handleData({ sortBy: 'desc', sortField: 'price' });
   };
   const clickByNameAsc = () => {
-    const value: SortBy = 'name.en-US asc';
-    setSortBy(value);
-    handleData(value);
+    setSortBy('name asc');
+    handleData({ sortBy: 'asc', sortField: 'name.en-US' });
   };
   const clickByNameDesc = () => {
-    const value: SortBy = 'name.en-US desc';
-    setSortBy(value);
-    handleData(value);
+    setSortBy('name desc');
+    handleData({ sortBy: 'desc', sortField: 'name.en-US' });
   };
 
   const items: MenuProps['items'] = [

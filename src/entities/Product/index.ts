@@ -10,8 +10,15 @@ export {
   getAllCategories,
   getPriceRange,
   getAttributes,
+  getSearchQuery,
 } from './model/selectors/productSelectors';
 
-export { productReducer } from './model/slices/productSlice';
+export {
+  productReducer,
+  addSearchSortBy,
+  addSearchPriceRange,
+  addSearchOptional,
+  addSearchCategory,
+} from './model/slices/productSlice';
 
 export { ProductSchema, FormattedCategories } from './model/types/productTypes';

@@ -1,16 +1,15 @@
 import { FC } from 'react';
 import style from './NavMenu.module.css';
 import { Dropdown, MenuProps } from 'antd';
-import { FormattedCategories } from 'entities/Product';
+import { addSearchCategory, getAllCategories } from 'entities/Product';
+import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 
-interface NavMenuProps {
-  handleData: (value: string) => void;
-  categories: FormattedCategories[];
-}
+export const NavMenu: FC = () => {
+  const dispatch = useAppDispatch();
+  const categories = useAppSelector(getAllCategories);
 
-export const NavMenu: FC<NavMenuProps> = ({ handleData, categories }) => {
   const onClick = (value: string) => {
-    handleData(`categories.id:"${value}"`);
+    dispatch(addSearchCategory({ categoriesId: `categories.id:"${value}"` }));
   };
 
   const result: MenuProps['items'][] = [];
