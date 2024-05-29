@@ -3,12 +3,6 @@
   justify-content: center;
 }
 
-.dropdownContent {
-  height: 100px;
-  align-items: center;
-  display: flex;
-}
-
 .nav {
   display: flex;
   justify-content: center;

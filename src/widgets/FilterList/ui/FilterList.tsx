@@ -1,12 +1,8 @@
 import { FC, useEffect, useMemo, useState } from 'react';
-import styles from './Catalog.module.css';
-import { PriceRangeFilter } from './components/PriceRangeFilter/PriceRangeFilter';
+import styles from './FilterList.module.css';
 import { getAccessToken } from 'entities/User';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
-import { DefaultFilter } from './components/DefaultFilter/DefaultFilter';
-import { NavMenu } from 'shared/ui/NavMenu/NavMenu';
-import { OptionalFilter } from './components/OptionalFilter/OptionalFilter';
 import {
   getAllCategories,
   getAllProducts,
@@ -15,12 +11,10 @@ import {
   getPriceRange,
   getProductsForParsing,
 } from 'entities/Product';
+import { DefaultFilter, OptionalFilter, PriceRangeFilter } from 'shared/ui';
+import { NavMenu } from 'widgets/NavMenu';
 
-export interface CatalogUiProps {
-  handleData: (str: string) => void;
-}
-
-export const Catalog: FC = () => {
+export const FilterList: FC = () => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(getAccessToken);
   const categories = useAppSelector(getAllCategories);
@@ -46,6 +40,14 @@ export const Catalog: FC = () => {
     }
   };
 
+  const createQuery = () => {
+    if (!token) return;
+    let filter: string[] = [...variantFilter];
+    if (categoriesFilterValue) filter = [...filter, categoriesFilterValue];
+    if (priceRangeValue) filter = [...filter, priceRangeValue];
+    dispatch(getAllProducts({ token, sort: defaultFilterValue, filter }));
+  };
+
   useEffect(() => {
     if (!token) return;
     dispatch(getAvailableCategories(token));
@@ -54,18 +56,13 @@ export const Catalog: FC = () => {
 
   useEffect(() => {
     if (!token) return;
+    createQuery();
     dispatch(getProductsForParsing({ token, filter: categoriesFilterValue }));
-    setVariantFilter([]);
-    setPriceRangeValue(undefined);
-    setDefaultFilterValue(undefined);
   }, [categoriesFilterValue]);
 
   useEffect(() => {
     if (!token) return;
-    let filter: string[] = [...variantFilter];
-    if (categoriesFilterValue) filter = [...filter, categoriesFilterValue];
-    if (priceRangeValue) filter = [...filter, priceRangeValue];
-    dispatch(getAllProducts({ token, sort: defaultFilterValue, filter }));
+    createQuery();
   }, [variantFilter, priceRangeValue, defaultFilterValue]);
 
   const memoNavMenu = useMemo(() => {
@@ -77,7 +74,10 @@ export const Catalog: FC = () => {
   }, [priceRange]);
 
   const memoOptionalFilter = useMemo(() => {
-    if (!attributes || Object.entries(attributes).length === 0) return;
+    if (!attributes || Object.entries(attributes).length === 0) {
+      setVariantFilter([]);
+      return;
+    }
     const optionalFilters = Object.entries(attributes);
     return (
       <>

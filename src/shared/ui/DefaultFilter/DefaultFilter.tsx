@@ -1,11 +1,14 @@
 import { Dropdown, MenuProps } from 'antd';
 import { FC, useState } from 'react';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
-import { CatalogUiProps } from '../../Catalog';
 
 type SortBy = 'by default' | 'price asc' | 'price desc' | 'name.en-US asc' | 'name.en-US desc';
 
-export const DefaultFilter: FC<CatalogUiProps> = ({ handleData }) => {
+interface DefaultFilterProps {
+  handleData: (str: string) => void;
+}
+
+export const DefaultFilter: FC<DefaultFilterProps> = ({ handleData }) => {
   const [sortBy, setSortBy] = useState<SortBy>('by default');
 
   const clickByDefault = () => {

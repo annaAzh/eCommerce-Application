@@ -1,6 +1,6 @@
 import { MenuProps, Slider, Dropdown, Input } from 'antd';
 import { FC, useEffect, useState } from 'react';
-import styles from '../../Catalog.module.css';
+import styles from './PriceRangeFilter.module.css';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
 
 const indexMinPriceRange = 0;
