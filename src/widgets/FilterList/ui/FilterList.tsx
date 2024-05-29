@@ -82,7 +82,6 @@ export const FilterList: FC = () => {
     if (!attributes || Object.entries(attributes).length === 0) {
       setOptionalFilters([]);
       dispatch(addSearchPriceRange(undefined));
-      dispatch(addSearchOptional({ optionalFilters: [] }));
       return;
     }
     const optionalFiltersArray = Object.entries(attributes);
@@ -96,12 +95,10 @@ export const FilterList: FC = () => {
   }, [attributes]);
 
   return (
-    <>
-      <div className={styles.container}>
-        <DefaultFilter handleData={defaultFilterHandler} />
-        {memoPriceRangeFilter}
-        {memoOptionalFilter}
-      </div>
-    </>
+    <div className={styles.container}>
+      <DefaultFilter handleData={defaultFilterHandler} />
+      {memoPriceRangeFilter}
+      {memoOptionalFilter}
+    </div>
   );
 };
