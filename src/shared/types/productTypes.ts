@@ -34,4 +34,12 @@ type Images = {
 
 type FormattedPrice = { currentPrice: string; discountedPrice?: string };
 
-export { Product, Prices, Images, FormattedPrice };
+interface SearchQueryProps {
+  sortField?: 'name.en-US' | 'price';
+  sortBy?: 'asc' | 'desc';
+  categoriesId?: string;
+  priceRange?: string;
+  optionalFilters?: string[];
+}
+
+export { Product, Prices, Images, FormattedPrice, SearchQueryProps };

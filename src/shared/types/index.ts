@@ -1,4 +1,4 @@
-export { Product, FormattedPrice, Prices, Images } from './productTypes';
+export { Product, FormattedPrice, Prices, Images, SearchQueryProps } from './productTypes';
 
 export { Paths } from './routerTypes';
 

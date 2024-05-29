@@ -1,9 +1,9 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ProductReject, ProductSchema } from '../types/selectedProductTypes';
+import { ProductReject, CardSchema } from '../types/selectedProductTypes';
 import { Product } from 'shared/types';
 import { getProductByKey } from '../services/getSelectedProductByKey';
 
-const initialState: ProductSchema = {
+const initialState: CardSchema = {
   product: {
     id: '',
     key: '',
@@ -16,11 +16,11 @@ const initialState: ProductSchema = {
   error: undefined,
 };
 
-export const productSlice = createSlice({
-  name: 'product',
+export const cardSlice = createSlice({
+  name: 'card',
   initialState,
   reducers: {
-    clearProductError(state: ProductSchema) {
+    clearCardError(state: CardSchema) {
       state.error = undefined;
     },
   },
@@ -41,5 +41,5 @@ export const productSlice = createSlice({
   },
 });
 
-export const { reducer: productReducer } = productSlice;
-export const { clearProductError } = productSlice.actions;
+export const { reducer: cardReducer } = cardSlice;
+export const { clearCardError } = cardSlice.actions;

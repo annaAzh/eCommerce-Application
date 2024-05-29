@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { CatalogProps, GetProductResponse, ProductResponse } from '../types/catalogTypes';
+import { CatalogProps, GetProductResponse, ProductResponse } from '../types/productTypes';
 import { BaseTokenError, ErrorWithResponse, Images, Product } from 'shared/types';
 import { removeHtmlTags, setPrices } from 'shared/lib/dataConverters';
 import { CARD_ON_PAGE } from 'shared/consts';
@@ -31,7 +31,7 @@ const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product
 };
 
 export const getAllProducts = createAsyncThunk(
-  'catalog/getAllProducts',
+  'product/getAllProducts',
   async (data: CatalogProps, { rejectWithValue }) => {
     try {
       const { token, sort, filter } = data;

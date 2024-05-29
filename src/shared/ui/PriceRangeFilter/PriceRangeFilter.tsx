@@ -1,19 +1,20 @@
 import { MenuProps, Slider, Dropdown, Input } from 'antd';
 import { FC, useEffect, useState } from 'react';
-import styles from '../../Catalog.module.css';
+import styles from './PriceRangeFilter.module.css';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
+import { SearchQueryProps } from 'shared/types';
 
 const indexMinPriceRange = 0;
 const indexMaxPriceRange = 1;
 
 interface PriceRangeFilterProps {
-  handleData: (str: string) => void;
+  handleData: (data: Pick<SearchQueryProps, 'priceRange'> | undefined) => void;
   minAndMax: { min: number; max: number };
 }
 
 export const PriceRangeFilter: FC<PriceRangeFilterProps> = ({ handleData, minAndMax }) => {
   const { min, max } = minAndMax;
-  const [priceRange, setPriceRange] = useState<number[]>([min, max]);
+  const [priceRangeArray, setPriceRange] = useState<number[]>([min, max]);
   useEffect(() => {
     setPriceRange([min, max]);
   }, [minAndMax]);
@@ -22,14 +23,14 @@ export const PriceRangeFilter: FC<PriceRangeFilterProps> = ({ handleData, minAnd
     setPriceRange(value);
   };
   const onChangeCompleteSliderHandler = (value: number[]) => {
-    const returnValue = `variants.price.centAmount:range (${value[indexMinPriceRange] * 100} to ${value[indexMaxPriceRange] * 100})`;
-    handleData(returnValue);
+    const priceRange = `variants.price.centAmount:range (${value[indexMinPriceRange] * 100} to ${value[indexMaxPriceRange] * 100})`;
+    handleData({ priceRange });
   };
   const minPriceRangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setPriceRange([parseFloat(event.target.value), priceRange[indexMaxPriceRange]]);
+    setPriceRange([parseFloat(event.target.value), priceRangeArray[indexMaxPriceRange]]);
 
   const maxPriceRangeHandler = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setPriceRange([priceRange[indexMinPriceRange], parseFloat(event.target.value)]);
+    setPriceRange([priceRangeArray[indexMinPriceRange], parseFloat(event.target.value)]);
 
   const items: MenuProps['items'] = [
     {
@@ -42,14 +43,14 @@ export const PriceRangeFilter: FC<PriceRangeFilterProps> = ({ handleData, minAnd
                 style={{ width: '100px' }}
                 placeholder="From"
                 type="number"
-                value={priceRange[indexMinPriceRange]}
+                value={priceRangeArray[indexMinPriceRange]}
                 onChange={minPriceRangeHandler}
               />
               <Input
                 style={{ width: '100px' }}
                 placeholder="to"
                 type="number"
-                value={priceRange[indexMaxPriceRange]}
+                value={priceRangeArray[indexMaxPriceRange]}
                 onChange={maxPriceRangeHandler}
               />
             </div>
@@ -59,7 +60,7 @@ export const PriceRangeFilter: FC<PriceRangeFilterProps> = ({ handleData, minAnd
               range
               defaultValue={[min, max]}
               onChange={onChangeSliderHandler}
-              value={priceRange}
+              value={priceRangeArray}
               onChangeComplete={onChangeCompleteSliderHandler}
             />
           </div>

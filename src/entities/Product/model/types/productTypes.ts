@@ -1,11 +1,12 @@
 import { Product } from 'shared/types';
-import { Images, Prices } from 'shared/types/productTypes';
+import { Images, Prices, SearchQueryProps } from 'shared/types/productTypes';
 
-interface CatalogSchema {
+interface ProductSchema {
   products: Product[];
   categories: FormattedCategories[];
   attributes?: FormattedAttributesType;
   priceRange: { min: number; max: number };
+  searchQueryProps?: SearchQueryProps;
   error?: string;
   isLoading: boolean;
 }
@@ -68,7 +69,7 @@ interface ParseResponse {
 }
 
 export {
-  CatalogSchema,
+  ProductSchema,
   GetProductResponse,
   Images,
   ProductResponse,
