@@ -13,7 +13,6 @@ export const LeftSideFilter: FC = () => {
     dispatch(addSearchCategory({ categoriesId: `categories.id:"${value}"` }));
   };
 
-  console.log(categoriesId);
   return (
     <div className={style.cover}>
       {categories.map(({ id, name, subCategory }) => (

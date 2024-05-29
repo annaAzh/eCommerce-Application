@@ -11,18 +11,22 @@
   gap: 0.3rem;
 }
 
-.active {
-  width: fit-content;
-  font-weight: 600;
-  color: var(--green);
-  text-decoration: underline;
-}
-
 .field {
   width: fit-content;
   cursor: pointer;
 
   &:hover {
     color: var(--denim);
+  }
+}
+
+.active {
+  width: fit-content;
+  font-weight: 600;
+  color: var(--green);
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--green);
   }
 }
