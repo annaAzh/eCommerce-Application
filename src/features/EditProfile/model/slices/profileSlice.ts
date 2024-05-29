@@ -10,6 +10,20 @@ const initialState: ProfileSchema = {
   updated: false,
 };
 
+const handleUserProfileFulfilled = (state: ProfileSchema, payload: ProfileData) => {
+  state.user.id = payload.id;
+  state.user.version = payload.version;
+  state.user.firstName = payload.firstName;
+  state.user.lastName = payload.lastName;
+  state.user.email = payload.email;
+  state.user.dateOfBirth = payload.dateOfBirth;
+  state.user.defaultShippingAddressId = payload.defaultShippingAddressId;
+  state.user.defaultBillingAddressId = payload.defaultBillingAddressId;
+  state.user.billingAddressIds = payload.billingAddressIds;
+  state.user.shippingAddressIds = payload.shippingAddressIds;
+  state.user.addresses = payload.addresses;
+};
+
 export const profileSlice = createSlice({
   name: 'profile',
   initialState,
@@ -26,17 +40,7 @@ export const profileSlice = createSlice({
       .addCase(getUserProfile.fulfilled, (state, { payload }: PayloadAction<ProfileData>) => {
         state.isLoading = false;
         state.error = undefined;
-        state.user.id = payload.id;
-        state.user.version = payload.version;
-        state.user.firstName = payload.firstName;
-        state.user.lastName = payload.lastName;
-        state.user.email = payload.email;
-        state.user.dateOfBirth = payload.dateOfBirth;
-        state.user.defaultShippingAddressId = payload.defaultShippingAddressId;
-        state.user.defaultBillingAddressId = payload.defaultBillingAddressId;
-        state.user.billingAddressIds = payload.billingAddressIds;
-        state.user.shippingAddressIds = payload.shippingAddressIds;
-        state.user.addresses = payload.addresses;
+        handleUserProfileFulfilled(state, payload);
       })
       .addCase(getUserProfile.pending, (state) => {
         state.isLoading = true;
@@ -48,17 +52,7 @@ export const profileSlice = createSlice({
       .addCase(updateUserDetails.fulfilled, (state, { payload }: PayloadAction<ProfileData>) => {
         state.isLoading = false;
         state.error = undefined;
-        state.user.id = payload.id;
-        state.user.version = payload.version;
-        state.user.firstName = payload.firstName;
-        state.user.lastName = payload.lastName;
-        state.user.email = payload.email;
-        state.user.dateOfBirth = payload.dateOfBirth;
-        state.user.defaultShippingAddressId = payload.defaultShippingAddressId;
-        state.user.defaultBillingAddressId = payload.defaultBillingAddressId;
-        state.user.billingAddressIds = payload.billingAddressIds;
-        state.user.shippingAddressIds = payload.shippingAddressIds;
-        state.user.addresses = payload.addresses;
+        handleUserProfileFulfilled(state, payload);
         state.updated = true;
       })
       .addCase(updateUserDetails.pending, (state) => {
