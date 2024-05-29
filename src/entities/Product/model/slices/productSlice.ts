@@ -1,11 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { CatalogSchema, FormattedCategories, ParseResponse } from '../types/catalogTypes';
+import { ProductSchema, FormattedCategories, ParseResponse } from '../types/productTypes';
 import { getAllProducts } from '../services/getAllProducts';
 import { Product } from 'shared/types';
 import { getAvailableCategories } from '../services/getAvailableCategories';
 import { getProductsForParsing } from '../services/getProductsForParsing';
 
-const initialState: CatalogSchema = {
+const initialState: ProductSchema = {
   products: [],
   categories: [],
   priceRange: { min: 0, max: 100 },
@@ -13,8 +13,8 @@ const initialState: CatalogSchema = {
   error: undefined,
 };
 
-export const catalogSlice = createSlice({
-  name: 'catalog',
+export const productSlice = createSlice({
+  name: 'product',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -59,4 +59,4 @@ export const catalogSlice = createSlice({
   },
 });
 
-export const { reducer: catalogReducer } = catalogSlice;
+export const { reducer: productReducer } = productSlice;

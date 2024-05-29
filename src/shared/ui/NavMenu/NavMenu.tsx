@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import style from './NavMenu.module.css';
 import { Dropdown, MenuProps } from 'antd';
-import { FormattedCategories } from 'features/Catalog/model/types/catalogTypes';
+import { FormattedCategories } from 'entities/Product';
 
 interface NavMenuProps {
   handleData: (value: string) => void;

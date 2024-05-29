@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { FormattedCategories, GetCategoroesResponse } from '../types/catalogTypes';
+import { FormattedCategories, GetCategoroesResponse } from '../types/productTypes';
 import { BaseTokenError, ErrorWithResponse } from 'shared/types';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
@@ -26,7 +26,7 @@ const convertCategoriesIntoAppropriateFormat = (data: GetCategoroesResponse) => 
 };
 
 export const getAvailableCategories = createAsyncThunk(
-  'catalog/getAvailableCategories',
+  'product/getAvailableCategories',
   async (token: string, { rejectWithValue }) => {
     try {
       const res = await axios.get(`${API_URL}${PROJECT_KEY}/categories`, {

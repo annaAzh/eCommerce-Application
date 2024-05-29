@@ -1,25 +1,25 @@
 import { RootState } from 'app/providers/storeProvider';
 import { Product } from 'shared/types';
-import { FormattedCategories } from '../types/catalogTypes';
+import { FormattedCategories } from '../types/productTypes';
 
 const getProducts = (state: RootState): Product[] => {
-  return state.catalog.products;
+  return state.product.products;
 };
 
 const getProductIsLoading = (state: RootState): boolean => {
-  return state.catalog.isLoading;
+  return state.product.isLoading;
 };
 
 const getAllCategories = (state: RootState): FormattedCategories[] => {
-  return state.catalog.categories;
+  return state.product.categories;
 };
 
 const getPriceRange = (state: RootState) => {
-  return state.catalog.priceRange;
+  return state.product.priceRange;
 };
 
 const getAttributes = (state: RootState) => {
-  return state.catalog.attributes;
+  return state.product.attributes;
 };
 
 export { getProducts, getProductIsLoading, getAllCategories, getPriceRange, getAttributes };

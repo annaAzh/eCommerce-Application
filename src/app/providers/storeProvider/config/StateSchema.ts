@@ -1,6 +1,6 @@
 import { Reducer } from '@reduxjs/toolkit';
 import { NotificationToolSchema } from 'entities/NotificationTool';
-import { CatalogSchema } from 'features/Catalog';
+import { ProductSchema } from 'entities/Product';
 import { UserSchema } from 'entities/User';
 import { ProfileSchema } from 'features/EditProfile';
 import { LoginSchema } from 'features/LoginUser';
@@ -13,6 +13,6 @@ export interface StateSchema {
   auth: Reducer<RegisterSchema>;
   notification: Reducer<NotificationToolSchema>;
   profile: Reducer<ProfileSchema>;
-  catalog: Reducer<CatalogSchema>;
+  product: Reducer<ProductSchema>;
   card: Reducer<CardSchema>;
 }

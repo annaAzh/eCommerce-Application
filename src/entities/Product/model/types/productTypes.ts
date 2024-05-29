@@ -1,7 +1,7 @@
 import { Product } from 'shared/types';
 import { Images, Prices } from 'shared/types/productTypes';
 
-interface CatalogSchema {
+interface ProductSchema {
   products: Product[];
   categories: FormattedCategories[];
   attributes?: FormattedAttributesType;
@@ -68,7 +68,7 @@ interface ParseResponse {
 }
 
 export {
-  CatalogSchema,
+  ProductSchema,
   GetProductResponse,
   Images,
   ProductResponse,

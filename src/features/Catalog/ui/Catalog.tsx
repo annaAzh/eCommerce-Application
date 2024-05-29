@@ -4,13 +4,17 @@ import { PriceRangeFilter } from './components/PriceRangeFilter/PriceRangeFilter
 import { getAccessToken } from 'entities/User';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
-import { getAllProducts } from '../model/services/getAllProducts';
 import { DefaultFilter } from './components/DefaultFilter/DefaultFilter';
 import { NavMenu } from 'shared/ui/NavMenu/NavMenu';
-import { getAllCategories, getAttributes, getPriceRange } from '../model/selectors/catalogSelectors';
-import { getAvailableCategories } from '../model/services/getAvailableCategories';
-import { getProductsForParsing } from '../model/services/getProductsForParsing';
 import { OptionalFilter } from './components/OptionalFilter/OptionalFilter';
+import {
+  getAllCategories,
+  getAllProducts,
+  getAttributes,
+  getAvailableCategories,
+  getPriceRange,
+  getProductsForParsing,
+} from 'entities/Product';
 
 export interface CatalogUiProps {
   handleData: (str: string) => void;
