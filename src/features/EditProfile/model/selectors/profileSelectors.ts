@@ -12,4 +12,8 @@ const getProfileDataIsLoading = (state: RootState): boolean => {
   return state.profile.isLoading;
 };
 
-export { getProfileData, getProfileDataIsLoading, getProfileError };
+const getUpdatedStatus = (state: RootState) => {
+  return state.profile.updated;
+};
+
+export { getProfileData, getProfileDataIsLoading, getProfileError, getUpdatedStatus };

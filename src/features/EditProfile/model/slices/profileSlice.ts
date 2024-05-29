@@ -1,11 +1,13 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { getUserProfile } from '../../../../features/EditProfile/model/services/getUserProfile';
 import { ProfileData, ProfileSchema } from '../types/profileTypes';
+import { updateUserDetails } from '../services/updateDetailsProfile';
 
 const initialState: ProfileSchema = {
   user: {},
   isLoading: false,
   error: undefined,
+  updated: false,
 };
 
 export const profileSlice = createSlice({
@@ -15,12 +17,17 @@ export const profileSlice = createSlice({
     clearProfileError(state: ProfileSchema) {
       state.error = undefined;
     },
+    clearProfileUpdated(state: ProfileSchema) {
+      state.updated = false;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(getUserProfile.fulfilled, (state, { payload }: PayloadAction<ProfileData>) => {
         state.isLoading = false;
         state.error = undefined;
+        state.user.id = payload.id;
+        state.user.version = payload.version;
         state.user.firstName = payload.firstName;
         state.user.lastName = payload.lastName;
         state.user.email = payload.email;
@@ -37,10 +44,33 @@ export const profileSlice = createSlice({
       .addCase(getUserProfile.rejected, (state, { payload }: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = payload as string;
+      })
+      .addCase(updateUserDetails.fulfilled, (state, { payload }: PayloadAction<ProfileData>) => {
+        state.isLoading = false;
+        state.error = undefined;
+        state.user.id = payload.id;
+        state.user.version = payload.version;
+        state.user.firstName = payload.firstName;
+        state.user.lastName = payload.lastName;
+        state.user.email = payload.email;
+        state.user.dateOfBirth = payload.dateOfBirth;
+        state.user.defaultShippingAddressId = payload.defaultShippingAddressId;
+        state.user.defaultBillingAddressId = payload.defaultBillingAddressId;
+        state.user.billingAddressIds = payload.billingAddressIds;
+        state.user.shippingAddressIds = payload.shippingAddressIds;
+        state.user.addresses = payload.addresses;
+        state.updated = true;
+      })
+      .addCase(updateUserDetails.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserDetails.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
       });
   },
 });
 
 export const { reducer: profileReducer } = profileSlice;
 
-export const { clearProfileError } = profileSlice.actions;
+export const { clearProfileError, clearProfileUpdated } = profileSlice.actions;
