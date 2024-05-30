@@ -3,6 +3,7 @@ import styles from './ProductCard.module.css';
 import { useAppDispatch } from 'shared/lib/hooks';
 import { useNavigate } from 'react-router-dom';
 import { clearCardError } from 'features/SelectedProduct';
+import onSale from 'shared/assets/img/onSale.svg';
 
 const ProductCard = ({ product }: { product: Product }): JSX.Element => {
   const { images, description, name, prices, key } = product;
@@ -20,6 +21,7 @@ const ProductCard = ({ product }: { product: Product }): JSX.Element => {
   return (
     <div className={styles.card} onClick={selectProduct}>
       <div className={styles.imageCover}>
+        {discountedPrice ? <img className={styles.svg} src={onSale} /> : null}
         <img className={styles.image} src={firstImage} />
       </div>
       <div className={styles.descriptionCover}>
