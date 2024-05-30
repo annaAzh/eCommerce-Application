@@ -17,12 +17,14 @@ export function Slider() {
   return (
     <>
       <Swiper
+        direction="vertical"
+        onSwiper={setThumbsSwiper}
         loop={true}
-        spaceBetween={10}
-        navigation={true}
-        thumbs={{ swiper: thumbsSwiper }}
+        slidesPerView={3}
+        freeMode={true}
+        watchSlidesProgress={true}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper2"
+        className="mySwiper"
       >
         {images.map((image: string, index: number) => {
           return (
@@ -33,14 +35,12 @@ export function Slider() {
         })}
       </Swiper>
       <Swiper
-        onSwiper={setThumbsSwiper}
         loop={true}
-        spaceBetween={10}
-        slidesPerView={4}
-        freeMode={true}
-        watchSlidesProgress={true}
+        spaceBetween={3}
+        navigation={true}
+        thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
-        className="mySwiper"
+        className="mySwiper2"
       >
         {images.map((image: string, index: number) => {
           return (
