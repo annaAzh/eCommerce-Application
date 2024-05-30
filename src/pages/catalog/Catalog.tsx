@@ -9,10 +9,12 @@ export const Catalog: FC = () => {
   return (
     <>
       <NavMenu />
-      <FilterList />
       <div className={style.cover}>
         <LeftSideFilter />
-        <ProductList />
+        <div className={style.leftSide}>
+          <FilterList />
+          <ProductList />
+        </div>
       </div>
     </>
   );

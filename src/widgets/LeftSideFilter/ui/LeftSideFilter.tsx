@@ -14,28 +14,30 @@ export const LeftSideFilter: FC = () => {
   };
 
   return (
-    <div className={style.cover}>
-      {categories.map(({ id, name, subCategory }) => (
-        <div key={id}>
-          <div
-            className={categoriesId === id ? `${style.active} ${style.field}` : `${style.field}`}
-            onClick={() => onClick(id)}
-          >
-            {name}
+    categories.length > 0 && (
+      <div className={style.cover}>
+        {categories.map(({ id, name, subCategory }) => (
+          <div key={id}>
+            <div
+              className={categoriesId === id ? `${style.active} ${style.field}` : `${style.field}`}
+              onClick={() => onClick(id)}
+            >
+              {name}
+            </div>
+            <div className={style.subCover}>
+              {subCategory.map((category) => (
+                <div
+                  key={category.id}
+                  className={categoriesId === category.id ? `${style.active} ${style.field}` : `${style.field}`}
+                  onClick={() => onClick(category.id)}
+                >
+                  {category.name}
+                </div>
+              ))}
+            </div>
           </div>
-          <div className={style.subCover}>
-            {subCategory.map((category) => (
-              <div
-                key={category.id}
-                className={categoriesId === category.id ? `${style.active} ${style.field}` : `${style.field}`}
-                onClick={() => onClick(category.id)}
-              >
-                {category.name}
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    )
   );
 };

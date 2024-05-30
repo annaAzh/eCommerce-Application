@@ -1,5 +1,5 @@
 .card {
-  width: 500px;
+  width: 600px;
   height: 300px;
   border: 1px solid var(--main-color-4);
   border-radius: 4px;
@@ -9,19 +9,35 @@
   padding: 1% 0.3% 0.3%;
   background: white;
   user-select: none;
-  overflow: hidden;
 
   &:hover {
     cursor: pointer;
+    box-shadow: 0 0 4px var(--blue);
   }
 }
 
 .imageCover {
   width: 40%;
+  position: relative;
+  overflow: hidden;
+}
+
+img {
+  transition: transform 0.3s ease;
 }
 
 .image {
   width: 100%;
+}
+
+.card:hover .image {
+  transform: scale(1.15);
+}
+
+.svg {
+  position: absolute;
+  width: 25%;
+  z-index: 2;
 }
 
 .descriptionCover {
