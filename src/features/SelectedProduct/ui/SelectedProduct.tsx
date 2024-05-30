@@ -40,8 +40,8 @@ export const SelectedProduct = (): JSX.Element => {
             <div className={styles.containerPrices}>
               {discountedPrice ? (
                 <div>
-                  <div className={`${styles.commonPriceClass} ${styles.discountedPrice}`}>{discountedPrice}</div>
                   <div className={`${styles.commonPriceClass} ${styles.crossedPrice}`}>{currentPrice}</div>
+                  <div className={`${styles.commonPriceClass} ${styles.discountedPrice}`}>{discountedPrice}</div>
                 </div>
               ) : (
                 <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
