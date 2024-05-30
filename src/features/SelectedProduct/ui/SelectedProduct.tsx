@@ -1,6 +1,6 @@
 import { getAccessToken } from 'entities/User';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getProductByKey } from '../model/services/getSelectedProductByKey';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { getSelectedIsLoading, getSelectedProduct } from '../model/selectors/selectedProductSelectors';
@@ -15,6 +15,7 @@ export const SelectedProduct = (): JSX.Element => {
   const { productKey } = useParams<string>();
   const { name, description, prices } = useAppSelector(getSelectedProduct);
   const isLoading = useAppSelector(getSelectedIsLoading);
+  const navigate = useNavigate();
   const { discountedPrice, currentPrice } = prices;
 
   useEffect(() => {
@@ -22,26 +23,38 @@ export const SelectedProduct = (): JSX.Element => {
     dispatch(getProductByKey({ token, productKey }));
   }, [productKey, token, dispatch]);
 
+  function goBack(): void {
+    navigate(-1);
+  }
+
   return (
     <div className={styles.container}>
       {isLoading ? (
         <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />
       ) : (
         <>
-          <div className={styles.leftSide}>
-            <Slider />
+          <p className={styles.linkBack} onClick={goBack}>
+            &#11013; Back
+          </p>
+          <h2 className={styles.name}>{name}</h2>
+          <div className={styles.topBlock}>
+            <div className={styles.slider}>
+              <Slider />
+            </div>
+            <div className={styles.containerPrices}>
+              {discountedPrice ? (
+                <div>
+                  <div className={`${styles.commonPriceClass} ${styles.discountedPrice}`}>{discountedPrice}</div>
+                  <div className={`${styles.commonPriceClass} ${styles.crossedPrice}`}>{currentPrice}</div>
+                </div>
+              ) : (
+                <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
+              )}
+            </div>
           </div>
-          <div className={styles.rightSide}>
-            <h2 className={styles.name}>{name}</h2>
+          <div>
+            <p className={styles.titleDescription}>Description:</p>
             <p className={styles.description}>{parse(description)}</p>
-            {discountedPrice ? (
-              <div>
-                <div className={`${styles.commonPriceClass} ${styles.crossedPrice}`}>{currentPrice}</div>
-                <div className={`${styles.commonPriceClass} ${styles.discountedPrice}`}>{discountedPrice}</div>
-              </div>
-            ) : (
-              <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
-            )}
           </div>
         </>
       )}
