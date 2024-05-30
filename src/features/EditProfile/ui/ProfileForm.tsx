@@ -13,9 +13,16 @@ import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
 import { HashLoader } from 'react-spinners';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getUserProfile } from '../model/services/getUserProfile';
-import { getProfileData, getProfileDataIsLoading, getProfileError } from '../model/selectors/profileSelectors';
-import { clearProfileError } from '../model/slices/profileSlice';
+import {
+  getProfileData,
+  getProfileDataIsLoading,
+  getProfileError,
+  getUpdatedStatus,
+} from '../model/selectors/profileSelectors';
+import { clearProfileError, clearProfileUpdated } from '../model/slices/profileSlice';
 import { PrimaryControlButton } from 'shared/ui';
+import { updateUserDetails } from '../model/services/updateDetailsProfile';
+import { FormDataProfile, UpdateDetailsParams } from '../model/types/profileTypes';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,6 +31,7 @@ const ProfileForm: FC = () => {
   const profileData = useAppSelector(getProfileData);
   const isLoading = useAppSelector(getProfileDataIsLoading);
   const profileError = useAppSelector(getProfileError);
+  const updatedStatus = useAppSelector(getUpdatedStatus);
 
   const [profileForm] = Form.useForm();
   const [addressForm] = Form.useForm();
@@ -38,6 +46,18 @@ const ProfileForm: FC = () => {
     billingAddressIds: [''],
     shippingAddressIds: [''],
   });
+
+  useEffect(() => {
+    if (!updatedStatus) return;
+    dispatch(
+      setNotificationMessage({
+        message: 'Success!',
+        description: 'Your information has been updated',
+      }),
+    );
+    dispatch(clearProfileUpdated());
+    setIsEditDetails(false);
+  }, [updatedStatus]);
 
   useEffect(() => {
     if (!token) return;
@@ -63,7 +83,7 @@ const ProfileForm: FC = () => {
         shippingAddressIds: profileData.shippingAddressIds || [],
       });
     }
-  }, [profileData, addressForm, profileForm, isLogined]);
+  }, [profileData, addressForm, profileForm, isLogined, isEditDetails]);
 
   useEffect(() => {
     if (!profileError) return;
@@ -74,6 +94,7 @@ const ProfileForm: FC = () => {
       }),
     );
     dispatch(clearProfileError());
+    setIsEditDetails(false);
   }, [profileError]);
 
   const checkShippingAddress = (addressId: string) => {
@@ -131,8 +152,16 @@ const ProfileForm: FC = () => {
             form={profileForm}
             name="profile-details"
             className={styles.form}
-            onFinish={(values) => {
-              console.log(values, 'Form values');
+            onFinish={(values: FormDataProfile) => {
+              const { id, version } = profileData;
+              const requestData: UpdateDetailsParams = {
+                ...values,
+                dateOfBirth: dayjs(values.dateOfBirth).format('YYYY-MM-DD'),
+                id,
+                version,
+                token,
+              };
+              dispatch(updateUserDetails(requestData));
             }}
           >
             <div className={styles.switchContainer}>

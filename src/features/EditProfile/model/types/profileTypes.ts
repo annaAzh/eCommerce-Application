@@ -2,6 +2,7 @@ interface ProfileSchema {
   user: ProfileProperties;
   isLoading: boolean;
   error?: string;
+  updated?: boolean;
 }
 
 interface Address {
@@ -14,6 +15,7 @@ interface Address {
 
 interface ProfileData {
   id?: string;
+  version?: number;
   firstName?: string;
   lastName?: string;
   email?: string;
@@ -37,4 +39,17 @@ interface ErrorWithResponse extends Error {
   };
 }
 
-export { ProfileSchema, ProfileData, ErrorWithResponse, Address };
+interface FormDataProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  dateOfBirth: string;
+}
+
+interface UpdateDetailsParams extends FormDataProfile {
+  id?: string;
+  token?: string;
+  version?: number;
+}
+
+export { ProfileSchema, ProfileData, ErrorWithResponse, Address, UpdateDetailsParams, FormDataProfile };
