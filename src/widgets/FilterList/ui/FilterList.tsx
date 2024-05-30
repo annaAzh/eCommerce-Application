@@ -25,11 +25,11 @@ export const FilterList: FC = () => {
   const searchQuery = useAppSelector(getSearchQuery);
   const [optionalFilters, setOptionalFilters] = useState<string[]>([]);
 
-  const defaultFilterHandler = (data: Pick<SearchQueryProps, 'sortField' | 'sortBy'> | undefined) => {
+  const defaultFilterHandler = (data: Required<Pick<SearchQueryProps, 'sortField' | 'sortBy'>> | undefined) => {
     dispatch(addSearchSortBy(data));
   };
 
-  const priceRamgeFilterHandler = (data: Pick<SearchQueryProps, 'priceRange'> | undefined) => {
+  const priceRamgeFilterHandler = (data: Required<Pick<SearchQueryProps, 'priceRange'>> | undefined) => {
     dispatch(addSearchPriceRange(data));
   };
 
@@ -60,7 +60,13 @@ export const FilterList: FC = () => {
     if (searchQuery?.optionalFilters) filter = [...filter, ...searchQuery.optionalFilters];
     if (searchQuery?.priceRange) filter = [...filter, searchQuery?.priceRange];
     if (searchQuery?.categoriesId) filter = [...filter, searchQuery.categoriesId];
-    dispatch(getAllProducts({ token, sort, filter }));
+
+    if (searchQuery?.search && searchQuery.fuzzy) {
+      const { search, fuzzy } = searchQuery;
+      dispatch(getAllProducts({ token, sort, filter, search, fuzzy }));
+    } else {
+      dispatch(getAllProducts({ token, sort, filter }));
+    }
   }, [searchQuery]);
 
   useEffect(() => {

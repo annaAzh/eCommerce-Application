@@ -1,0 +1,32 @@
+.cover {
+  width: 500px;
+  margin-left: 1rem;
+  overflow-y: hidden;
+}
+
+.subCover {
+  padding-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.field {
+  width: fit-content;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--denim);
+  }
+}
+
+.active {
+  width: fit-content;
+  font-weight: 600;
+  color: var(--green);
+  text-decoration: underline;
+
+  &:hover {
+    color: var(--green);
+  }
+}

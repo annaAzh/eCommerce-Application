@@ -8,7 +8,7 @@ const indexMinPriceRange = 0;
 const indexMaxPriceRange = 1;
 
 interface PriceRangeFilterProps {
-  handleData: (data: Pick<SearchQueryProps, 'priceRange'> | undefined) => void;
+  handleData: (data: Required<Pick<SearchQueryProps, 'priceRange'>> | undefined) => void;
   minAndMax: { min: number; max: number };
 }
 

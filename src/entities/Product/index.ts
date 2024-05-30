@@ -19,6 +19,7 @@ export {
   addSearchPriceRange,
   addSearchOptional,
   addSearchCategory,
+  addSearchText,
 } from './model/slices/productSlice';
 
 export { ProductSchema, FormattedCategories } from './model/types/productTypes';
