@@ -52,9 +52,9 @@ const ProfileForm: FC = () => {
   });
 
   useEffect(() => {
-    if (isLogined) return;
+    if (!token || isLogined) return;
     navigate('/' + Paths.login);
-  }, [isLogined]);
+  }, [token]);
 
   useEffect(() => {
     if (!updatedStatus) return;
