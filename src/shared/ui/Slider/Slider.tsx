@@ -13,7 +13,7 @@ import { ModalSlider } from '../ModalSlider/ui/ModalSlider';
 export function Slider() {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
   const [isModal, setModal] = useState(false);
-  const [activeImg, setActiveImg] = useState('');
+  const [activeImg, setActiveImg] = useState<number | undefined>(undefined);
   const product = useAppSelector(getSelectedProduct);
   const onClose = () => setModal(false);
   const { images } = product;
@@ -51,8 +51,8 @@ export function Slider() {
             <SwiperSlide key={index}>
               <img
                 onClick={() => {
+                  setActiveImg(index);
                   setModal(true);
-                  setActiveImg(image);
                 }}
                 src={image}
               />
@@ -60,7 +60,7 @@ export function Slider() {
           );
         })}
       </Swiper>
-      <ModalSlider visible={isModal} image={activeImg} onClose={onClose} />
+      <ModalSlider activeImg={activeImg} visible={isModal} images={images} onClose={onClose} />
     </>
   );
 }
