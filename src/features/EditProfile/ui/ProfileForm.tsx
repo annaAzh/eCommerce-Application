@@ -54,7 +54,6 @@ const ProfileForm: FC = () => {
   useEffect(() => {
     if (isLogined) return;
     navigate('/' + Paths.login);
-    dispatch(clearProfileError());
   }, [isLogined]);
 
   useEffect(() => {
