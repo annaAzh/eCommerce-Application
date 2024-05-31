@@ -30,14 +30,6 @@ const links: LinkOfPage[] = [
       </Link>
     ),
   },
-  {
-    key: Paths.profile,
-    label: (
-      <Link className="link-header" to={Paths.profile}>
-        Profile
-      </Link>
-    ),
-  },
 ];
 
 const notLoginLinks: LinkOfPage[] = [
@@ -60,6 +52,14 @@ const notLoginLinks: LinkOfPage[] = [
 ];
 
 const loginLinks: LinkOfPage[] = [
+  {
+    key: Paths.profile,
+    label: (
+      <Link className="link-header" to={Paths.profile}>
+        Profile
+      </Link>
+    ),
+  },
   {
     key: 'logout',
     label: <ButtonLogOut />,
