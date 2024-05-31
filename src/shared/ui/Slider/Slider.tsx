@@ -8,10 +8,14 @@ import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import './Slider.css';
+import { ModalSlider } from '../ModalSlider/ui/ModalSlider';
 
 export function Slider() {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
+  const [isModal, setModal] = useState(false);
+  const [activeImg, setActiveImg] = useState('');
   const product = useAppSelector(getSelectedProduct);
+  const onClose = () => setModal(false);
   const { images } = product;
 
   return (
@@ -45,11 +49,18 @@ export function Slider() {
         {images.map((image: string, index: number) => {
           return (
             <SwiperSlide key={index}>
-              <img src={image} />
+              <img
+                onClick={() => {
+                  setModal(true);
+                  setActiveImg(image);
+                }}
+                src={image}
+              />
             </SwiperSlide>
           );
         })}
       </Swiper>
+      <ModalSlider visible={isModal} image={activeImg} onClose={onClose} />
     </>
   );
 }
