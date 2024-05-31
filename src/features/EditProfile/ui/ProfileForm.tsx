@@ -1,9 +1,16 @@
-import { Checkbox, DatePicker, Divider, Flex, Form, Input, Select, Switch, Tag } from 'antd';
+import { Button, Checkbox, DatePicker, Divider, Flex, Form, Input, Select, Switch, Tag } from 'antd';
 import styles from './ProfileForm.module.css';
 import { formItemLayout } from 'features/RegistrationUser/ui/StyledRegistrationForm/StyledRegistrationForm';
 import postalCodes from 'postal-codes-js';
 
-import { checkBirthday, checkEmail, checkInput, checkStreet } from 'shared/lib/checkValid';
+import {
+  checkBirthday,
+  checkConfirmPassword,
+  checkEmail,
+  checkInput,
+  checkPassword,
+  checkStreet,
+} from 'shared/lib/checkValid';
 import { COUNTRIES } from 'shared/consts';
 import { FC, useEffect, useState } from 'react';
 import { getAccessToken, getUserIsLoginedStatus } from 'entities/User';
@@ -191,6 +198,41 @@ const ProfileForm: FC = () => {
                 Save changes
               </PrimaryControlButton>
             </div>
+          </Form>
+
+          <Form
+            {...formItemLayout}
+            name="profile-password"
+            className={styles.form}
+            onFinish={(values) => {
+              console.log(values);
+            }}
+          >
+            <Divider orientation="center">Password</Divider>
+            <Form.Item name="currentPassword" label="Old password" rules={checkPassword()}>
+              <Input.Password autoComplete="on" />
+            </Form.Item>
+            <Form.Item name="newPassword" label="New password" rules={checkPassword()}>
+              <Input.Password autoComplete="on" />
+            </Form.Item>
+            <Form.Item
+              name="confirm"
+              label="Confirm new password"
+              dependencies={['newPassword']}
+              rules={checkConfirmPassword('newPassword')}
+            >
+              <Input.Password autoComplete="on" />
+            </Form.Item>
+            <Flex className={styles.passwordBtnContainer}>
+              <Button type="primary" htmlType="reset" danger ghost>
+                Cancel
+              </Button>
+              <div className={styles.saveBtnContainer}>
+                <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
+                  Save changes
+                </PrimaryControlButton>
+              </div>
+            </Flex>
           </Form>
 
           <Form

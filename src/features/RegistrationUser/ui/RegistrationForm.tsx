@@ -160,7 +160,7 @@ const RegistrationForm: FC = () => {
               label="Confirm Password"
               required
               dependencies={['password']}
-              rules={checkConfirmPassword()}
+              rules={checkConfirmPassword('password')}
             >
               <Input.Password autoComplete="on" />
             </Form.Item>
