@@ -7,6 +7,7 @@ import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { ButtonLogOut } from 'features/LogoutUser';
 import { Paths } from 'shared/types';
 import './Header.css';
+import { UserOutlined } from '@ant-design/icons';
 
 interface LinkOfPage {
   key: Paths | string;
@@ -55,8 +56,8 @@ const loginLinks: LinkOfPage[] = [
   {
     key: Paths.profile,
     label: (
-      <Link className="link-header" to={Paths.profile}>
-        Profile
+      <Link className="link-header link-profile" to={Paths.profile}>
+        <UserOutlined style={{ fontSize: '2rem' }} />
       </Link>
     ),
   },
