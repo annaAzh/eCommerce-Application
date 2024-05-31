@@ -36,6 +36,8 @@ import {
   UpdatePasswordParams,
 } from '../model/types/profileTypes';
 import { updateUserPassword } from '../model/services/updatePasswordProfile';
+import { useNavigate } from 'react-router-dom';
+import { Paths } from 'shared/types';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -53,12 +55,19 @@ const ProfileForm: FC = () => {
   const [isEditDetails, setIsEditDetails] = useState<boolean>(false);
   const [isEditAddress, setIsEditAddress] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     defaultBillingAddress: '',
     defaultShippingAddress: '',
     billingAddressIds: [''],
     shippingAddressIds: [''],
   });
+
+  useEffect(() => {
+    if (!token || isLogined) return;
+    navigate('/' + Paths.login);
+  }, [token]);
 
   useEffect(() => {
     if (!updatedStatus) return;
@@ -74,6 +83,7 @@ const ProfileForm: FC = () => {
 
   useEffect(() => {
     if (!token) return;
+    if (!isLogined) return;
     dispatch(getUserProfile(token));
   }, [isLogined, token]);
 
