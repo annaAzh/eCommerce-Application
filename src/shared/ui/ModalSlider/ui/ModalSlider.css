@@ -3,6 +3,11 @@
   text-align: center;
 }
 
-.img-modal {
-  width: 90%;
+.modalSwiper {
+  width: 100%;
+  height: auto;
+}
+
+.modalSwiper img {
+  width: 80%;
 }
