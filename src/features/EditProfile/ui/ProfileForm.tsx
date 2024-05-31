@@ -13,7 +13,7 @@ import {
 } from 'shared/lib/checkValid';
 import { COUNTRIES } from 'shared/consts';
 import { FC, useEffect, useState } from 'react';
-import { getAccessToken, getUserIsLoginedStatus } from 'entities/User';
+import { getAccessToken, getUserIsLoginedStatus, passwordFlow } from 'entities/User';
 import dayjs from 'dayjs';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -29,7 +29,13 @@ import {
 import { clearProfileError, clearProfileUpdated } from '../model/slices/profileSlice';
 import { PrimaryControlButton } from 'shared/ui';
 import { updateUserDetails } from '../model/services/updateDetailsProfile';
-import { FormDataProfile, UpdateDetailsParams } from '../model/types/profileTypes';
+import {
+  FormDataPassword,
+  FormDataProfile,
+  UpdateDetailsParams,
+  UpdatePasswordParams,
+} from '../model/types/profileTypes';
+import { updateUserPassword } from '../model/services/updatePasswordProfile';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -204,11 +210,22 @@ const ProfileForm: FC = () => {
             {...formItemLayout}
             name="profile-password"
             className={styles.form}
-            onFinish={(values) => {
-              console.log(values);
+            onFinish={(values: FormDataPassword) => {
+              const { id, version } = profileData;
+              const requestData: UpdatePasswordParams = {
+                ...values,
+                id,
+                version,
+                token,
+              };
+              dispatch(updateUserPassword(requestData)).then(() => {
+                if (profileData.email) {
+                  dispatch(passwordFlow({ username: profileData.email, password: requestData.newPassword }));
+                }
+              });
             }}
           >
-            <Divider orientation="center">Password</Divider>
+            <Divider orientation="center"> Change password</Divider>
             <Form.Item name="currentPassword" label="Old password" rules={checkPassword()}>
               <Input.Password autoComplete="on" />
             </Form.Item>

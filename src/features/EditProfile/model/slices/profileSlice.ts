@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { getUserProfile } from '../../../../features/EditProfile/model/services/getUserProfile';
 import { ProfileData, ProfileSchema } from '../types/profileTypes';
 import { updateUserDetails } from '../services/updateDetailsProfile';
+import { updateUserPassword } from '../services/updatePasswordProfile';
 
 const initialState: ProfileSchema = {
   user: {},
@@ -59,6 +60,19 @@ export const profileSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateUserDetails.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
+      })
+      .addCase(updateUserPassword.fulfilled, (state, { payload }: PayloadAction<ProfileData>) => {
+        state.isLoading = false;
+        state.error = undefined;
+        handleUserProfileFulfilled(state, payload);
+        state.updated = true;
+      })
+      .addCase(updateUserPassword.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserPassword.rejected, (state, { payload }: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = payload as string;
       });
