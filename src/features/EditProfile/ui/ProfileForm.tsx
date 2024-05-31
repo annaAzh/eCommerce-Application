@@ -23,6 +23,8 @@ import { clearProfileError, clearProfileUpdated } from '../model/slices/profileS
 import { PrimaryControlButton } from 'shared/ui';
 import { updateUserDetails } from '../model/services/updateDetailsProfile';
 import { FormDataProfile, UpdateDetailsParams } from '../model/types/profileTypes';
+import { useNavigate } from 'react-router-dom';
+import { Paths } from 'shared/types';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -40,12 +42,20 @@ const ProfileForm: FC = () => {
   const [isEditDetails, setIsEditDetails] = useState<boolean>(false);
   const [isEditAddress, setIsEditAddress] = useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   const [data, setData] = useState({
     defaultBillingAddress: '',
     defaultShippingAddress: '',
     billingAddressIds: [''],
     shippingAddressIds: [''],
   });
+
+  useEffect(() => {
+    if (isLogined) return;
+    navigate('/' + Paths.login);
+    dispatch(clearProfileError());
+  }, [isLogined]);
 
   useEffect(() => {
     if (!updatedStatus) return;
@@ -61,6 +71,7 @@ const ProfileForm: FC = () => {
 
   useEffect(() => {
     if (!token) return;
+    if (!isLogined) return;
     dispatch(getUserProfile(token));
   }, [isLogined, token]);
 
