@@ -50,7 +50,7 @@ export const SelectedProduct = (): JSX.Element => {
           </div>
           <div>
             <p className={styles.titleDescription}>Description:</p>
-            <p className={styles.description}>{parse(description)}</p>
+            <div className={styles.description}>{parse(description)}</div>
           </div>
         </>
       )}
