@@ -7,6 +7,7 @@ import {
   addSearchOptional,
   addSearchPriceRange,
   addSearchSortBy,
+  clearSearchQuery,
   getAllProducts,
   getAttributes,
   getAvailableCategories,
@@ -54,14 +55,18 @@ export const FilterList: FC = () => {
   }, [optionalFilters]);
 
   useEffect(() => {
-    if (!token) return;
+    if (!token || !searchQuery) return;
     dispatch(getAllProducts(createSortAndSearchQuery(token, searchQuery)));
   }, [searchQuery?.sortBy, searchQuery?.optionalFilters, searchQuery?.priceRange, searchQuery?.search]);
 
   useEffect(() => {
     if (!token) return;
+    dispatch(getAllProducts({ token }));
     dispatch(getAvailableCategories(token));
     dispatch(getProductsForParsing({ token }));
+    return () => {
+      dispatch(clearSearchQuery());
+    };
   }, [token]);
 
   useEffect(() => {

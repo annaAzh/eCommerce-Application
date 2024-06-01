@@ -20,6 +20,7 @@ export {
   addSearchOptional,
   addSearchCategory,
   addSearchText,
+  clearSearchQuery,
 } from './model/slices/productSlice';
 
 export { ProductSchema, FormattedCategories } from './model/types/productTypes';

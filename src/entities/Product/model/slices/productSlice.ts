@@ -8,7 +8,6 @@ import { getProductsForParsing } from '../services/getProductsForParsing';
 const initialState: ProductSchema = {
   products: [],
   categories: [],
-  searchQueryProps: {},
   priceRange: { min: 0, max: 100 },
   isLoading: false,
   error: undefined,
@@ -81,6 +80,9 @@ export const productSlice = createSlice({
         state.searchQueryProps = { ...state.searchQueryProps, search, fuzzy };
       }
     },
+    clearSearchQuery(state: ProductSchema) {
+      state.searchQueryProps = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -126,5 +128,11 @@ export const productSlice = createSlice({
 
 export const { reducer: productReducer } = productSlice;
 
-export const { addSearchSortBy, addSearchPriceRange, addSearchOptional, addSearchCategory, addSearchText } =
-  productSlice.actions;
+export const {
+  addSearchSortBy,
+  addSearchPriceRange,
+  addSearchOptional,
+  addSearchCategory,
+  addSearchText,
+  clearSearchQuery,
+} = productSlice.actions;
