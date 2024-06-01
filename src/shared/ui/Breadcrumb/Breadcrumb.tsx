@@ -8,7 +8,7 @@ import './Breadcrumb.css';
 interface BreadcrumbProps {
   useBasePaths: boolean;
   handler: (id: string | undefined) => void;
-  additionalPaths?: { title: string; path: string }[];
+  additionalPaths?: { title: string; path?: string }[];
 }
 interface BreadcrumbPropsTruthy extends BreadcrumbProps {
   useBasePaths: true;
