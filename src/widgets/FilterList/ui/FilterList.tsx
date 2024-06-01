@@ -16,6 +16,7 @@ import {
 } from 'entities/Product';
 import { DefaultFilter, OptionalFilter, PriceRangeFilter } from 'shared/ui';
 import { SearchQueryProps } from 'shared/types';
+import { createSortAndSearchQuery } from 'shared/lib/dataConverters';
 
 export const FilterList: FC = () => {
   const dispatch = useAppDispatch();
@@ -54,20 +55,8 @@ export const FilterList: FC = () => {
 
   useEffect(() => {
     if (!token) return;
-    let sort: string | undefined = undefined;
-    let filter: string[] = [];
-    if (searchQuery?.sortBy && searchQuery.sortField) sort = `${searchQuery.sortField} ${searchQuery.sortBy}`;
-    if (searchQuery?.optionalFilters) filter = [...filter, ...searchQuery.optionalFilters];
-    if (searchQuery?.priceRange) filter = [...filter, searchQuery?.priceRange];
-    if (searchQuery?.categoriesId) filter = [...filter, searchQuery.categoriesId];
-
-    if (searchQuery?.search && searchQuery.fuzzy) {
-      const { search, fuzzy } = searchQuery;
-      dispatch(getAllProducts({ token, sort, filter, search, fuzzy }));
-    } else {
-      dispatch(getAllProducts({ token, sort, filter }));
-    }
-  }, [searchQuery?.sortBy, searchQuery?.optionalFilters, searchQuery?.priceRange]);
+    dispatch(getAllProducts(createSortAndSearchQuery(token, searchQuery)));
+  }, [searchQuery?.sortBy, searchQuery?.optionalFilters, searchQuery?.priceRange, searchQuery?.search]);
 
   useEffect(() => {
     if (!token) return;
