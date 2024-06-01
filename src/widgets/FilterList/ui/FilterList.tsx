@@ -25,7 +25,7 @@ export const FilterList: FC = () => {
   const priceRange = useAppSelector(getPriceRange);
   const attributes = useAppSelector(getAttributes);
   const searchQuery = useAppSelector(getSearchQuery);
-  const [optionalFilters, setOptionalFilters] = useState<string[] | undefined>();
+  const [optionalFilters, setOptionalFilters] = useState<string[]>();
 
   const defaultFilterHandler = (data: Required<Pick<SearchQueryProps, 'sortField' | 'sortBy'>> | undefined) => {
     dispatch(addSearchSortBy(data));
@@ -56,9 +56,7 @@ export const FilterList: FC = () => {
   };
 
   useEffect(() => {
-    console.log(optionalFilters);
     if (!optionalFilters) return;
-    console.log(optionalFilters);
     dispatch(addSearchOptional({ optionalFilters }));
   }, [optionalFilters]);
 
