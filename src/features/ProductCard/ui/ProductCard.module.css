@@ -104,7 +104,7 @@
     position: absolute;
     bottom: 35%;
     right: 0;
-    width: 13%;
+    width: 10%;
     height: 1px;
     background: var(--main-color-4);
     transform: rotate(-10deg);
@@ -138,11 +138,23 @@
     width: 500px;
     height: 250px;
   }
+
+  .crossedPrice {
+    &::after {
+      width: 13%;
+    }
+  }
 }
 
 @media (width <= 700px) {
   .card {
     width: 350px;
     height: 250px;
+  }
+
+  .crossedPrice {
+    &::after {
+      width: 18%;
+    }
   }
 }
