@@ -1,0 +1,6 @@
+.ant-dropdown-menu {
+  overflow-x: auto;
+  max-height: 300px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--main-color-1) var(--main-color-0);
+}
