@@ -25,9 +25,8 @@ export const ModalSlider = (props: ModalProps) => {
         style: { display: 'none' },
       }}
       cancelButtonProps={{
-        style: { margin: '0 auto' },
+        style: { display: 'none' },
       }}
-      cancelText="Close"
       onCancel={props.onClose}
       width={900}
     >
