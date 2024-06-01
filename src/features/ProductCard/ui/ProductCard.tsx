@@ -1,26 +1,16 @@
 import { Product } from 'shared/types';
 import styles from './ProductCard.module.css';
-import { useAppDispatch } from 'shared/lib/hooks';
-import { useNavigate } from 'react-router-dom';
-import { clearCardError } from 'features/SelectedProduct';
 import onSale from 'shared/assets/img/onSale.svg';
 import parse from 'html-react-parser';
 
-const ProductCard = ({ product }: { product: Product }): JSX.Element => {
+const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: string) => void }): JSX.Element => {
   const { images, description, name, prices, key } = product;
   const { discountedPrice, currentPrice } = prices;
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const descMaxLength = 300;
   const firstImage = images[0];
 
-  function selectProduct(): void {
-    dispatch(clearCardError());
-    navigate(`${key}`);
-  }
-
   return (
-    <div className={styles.card} onClick={selectProduct}>
+    <div className={styles.card} onClick={() => onClick(key)}>
       <div className={styles.imageCover}>
         {discountedPrice ? <img className={styles.svg} src={onSale} /> : null}
         <img className={styles.image} src={firstImage} />
