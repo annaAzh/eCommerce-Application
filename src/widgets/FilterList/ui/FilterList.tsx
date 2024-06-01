@@ -67,7 +67,7 @@ export const FilterList: FC = () => {
     } else {
       dispatch(getAllProducts({ token, sort, filter }));
     }
-  }, [searchQuery]);
+  }, [searchQuery?.sortBy, searchQuery?.optionalFilters, searchQuery?.priceRange]);
 
   useEffect(() => {
     if (!token) return;
@@ -77,6 +77,8 @@ export const FilterList: FC = () => {
 
   useEffect(() => {
     if (!token || !searchQuery?.categoriesId) return;
+    dispatch(addSearchPriceRange(undefined));
+    setOptionalFilters([]);
     dispatch(getProductsForParsing({ token, filter: searchQuery?.categoriesId }));
   }, [searchQuery?.categoriesId]);
 
@@ -85,16 +87,13 @@ export const FilterList: FC = () => {
   }, [priceRange]);
 
   const memoOptionalFilter = useMemo(() => {
-    if (!attributes || Object.entries(attributes).length === 0) {
-      setOptionalFilters([]);
-      dispatch(addSearchPriceRange(undefined));
-      return;
-    }
+    if (!attributes || Object.entries(attributes).length === 0) return;
+
     const optionalFiltersArray = Object.entries(attributes);
     return (
       <>
-        {optionalFiltersArray.map((filter, index) => (
-          <OptionalFilter key={index} filter={filter} handleData={optionalFilterHandler} />
+        {optionalFiltersArray.map((filter) => (
+          <OptionalFilter key={Math.random()} filter={filter} handleData={optionalFilterHandler} />
         ))}
       </>
     );
