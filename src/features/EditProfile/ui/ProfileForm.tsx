@@ -38,6 +38,7 @@ import {
 import { updateUserPassword } from '../model/services/updatePasswordProfile';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from 'shared/types';
+import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -162,6 +163,12 @@ const ProfileForm: FC = () => {
     }));
   };
 
+  const handleAddAddress = () => {
+    const addresses = addressForm.getFieldValue('addresses') || [];
+    const newAddress = { streetName: '', city: '', country: '', postalCode: '' };
+    addressForm.setFieldsValue({ addresses: [...addresses, newAddress] });
+  };
+
   return (
     <div className={styles.wrapper}>
       {isLoading ? (
@@ -277,7 +284,7 @@ const ProfileForm: FC = () => {
             </div>
             <Divider orientation="center">Addresses</Divider>
             <Form.List name="addresses">
-              {(fields) => (
+              {(fields, { remove }) => (
                 <>
                   {fields.map(({ key, name }) => {
                     const addressId: string = addressForm.getFieldValue(['addresses', name, 'id']);
@@ -403,6 +410,18 @@ const ProfileForm: FC = () => {
                             </Checkbox>
                           </Form.Item>
                         </div>
+
+                        <Button
+                          type="primary"
+                          danger
+                          ghost
+                          icon={<MinusSquareOutlined />}
+                          className={styles.deleteAddressBtn}
+                          disabled={!isEditAddress}
+                          onClick={() => remove(name)}
+                        >
+                          Delete address
+                        </Button>
                       </div>
                     );
                   })}
@@ -410,6 +429,17 @@ const ProfileForm: FC = () => {
               )}
             </Form.List>
             <div className={styles.saveBtnContainer}>
+              <Button
+                type="primary"
+                ghost
+                icon={<PlusSquareOutlined />}
+                className={styles.addAddressBtn}
+                disabled={!isEditAddress}
+                onClick={handleAddAddress}
+              >
+                Add address
+              </Button>
+
               <PrimaryControlButton
                 type="primary"
                 htmlType="submit"
