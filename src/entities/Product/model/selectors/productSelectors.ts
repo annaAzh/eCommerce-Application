@@ -25,4 +25,17 @@ const getAttributes = (state: RootState) => {
 const getSearchQuery = (state: RootState) => {
   return state.product.searchQueryProps;
 };
-export { getProducts, getProductIsLoading, getAllCategories, getPriceRange, getAttributes, getSearchQuery };
+
+const getProductError = (state: RootState) => {
+  return state.product.error;
+};
+
+export {
+  getProducts,
+  getProductIsLoading,
+  getAllCategories,
+  getPriceRange,
+  getAttributes,
+  getSearchQuery,
+  getProductError,
+};
