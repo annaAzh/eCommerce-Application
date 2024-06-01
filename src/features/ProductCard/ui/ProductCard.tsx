@@ -21,25 +21,27 @@ const ProductCard = ({ product }: { product: Product }): JSX.Element => {
 
   return (
     <div className={styles.card} onClick={selectProduct}>
-      <div className={styles.imageCover}>
-        {discountedPrice ? <img className={styles.svg} src={onSale} /> : null}
-        <img className={styles.image} src={firstImage} />
-      </div>
-      <div className={styles.descriptionCover}>
-        <p className={styles.name}>{name}</p>
-        <p className={styles.description}>
-          {description.length > descMaxLength
-            ? parse(description.slice(0, descMaxLength).concat('...'))
-            : parse(description)}
-        </p>
-        {discountedPrice ? (
-          <div>
-            <div className={`${styles.commonPriceClass} ${styles.crossedPrice}`}>{currentPrice}</div>
-            <div className={`${styles.commonPriceClass} ${styles.discountedPrice}`}>{discountedPrice}</div>
-          </div>
-        ) : (
-          <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
-        )}
+      <p className={styles.name}>{name}</p>
+      <div className={styles.container}>
+        <div className={styles.imageCover}>
+          {discountedPrice ? <img className={styles.svg} src={onSale} /> : null}
+          <img className={styles.image} src={firstImage} />
+        </div>
+        <div className={styles.descriptionCover}>
+          <p className={styles.description}>
+            {description.length > descMaxLength
+              ? parse(description.slice(0, descMaxLength).concat('...'))
+              : parse(description)}
+          </p>
+          {discountedPrice ? (
+            <div>
+              <div className={`${styles.commonPriceClass} ${styles.crossedPrice}`}>{currentPrice}</div>
+              <div className={`${styles.commonPriceClass} ${styles.discountedPrice}`}>{discountedPrice}</div>
+            </div>
+          ) : (
+            <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
+          )}
+        </div>
       </div>
     </div>
   );

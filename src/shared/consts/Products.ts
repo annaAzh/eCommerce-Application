@@ -1,4 +1,4 @@
-const CARD_ON_PAGE = 6;
+const CARD_ON_PAGE = 4;
 
 const ITEMS_FOR_PARSING = 200;
 

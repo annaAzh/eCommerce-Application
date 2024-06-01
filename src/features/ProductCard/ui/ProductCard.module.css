@@ -4,9 +4,11 @@
   border: 1px solid var(--main-color-4);
   border-radius: 4px;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
-  padding: 1% 0.3% 0.3%;
+  padding: 1%;
   background: white;
   user-select: none;
 
@@ -14,6 +16,10 @@
     cursor: pointer;
     box-shadow: 0 0 4px var(--blue);
   }
+}
+
+.container {
+  display: flex;
 }
 
 .imageCover {
@@ -61,6 +67,7 @@ img {
   padding-bottom: 1%;
   color: var(--blue);
   position: relative;
+  margin: 0;
 
   &::after {
     content: '';
