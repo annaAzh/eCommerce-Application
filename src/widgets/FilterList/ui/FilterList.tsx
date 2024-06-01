@@ -25,7 +25,7 @@ export const FilterList: FC = () => {
   const priceRange = useAppSelector(getPriceRange);
   const attributes = useAppSelector(getAttributes);
   const searchQuery = useAppSelector(getSearchQuery);
-  const [optionalFilters, setOptionalFilters] = useState<string[]>([]);
+  const [optionalFilters, setOptionalFilters] = useState<string[] | undefined>();
 
   const defaultFilterHandler = (data: Required<Pick<SearchQueryProps, 'sortField' | 'sortBy'>> | undefined) => {
     dispatch(addSearchSortBy(data));
@@ -38,19 +38,27 @@ export const FilterList: FC = () => {
   const optionalFilterHandler = (currentValue: string, prevValue?: string) => {
     if (prevValue) {
       if (currentValue) {
-        setOptionalFilters((prevVariantFilter) => [
-          ...prevVariantFilter.filter((value) => value !== prevValue),
-          currentValue,
-        ]);
+        setOptionalFilters((prevVariantFilter) =>
+          prevVariantFilter
+            ? [...prevVariantFilter.filter((value) => value !== prevValue), currentValue]
+            : [currentValue],
+        );
       } else {
-        setOptionalFilters((prevVariantFilter) => [...prevVariantFilter.filter((value) => value !== prevValue)]);
+        setOptionalFilters((prevVariantFilter) =>
+          prevVariantFilter ? [...prevVariantFilter.filter((value) => value !== prevValue)] : [],
+        );
       }
     } else {
-      setOptionalFilters((prevVariantFilter) => [...prevVariantFilter, currentValue]);
+      setOptionalFilters((prevVariantFilter) =>
+        prevVariantFilter ? [...prevVariantFilter, currentValue] : [currentValue],
+      );
     }
   };
 
   useEffect(() => {
+    console.log(optionalFilters);
+    if (!optionalFilters) return;
+    console.log(optionalFilters);
     dispatch(addSearchOptional({ optionalFilters }));
   }, [optionalFilters]);
 
