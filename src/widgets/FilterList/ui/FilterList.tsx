@@ -7,6 +7,7 @@ import {
   addSearchOptional,
   addSearchPriceRange,
   addSearchSortBy,
+  clearSearchQuery,
   getAllProducts,
   getAttributes,
   getAvailableCategories,
@@ -16,6 +17,7 @@ import {
 } from 'entities/Product';
 import { DefaultFilter, OptionalFilter, PriceRangeFilter } from 'shared/ui';
 import { SearchQueryProps } from 'shared/types';
+import { createSortAndSearchQuery } from 'shared/lib/dataConverters';
 
 export const FilterList: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +25,7 @@ export const FilterList: FC = () => {
   const priceRange = useAppSelector(getPriceRange);
   const attributes = useAppSelector(getAttributes);
   const searchQuery = useAppSelector(getSearchQuery);
-  const [optionalFilters, setOptionalFilters] = useState<string[]>([]);
+  const [optionalFilters, setOptionalFilters] = useState<string[]>();
 
   const defaultFilterHandler = (data: Required<Pick<SearchQueryProps, 'sortField' | 'sortBy'>> | undefined) => {
     dispatch(addSearchSortBy(data));
@@ -36,47 +38,47 @@ export const FilterList: FC = () => {
   const optionalFilterHandler = (currentValue: string, prevValue?: string) => {
     if (prevValue) {
       if (currentValue) {
-        setOptionalFilters((prevVariantFilter) => [
-          ...prevVariantFilter.filter((value) => value !== prevValue),
-          currentValue,
-        ]);
+        setOptionalFilters((prevVariantFilter) =>
+          prevVariantFilter
+            ? [...prevVariantFilter.filter((value) => value !== prevValue), currentValue]
+            : [currentValue],
+        );
       } else {
-        setOptionalFilters((prevVariantFilter) => [...prevVariantFilter.filter((value) => value !== prevValue)]);
+        setOptionalFilters((prevVariantFilter) =>
+          prevVariantFilter ? [...prevVariantFilter.filter((value) => value !== prevValue)] : [],
+        );
       }
     } else {
-      setOptionalFilters((prevVariantFilter) => [...prevVariantFilter, currentValue]);
+      setOptionalFilters((prevVariantFilter) =>
+        prevVariantFilter ? [...prevVariantFilter, currentValue] : [currentValue],
+      );
     }
   };
 
   useEffect(() => {
+    if (!optionalFilters) return;
     dispatch(addSearchOptional({ optionalFilters }));
   }, [optionalFilters]);
 
   useEffect(() => {
-    if (!token) return;
-    let sort: string | undefined = undefined;
-    let filter: string[] = [];
-    if (searchQuery?.sortBy && searchQuery.sortField) sort = `${searchQuery.sortField} ${searchQuery.sortBy}`;
-    if (searchQuery?.optionalFilters) filter = [...filter, ...searchQuery.optionalFilters];
-    if (searchQuery?.priceRange) filter = [...filter, searchQuery?.priceRange];
-    if (searchQuery?.categoriesId) filter = [...filter, searchQuery.categoriesId];
-
-    if (searchQuery?.search && searchQuery.fuzzy) {
-      const { search, fuzzy } = searchQuery;
-      dispatch(getAllProducts({ token, sort, filter, search, fuzzy }));
-    } else {
-      dispatch(getAllProducts({ token, sort, filter }));
-    }
-  }, [searchQuery]);
+    if (!token || !searchQuery) return;
+    dispatch(getAllProducts(createSortAndSearchQuery(token, searchQuery)));
+  }, [searchQuery?.sortBy, searchQuery?.optionalFilters, searchQuery?.priceRange, searchQuery?.search]);
 
   useEffect(() => {
     if (!token) return;
+    dispatch(getAllProducts({ token }));
     dispatch(getAvailableCategories(token));
     dispatch(getProductsForParsing({ token }));
+    return () => {
+      dispatch(clearSearchQuery());
+    };
   }, [token]);
 
   useEffect(() => {
     if (!token || !searchQuery?.categoriesId) return;
+    dispatch(addSearchPriceRange(undefined));
+    setOptionalFilters([]);
     dispatch(getProductsForParsing({ token, filter: searchQuery?.categoriesId }));
   }, [searchQuery?.categoriesId]);
 
@@ -85,16 +87,13 @@ export const FilterList: FC = () => {
   }, [priceRange]);
 
   const memoOptionalFilter = useMemo(() => {
-    if (!attributes || Object.entries(attributes).length === 0) {
-      setOptionalFilters([]);
-      dispatch(addSearchPriceRange(undefined));
-      return;
-    }
+    if (!attributes || Object.entries(attributes).length === 0) return;
+
     const optionalFiltersArray = Object.entries(attributes);
     return (
       <>
-        {optionalFiltersArray.map((filter, index) => (
-          <OptionalFilter key={index} filter={filter} handleData={optionalFilterHandler} />
+        {optionalFiltersArray.map((filter) => (
+          <OptionalFilter key={Math.random()} filter={filter} handleData={optionalFilterHandler} />
         ))}
       </>
     );

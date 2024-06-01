@@ -1,6 +1,7 @@
 import { Checkbox, Dropdown } from 'antd';
 import { FC, useEffect, useState } from 'react';
 import { FilterLabel } from '../FilterLabel/FilterLabel';
+import './style.css';
 
 interface OptionalFilterProps {
   handleData: (currentValue: string, prevValue?: string) => void;
@@ -13,7 +14,8 @@ export const OptionalFilter: FC<OptionalFilterProps> = ({ filter, handleData }) 
   const [prevValue, setPrevValue] = useState<string>();
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
 
-  const handler = (value: string) => {
+  const handler = (e: React.MouseEvent<HTMLElement, MouseEvent>, value: string) => {
+    e.stopPropagation();
     if (checkedItems.includes(value)) {
       setCheckedItems(checkedItems.filter((item) => item !== value));
     } else {
@@ -41,7 +43,7 @@ export const OptionalFilter: FC<OptionalFilterProps> = ({ filter, handleData }) 
   const items = filterValues.map((name, index) => {
     return {
       key: index,
-      label: <Checkbox onClick={() => handler(name)}>{name}</Checkbox>,
+      label: <Checkbox onClick={(e) => handler(e, name)}>{name}</Checkbox>,
     };
   });
 

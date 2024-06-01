@@ -4,6 +4,7 @@ import { useAppDispatch } from 'shared/lib/hooks';
 import { useNavigate } from 'react-router-dom';
 import { clearCardError } from 'features/SelectedProduct';
 import onSale from 'shared/assets/img/onSale.svg';
+import parse from 'html-react-parser';
 
 const ProductCard = ({ product }: { product: Product }): JSX.Element => {
   const { images, description, name, prices, key } = product;
@@ -27,7 +28,9 @@ const ProductCard = ({ product }: { product: Product }): JSX.Element => {
       <div className={styles.descriptionCover}>
         <p className={styles.name}>{name}</p>
         <p className={styles.description}>
-          {description.length > descMaxLength ? description.slice(0, descMaxLength).concat('...') : description}
+          {description.length > descMaxLength
+            ? parse(description.slice(0, descMaxLength).concat('...'))
+            : parse(description)}
         </p>
         {discountedPrice ? (
           <div>
