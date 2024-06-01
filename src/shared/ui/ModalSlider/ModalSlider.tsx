@@ -39,6 +39,7 @@ export const ModalSlider = (props: ModalProps) => {
         modules={[FreeMode, Navigation, Thumbs]}
         className="modalSwiper"
         initialSlide={props.activeImg}
+        style={{ height: '100%' }}
       >
         {props.images.map((image: string, index: number) => {
           return (

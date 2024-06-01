@@ -1,0 +1,13 @@
+.container {
+  text-align: center;
+}
+
+.modalSwiper > .swiper {
+  height: 100%;
+}
+
+.modalSwiper img {
+  width: 80%;
+  height: 80%;
+  user-select: none;
+}

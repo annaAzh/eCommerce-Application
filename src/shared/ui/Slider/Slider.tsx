@@ -1,22 +1,20 @@
 import { useState } from 'react';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 import { FreeMode, Navigation, Thumbs } from 'swiper/modules';
-import { getSelectedProduct } from 'features/SelectedProduct';
-import { useAppSelector } from 'shared/lib/hooks';
+import { ModalSlider } from '../ModalSlider/ModalSlider';
 import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import './Slider.css';
-import { ModalSlider } from '../ModalSlider/ui/ModalSlider';
 
-export function Slider() {
+type PropsSlider = { images: string[] };
+
+export function Slider(props: PropsSlider) {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
   const [isModal, setModal] = useState(false);
   const [activeImg, setActiveImg] = useState<number | undefined>(undefined);
-  const product = useAppSelector(getSelectedProduct);
   const onClose = () => setModal(false);
-  const { images } = product;
 
   return (
     <>
@@ -30,7 +28,7 @@ export function Slider() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper"
       >
-        {images.map((image: string, index: number) => {
+        {props.images.map((image: string, index: number) => {
           return (
             <SwiperSlide key={index}>
               <img src={image} />
@@ -46,7 +44,7 @@ export function Slider() {
         modules={[FreeMode, Navigation, Thumbs]}
         className="mySwiper2"
       >
-        {images.map((image: string, index: number) => {
+        {props.images.map((image: string, index: number) => {
           return (
             <SwiperSlide key={index}>
               <img
@@ -60,7 +58,7 @@ export function Slider() {
           );
         })}
       </Swiper>
-      <ModalSlider activeImg={activeImg} visible={isModal} images={images} onClose={onClose} />
+      <ModalSlider activeImg={activeImg} visible={isModal} images={props.images} onClose={onClose} />
     </>
   );
 }
