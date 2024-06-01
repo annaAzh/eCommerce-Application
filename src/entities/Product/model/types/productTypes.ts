@@ -2,7 +2,7 @@ import { Product } from 'shared/types';
 import { Images, Prices, SearchQueryProps } from 'shared/types/productTypes';
 
 interface ProductSchema {
-  products: Product[];
+  products?: Product[];
   categories: FormattedCategories[];
   attributes?: FormattedAttributesType;
   priceRange: { min: number; max: number };

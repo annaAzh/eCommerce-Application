@@ -1,8 +1,5 @@
 .productList {
   display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  gap: 1rem;
   flex-grow: 1;
   padding: 1%;
 }
@@ -14,4 +11,12 @@
   font-size: 23px;
   font-weight: 600;
   font-style: italic;
+}
+
+.listWrapper {
+  display: flex;
+  width: 1210px;
+  flex-flow: wrap;
+  justify-content: start;
+  gap: 10px;
 }

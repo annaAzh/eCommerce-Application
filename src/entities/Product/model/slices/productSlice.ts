@@ -6,7 +6,6 @@ import { getAvailableCategories } from '../services/getAvailableCategories';
 import { getProductsForParsing } from '../services/getProductsForParsing';
 
 const initialState: ProductSchema = {
-  products: [],
   categories: [],
   priceRange: { min: 0, max: 100 },
   isLoading: false,

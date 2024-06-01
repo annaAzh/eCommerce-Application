@@ -2,7 +2,7 @@ import { RootState } from 'app/providers/storeProvider';
 import { Product } from 'shared/types';
 import { FormattedCategories } from '../types/productTypes';
 
-const getProducts = (state: RootState): Product[] => {
+const getProducts = (state: RootState): Product[] | undefined => {
   return state.product.products;
 };
 
