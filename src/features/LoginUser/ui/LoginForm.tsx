@@ -18,7 +18,7 @@ import {
 import { requestLogin } from '../model/services/requestLogin';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
-import { clearLoginError } from '../model/slices/loginSlice';
+import { clearCustomerId, clearLoginError } from '../model/slices/loginSlice';
 import { Paths } from 'shared/types';
 
 type LoginData = { email: string; password: string };
@@ -48,6 +48,9 @@ const LoginForm: FC = () => {
         message: 'Successful  login',
       }),
     );
+    return () => {
+      dispatch(clearCustomerId());
+    };
   }, [loginResponseId]);
 
   useEffect(() => {

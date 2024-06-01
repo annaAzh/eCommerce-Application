@@ -16,6 +16,9 @@ export const loginSlice = createSlice({
     clearLoginError(state: LoginSchema) {
       state.error = undefined;
     },
+    clearCustomerId(state: LoginSchema) {
+      state.customerId = undefined;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -36,6 +39,6 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { clearLoginError } = loginSlice.actions;
+export const { clearLoginError, clearCustomerId } = loginSlice.actions;
 
 export const { reducer: loginReducer } = loginSlice;
