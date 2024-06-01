@@ -6,3 +6,12 @@
   flex-grow: 1;
   padding: 1%;
 }
+
+.emptySearch {
+  display: flex;
+  color: var(--blue);
+  margin: auto;
+  font-size: 23px;
+  font-weight: 600;
+  font-style: italic;
+}

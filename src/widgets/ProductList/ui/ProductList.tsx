@@ -13,8 +13,10 @@ const ProductList: FC = () => {
     <div className={styles.productList}>
       {isLoading ? (
         <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />
-      ) : (
+      ) : products.length > 0 ? (
         products.map((product) => <ProductCard key={product.id} product={product} />)
+      ) : (
+        <div className={styles.emptySearch}>Sorry but we have not been able to find anything</div>
       )}
     </div>
   );
