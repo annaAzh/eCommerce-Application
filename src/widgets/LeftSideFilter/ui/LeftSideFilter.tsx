@@ -11,6 +11,7 @@ export const LeftSideFilter: FC = () => {
   const categoriesId = getFormattedCategoryId(result);
 
   const onClick = (value: string) => {
+    if (value === categoriesId) return;
     dispatch(addSearchCategory({ categoriesId: `categories.id:"${value}"` }));
   };
 
