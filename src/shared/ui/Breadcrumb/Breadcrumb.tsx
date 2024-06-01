@@ -29,18 +29,20 @@ export const Breadcrumbs: FC<BreadcrumbPropsTruthy | BreadcrumbPropsFalsy> = ({
     ? [
         {
           title: (
-            <div onClick={() => handler(undefined)}>
-              <Link to={`/${Paths.main}`}>main</Link>
-            </div>
+            <Link to={`/${Paths.main}`} onClick={() => handler(undefined)}>
+              main
+            </Link>
           ),
         },
         {
           title: (
-            <div onClick={() => handler(undefined)}>
-              <Link style={{ textDecoration: 'none' }} to={`/${Paths.catalog}`}>
-                catalog
-              </Link>
-            </div>
+            <Link
+              className={!additionalPaths ? style.item : ''}
+              to={`/${Paths.catalog}`}
+              onClick={() => handler(undefined)}
+            >
+              catalog
+            </Link>
           ),
         },
       ]
