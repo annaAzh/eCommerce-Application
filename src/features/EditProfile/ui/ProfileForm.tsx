@@ -1,12 +1,19 @@
-import { Checkbox, DatePicker, Divider, Flex, Form, Input, Select, Switch, Tag } from 'antd';
+import { Button, Checkbox, DatePicker, Divider, Flex, Form, Input, Select, Switch, Tag } from 'antd';
 import styles from './ProfileForm.module.css';
 import { formItemLayout } from 'features/RegistrationUser/ui/StyledRegistrationForm/StyledRegistrationForm';
 import postalCodes from 'postal-codes-js';
 
-import { checkBirthday, checkEmail, checkInput, checkStreet } from 'shared/lib/checkValid';
+import {
+  checkBirthday,
+  checkConfirmPassword,
+  checkEmail,
+  checkInput,
+  checkPassword,
+  checkStreet,
+} from 'shared/lib/checkValid';
 import { COUNTRIES } from 'shared/consts';
 import { FC, useEffect, useState } from 'react';
-import { getAccessToken, getUserIsLoginedStatus } from 'entities/User';
+import { getAccessToken, getUserIsLoginedStatus, passwordFlow } from 'entities/User';
 import dayjs from 'dayjs';
 import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch';
@@ -22,7 +29,13 @@ import {
 import { clearProfileError, clearProfileUpdated } from '../model/slices/profileSlice';
 import { PrimaryControlButton } from 'shared/ui';
 import { updateUserDetails } from '../model/services/updateDetailsProfile';
-import { FormDataProfile, UpdateDetailsParams } from '../model/types/profileTypes';
+import {
+  FormDataPassword,
+  FormDataProfile,
+  UpdateDetailsParams,
+  UpdatePasswordParams,
+} from '../model/types/profileTypes';
+import { updateUserPassword } from '../model/services/updatePasswordProfile';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from 'shared/types';
 
@@ -201,6 +214,52 @@ const ProfileForm: FC = () => {
                 Save changes
               </PrimaryControlButton>
             </div>
+          </Form>
+
+          <Form
+            {...formItemLayout}
+            name="profile-password"
+            className={styles.form}
+            onFinish={(values: FormDataPassword) => {
+              const { id, version } = profileData;
+              const requestData: UpdatePasswordParams = {
+                ...values,
+                id,
+                version,
+                token,
+              };
+              dispatch(updateUserPassword(requestData)).then(() => {
+                if (profileData.email) {
+                  dispatch(passwordFlow({ username: profileData.email, password: requestData.newPassword }));
+                }
+              });
+            }}
+          >
+            <Divider orientation="center"> Change password</Divider>
+            <Form.Item name="currentPassword" label="Old password" rules={checkPassword()}>
+              <Input.Password autoComplete="on" />
+            </Form.Item>
+            <Form.Item name="newPassword" label="New password" rules={checkPassword()}>
+              <Input.Password autoComplete="on" />
+            </Form.Item>
+            <Form.Item
+              name="confirm"
+              label="Confirm new password"
+              dependencies={['newPassword']}
+              rules={checkConfirmPassword('newPassword')}
+            >
+              <Input.Password autoComplete="on" />
+            </Form.Item>
+            <Flex className={styles.passwordBtnContainer}>
+              <Button type="primary" htmlType="reset" danger ghost>
+                Cancel
+              </Button>
+              <div className={styles.saveBtnContainer}>
+                <PrimaryControlButton type="primary" htmlType="submit" className="login-form-button">
+                  Save changes
+                </PrimaryControlButton>
+              </div>
+            </Flex>
           </Form>
 
           <Form

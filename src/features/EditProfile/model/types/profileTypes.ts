@@ -52,4 +52,24 @@ interface UpdateDetailsParams extends FormDataProfile {
   version?: number;
 }
 
-export { ProfileSchema, ProfileData, ErrorWithResponse, Address, UpdateDetailsParams, FormDataProfile };
+interface FormDataPassword {
+  currentPassword: string;
+  newPassword: string;
+}
+
+interface UpdatePasswordParams extends FormDataPassword {
+  id?: string;
+  token?: string;
+  version?: number;
+}
+
+export {
+  ProfileSchema,
+  ProfileData,
+  ErrorWithResponse,
+  Address,
+  UpdateDetailsParams,
+  FormDataProfile,
+  UpdatePasswordParams,
+  FormDataPassword,
+};
