@@ -69,6 +69,8 @@ const ProfileForm: FC = () => {
     shippingAddressIds: [''],
   });
 
+  const [tokenAccess, setTokenAccess] = useState<string | ''>('');
+
   useEffect(() => {
     if (!token || isLogined) return;
     navigate('/' + Paths.login);
@@ -90,6 +92,7 @@ const ProfileForm: FC = () => {
   useEffect(() => {
     if (!token) return;
     if (!isLogined) return;
+    setTokenAccess(token);
     dispatch(getUserProfile(token));
   }, [isLogined, token]);
 
@@ -193,7 +196,7 @@ const ProfileForm: FC = () => {
 
   const handleUpdateAddress = (value: FormDataAddress) => {
     const request = {
-      token,
+      token: tokenAccess,
       version: profileData.version,
       idUser: profileData.id,
       ...value,
@@ -204,7 +207,7 @@ const ProfileForm: FC = () => {
 
   const handleAddNewAddress = (value: FormDataAddress) => {
     const request = {
-      token,
+      token: tokenAccess,
       version: profileData.version,
       idUser: profileData.id,
 
@@ -216,7 +219,7 @@ const ProfileForm: FC = () => {
   const handleDeleteAddress = (addressId: string) => {
     const request = {
       addressId,
-      token,
+      token: tokenAccess,
       version: profileData.version,
       idUser: profileData.id,
     };
@@ -243,7 +246,7 @@ const ProfileForm: FC = () => {
                 dateOfBirth: dayjs(values.dateOfBirth).format('YYYY-MM-DD'),
                 id,
                 version,
-                token,
+                token: tokenAccess,
               };
               dispatch(updateUserDetails(requestData));
             }}
@@ -287,7 +290,7 @@ const ProfileForm: FC = () => {
                 ...values,
                 id,
                 version,
-                token,
+                token: tokenAccess,
               };
               dispatch(updateUserPassword(requestData)).then(() => {
                 if (profileData.email) {
