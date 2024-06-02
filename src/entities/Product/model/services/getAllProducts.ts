@@ -2,8 +2,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { CatalogProps, GetProductResponse, ProductResponse } from '../types/productTypes';
 import { BaseTokenError, ErrorWithResponse, Images, Product } from 'shared/types';
-import { removeHtmlTags, setPrices } from 'shared/lib/dataConverters';
-import { CARD_ON_PAGE } from 'shared/consts';
+import { removeHtmlTags, setPrices } from '../../../../shared/lib/dataConverters';
+import { CARD_ON_PAGE } from '../../../../shared/consts';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;

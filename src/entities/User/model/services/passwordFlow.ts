@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ErrorWithResponse } from 'entities/User';
 import { LoginData, PasswordFlowSuccess, PasswordFlownReject } from '../types/tokenTypes';
-import { setLocalStoreState } from 'shared/lib/storeState/storeState';
+import { setLocalStoreState } from '../../../../shared/lib/storeState/storeState';
 
 const AUTH_URL = process.env.AUTH_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
