@@ -43,7 +43,6 @@ describe('testing product selectors', () => {
     expect(getProductIsLoading(state)).toBeFalsy();
   });
   it('test getAllCategories', () => {
-    console.log(getAllCategories(state));
     expect(getAllCategories(state)).toEqual([category, category]);
   });
   it('test getPriceRange', () => {
