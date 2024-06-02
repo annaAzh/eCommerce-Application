@@ -1,12 +1,11 @@
 import { getSearchQuery, getAllCategories, addSearchCategory } from 'entities/Product';
 import { FC, useMemo } from 'react';
-import { getBreadcrumbPaths, getFormattedCategoryId } from 'shared/lib/dataConverters';
+import { getBreadcrumbPaths } from 'shared/lib/dataConverters';
 import { useAppSelector, useAppDispatch } from 'shared/lib/hooks';
 import { Breadcrumbs } from 'shared/ui';
 
 export const CatalogBreadcrumb: FC = () => {
-  const result = useAppSelector(getSearchQuery)?.categoriesId;
-  const categoriesId = getFormattedCategoryId(result);
+  const categoriesId = useAppSelector(getSearchQuery)?.categoriesId;
   const categories = useAppSelector(getAllCategories);
   const dispatch = useAppDispatch();
 
@@ -14,7 +13,7 @@ export const CatalogBreadcrumb: FC = () => {
     if (!id) {
       dispatch(addSearchCategory(undefined));
     } else {
-      dispatch(addSearchCategory({ categoriesId: `categories.id:"${id}"` }));
+      dispatch(addSearchCategory({ categoriesId: id }));
     }
   };
 

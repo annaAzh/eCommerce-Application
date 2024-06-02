@@ -17,7 +17,7 @@ import {
 } from 'entities/Product';
 import { DefaultFilter, FilterLabel, OptionalFilter, PriceRangeFilter } from 'shared/ui';
 import { SearchQueryProps } from 'shared/types';
-import { createSortAndSearchQuery } from 'shared/lib/dataConverters';
+import { createSortAndSearchQuery, getFormattedCategoryId } from 'shared/lib/dataConverters';
 
 export const FilterList: FC = () => {
   const dispatch = useAppDispatch();
@@ -63,7 +63,11 @@ export const FilterList: FC = () => {
     setOptionalFilters(undefined);
     dispatch(addSearchOptional({ optionalFilters: [] }));
     setClearKey((prevKey) => prevKey + 1);
-    dispatch(getProductsForParsing({ token, filter: searchQuery?.categoriesId }));
+    if (searchQuery?.categoriesId) {
+      dispatch(getProductsForParsing({ token, filter: getFormattedCategoryId(searchQuery.categoriesId) }));
+    } else {
+      dispatch(getProductsForParsing({ token }));
+    }
   };
 
   useEffect(() => {
@@ -90,7 +94,7 @@ export const FilterList: FC = () => {
     if (!token || !searchQuery?.categoriesId) return;
     dispatch(addSearchPriceRange(undefined));
     setOptionalFilters([]);
-    dispatch(getProductsForParsing({ token, filter: searchQuery?.categoriesId }));
+    dispatch(getProductsForParsing({ token, filter: getFormattedCategoryId(searchQuery.categoriesId) }));
   }, [searchQuery?.categoriesId]);
 
   const memoPriceRangeFilter = useMemo(() => {

@@ -35,7 +35,7 @@ export const SelectedProduct = (): JSX.Element => {
   const handler = (id: string | undefined) => {
     if (id) {
       navigate(`/${Paths.catalog}`);
-      dispatch(addSearchCategory({ categoriesId: `categories.id:"${id}"` }));
+      dispatch(addSearchCategory({ categoriesId: id }));
     }
   };
 

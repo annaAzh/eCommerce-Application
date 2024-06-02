@@ -2,17 +2,15 @@ import { FC } from 'react';
 import style from './LeftSideFilter.module.css';
 import { addSearchCategory, getAllCategories, getSearchQuery } from 'entities/Product';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
-import { getFormattedCategoryId } from 'shared/lib/dataConverters';
 
 export const LeftSideFilter: FC = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(getAllCategories);
-  const result = useAppSelector(getSearchQuery)?.categoriesId;
-  const categoriesId = getFormattedCategoryId(result);
+  const categoriesId = useAppSelector(getSearchQuery)?.categoriesId;
 
   const onClick = (value: string) => {
     if (value === categoriesId) return;
-    dispatch(addSearchCategory({ categoriesId: `categories.id:"${value}"` }));
+    dispatch(addSearchCategory({ categoriesId: value }));
   };
 
   return (

@@ -10,7 +10,7 @@ export const NavMenu: FC = () => {
   const categories = useAppSelector(getAllCategories);
 
   const onClick = (value: string) => {
-    dispatch(addSearchCategory({ categoriesId: `categories.id:"${value}"` }));
+    dispatch(addSearchCategory({ categoriesId: value }));
   };
 
   const result: MenuProps['items'][] = [];
