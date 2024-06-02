@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react';
-import { FilterList } from 'widgets/FilterList';
+import { FilterList } from 'features/FilterList';
 import { LeftSideFilter } from 'widgets/LeftSideFilter';
 import { NavMenu } from 'widgets/NavMenu';
 import { ProductList } from 'widgets/ProductList';
