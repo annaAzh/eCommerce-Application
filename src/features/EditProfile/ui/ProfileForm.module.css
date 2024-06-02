@@ -32,6 +32,10 @@
 }
 
 .tagContainer {
+  display: flex;
+  gap: 4px;
+  min-height: 22px;
+  flex-wrap: wrap;
   margin-bottom: 20px;
   justify-content: flex-end;
 }
@@ -64,7 +68,6 @@
 .deleteAddressBtn {
   display: flex;
   align-items: center;
-  margin-bottom: 40px;
 }
 
 .addAddressBtn {
@@ -84,4 +87,8 @@
 .addAddressBt:not([disabled]):focus {
   background-color: var(--green) !important;
   color: var(--main-color-1) !important;
+}
+
+.decorativeDivider {
+  margin-bottom: 40px;
 }

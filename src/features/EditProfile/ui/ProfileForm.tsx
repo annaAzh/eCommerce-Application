@@ -84,6 +84,7 @@ const ProfileForm: FC = () => {
     );
     dispatch(clearProfileUpdated());
     setIsEditDetails(false);
+    setIsEditAddress(false);
   }, [updatedStatus]);
 
   useEffect(() => {
@@ -94,14 +95,13 @@ const ProfileForm: FC = () => {
 
   useEffect(() => {
     if (profileData && isLogined) {
+      if (isEditDetails) return;
+
       profileForm.setFieldsValue({
         firstName: profileData.firstName,
         lastName: profileData.lastName,
         email: profileData.email,
         dateOfBirth: dayjs(profileData.dateOfBirth),
-      });
-      addressForm.setFieldsValue({
-        addresses: profileData.addresses || [],
       });
 
       setData({
@@ -110,8 +110,25 @@ const ProfileForm: FC = () => {
         billingAddressIds: profileData.billingAddressIds || [],
         shippingAddressIds: profileData.shippingAddressIds || [],
       });
+      addressForm.setFieldsValue({
+        addresses: profileData.addresses || [],
+      });
     }
-  }, [profileData, addressForm, profileForm, isLogined, isEditDetails]);
+  }, [profileData, isLogined, isEditDetails]);
+
+  useEffect(() => {
+    if (isEditAddress === false && profileData) {
+      setData({
+        defaultBillingAddress: profileData.defaultBillingAddressId || '',
+        defaultShippingAddress: profileData.defaultShippingAddressId || '',
+        billingAddressIds: profileData.billingAddressIds || [],
+        shippingAddressIds: profileData.shippingAddressIds || [],
+      });
+      addressForm.setFieldsValue({
+        addresses: profileData.addresses || [],
+      });
+    }
+  }, [isEditAddress, profileData]);
 
   useEffect(() => {
     if (!profileError) return;
@@ -123,6 +140,7 @@ const ProfileForm: FC = () => {
     );
     dispatch(clearProfileError());
     setIsEditDetails(false);
+    setIsEditAddress(false);
   }, [profileError]);
 
   const checkShippingAddress = (addressId: string) => {
@@ -319,16 +337,12 @@ const ProfileForm: FC = () => {
 
                     return (
                       <div key={key}>
-                        <Flex gap="4px 0" wrap className={styles.tagContainer}>
-                          {data ? checkShippingAddress(addressId) && <Tag color="blue">Shipping</Tag> : ''}
-                          {data ? checkBillingAddress(addressId) && <Tag color="green">Billing</Tag> : ''}
-                          {data
-                            ? checkdefaultShippingAddress(addressId) && <Tag color="yellow">Default Shipping</Tag>
-                            : ''}
-                          {data
-                            ? checkdefaultBillingAddress(addressId) && <Tag color="magenta">Default Billing</Tag>
-                            : ''}
-                        </Flex>
+                        <div className={styles.tagContainer}>
+                          {checkShippingAddress(addressId) && <Tag color="blue">Shipping</Tag>}
+                          {checkBillingAddress(addressId) && <Tag color="green">Billing</Tag>}
+                          {checkdefaultShippingAddress(addressId) && <Tag color="yellow">Default Shipping</Tag>}
+                          {checkdefaultBillingAddress(addressId) && <Tag color="magenta">Default Billing</Tag>}
+                        </div>
 
                         <Form.Item name={[name, 'streetName']} label="Street" required rules={checkStreet()}>
                           <Input disabled={!isEditAddress} />
@@ -375,129 +389,129 @@ const ProfileForm: FC = () => {
                         >
                           <Input disabled={!isEditAddress} />
                         </Form.Item>
-                        <div className={styles.checkboxWrapper}>
-                          <Form.Item
-                            name={[name, 'billingAddressIds']}
-                            valuePropName="checked"
-                            initialValue={checkBillingAddress(addressId)}
-                          >
-                            <Checkbox
+                        {isEditAddress && (
+                          <div className={styles.checkboxWrapper}>
+                            <Form.Item
+                              name={[name, 'billingAddressIds']}
+                              valuePropName="checked"
+                              initialValue={checkBillingAddress(addressId)}
+                            >
+                              <Checkbox
+                                disabled={!isEditAddress}
+                                checked={checkBillingAddress(addressId)}
+                                onChange={(e) => handleAddressCheckboxChange(addressId, e.target.checked, 'billing')}
+                              >
+                                Set as billing address
+                              </Checkbox>
+                            </Form.Item>
+
+                            <Form.Item
+                              name={[name, 'shippingAddressIds']}
+                              valuePropName="checked"
+                              initialValue={checkShippingAddress(addressId)}
+                            >
+                              <Checkbox
+                                disabled={!isEditAddress}
+                                checked={checkShippingAddress(addressId)}
+                                onChange={(e) => handleAddressCheckboxChange(addressId, e.target.checked, 'shipping')}
+                              >
+                                Set as shipping address
+                              </Checkbox>
+                            </Form.Item>
+
+                            <Form.Item
+                              name={[name, 'defaultShippingAddressId']}
+                              valuePropName="checked"
+                              initialValue={checkdefaultShippingAddress(addressId)}
+                            >
+                              <Checkbox
+                                disabled={!isEditAddress}
+                                checked={data.defaultShippingAddress === addressId}
+                                onChange={(e) => handleCheckboxChange(addressId, e.target.checked, 'shipping')}
+                              >
+                                Set as a default shipping address
+                              </Checkbox>
+                            </Form.Item>
+
+                            <Form.Item
+                              name={[name, 'defaultBillingAddressId']}
+                              valuePropName="checked"
+                              initialValue={checkdefaultBillingAddress(addressId)}
+                            >
+                              <Checkbox
+                                disabled={!isEditAddress}
+                                checked={data.defaultBillingAddress === addressId}
+                                onChange={(e) => handleCheckboxChange(addressId, e.target.checked, 'billing')}
+                              >
+                                Set as a default billing address
+                              </Checkbox>
+                            </Form.Item>
+                          </div>
+                        )}
+
+                        {isEditAddress && (
+                          <div className={styles.saveBtnContainer}>
+                            <Button
+                              type="primary"
+                              danger
+                              ghost
+                              icon={<MinusSquareOutlined />}
+                              className={styles.deleteAddressBtn}
                               disabled={!isEditAddress}
-                              checked={checkBillingAddress(addressId)}
-                              onChange={(e) => handleAddressCheckboxChange(addressId, e.target.checked, 'billing')}
+                              onClick={() => {
+                                if (addressForm.getFieldsValue().addresses[name].id) {
+                                  const addressIdParams = addressForm.getFieldsValue().addresses[name].id;
+                                  handleDeleteAddress(addressIdParams);
+                                }
+                              }}
                             >
-                              Set as billing address
-                            </Checkbox>
-                          </Form.Item>
-
-                          <Form.Item
-                            name={[name, 'shippingAddressIds']}
-                            valuePropName="checked"
-                            initialValue={checkShippingAddress(addressId)}
-                          >
-                            <Checkbox
+                              Delete address
+                            </Button>
+                            <PrimaryControlButton
+                              type="primary"
+                              className="login-form-button"
                               disabled={!isEditAddress}
-                              checked={checkShippingAddress(addressId)}
-                              onChange={(e) => handleAddressCheckboxChange(addressId, e.target.checked, 'shipping')}
+                              onClick={() => {
+                                if (addressForm.getFieldsValue().addresses[name].id) {
+                                  const value = {
+                                    addressId: addressForm.getFieldsValue().addresses[name].id,
+                                    country: addressForm.getFieldsValue().addresses[name].country,
+                                    streetName: addressForm.getFieldsValue().addresses[name].streetName,
+                                    city: addressForm.getFieldsValue().addresses[name].city,
+                                    postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
+                                    defaultShippingAddressId:
+                                      addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
+                                    defaultBillingAddressId:
+                                      addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
+                                    billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
+                                    shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
+                                  };
+
+                                  handleUpdateAddress(value);
+                                } else {
+                                  const value = {
+                                    country: addressForm.getFieldsValue().addresses[name].country,
+                                    streetName: addressForm.getFieldsValue().addresses[name].streetName,
+                                    city: addressForm.getFieldsValue().addresses[name].city,
+                                    postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
+                                    defaultShippingAddressId:
+                                      addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
+                                    defaultBillingAddressId:
+                                      addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
+                                    billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
+                                    shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
+                                  };
+
+                                  handleAddNewAddress(value);
+                                }
+                              }}
                             >
-                              Set as shipping address
-                            </Checkbox>
-                          </Form.Item>
+                              Save changes
+                            </PrimaryControlButton>
+                          </div>
+                        )}
 
-                          <Form.Item
-                            name={[name, 'defaultShippingAddressId']}
-                            valuePropName="checked"
-                            initialValue={checkdefaultShippingAddress(addressId)}
-                          >
-                            <Checkbox
-                              disabled={
-                                !isEditAddress ||
-                                (data.defaultShippingAddress !== addressId && data.defaultShippingAddress !== '')
-                              }
-                              checked={data.defaultShippingAddress === addressId}
-                              onChange={(e) => handleCheckboxChange(addressId, e.target.checked, 'shipping')}
-                            >
-                              Set as a default shipping address
-                            </Checkbox>
-                          </Form.Item>
-
-                          <Form.Item
-                            name={[name, 'defaultBillingAddressId']}
-                            valuePropName="checked"
-                            initialValue={checkdefaultBillingAddress(addressId)}
-                          >
-                            <Checkbox
-                              disabled={
-                                !isEditAddress ||
-                                (data.defaultBillingAddress !== addressId && data.defaultBillingAddress !== '')
-                              }
-                              checked={data.defaultBillingAddress === addressId}
-                              onChange={(e) => handleCheckboxChange(addressId, e.target.checked, 'billing')}
-                            >
-                              Set as a default billing address
-                            </Checkbox>
-                          </Form.Item>
-                        </div>
-
-                        <div className={styles.saveBtnContainer}>
-                          <Button
-                            type="primary"
-                            danger
-                            ghost
-                            icon={<MinusSquareOutlined />}
-                            className={styles.deleteAddressBtn}
-                            disabled={!isEditAddress}
-                            onClick={() => {
-                              if (addressForm.getFieldsValue().addresses[name].id) {
-                                const addressIdParams = addressForm.getFieldsValue().addresses[name].id;
-                                handleDeleteAddress(addressIdParams);
-                              }
-                            }}
-                          >
-                            Delete address
-                          </Button>
-                          <PrimaryControlButton
-                            type="primary"
-                            className="login-form-button"
-                            disabled={!isEditAddress}
-                            onClick={() => {
-                              if (addressForm.getFieldsValue().addresses[name].id) {
-                                const value = {
-                                  addressId: addressForm.getFieldsValue().addresses[name].id,
-                                  country: addressForm.getFieldsValue().addresses[name].country,
-                                  streetName: addressForm.getFieldsValue().addresses[name].streetName,
-                                  city: addressForm.getFieldsValue().addresses[name].city,
-                                  postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
-                                  defaultShippingAddressId:
-                                    addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
-                                  defaultBillingAddressId:
-                                    addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
-                                  billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
-                                  shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
-                                };
-
-                                handleUpdateAddress(value);
-                              } else {
-                                const value = {
-                                  country: addressForm.getFieldsValue().addresses[name].country,
-                                  streetName: addressForm.getFieldsValue().addresses[name].streetName,
-                                  city: addressForm.getFieldsValue().addresses[name].city,
-                                  postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
-                                  defaultShippingAddressId:
-                                    addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
-                                  defaultBillingAddressId:
-                                    addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
-                                  billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
-                                  shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
-                                };
-
-                                handleAddNewAddress(value);
-                              }
-                            }}
-                          >
-                            Save changes
-                          </PrimaryControlButton>
-                        </div>
+                        <Divider className={styles.decorativeDivider}></Divider>
                       </div>
                     );
                   })}
