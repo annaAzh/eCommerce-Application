@@ -30,6 +30,7 @@ import { clearProfileError, clearProfileUpdated } from '../model/slices/profileS
 import { PrimaryControlButton } from 'shared/ui';
 import { updateUserDetails } from '../model/services/updateDetailsProfile';
 import {
+  Data,
   FormDataAddress,
   FormDataPassword,
   FormDataProfile,
@@ -226,6 +227,18 @@ const ProfileForm: FC = () => {
     dispatch(removeUserAddress(request));
   };
 
+  const newHandleForm = (values: Data) => {
+    // console.log(values.addresses[0].streetName);
+
+    values.addresses.map((elem) => {
+      if (elem.addressId) {
+        handleUpdateAddress(elem);
+      } else {
+        handleAddNewAddress(elem);
+      }
+    });
+  };
+
   return (
     <div className={styles.wrapper}>
       {isLoading ? (
@@ -326,7 +339,17 @@ const ProfileForm: FC = () => {
             </Flex>
           </Form>
 
-          <Form {...formItemLayout} form={addressForm} name="profile-address" className={styles.form}>
+          <Form
+            {...formItemLayout}
+            form={addressForm}
+            name="profile-address"
+            className={styles.form}
+            onFinish={(values: Data) => {
+              // console.log(values);
+
+              newHandleForm(values);
+            }}
+          >
             <div className={styles.switchContainer}>
               <Switch onChange={() => setIsEditAddress(!isEditAddress)} />
               <span className={styles.editSpan}>Edit</span>
@@ -472,42 +495,43 @@ const ProfileForm: FC = () => {
                             </Button>
                             <PrimaryControlButton
                               type="primary"
+                              htmlType="submit"
                               className="login-form-button"
                               disabled={!isEditAddress}
-                              onClick={() => {
-                                if (addressForm.getFieldsValue().addresses[name].id) {
-                                  const value = {
-                                    addressId: addressForm.getFieldsValue().addresses[name].id,
-                                    country: addressForm.getFieldsValue().addresses[name].country,
-                                    streetName: addressForm.getFieldsValue().addresses[name].streetName,
-                                    city: addressForm.getFieldsValue().addresses[name].city,
-                                    postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
-                                    defaultShippingAddressId:
-                                      addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
-                                    defaultBillingAddressId:
-                                      addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
-                                    billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
-                                    shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
-                                  };
+                              // onClick={() => {
+                              //   if (addressForm.getFieldsValue().addresses[name].id) {
+                              //     const value = {
+                              //       addressId: addressForm.getFieldsValue().addresses[name].id,
+                              //       country: addressForm.getFieldsValue().addresses[name].country,
+                              //       streetName: addressForm.getFieldsValue().addresses[name].streetName,
+                              //       city: addressForm.getFieldsValue().addresses[name].city,
+                              //       postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
+                              //       defaultShippingAddressId:
+                              //         addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
+                              //       defaultBillingAddressId:
+                              //         addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
+                              //       billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
+                              //       shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
+                              //     };
 
-                                  handleUpdateAddress(value);
-                                } else {
-                                  const value = {
-                                    country: addressForm.getFieldsValue().addresses[name].country,
-                                    streetName: addressForm.getFieldsValue().addresses[name].streetName,
-                                    city: addressForm.getFieldsValue().addresses[name].city,
-                                    postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
-                                    defaultShippingAddressId:
-                                      addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
-                                    defaultBillingAddressId:
-                                      addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
-                                    billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
-                                    shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
-                                  };
+                              //     handleUpdateAddress(value);
+                              //   } else {
+                              //     const value = {
+                              //       country: addressForm.getFieldsValue().addresses[name].country,
+                              //       streetName: addressForm.getFieldsValue().addresses[name].streetName,
+                              //       city: addressForm.getFieldsValue().addresses[name].city,
+                              //       postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
+                              //       defaultShippingAddressId:
+                              //         addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
+                              //       defaultBillingAddressId:
+                              //         addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
+                              //       billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
+                              //       shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
+                              //     };
 
-                                  handleAddNewAddress(value);
-                                }
-                              }}
+                              //     handleAddNewAddress(value);
+                              //   }
+                              // }}
                             >
                               Save changes
                             </PrimaryControlButton>

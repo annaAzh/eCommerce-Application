@@ -75,6 +75,8 @@ interface FormDataAddress {
   addressId?: string;
 }
 
+type Data = { addresses: FormDataAddress[] };
+
 interface UpdateAddressParams extends FormDataAddress {
   idUser?: string;
   token?: string;
@@ -110,4 +112,5 @@ export {
   FormDataAddress,
   RemoveAddressParams,
   AddNewAddressParams,
+  Data,
 };
