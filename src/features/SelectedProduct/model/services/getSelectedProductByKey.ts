@@ -1,25 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ErrorWithResponse, Images, Product } from 'shared/types';
-import { ProductReject, ProductSelectedResponse } from '../types/selectedProductTypes';
+import { ErrorWithResponse, Images } from 'shared/types';
+import { ProductReject, ProductSelectedResponse, SelectedProduct } from '../types/selectedProductTypes';
 import { setPrices } from 'shared/lib/dataConverters';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-const convertDataProductIntoAppropriateFormat = (product: ProductSelectedResponse): Product => {
+const convertDataProductIntoAppropriateFormat = (product: ProductSelectedResponse): SelectedProduct => {
   const assetsProduct = product.masterData.staged;
   const pricePath = assetsProduct.masterVariant.prices[0];
   const images: string[] = assetsProduct.masterVariant.images.map((image: Images) => image.url);
-  const newProductEntry: Product = {
+  const categoryIndex = 0;
+  const subCategoryIndex = 1;
+  const newProductEntry: SelectedProduct = {
     id: product.id,
     key: product.key,
     name: assetsProduct.name['en-US'] || '',
     description: assetsProduct.description['en-US'] || '',
     images,
     prices: setPrices(pricePath),
+    category: assetsProduct.categories[categoryIndex] ? assetsProduct.categories[categoryIndex].id : undefined,
+    subCategory: assetsProduct.categories[subCategoryIndex] ? assetsProduct.categories[subCategoryIndex].id : undefined,
   };
-
   return newProductEntry;
 };
 

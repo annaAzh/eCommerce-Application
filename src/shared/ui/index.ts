@@ -1,3 +1,5 @@
+export { Breadcrumbs } from './Breadcrumb/Breadcrumb';
+
 export { OptionalFilter } from './OptionalFilter/OptionalFilter';
 
 export { PriceRangeFilter } from './PriceRangeFilter/PriceRangeFilter';

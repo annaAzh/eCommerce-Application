@@ -13,12 +13,12 @@ const ProductList: FC = () => {
   const navigate = useNavigate();
   const products = useAppSelector(getProducts);
   const isLoading = useAppSelector(getProductIsLoading);
-  
+
   function selectProduct(key: string): void {
     dispatch(clearCardError());
     navigate(`${key}`);
   }
-  
+
   return (
     <div className={styles.productList}>
       {isLoading ? (

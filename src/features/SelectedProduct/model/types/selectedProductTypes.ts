@@ -1,10 +1,20 @@
-import { Product } from 'shared/types';
-import { Images, Prices } from 'shared/types/productTypes';
+import { FormattedPrice, Images, Prices } from 'shared/types/productTypes';
 
 interface CardSchema {
-  product: Product;
+  product: SelectedProduct;
   error?: ProductReject;
   isLoading: boolean;
+}
+
+interface SelectedProduct {
+  id: string;
+  key: string;
+  name: string;
+  description: string;
+  images: string[];
+  prices: FormattedPrice;
+  category?: string;
+  subCategory?: string;
 }
 
 type ProductSelectedResponse = {
@@ -22,6 +32,7 @@ type ProductSelectedResponse = {
         images: Images[];
         prices: Prices[];
       };
+      categories: { id: string; typeId: string }[];
     };
   };
 };
@@ -37,4 +48,4 @@ interface ProductReject {
   ];
 }
 
-export { CardSchema, ProductSelectedResponse, ProductReject };
+export { CardSchema, ProductSelectedResponse, ProductReject, SelectedProduct };
