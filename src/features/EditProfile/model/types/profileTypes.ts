@@ -64,18 +64,38 @@ interface UpdatePasswordParams extends FormDataPassword {
 }
 
 interface FormDataAddress {
-  addresses?: Address[];
+  streetName: string;
+  postalCode: string;
+  city: string;
+  country: string;
   billingAddressIds?: string[];
   shippingAddressIds?: string[];
   defaultShippingAddressId?: string;
   defaultBillingAddressId?: string;
+  addressId?: string;
 }
 
 interface UpdateAddressParams extends FormDataAddress {
-  id?: string;
+  idUser?: string;
+  token?: string;
+  version?: number;
+  addressId?: string;
+}
+interface UpdateAddressParams extends Address {}
+
+interface RemoveAddressParams {
+  idUser?: string;
+  token?: string;
+  version?: number;
+  addressId?: string;
+}
+
+interface AddNewAddressParams extends FormDataAddress {
+  idUser?: string;
   token?: string;
   version?: number;
 }
+interface AddNewAddressParams extends Address {}
 
 export {
   ProfileSchema,
@@ -87,4 +107,7 @@ export {
   UpdatePasswordParams,
   FormDataPassword,
   UpdateAddressParams,
+  FormDataAddress,
+  RemoveAddressParams,
+  AddNewAddressParams,
 };

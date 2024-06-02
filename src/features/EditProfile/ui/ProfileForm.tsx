@@ -30,6 +30,7 @@ import { clearProfileError, clearProfileUpdated } from '../model/slices/profileS
 import { PrimaryControlButton } from 'shared/ui';
 import { updateUserDetails } from '../model/services/updateDetailsProfile';
 import {
+  FormDataAddress,
   FormDataPassword,
   FormDataProfile,
   UpdateDetailsParams,
@@ -39,6 +40,9 @@ import { updateUserPassword } from '../model/services/updatePasswordProfile';
 import { useNavigate } from 'react-router-dom';
 import { Paths } from 'shared/types';
 import { MinusSquareOutlined, PlusSquareOutlined } from '@ant-design/icons';
+import { updateUserAddress } from '../model/services/updateAddressProfile';
+import { addNewUserAddress } from '../model/services/addNewAddressProfile';
+import { removeUserAddress } from '../model/services/deleteAddressProfile';
 
 const ProfileForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -163,10 +167,42 @@ const ProfileForm: FC = () => {
     }));
   };
 
-  const handleAddAddress = () => {
+  const handleAddAddressAtForm = () => {
     const addresses = addressForm.getFieldValue('addresses') || [];
     const newAddress = { streetName: '', city: '', country: '', postalCode: '' };
     addressForm.setFieldsValue({ addresses: [...addresses, newAddress] });
+  };
+
+  const handleUpdateAddress = (value: FormDataAddress) => {
+    const request = {
+      token,
+      version: profileData.version,
+      idUser: profileData.id,
+      ...value,
+      addressId: value.addressId,
+    };
+    dispatch(updateUserAddress(request));
+  };
+
+  const handleAddNewAddress = (value: FormDataAddress) => {
+    const request = {
+      token,
+      version: profileData.version,
+      idUser: profileData.id,
+
+      ...value,
+    };
+    dispatch(addNewUserAddress(request));
+  };
+
+  const handleDeleteAddress = (addressId: string) => {
+    const request = {
+      addressId,
+      token,
+      version: profileData.version,
+      idUser: profileData.id,
+    };
+    dispatch(removeUserAddress(request));
   };
 
   return (
@@ -269,22 +305,14 @@ const ProfileForm: FC = () => {
             </Flex>
           </Form>
 
-          <Form
-            {...formItemLayout}
-            form={addressForm}
-            name="profile-address"
-            className={styles.form}
-            onFinish={(values) => {
-              console.log('Form values:', values);
-            }}
-          >
+          <Form {...formItemLayout} form={addressForm} name="profile-address" className={styles.form}>
             <div className={styles.switchContainer}>
               <Switch onChange={() => setIsEditAddress(!isEditAddress)} />
               <span className={styles.editSpan}>Edit</span>
             </div>
             <Divider orientation="center">Addresses</Divider>
             <Form.List name="addresses">
-              {(fields, { remove }) => (
+              {(fields) => (
                 <>
                   {fields.map(({ key, name }) => {
                     const addressId: string = addressForm.getFieldValue(['addresses', name, 'id']);
@@ -349,7 +377,7 @@ const ProfileForm: FC = () => {
                         </Form.Item>
                         <div className={styles.checkboxWrapper}>
                           <Form.Item
-                            name={[name, 'setAsBillingAddress']}
+                            name={[name, 'billingAddressIds']}
                             valuePropName="checked"
                             initialValue={checkBillingAddress(addressId)}
                           >
@@ -363,7 +391,7 @@ const ProfileForm: FC = () => {
                           </Form.Item>
 
                           <Form.Item
-                            name={[name, 'setAsShippingAddress']}
+                            name={[name, 'shippingAddressIds']}
                             valuePropName="checked"
                             initialValue={checkShippingAddress(addressId)}
                           >
@@ -377,7 +405,7 @@ const ProfileForm: FC = () => {
                           </Form.Item>
 
                           <Form.Item
-                            name={[name, 'defaultShippingAddress']}
+                            name={[name, 'defaultShippingAddressId']}
                             valuePropName="checked"
                             initialValue={checkdefaultShippingAddress(addressId)}
                           >
@@ -394,7 +422,7 @@ const ProfileForm: FC = () => {
                           </Form.Item>
 
                           <Form.Item
-                            name={[name, 'defaultBillingAddress']}
+                            name={[name, 'defaultBillingAddressId']}
                             valuePropName="checked"
                             initialValue={checkdefaultBillingAddress(addressId)}
                           >
@@ -411,17 +439,65 @@ const ProfileForm: FC = () => {
                           </Form.Item>
                         </div>
 
-                        <Button
-                          type="primary"
-                          danger
-                          ghost
-                          icon={<MinusSquareOutlined />}
-                          className={styles.deleteAddressBtn}
-                          disabled={!isEditAddress}
-                          onClick={() => remove(name)}
-                        >
-                          Delete address
-                        </Button>
+                        <div className={styles.saveBtnContainer}>
+                          <Button
+                            type="primary"
+                            danger
+                            ghost
+                            icon={<MinusSquareOutlined />}
+                            className={styles.deleteAddressBtn}
+                            disabled={!isEditAddress}
+                            onClick={() => {
+                              if (addressForm.getFieldsValue().addresses[name].id) {
+                                const addressIdParams = addressForm.getFieldsValue().addresses[name].id;
+                                handleDeleteAddress(addressIdParams);
+                              }
+                            }}
+                          >
+                            Delete address
+                          </Button>
+                          <PrimaryControlButton
+                            type="primary"
+                            className="login-form-button"
+                            disabled={!isEditAddress}
+                            onClick={() => {
+                              if (addressForm.getFieldsValue().addresses[name].id) {
+                                const value = {
+                                  addressId: addressForm.getFieldsValue().addresses[name].id,
+                                  country: addressForm.getFieldsValue().addresses[name].country,
+                                  streetName: addressForm.getFieldsValue().addresses[name].streetName,
+                                  city: addressForm.getFieldsValue().addresses[name].city,
+                                  postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
+                                  defaultShippingAddressId:
+                                    addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
+                                  defaultBillingAddressId:
+                                    addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
+                                  billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
+                                  shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
+                                };
+
+                                handleUpdateAddress(value);
+                              } else {
+                                const value = {
+                                  country: addressForm.getFieldsValue().addresses[name].country,
+                                  streetName: addressForm.getFieldsValue().addresses[name].streetName,
+                                  city: addressForm.getFieldsValue().addresses[name].city,
+                                  postalCode: addressForm.getFieldsValue().addresses[name].postalCode,
+                                  defaultShippingAddressId:
+                                    addressForm.getFieldsValue().addresses[name].defaultShippingAddressId,
+                                  defaultBillingAddressId:
+                                    addressForm.getFieldsValue().addresses[name].defaultBillingAddressId,
+                                  billingAddressIds: addressForm.getFieldsValue().addresses[name].billingAddressIds,
+                                  shippingAddressIds: addressForm.getFieldsValue().addresses[name].shippingAddressIds,
+                                };
+
+                                handleAddNewAddress(value);
+                              }
+                            }}
+                          >
+                            Save changes
+                          </PrimaryControlButton>
+                        </div>
                       </div>
                     );
                   })}
@@ -435,19 +511,10 @@ const ProfileForm: FC = () => {
                 icon={<PlusSquareOutlined />}
                 className={styles.addAddressBtn}
                 disabled={!isEditAddress}
-                onClick={handleAddAddress}
+                onClick={handleAddAddressAtForm}
               >
                 Add address
               </Button>
-
-              <PrimaryControlButton
-                type="primary"
-                htmlType="submit"
-                className="login-form-button"
-                disabled={!isEditAddress}
-              >
-                Save changes
-              </PrimaryControlButton>
             </div>
           </Form>
         </>

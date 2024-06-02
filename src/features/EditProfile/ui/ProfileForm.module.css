@@ -65,12 +65,12 @@
   display: flex;
   align-items: center;
   margin-bottom: 40px;
-  margin-left: auto;
 }
 
 .addAddressBtn {
   border-color: var(--green) !important;
   color: var(--green) !important;
+  width: 100%;
 }
 
 .addAddressBtn:disabled {

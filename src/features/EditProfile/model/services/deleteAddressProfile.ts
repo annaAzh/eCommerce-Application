@@ -1,65 +1,33 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RegistrationReject } from 'features/RegistrationUser/model/types/registrationTypes';
-import { ErrorWithResponse, ProfileData, UpdateAddressParams } from '../types/profileTypes';
+import { ErrorWithResponse, ProfileData, RemoveAddressParams } from '../types/profileTypes';
 
 const API_URL = process.env.API_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
 
-export const updateUserAddress = createAsyncThunk(
-  'profile/updateAddress',
-  async (params: UpdateAddressParams, thunkAPI) => {
+export const removeUserAddress = createAsyncThunk(
+  'profile/deleteAddress',
+  async (params: RemoveAddressParams, thunkAPI) => {
     try {
       const { token, version, idUser, addressId } = params;
 
       const body = {
         version,
+
         actions: [
           {
-            action: 'changeAddress',
+            action: 'removeAddress',
             addressId: addressId,
-            address: {
-              country: params.country,
-              postalCode: params.postalCode,
-              city: params.city,
-              streetName: params.streetName,
-            },
           },
-
-          params.defaultShippingAddressId
-            ? {
-                action: 'setDefaultShippingAddress',
-                addressId: addressId,
-              }
-            : null,
-
-          params.defaultBillingAddressId
-            ? {
-                action: 'setDefaultBillingAddress',
-                addressId: params.addressId,
-              }
-            : null,
-
-          params.billingAddressIds
-            ? {
-                action: 'addBillingAddressId',
-                addressId: addressId,
-              }
-            : null,
-
-          params.shippingAddressIds
-            ? {
-                action: 'addShippingAddressId',
-                addressId: addressId,
-              }
-            : null,
-        ].filter((action) => action !== null),
+        ],
       };
 
       const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
 
       const res = await axios.post(`${API_URL}${PROJECT_KEY}/customers/${idUser}`, body, { headers });
       const success: ProfileData = res.data;
+
       return success;
     } catch (error) {
       let defaultMessage = 'Something went wrong';
