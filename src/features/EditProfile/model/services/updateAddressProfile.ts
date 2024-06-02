@@ -10,14 +10,15 @@ export const updateUserAddress = createAsyncThunk(
   'profile/updateAddress',
   async (params: UpdateAddressParams, thunkAPI) => {
     try {
-      const { token, version, idUser, addressId } = params;
+      const { token, version, idUser, id } = params;
+      console.log('userId = ', idUser, id);
 
       const body = {
         version,
         actions: [
           {
             action: 'changeAddress',
-            addressId: addressId,
+            addressId: id,
             address: {
               country: params.country,
               postalCode: params.postalCode,
@@ -29,32 +30,33 @@ export const updateUserAddress = createAsyncThunk(
           params.defaultShippingAddressId
             ? {
                 action: 'setDefaultShippingAddress',
-                addressId: addressId,
+                addressId: id,
               }
-            : null,
+            : undefined,
 
           params.defaultBillingAddressId
             ? {
                 action: 'setDefaultBillingAddress',
                 addressId: params.addressId,
               }
-            : null,
+            : undefined,
 
           params.billingAddressIds
             ? {
                 action: 'addBillingAddressId',
-                addressId: addressId,
+                addressId: id,
               }
-            : null,
+            : undefined,
 
           params.shippingAddressIds
             ? {
                 action: 'addShippingAddressId',
-                addressId: addressId,
+                addressId: id,
               }
-            : null,
-        ].filter((action) => action !== null),
+            : undefined,
+        ],
       };
+      console.log('body', id);
 
       const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
 
