@@ -1,3 +1,7 @@
+export { getSubCategory } from './getSubCategory';
+
+export { getBreadcrumbPaths } from './getBreadcrumbPaths';
+
 export { getFormattedCategoryId } from './getFormattedCategoryId';
 
 export { createSortAndSearchQuery } from './createSortAndSearchQuery';

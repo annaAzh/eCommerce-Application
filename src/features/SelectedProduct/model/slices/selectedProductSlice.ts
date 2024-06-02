@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { ProductReject, CardSchema } from '../types/selectedProductTypes';
-import { Product } from 'shared/types';
+import { ProductReject, CardSchema, SelectedProduct } from '../types/selectedProductTypes';
 import { getProductByKey } from '../services/getSelectedProductByKey';
 
 const initialState: CardSchema = {
@@ -11,6 +10,7 @@ const initialState: CardSchema = {
     description: '',
     images: [],
     prices: { currentPrice: '' },
+    category: undefined,
   },
   isLoading: false,
   error: undefined,
@@ -26,7 +26,7 @@ export const cardSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getProductByKey.fulfilled, (state, { payload }: PayloadAction<Product>) => {
+      .addCase(getProductByKey.fulfilled, (state, { payload }: PayloadAction<SelectedProduct>) => {
         state.product = payload;
         state.isLoading = false;
         state.error = undefined;

@@ -44,4 +44,10 @@ interface SearchQueryProps {
   fuzzy?: boolean;
 }
 
-export { Product, Prices, Images, FormattedPrice, SearchQueryProps };
+interface FormattedCategories {
+  id: string;
+  name: string;
+  subCategory: Omit<FormattedCategories, 'subCategory'>[];
+}
+
+export { Product, Prices, Images, FormattedPrice, SearchQueryProps, FormattedCategories };

@@ -7,6 +7,7 @@ import style from './Catalog.module.css';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { getProductError } from 'entities/Product';
 import { setNotificationMessage } from 'entities/NotificationTool';
+import { CatalogBreadcrumb } from 'widgets/CatalogBreadcrumb';
 
 export const Catalog: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,6 +26,7 @@ export const Catalog: FC = () => {
   return (
     <>
       <NavMenu />
+      <CatalogBreadcrumb />
       <div className={style.cover}>
         <LeftSideFilter />
         <div className={style.leftSide}>

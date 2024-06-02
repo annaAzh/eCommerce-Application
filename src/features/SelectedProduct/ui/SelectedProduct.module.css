@@ -85,11 +85,11 @@
   position: relative;
 }
 
-p {
+.container p {
   margin-top: 10px;
 }
 
-li {
+.container li {
   margin-left: 30px;
 }
 
