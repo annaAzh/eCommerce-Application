@@ -4,9 +4,10 @@
   border: 1px solid var(--main-color-4);
   border-radius: 4px;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
   text-align: center;
-  padding: 1% 0.3% 0.3%;
+  padding: 1%;
   background: white;
   user-select: none;
 
@@ -16,13 +17,17 @@
   }
 }
 
+.container {
+  display: flex;
+}
+
 .imageCover {
   width: 40%;
   position: relative;
   overflow: hidden;
 }
 
-img {
+.card img {
   transition: transform 0.3s ease;
 }
 
@@ -61,6 +66,7 @@ img {
   padding-bottom: 1%;
   color: var(--blue);
   position: relative;
+  margin: 0;
 
   &::after {
     content: '';
@@ -98,10 +104,57 @@ img {
     position: absolute;
     bottom: 35%;
     right: 0;
-    width: 13%;
+    width: 10%;
     height: 1px;
     background: var(--main-color-4);
     transform: rotate(-10deg);
     transform-origin: left top;
+  }
+}
+
+@media (width <= 1450px) {
+  .card {
+    width: 550px;
+    height: 270px;
+  }
+}
+
+@media (width <= 1350px) {
+  .card {
+    width: 500px;
+    height: 250px;
+  }
+}
+
+@media (width <= 1350px) {
+  .card {
+    width: 600px;
+    height: 300px;
+  }
+}
+
+@media (width <= 900px) {
+  .card {
+    width: 500px;
+    height: 250px;
+  }
+
+  .crossedPrice {
+    &::after {
+      width: 13%;
+    }
+  }
+}
+
+@media (width <= 700px) {
+  .card {
+    width: 350px;
+    height: 250px;
+  }
+
+  .crossedPrice {
+    &::after {
+      width: 18%;
+    }
   }
 }

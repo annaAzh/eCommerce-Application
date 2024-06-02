@@ -2,7 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 1%;
+
+  /* gap: 10px; */
+
   height: 50px;
   background: var(--denim);
 }
@@ -35,4 +38,26 @@
   font-size: 14px;
   font-weight: 600;
   font-family: Poppins, sans-serif;
+}
+
+@media (width <= 900px) {
+  .nav {
+    justify-content: flex-start;
+  }
+}
+
+@media (width <= 600px) {
+  .nav {
+    gap: 0;
+  }
+
+  .navItem {
+    font-size: 15px;
+  }
+}
+
+@media (width <= 500px) {
+  .navItem {
+    display: none;
+  }
 }

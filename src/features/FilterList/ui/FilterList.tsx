@@ -15,9 +15,9 @@ import {
   getProductsForParsing,
   getSearchQuery,
 } from 'entities/Product';
-import { DefaultFilter, OptionalFilter, PriceRangeFilter } from 'shared/ui';
+import { DefaultFilter, FilterLabel, OptionalFilter, PriceRangeFilter } from 'shared/ui';
 import { SearchQueryProps } from 'shared/types';
-import { createSortAndSearchQuery } from 'shared/lib/dataConverters';
+import { createSortAndSearchQuery, getFormattedCategoryId } from 'shared/lib/dataConverters';
 
 export const FilterList: FC = () => {
   const dispatch = useAppDispatch();
@@ -26,6 +26,7 @@ export const FilterList: FC = () => {
   const attributes = useAppSelector(getAttributes);
   const searchQuery = useAppSelector(getSearchQuery);
   const [optionalFilters, setOptionalFilters] = useState<string[]>();
+  const [clearKey, setClearKey] = useState<number>(0);
 
   const defaultFilterHandler = (data: Required<Pick<SearchQueryProps, 'sortField' | 'sortBy'>> | undefined) => {
     dispatch(addSearchSortBy(data));
@@ -55,6 +56,20 @@ export const FilterList: FC = () => {
     }
   };
 
+  const clearFilterHandler = () => {
+    if (!token) return;
+    dispatch(addSearchPriceRange(undefined));
+    dispatch(addSearchSortBy(undefined));
+    setOptionalFilters(undefined);
+    dispatch(addSearchOptional({ optionalFilters: [] }));
+    setClearKey((prevKey) => prevKey + 1);
+    if (searchQuery?.categoriesId) {
+      dispatch(getProductsForParsing({ token, filter: getFormattedCategoryId(searchQuery.categoriesId) }));
+    } else {
+      dispatch(getProductsForParsing({ token }));
+    }
+  };
+
   useEffect(() => {
     if (!optionalFilters) return;
     dispatch(addSearchOptional({ optionalFilters }));
@@ -79,7 +94,7 @@ export const FilterList: FC = () => {
     if (!token || !searchQuery?.categoriesId) return;
     dispatch(addSearchPriceRange(undefined));
     setOptionalFilters([]);
-    dispatch(getProductsForParsing({ token, filter: searchQuery?.categoriesId }));
+    dispatch(getProductsForParsing({ token, filter: getFormattedCategoryId(searchQuery.categoriesId) }));
   }, [searchQuery?.categoriesId]);
 
   const memoPriceRangeFilter = useMemo(() => {
@@ -99,11 +114,16 @@ export const FilterList: FC = () => {
     );
   }, [attributes]);
 
+  const memoDefaultFilter = useMemo(() => {
+    return <DefaultFilter key={clearKey} handleData={defaultFilterHandler} />;
+  }, [clearKey]);
+
   return (
     <div className={styles.container}>
-      <DefaultFilter handleData={defaultFilterHandler} />
+      {memoDefaultFilter}
       {memoPriceRangeFilter}
       {memoOptionalFilter}
+      <FilterLabel onClick={clearFilterHandler}>clear filters</FilterLabel>
     </div>
   );
 };

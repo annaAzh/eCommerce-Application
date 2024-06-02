@@ -11,6 +11,7 @@ export {
   getPriceRange,
   getAttributes,
   getSearchQuery,
+  getProductError,
 } from './model/selectors/productSelectors';
 
 export {

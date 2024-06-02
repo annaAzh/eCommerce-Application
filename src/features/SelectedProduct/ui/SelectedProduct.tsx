@@ -10,8 +10,7 @@ import styles from './SelectedProduct.module.css';
 import { Breadcrumbs, Slider } from 'shared/ui';
 import { Paths } from 'shared/types';
 import { addSearchCategory, getAllCategories, getAvailableCategories } from 'entities/Product';
-import { getBreadcrumbPaths } from 'shared/lib/dataConverters';
-import { getSubCategory } from 'shared/lib/helpers/getSubCategory';
+import { getBreadcrumbPaths, getSubCategory } from 'shared/lib/dataConverters';
 
 export const SelectedProduct = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -36,7 +35,7 @@ export const SelectedProduct = (): JSX.Element => {
   const handler = (id: string | undefined) => {
     if (id) {
       navigate(`/${Paths.catalog}`);
-      dispatch(addSearchCategory({ categoriesId: `categories.id:"${id}"` }));
+      dispatch(addSearchCategory({ categoriesId: id }));
     }
   };
 
