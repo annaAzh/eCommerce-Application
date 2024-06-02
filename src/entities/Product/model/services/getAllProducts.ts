@@ -8,7 +8,7 @@ import { CARD_ON_PAGE } from '../../../../shared/consts';
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product[] => {
+export const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product[] => {
   const result: Product[] = [];
 
   products.results.forEach((product: ProductResponse) => {
