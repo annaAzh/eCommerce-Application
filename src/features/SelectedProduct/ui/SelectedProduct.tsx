@@ -17,7 +17,7 @@ export const SelectedProduct = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(getAccessToken);
   const { productKey } = useParams<string>();
-  const { name, description, prices, category, subCategory } = useAppSelector(getSelectedProduct);
+  const { name, description, prices, images, category, subCategory } = useAppSelector(getSelectedProduct);
   const isLoading = useAppSelector(getSelectedIsLoading);
   const { discountedPrice, currentPrice } = prices;
   const categories = useAppSelector(getAllCategories);
@@ -71,7 +71,7 @@ export const SelectedProduct = (): JSX.Element => {
             <h2 className={styles.name}>{name}</h2>
             <div className={styles.topBlock}>
               <div className={styles.slider}>
-                <Slider />
+                <Slider images={images} />
               </div>
               <div className={styles.containerPrices}>
                 {discountedPrice ? (
