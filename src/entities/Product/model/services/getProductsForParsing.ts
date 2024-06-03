@@ -3,12 +3,12 @@ import axios from 'axios';
 import { ErrorWithResponse } from 'entities/User';
 import { BaseTokenError } from 'shared/types';
 import { CatalogProps, GetProductResponse, ParseResponse } from '../types/productTypes';
-import { ITEMS_FOR_PARSING } from 'shared/consts';
+import { ITEMS_FOR_PARSING } from '../../../../shared/consts';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-const convertParseData = (data: GetProductResponse) => {
+export const convertParseData = (data: GetProductResponse) => {
   const availableAttributes = new Map<string, Set<string>>();
   let maxPrice = 0;
   let minPrice = Number.MAX_VALUE;

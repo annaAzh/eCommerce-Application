@@ -6,7 +6,7 @@ import { BaseTokenError, ErrorWithResponse } from 'shared/types';
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-const convertCategoriesIntoAppropriateFormat = (data: GetCategoroesResponse) => {
+export const convertCategoriesIntoAppropriateFormat = (data: GetCategoroesResponse) => {
   const result: FormattedCategories[] = [];
   data.results.forEach((category) => {
     const { name, id } = category;
