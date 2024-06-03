@@ -12,55 +12,64 @@ export const updateUserAddress = createAsyncThunk(
     try {
       const { token, version, idUser, addressId } = params;
 
-      const body = {
-        version,
-        actions: [
-          {
-            action: 'changeAddress',
-            addressId,
-            address: {
-              country: params.country,
-              postalCode: params.postalCode,
-              city: params.city,
-              streetName: params.streetName,
+      let body;
+
+      if (params.billingAddressIds) {
+        body = {
+          version,
+          actions: [
+            {
+              action: 'changeAddress',
+              addressId,
+              address: {
+                country: params.country,
+                postalCode: params.postalCode,
+                city: params.city,
+                streetName: params.streetName,
+              },
             },
-          },
 
-          params.defaultShippingAddressId
-            ? {
-                action: 'setDefaultShippingAddress',
-                addressId,
-              }
-            : null,
-
-          params.defaultBillingAddressId
-            ? {
-                action: 'setDefaultBillingAddress',
-                addressId,
-              }
-            : null,
-
-          params.billingAddressIds
-            ? {
-                action: 'addBillingAddressId',
-                addressId,
-              }
-            : {
-                action: 'removeBillingAddressId',
-                addressId,
+            params.defaultBillingAddressId
+              ? {
+                  action: 'setDefaultBillingAddress',
+                  addressId,
+                }
+              : {
+                  action: 'removeBillingAddressId',
+                  addressId,
+                },
+            { action: 'addBillingAddressId', addressId },
+          ],
+        };
+      } else {
+        body = {
+          version,
+          actions: [
+            {
+              action: 'changeAddress',
+              addressId,
+              address: {
+                country: params.country,
+                postalCode: params.postalCode,
+                city: params.city,
+                streetName: params.streetName,
               },
+            },
 
-          params.shippingAddressIds
-            ? {
-                action: 'addShippingAddressId',
-                addressId,
-              }
-            : {
-                action: 'removeShippingAddressId',
-                addressId,
-              },
-        ].filter((action) => action !== null),
-      };
+            params.defaultShippingAddressId
+              ? {
+                  action: 'setDefaultShippingAddress',
+                  addressId,
+                }
+              : {
+                  action: 'removeShippingAddressId',
+                  addressId,
+                },
+
+            { action: 'addShippingAddressId', addressId },
+          ],
+        };
+      }
 
       const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
 

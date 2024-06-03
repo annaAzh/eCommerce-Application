@@ -46,7 +46,8 @@ const ProfileForm: FC = () => {
   const [profileForm] = Form.useForm();
   const navigate = useNavigate();
 
-  const [addNewAddresForm, setAddNewAddresForm] = useState<boolean>(false);
+  const [addNewBillingAddresForm, setAddNewBillingAddresForm] = useState<boolean>(false);
+  const [addNewShippingAddresForm, setAddNewShippingAddresForm] = useState<boolean>(false);
   const [isEditDetails, setIsEditDetails] = useState<boolean>(false);
   const [tokenAccess, setTokenAccess] = useState<string | ''>('');
 
@@ -65,7 +66,8 @@ const ProfileForm: FC = () => {
     );
     dispatch(clearProfileUpdated());
     setIsEditDetails(false);
-    setAddNewAddresForm(false);
+    setAddNewBillingAddresForm(false);
+    setAddNewShippingAddresForm(false);
   }, [updatedStatus]);
 
   useEffect(() => {
@@ -222,7 +224,8 @@ const ProfileForm: FC = () => {
 
           {memoComponent}
 
-          {addNewAddresForm && <AddressForm />}
+          {addNewBillingAddresForm && <AddressForm isBilling={true} isEdit={true} />}
+          {addNewShippingAddresForm && <AddressForm isShipping={true} isEdit={true} />}
 
           <div className={styles.addBtnContainer}>
             <Button
@@ -230,9 +233,24 @@ const ProfileForm: FC = () => {
               ghost
               icon={<PlusSquareOutlined />}
               className={styles.addAddressBtn}
-              onClick={() => setAddNewAddresForm(true)}
+              onClick={() => setAddNewBillingAddresForm(!addNewBillingAddresForm)}
             >
-              Add address
+              {!addNewBillingAddresForm && 'Add billing address'}
+              {addNewBillingAddresForm && 'Remove new billing address'}
+            </Button>
+          </div>
+
+          <div className={styles.addBtnContainer}>
+            <Button
+              type="primary"
+              ghost
+              icon={<PlusSquareOutlined />}
+              className={styles.addAddressBtn}
+              onClick={() => setAddNewShippingAddresForm(!addNewShippingAddresForm)}
+            >
+              {' '}
+              {!addNewShippingAddresForm && 'Add shipping address'}
+              {addNewShippingAddresForm && 'Remove new shipping address'}
             </Button>
           </div>
         </>

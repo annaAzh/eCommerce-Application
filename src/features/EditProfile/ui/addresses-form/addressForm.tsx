@@ -21,9 +21,17 @@ type AddressFormProps = {
   isShipping?: boolean;
   isDefaultBilling?: boolean;
   isDefaultShipping?: boolean;
+  isEdit?: boolean;
 };
 
-const AddressForm: FC<AddressFormProps> = ({ address, isBilling, isShipping, isDefaultBilling, isDefaultShipping }) => {
+const AddressForm: FC<AddressFormProps> = ({
+  address,
+  isBilling,
+  isShipping,
+  isDefaultBilling,
+  isDefaultShipping,
+  isEdit,
+}) => {
   const dispatch = useAppDispatch();
   const { Option } = Select;
   const token = useAppSelector(getAccessToken);
@@ -37,6 +45,10 @@ const AddressForm: FC<AddressFormProps> = ({ address, isBilling, isShipping, isD
   const [isDefaultShippingChecked, setIsDefaultShippingChecked] = useState<boolean>(isDefaultShipping || false);
   const [isDefaultBillingChecked, setIsDefaultBillingChecked] = useState<boolean>(isDefaultBilling || false);
 
+  useEffect(() => {
+    if (isEdit) setIsEditAddress(isEdit);
+  }, []);
+
   const handleUpdateAddres = (value: FormDataAddress) => {
     const request = {
       token,
@@ -44,8 +56,10 @@ const AddressForm: FC<AddressFormProps> = ({ address, isBilling, isShipping, isD
       idUser: id,
       addressId: address?.id,
       ...value,
+      shippingAddressIds: isShipping ? true : false,
+      billingAddressIds: isBilling ? true : false,
     };
-    console.log(request, 'request');
+
     dispatch(updateUserAddress(request));
   };
 
@@ -65,6 +79,8 @@ const AddressForm: FC<AddressFormProps> = ({ address, isBilling, isShipping, isD
       version,
       idUser: id,
       ...value,
+      shippingAddressIds: isShipping ? true : false,
+      billingAddressIds: isBilling ? true : false,
     };
     dispatch(addNewUserAddress(request));
   };
@@ -86,7 +102,6 @@ const AddressForm: FC<AddressFormProps> = ({ address, isBilling, isShipping, isD
       className={styles.form}
       form={addressForm}
       onFinish={(value) => {
-        console.log(value);
         if (address?.id) {
           handleUpdateAddres(value);
         } else {
@@ -95,10 +110,13 @@ const AddressForm: FC<AddressFormProps> = ({ address, isBilling, isShipping, isD
       }}
     >
       <div className={styles.switchContainer}>
-        <Switch onChange={() => setIsEditAddress(!isEditAddress)} />
+        <Switch defaultValue={isEdit} onChange={() => setIsEditAddress(!isEditAddress)} />
         <span className={styles.editSpan}>Edit</span>
       </div>
-      <Divider orientation="center">Address</Divider>
+
+      {isBilling && <Divider orientation="center"> Billing Address</Divider>}
+      {isShipping && <Divider orientation="center"> Shipping Address</Divider>}
+
       <div className={styles.tagContainer}>
         {isShippingChecked && <Tag color="blue">Shipping</Tag>}
         {isBillingChecked && <Tag color="green">Billing</Tag>}
@@ -132,45 +150,29 @@ const AddressForm: FC<AddressFormProps> = ({ address, isBilling, isShipping, isD
 
       {isEditAddress && (
         <div className={styles.checkboxWrapper}>
-          <Form.Item name={'shippingAddressIds'} valuePropName="checked" initialValue={isShipping}>
-            <Checkbox
-              disabled={!isEditAddress}
-              checked={isShipping}
-              onChange={(e) => setIsShippingChecked(e.target.checked)}
-            >
-              Set as shipping address
-            </Checkbox>
-          </Form.Item>
+          {isShipping && (
+            <Form.Item name={'defaultShippingAddressId'} valuePropName="checked" initialValue={isDefaultShipping}>
+              <Checkbox
+                disabled={!isEditAddress}
+                checked={isDefaultShipping}
+                onChange={(e) => setIsDefaultShippingChecked(e.target.checked)}
+              >
+                Set as a default shipping address
+              </Checkbox>
+            </Form.Item>
+          )}
 
-          <Form.Item name={'billingAddressIds'} valuePropName="checked" initialValue={isBilling}>
-            <Checkbox
-              disabled={!isEditAddress}
-              checked={isBilling}
-              onChange={(e) => setIsBillingChecked(e.target.checked)}
-            >
-              Set as billing address
-            </Checkbox>
-          </Form.Item>
-
-          <Form.Item name={'defaultShippingAddressId'} valuePropName="checked" initialValue={isDefaultShipping}>
-            <Checkbox
-              disabled={!isEditAddress}
-              checked={isDefaultShipping}
-              onChange={(e) => setIsDefaultShippingChecked(e.target.checked)}
-            >
-              Set as a default shipping address
-            </Checkbox>
-          </Form.Item>
-
-          <Form.Item name={'defaultBillingAddressId'} valuePropName="checked" initialValue={isDefaultBilling}>
-            <Checkbox
-              disabled={!isEditAddress}
-              checked={isDefaultBilling}
-              onChange={(e) => setIsDefaultBillingChecked(e.target.checked)}
-            >
-              Set as a default billing address
-            </Checkbox>
-          </Form.Item>
+          {isBilling && (
+            <Form.Item name={'defaultBillingAddressId'} valuePropName="checked" initialValue={isDefaultBillingChecked}>
+              <Checkbox
+                disabled={!isEditAddress}
+                checked={isDefaultBillingChecked}
+                onChange={(e) => setIsDefaultBillingChecked(e.target.checked)}
+              >
+                Set as a default billing address
+              </Checkbox>
+            </Form.Item>
+          )}
         </div>
       )}
 

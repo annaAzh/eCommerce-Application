@@ -68,8 +68,8 @@ interface FormDataAddress {
   postalCode: string;
   city: string;
   country: string;
-  billingAddressIds?: string[];
-  shippingAddressIds?: string[];
+  billingAddressIds?: boolean;
+  shippingAddressIds?: boolean;
   defaultShippingAddressId?: string;
   defaultBillingAddressId?: string;
   addressId?: string;
