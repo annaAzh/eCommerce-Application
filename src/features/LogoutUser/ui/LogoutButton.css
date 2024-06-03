@@ -2,8 +2,6 @@
   display: flex;
   align-items: center;
   height: 2.4rem;
-  border: 2px solid var(--green);
-  border-radius: 10px;
   margin-top: 2px;
   background-color: var(--main-color-4) !important;
   color: var(--green);
@@ -12,5 +10,4 @@
 
 .logOut-header-button:hover {
   color: var(--red) !important;
-  border-color: var(--red);
 }
