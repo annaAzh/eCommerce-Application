@@ -3,6 +3,9 @@ import { getUserProfile } from '../../../../features/EditProfile/model/services/
 import { ProfileData, ProfileSchema } from '../types/profileTypes';
 import { updateUserDetails } from '../services/updateDetailsProfile';
 import { updateUserPassword } from '../services/updatePasswordProfile';
+import { updateUserAddress } from '../services/updateAddressProfile';
+import { addNewUserAddress } from '../services/addNewAddressProfile';
+import { removeUserAddress } from '../services/deleteAddressProfile';
 
 const initialState: ProfileSchema = {
   user: {},
@@ -73,6 +76,45 @@ export const profileSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(updateUserPassword.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
+      })
+      .addCase(updateUserAddress.fulfilled, (state, { payload }: PayloadAction<ProfileData>) => {
+        state.isLoading = false;
+        state.error = undefined;
+        handleUserProfileFulfilled(state, payload);
+        state.updated = true;
+      })
+      .addCase(updateUserAddress.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserAddress.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
+      })
+      .addCase(addNewUserAddress.fulfilled, (state, { payload }: PayloadAction<ProfileData>) => {
+        state.isLoading = false;
+        state.error = undefined;
+        handleUserProfileFulfilled(state, payload);
+        state.updated = true;
+      })
+      .addCase(addNewUserAddress.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addNewUserAddress.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
+      })
+      .addCase(removeUserAddress.fulfilled, (state, { payload }: PayloadAction<ProfileData>) => {
+        state.isLoading = false;
+        state.error = undefined;
+        handleUserProfileFulfilled(state, payload);
+        state.updated = true;
+      })
+      .addCase(removeUserAddress.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeUserAddress.rejected, (state, { payload }: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = payload as string;
       });

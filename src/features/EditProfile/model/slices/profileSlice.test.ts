@@ -1,7 +1,17 @@
+import { addNewUserAddress } from '../services/addNewAddressProfile';
+import { removeUserAddress } from '../services/deleteAddressProfile';
 import { getUserProfile } from '../services/getUserProfile';
+import { updateUserAddress } from '../services/updateAddressProfile';
 import { updateUserDetails } from '../services/updateDetailsProfile';
 import { updateUserPassword } from '../services/updatePasswordProfile';
-import { Address, ProfileData, ProfileSchema, UpdateDetailsParams, UpdatePasswordParams } from '../types/profileTypes';
+import {
+  Address,
+  ProfileData,
+  ProfileSchema,
+  UpdateAddressParams,
+  UpdateDetailsParams,
+  UpdatePasswordParams,
+} from '../types/profileTypes';
 import { clearProfileError, clearProfileUpdated, profileReducer } from './profileSlice';
 
 const initialState: ProfileSchema = {
@@ -50,6 +60,22 @@ const passwordData: UpdatePasswordParams = {
   id: 'user789',
   token: 'xyz789token',
   version: 1,
+};
+
+const updateAddress: UpdateAddressParams = {
+  streetName: 'ff',
+  postalCode: 'ff',
+  city: 'ff',
+  country: 'ff',
+  billingAddressIds: true,
+  shippingAddressIds: false,
+  defaultShippingAddressId: 'ff',
+  defaultBillingAddressId: 'ff',
+  addressId: 'ff',
+  id: 'ff',
+  idUser: 'gf',
+  token: 'gf',
+  version: 22,
 };
 
 describe('testing product slice', () => {
@@ -106,6 +132,51 @@ describe('testing product slice', () => {
   });
   it('test updateUserPassword/pending', () => {
     const state = profileReducer(initialState, updateUserPassword.pending('updateUserPassword/pending', passwordData));
+    expect(state.isLoading).toBeTruthy();
+  });
+  it('test updateUserAddress/fulfilled', () => {
+    const state = profileReducer(
+      initialState,
+      updateUserAddress.fulfilled(payload, 'updateUserAddress/fulfilled', updateAddress),
+    );
+    expect(state.error).toBeUndefined();
+    expect(state.isLoading).toBeFalsy();
+    expect(state.user.addresses).toEqual(payload.addresses);
+    expect(state.user).toEqual(payload);
+    expect(state.updated).toBeTruthy();
+  });
+  it('test updateUserAddress/pending', () => {
+    const state = profileReducer(initialState, updateUserAddress.pending('updateUserAddress/pending', updateAddress));
+    expect(state.isLoading).toBeTruthy();
+  });
+  it('test addNewUserAddress/fulfilled', () => {
+    const state = profileReducer(
+      initialState,
+      addNewUserAddress.fulfilled(payload, 'addNewUserAddress/fulfilled', updateAddress),
+    );
+    expect(state.error).toBeUndefined();
+    expect(state.isLoading).toBeFalsy();
+    expect(state.user.addresses).toEqual(payload.addresses);
+    expect(state.user).toEqual(payload);
+    expect(state.updated).toBeTruthy();
+  });
+  it('test addNewUserAddress/pending', () => {
+    const state = profileReducer(initialState, updateUserAddress.pending('updateUserAddress/pending', updateAddress));
+    expect(state.isLoading).toBeTruthy();
+  });
+  it('test removeUserAddress/fulfilled', () => {
+    const state = profileReducer(
+      initialState,
+      removeUserAddress.fulfilled(payload, 'removeUserAddress/fulfilled', updateAddress),
+    );
+    expect(state.error).toBeUndefined();
+    expect(state.isLoading).toBeFalsy();
+    expect(state.user.addresses).toEqual(payload.addresses);
+    expect(state.user).toEqual(payload);
+    expect(state.updated).toBeTruthy();
+  });
+  it('test removeUserAddress/pending', () => {
+    const state = profileReducer(initialState, updateUserAddress.pending('removeUserAddress/pending', updateAddress));
     expect(state.isLoading).toBeTruthy();
   });
 });
