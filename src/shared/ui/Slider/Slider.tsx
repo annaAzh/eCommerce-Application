@@ -21,7 +21,6 @@ export function Slider(props: PropsSlider) {
       <Swiper
         direction="vertical"
         onSwiper={setThumbsSwiper}
-        loop={true}
         slidesPerView={3}
         freeMode={true}
         watchSlidesProgress={true}
@@ -37,7 +36,6 @@ export function Slider(props: PropsSlider) {
         })}
       </Swiper>
       <Swiper
-        loop={true}
         spaceBetween={3}
         navigation={true}
         thumbs={{ swiper: thumbsSwiper }}

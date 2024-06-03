@@ -31,7 +31,6 @@ export const ModalSlider = (props: ModalProps) => {
       width={900}
     >
       <Swiper
-        loop={true}
         spaceBetween={3}
         navigation={true}
         centeredSlides={true}
