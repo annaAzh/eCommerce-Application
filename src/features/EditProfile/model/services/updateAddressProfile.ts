@@ -17,7 +17,7 @@ export const updateUserAddress = createAsyncThunk(
         actions: [
           {
             action: 'changeAddress',
-            addressId: addressId,
+            addressId,
             address: {
               country: params.country,
               postalCode: params.postalCode,
@@ -29,30 +29,36 @@ export const updateUserAddress = createAsyncThunk(
           params.defaultShippingAddressId
             ? {
                 action: 'setDefaultShippingAddress',
-                addressId: addressId,
+                addressId,
               }
             : null,
 
           params.defaultBillingAddressId
             ? {
                 action: 'setDefaultBillingAddress',
-                addressId: params.addressId,
+                addressId,
               }
             : null,
 
           params.billingAddressIds
             ? {
                 action: 'addBillingAddressId',
-                addressId: addressId,
+                addressId,
               }
-            : null,
+            : {
+                action: 'removeBillingAddressId',
+                addressId,
+              },
 
           params.shippingAddressIds
             ? {
                 action: 'addShippingAddressId',
-                addressId: addressId,
+                addressId,
               }
-            : null,
+            : {
+                action: 'removeShippingAddressId',
+                addressId,
+              },
         ].filter((action) => action !== null),
       };
 

@@ -53,8 +53,9 @@
 
 .saveBtnContainer {
   display: flex;
-  justify-content: space-between;
   max-width: 380px;
+  justify-content: space-between;
+  width: 100%;
   margin-left: auto;
 }
 
@@ -70,10 +71,16 @@
   align-items: center;
 }
 
+.addBtnContainer {
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
 .addAddressBtn {
+  width: 100%;
   border-color: var(--green) !important;
   color: var(--green) !important;
-  width: 100%;
 }
 
 .addAddressBtn:disabled {

@@ -73,6 +73,7 @@ interface FormDataAddress {
   defaultShippingAddressId?: string;
   defaultBillingAddressId?: string;
   addressId?: string;
+  id?: string;
 }
 
 interface UpdateAddressParams extends FormDataAddress {
