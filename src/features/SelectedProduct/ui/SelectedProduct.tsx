@@ -69,9 +69,7 @@ export const SelectedProduct = (): JSX.Element => {
             </Link>
             <h2 className={styles.name}>{name}</h2>
             <div className={styles.topBlock}>
-              <div className={styles.slider}>
-                <Slider images={images} />
-              </div>
+              <div className={styles.slider}>{images.length > 0 && <Slider images={images} />}</div>
               <div className={styles.containerPrices}>
                 {discountedPrice ? (
                   <div>
