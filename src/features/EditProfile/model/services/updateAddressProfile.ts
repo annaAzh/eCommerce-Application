@@ -27,36 +27,36 @@ export const updateUserAddress = createAsyncThunk(
             },
           },
 
-          params.defaultShippingAddressId
-            ? {
-                action: 'setDefaultShippingAddress',
-                addressId: id,
-              }
-            : undefined,
+          // params.defaultShippingAddressId
+          //   ? {
+          //       action: 'setDefaultShippingAddress',
+          //       addressId: id,
+          //     }
+          //   : undefined,
 
-          params.defaultBillingAddressId
-            ? {
-                action: 'setDefaultBillingAddress',
-                addressId: params.addressId,
-              }
-            : undefined,
+          // params.defaultBillingAddressId
+          //   ? {
+          //       action: 'setDefaultBillingAddress',
+          //       addressId: params.addressId,
+          //     }
+          //   : undefined,
 
-          params.billingAddressIds
-            ? {
-                action: 'addBillingAddressId',
-                addressId: id,
-              }
-            : undefined,
+          // params.billingAddressIds
+          //   ? {
+          //       action: 'addBillingAddressId',
+          //       addressId: id,
+          //     }
+          //   : undefined,
 
-          params.shippingAddressIds
-            ? {
-                action: 'addShippingAddressId',
-                addressId: id,
-              }
-            : undefined,
+          // params.shippingAddressIds
+          //   ? {
+          //       action: 'addShippingAddressId',
+          //       addressId: id,
+          //     }
+          //   : undefined,
         ],
       };
-      console.log('body', id);
+      // console.log('body', id);
 
       const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
 
