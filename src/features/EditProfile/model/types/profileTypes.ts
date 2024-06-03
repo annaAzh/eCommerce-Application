@@ -80,7 +80,6 @@ interface UpdateAddressParams extends FormDataAddress {
   idUser?: string;
   token?: string;
   version?: number;
-  addressId?: string;
 }
 interface UpdateAddressParams extends Address {}
 
