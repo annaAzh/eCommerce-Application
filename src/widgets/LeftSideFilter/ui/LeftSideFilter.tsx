@@ -6,11 +6,11 @@ import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 export const LeftSideFilter: FC = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(getAllCategories);
-  const result = useAppSelector(getSearchQuery)?.categoriesId;
-  const categoriesId = result?.split('"')[1];
+  const categoriesId = useAppSelector(getSearchQuery)?.categoriesId;
 
   const onClick = (value: string) => {
-    dispatch(addSearchCategory({ categoriesId: `categories.id:"${value}"` }));
+    if (value === categoriesId) return;
+    dispatch(addSearchCategory({ categoriesId: value }));
   };
 
   return (

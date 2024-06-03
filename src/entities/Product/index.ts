@@ -11,6 +11,7 @@ export {
   getPriceRange,
   getAttributes,
   getSearchQuery,
+  getProductError,
 } from './model/selectors/productSelectors';
 
 export {
@@ -20,6 +21,7 @@ export {
   addSearchOptional,
   addSearchCategory,
   addSearchText,
+  clearSearchQuery,
 } from './model/slices/productSlice';
 
 export { ProductSchema, FormattedCategories } from './model/types/productTypes';

@@ -1,8 +1,53 @@
 .productList {
   display: flex;
-  flex-flow: wrap;
-  justify-content: center;
-  gap: 1rem;
   flex-grow: 1;
   padding: 1%;
+}
+
+.emptySearch {
+  display: flex;
+  color: var(--blue);
+  margin: auto;
+  font-size: 23px;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.listWrapper {
+  display: flex;
+  width: calc(600px * 2 + 10px);
+  height: fit-content;
+  flex-flow: wrap;
+  justify-content: start;
+  gap: 10px;
+}
+
+@media (width <= 1450px) {
+  .listWrapper {
+    width: calc(550px * 2 + 10px);
+  }
+}
+
+@media (width <= 1350px) {
+  .listWrapper {
+    width: calc(500px * 2 + 10px);
+  }
+}
+
+@media (width <= 1350px) {
+  .listWrapper {
+    width: 600px;
+  }
+}
+
+@media (width <= 900px) {
+  .listWrapper {
+    width: 500px;
+  }
+}
+
+@media (width <= 700px) {
+  .listWrapper {
+    width: 350px;
+  }
 }
