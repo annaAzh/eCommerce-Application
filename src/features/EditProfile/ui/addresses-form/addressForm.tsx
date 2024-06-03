@@ -99,6 +99,7 @@ const AddressForm: FC<AddressFormProps> = ({
     <Form
       initialValues={address}
       {...formItemLayout}
+      name={`${address?.id}name`}
       className={styles.form}
       form={addressForm}
       onFinish={(value) => {
