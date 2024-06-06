@@ -7,7 +7,14 @@ import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { ButtonLogOut } from 'features/LogoutUser';
 import { Paths } from 'shared/types';
 import './Header.css';
-import { FormOutlined, HomeOutlined, LoginOutlined, ProductOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  FormOutlined,
+  HomeOutlined,
+  LoginOutlined,
+  ProductOutlined,
+  ShoppingCartOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { Tooltip } from 'antd';
 
 interface LinkOfPage {
@@ -32,6 +39,16 @@ const links: LinkOfPage[] = [
       <Link className="link-profile" to={Paths.catalog}>
         <Tooltip title="catalog">
           <ProductOutlined style={{ fontSize: '2rem' }} />
+        </Tooltip>
+      </Link>
+    ),
+  },
+  {
+    key: Paths.cart,
+    label: (
+      <Link className="link-profile" to={Paths.cart}>
+        <Tooltip title="cart">
+          <ShoppingCartOutlined style={{ fontSize: '2rem' }} />
         </Tooltip>
       </Link>
     ),
