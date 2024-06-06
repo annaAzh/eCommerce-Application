@@ -1,14 +1,14 @@
-export { removeFromCart } from './services/removeFromCart';
+export { removeFromCart } from './model/services/removeFromCart';
 
-export { getExistCart } from './services/getExistCart';
+export { getExistCart } from './model/services/getExistCart';
 
-export { addToCart } from './services/addToCart';
+export { addToCart } from './model/services/addToCart';
 
 export { clearCart } from './model/slices/cartSlice';
 
 export { getCart } from './model/selectors/getCartId';
 
-export { createCart } from './services/createCart';
+export { createCart } from './model/services/createCart';
 
 export { CartSchema, LineItem } from './model/types/cartTypes';
 

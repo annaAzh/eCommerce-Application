@@ -1,20 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BaseTokenError, ErrorWithResponse } from 'shared/types/errorResponseTypes';
-import { Cart } from '../model/types/cartTypes';
+import { Cart } from '../types/cartTypes';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-export const getExistCart = createAsyncThunk('cart/getExistCart', async (token: string, { rejectWithValue }) => {
+export const createCart = createAsyncThunk('cart/createCart', async (token: string, { rejectWithValue }) => {
   try {
-    const res = await axios.get<Cart>(`${API_URL}${PROJECT_KEY}/me/active-cart`, {
-      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-    });
+    const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
+    const res = await axios.post<Cart>(`${API_URL}${PROJECT_KEY}/me/carts`, { currency: 'USD' }, { headers });
 
-    const { id, version, lineItems } = res.data;
+    const { id, version, lineItems, totalPrice } = res.data;
 
-    return { id, version, lineItems };
+    return { id, version, lineItems, totalPrice };
   } catch (error) {
     let errorMsg = 'error';
     const reject: ErrorWithResponse = error as ErrorWithResponse;

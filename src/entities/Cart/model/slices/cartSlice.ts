@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Cart, CartSchema } from '../types/cartTypes';
-import { createCart } from 'entities/Cart/services/createCart';
-import { getExistCart } from 'entities/Cart/services/getExistCart';
-import { addToCart } from 'entities/Cart/services/addToCart';
-import { removeFromCart } from 'entities/Cart/services/removeFromCart';
-import { clearRemoteCart } from 'entities/Cart/services/clearRemoteCart';
+import { createCart } from 'entities/Cart/model/services/createCart';
+import { getExistCart } from 'entities/Cart/model/services/getExistCart';
+import { addToCart } from 'entities/Cart/model/services/addToCart';
+import { removeFromCart } from 'entities/Cart/model/services/removeFromCart';
+import { clearRemoteCart } from 'entities/Cart/model/services/clearRemoteCart';
 
 const initialState: CartSchema = {
   cart: {},

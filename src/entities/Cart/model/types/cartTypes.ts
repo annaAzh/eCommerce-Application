@@ -6,10 +6,13 @@ interface CartSchema {
   isLoading: boolean;
 }
 
+type PriceFormat = { centAmount: number; currencyCode: CurrencyCodes; fractionDigits: number };
+
 interface Cart {
   id: string;
   version: number;
   lineItems: LineItem[];
+  totalPrice: PriceFormat;
 }
 
 interface LineItem {
@@ -18,7 +21,7 @@ interface LineItem {
   price: Prices;
   productId: string;
   quantity: number;
-  totalPrice: { centAmount: number; currencyCode: CurrencyCodes; fractionDigits: number };
+  totalPrice: PriceFormat;
   variant: {
     images: Images;
   };
