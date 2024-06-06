@@ -12,9 +12,9 @@ export const getExistCart = createAsyncThunk('cart/getExistCart', async (token: 
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
     });
 
-    const { id, version } = res.data;
+    const { id, version, lineItems } = res.data;
 
-    return { id, version };
+    return { id, version, lineItems };
   } catch (error) {
     let errorMsg = 'error';
     const reject: ErrorWithResponse = error as ErrorWithResponse;

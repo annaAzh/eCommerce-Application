@@ -27,7 +27,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (props: AddToC
     const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
     const res = await axios.post<Cart>(`${API_URL}${PROJECT_KEY}/carts/${cartId}`, body, { headers });
 
-    const success: Cart = { id: res.data.id, version: res.data.version };
+    const success: Cart = { id: res.data.id, version: res.data.version, lineItems: res.data.lineItems };
     return success;
   } catch (error) {
     let errorMsg = 'error';

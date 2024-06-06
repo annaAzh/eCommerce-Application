@@ -1,3 +1,5 @@
+import { CurrencyCodes, Images, Prices } from 'shared/types';
+
 interface CartSchema {
   cart: Partial<Cart>;
   error?: string;
@@ -7,6 +9,19 @@ interface CartSchema {
 interface Cart {
   id: string;
   version: number;
+  lineItems: LineItem[];
+}
+
+interface LineItem {
+  id: string;
+  name: { 'en-US': string };
+  price: Prices;
+  productId: string;
+  quantity: number;
+  totalPrice: { centAmount: number; currencyCode: CurrencyCodes; fractionDigits: number };
+  variant: {
+    images: Images;
+  };
 }
 
 interface ActionCartProps {
@@ -16,4 +31,4 @@ interface ActionCartProps {
   count?: number;
 }
 
-export { CartSchema, Cart, ActionCartProps };
+export { CartSchema, Cart, ActionCartProps, LineItem };
