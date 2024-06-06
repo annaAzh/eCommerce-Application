@@ -1,4 +1,5 @@
 import { Reducer } from '@reduxjs/toolkit';
+import { CartSchema } from 'entities/Cart';
 import { NotificationToolSchema } from 'entities/NotificationTool';
 import { ProductSchema } from 'entities/Product';
 import { UserSchema } from 'entities/User';
@@ -15,4 +16,5 @@ export interface StateSchema {
   profile: Reducer<ProfileSchema>;
   product: Reducer<ProductSchema>;
   card: Reducer<CardSchema>;
+  cart: Reducer<CartSchema>;
 }

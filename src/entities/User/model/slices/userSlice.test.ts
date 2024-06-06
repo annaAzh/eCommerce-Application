@@ -42,6 +42,7 @@ describe('Testing login slice', () => {
       expires_in: 123,
       scope: 'test',
       token_type: 'another test',
+      refresh_token: 'test',
     };
     const state = userReducer(initialState, requestAccessToken.fulfilled(payload, 'requestAccessToken/fulfilled'));
     expect(state.error).toBeUndefined();
