@@ -9,4 +9,11 @@ interface Cart {
   version: number;
 }
 
-export { CartSchema, Cart };
+interface ActionCartProps {
+  token: string;
+  version: number;
+  cartId: string;
+  count?: number;
+}
+
+export { CartSchema, Cart, ActionCartProps };

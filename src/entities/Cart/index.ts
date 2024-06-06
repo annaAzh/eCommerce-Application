@@ -1,3 +1,5 @@
+export { removeFromCart } from './services/removeFromCart';
+
 export { getExistCart } from './services/getExistCart';
 
 export { addToCart } from './services/addToCart';

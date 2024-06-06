@@ -3,6 +3,7 @@ import { Cart, CartSchema } from '../types/cartTypes';
 import { createCart } from 'entities/Cart/services/createCart';
 import { getExistCart } from 'entities/Cart/services/getExistCart';
 import { addToCart } from 'entities/Cart/services/addToCart';
+import { removeFromCart } from 'entities/Cart/services/removeFromCart';
 
 const initialState: CartSchema = {
   cart: {},
@@ -43,6 +44,18 @@ export const cartSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(addToCart.rejected, (state, { payload }: PayloadAction<unknown>) => {
+        state.isLoading = false;
+        state.error = payload as string;
+      })
+      .addCase(removeFromCart.fulfilled, (state, { payload }: PayloadAction<Cart>) => {
+        state.cart = payload;
+        state.isLoading = false;
+        state.error = undefined;
+      })
+      .addCase(removeFromCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeFromCart.rejected, (state, { payload }: PayloadAction<unknown>) => {
         state.isLoading = false;
         state.error = payload as string;
       });

@@ -1,20 +1,17 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { BaseTokenError, ErrorWithResponse } from 'shared/types/errorResponseTypes';
-import { Cart } from '../model/types/cartTypes';
+import { ActionCartProps, Cart } from '../model/types/cartTypes';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-interface AddToCartProps {
-  token: string;
-  version: number;
+interface AddToCartProps extends ActionCartProps {
   productId: string;
-  cartId: string;
 }
 
 export const addToCart = createAsyncThunk('cart/addToCart', async (props: AddToCartProps, { rejectWithValue }) => {
-  const { token, version, productId, cartId } = props;
+  const { token, version, productId, cartId, count } = props;
   try {
     const body = {
       version,
@@ -22,7 +19,7 @@ export const addToCart = createAsyncThunk('cart/addToCart', async (props: AddToC
         {
           action: 'addLineItem',
           productId,
-          quantity: 1,
+          quantity: count || 1,
         },
       ],
     };
