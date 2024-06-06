@@ -78,7 +78,13 @@ export const FilterList: FC = () => {
   useEffect(() => {
     if (!token || !searchQuery) return;
     dispatch(getAllProducts(createSortAndSearchQuery(token, searchQuery)));
-  }, [searchQuery?.sortBy, searchQuery?.optionalFilters, searchQuery?.priceRange, searchQuery?.search]);
+  }, [
+    searchQuery?.sortField,
+    searchQuery?.sortBy,
+    searchQuery?.optionalFilters,
+    searchQuery?.priceRange,
+    searchQuery?.search,
+  ]);
 
   useEffect(() => {
     if (!token) return;
