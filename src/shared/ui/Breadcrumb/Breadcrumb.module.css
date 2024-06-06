@@ -1,0 +1,11 @@
+.item {
+  cursor: auto;
+
+  &:hover {
+    color: var(--main-color-3) !important;
+  }
+}
+
+.bread {
+  padding: 10px;
+}

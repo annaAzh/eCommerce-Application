@@ -1,0 +1,19 @@
+.cover {
+  display: flex;
+  flex-grow: 1;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+}
+
+@media (width <= 500px) {
+  .cover {
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+}

@@ -7,9 +7,11 @@ import { useAppSelector } from 'shared/lib/hooks/useAppSelect/useAppSelect';
 import { ButtonLogOut } from 'features/LogoutUser';
 import { Paths } from 'shared/types';
 import './Header.css';
+import { FormOutlined, HomeOutlined, LoginOutlined, ProductOutlined, UserOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
 
 interface LinkOfPage {
-  key: Paths;
+  key: Paths | string;
   label: JSX.Element;
 }
 
@@ -17,32 +19,20 @@ const links: LinkOfPage[] = [
   {
     key: Paths.main,
     label: (
-      <Link className="link-header" to={Paths.main}>
-        Main
+      <Link className="link-profile" to={Paths.main}>
+        <Tooltip title="home">
+          <HomeOutlined style={{ fontSize: '2rem' }} />
+        </Tooltip>
       </Link>
     ),
   },
   {
     key: Paths.catalog,
     label: (
-      <Link className="link-header" to={Paths.catalog}>
-        Catalog
-      </Link>
-    ),
-  },
-  {
-    key: Paths.card,
-    label: (
-      <Link className="link-header" to={Paths.card}>
-        Card
-      </Link>
-    ),
-  },
-  {
-    key: Paths.profile,
-    label: (
-      <Link className="link-header" to={Paths.profile}>
-        Profile
+      <Link className="link-profile" to={Paths.catalog}>
+        <Tooltip title="catalog">
+          <ProductOutlined style={{ fontSize: '2rem' }} />
+        </Tooltip>
       </Link>
     ),
   },
@@ -52,16 +42,20 @@ const notLoginLinks: LinkOfPage[] = [
   {
     key: Paths.registration,
     label: (
-      <Link className="link-header" to={Paths.registration}>
-        Registration
+      <Link className="link-profile" to={Paths.registration}>
+        <Tooltip title="registration">
+          <FormOutlined style={{ fontSize: '2rem' }} />
+        </Tooltip>
       </Link>
     ),
   },
   {
     key: Paths.login,
     label: (
-      <Link className="link-header" to={Paths.login}>
-        Login
+      <Link className="link-profile" to={Paths.login}>
+        <Tooltip title="log-in">
+          <LoginOutlined style={{ fontSize: '2rem' }} />
+        </Tooltip>
       </Link>
     ),
   },
@@ -69,7 +63,17 @@ const notLoginLinks: LinkOfPage[] = [
 
 const loginLinks: LinkOfPage[] = [
   {
-    key: Paths.main,
+    key: Paths.profile,
+    label: (
+      <Link className="link-profile" to={Paths.profile}>
+        <Tooltip title="profile">
+          <UserOutlined style={{ fontSize: '2rem' }} />
+        </Tooltip>
+      </Link>
+    ),
+  },
+  {
+    key: 'logout',
     label: <ButtonLogOut />,
   },
 ];

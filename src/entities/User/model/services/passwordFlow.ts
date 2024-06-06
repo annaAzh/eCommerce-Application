@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { ErrorWithResponse } from 'entities/User';
 import { LoginData, PasswordFlowSuccess, PasswordFlownReject } from '../types/tokenTypes';
-import { setLocalStoreState } from 'shared/lib/storeState/storeState';
+import { setLocalStoreState } from '../../../../shared/lib/storeState/storeState';
 
 const AUTH_URL = process.env.AUTH_URL;
 const PROJECT_KEY = process.env.PROJECT_KEY;
@@ -21,7 +21,10 @@ export const passwordFlow = createAsyncThunk('user/passwordFlow', async (loginDa
       },
     });
     const success: PasswordFlowSuccess = res.data;
-    setLocalStoreState(success.access_token);
+
+    const refresh = success.refresh_token;
+    setLocalStoreState(refresh);
+
     return success;
   } catch (error) {
     let errorMsg = 'error';

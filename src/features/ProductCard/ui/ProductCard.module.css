@@ -1,0 +1,160 @@
+.card {
+  width: 600px;
+  height: 300px;
+  border: 1px solid var(--main-color-4);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  padding: 1%;
+  background: white;
+  user-select: none;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 4px var(--blue);
+  }
+}
+
+.container {
+  display: flex;
+}
+
+.imageCover {
+  width: 40%;
+  position: relative;
+  overflow: hidden;
+}
+
+.card img {
+  transition: transform 0.3s ease;
+}
+
+.image {
+  width: 100%;
+}
+
+.card:hover .image {
+  transform: scale(1.15);
+}
+
+.svg {
+  position: absolute;
+  width: 25%;
+  z-index: 2;
+}
+
+.descriptionCover {
+  width: 70%;
+  height: calc(100% - (2% * 2));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 4%;
+}
+
+.description {
+  font-size: 11px;
+  font-style: italic;
+  color: var(--main-color-3);
+  overflow: hidden;
+}
+
+.name {
+  width: 100%;
+  padding-bottom: 1%;
+  color: var(--blue);
+  position: relative;
+  margin: 0;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--red), transparent);
+  }
+}
+
+.commonPriceClass {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 2%;
+}
+
+.price {
+  color: var(--blue);
+}
+
+.discountedPrice {
+  color: var(--red);
+}
+
+.crossedPrice {
+  color: var(--main-color-4);
+  opacity: 0.7;
+  font-size: 12px;
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 35%;
+    right: 0;
+    width: 10%;
+    height: 1px;
+    background: var(--main-color-4);
+    transform: rotate(-10deg);
+    transform-origin: left top;
+  }
+}
+
+@media (width <= 1450px) {
+  .card {
+    width: 550px;
+    height: 270px;
+  }
+}
+
+@media (width <= 1350px) {
+  .card {
+    width: 500px;
+    height: 250px;
+  }
+}
+
+@media (width <= 1350px) {
+  .card {
+    width: 600px;
+    height: 300px;
+  }
+}
+
+@media (width <= 900px) {
+  .card {
+    width: 500px;
+    height: 250px;
+  }
+
+  .crossedPrice {
+    &::after {
+      width: 13%;
+    }
+  }
+}
+
+@media (width <= 700px) {
+  .card {
+    width: 350px;
+    height: 250px;
+  }
+
+  .crossedPrice {
+    &::after {
+      width: 18%;
+    }
+  }
+}

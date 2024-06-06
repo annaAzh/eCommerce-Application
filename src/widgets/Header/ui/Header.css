@@ -47,3 +47,16 @@
 .ant-menu-dark.ant-menu-horizontal > .ant-menu-item-selected:hover {
   background-color: transparent;
 }
+
+.link-header.link-profile {
+  border: none;
+}
+
+.link-profile .anticon {
+  transform: translateY(4px);
+  transition: color 0.3s ease;
+}
+
+.link-profile:hover > .anticon {
+  color: var(--main-color-0);
+}

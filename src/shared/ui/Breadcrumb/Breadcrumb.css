@@ -1,0 +1,17 @@
+.ant-breadcrumb a {
+  font-size: 17px;
+  font-weight: 600;
+  padding: 0 10px;
+  color: var(--main-color-3);
+  user-select: none;
+}
+
+.ant-breadcrumb a:hover {
+  background-color: inherit;
+  color: var(--green);
+}
+
+.ant-breadcrumb-separator {
+  font-size: 17px;
+  user-select: none;
+}

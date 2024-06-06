@@ -1,0 +1,101 @@
+.wrapper {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.form {
+  margin: 40px auto;
+  padding: 20px 10px;
+  max-width: 600px;
+  width: 100%;
+  border: 0.5px solid var(--border-color);
+  border-radius: 10px;
+}
+
+.checkboxWrapper {
+  max-width: 380px;
+  margin-left: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.tagContainer {
+  display: flex;
+  gap: 4px;
+  min-height: 22px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  justify-content: flex-end;
+}
+
+.switchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.editSpan {
+  margin-left: 10px;
+  color: var(--main-color-3);
+}
+
+.saveBtnContainer {
+  display: flex;
+  max-width: 380px;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: auto;
+}
+
+.passwordBtnContainer {
+  justify-content: flex-end;
+  column-gap: 10px;
+  max-width: 380px;
+  margin-left: auto;
+}
+
+.deleteAddressBtn {
+  display: flex;
+  align-items: center;
+}
+
+.addBtnContainer {
+  max-width: 600px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.addAddressBtn {
+  width: 100%;
+  border-color: var(--green) !important;
+  color: var(--green) !important;
+}
+
+.addAddressBtn:disabled {
+  border-color: rgb(0 0 0 / 25%) !important;
+  color: rgb(0 0 0 / 25%) !important;
+  background-color: transparent !important;
+  cursor: not-allowed;
+}
+
+.addAddressBtn:not([disabled]):hover,
+.addAddressBt:not([disabled]):focus {
+  background-color: var(--green) !important;
+  color: var(--main-color-1) !important;
+}
+
+.decorativeDivider {
+  margin-bottom: 40px;
+}
