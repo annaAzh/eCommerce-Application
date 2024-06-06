@@ -50,4 +50,4 @@ interface FormattedCategories {
   subCategory: Omit<FormattedCategories, 'subCategory'>[];
 }
 
-export { Product, Prices, Images, FormattedPrice, SearchQueryProps, FormattedCategories };
+export { Product, Prices, Images, FormattedPrice, SearchQueryProps, FormattedCategories, CurrencyCodes };

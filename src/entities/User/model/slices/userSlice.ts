@@ -57,12 +57,10 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.error = payload as string;
       })
-
       .addCase(refreshFlow.fulfilled, (state, { payload }: PayloadAction<PasswordFlowSuccess>) => {
         state.isLoading = false;
         state.error = undefined;
         state.user.accessToken = payload.access_token;
-        state.user.isLogined = true;
       })
       .addCase(refreshFlow.pending, (state) => {
         state.isLoading = true;
