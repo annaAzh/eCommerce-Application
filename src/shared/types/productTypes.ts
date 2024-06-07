@@ -34,6 +34,8 @@ type Images = {
 
 type FormattedPrice = { currentPrice: string; discountedPrice?: string };
 
+type PriceFormat = { centAmount: number; currencyCode: CurrencyCodes; fractionDigits: number };
+
 interface SearchQueryProps {
   sortField?: 'name.en-US' | 'price';
   sortBy?: 'asc' | 'desc';
@@ -50,4 +52,4 @@ interface FormattedCategories {
   subCategory: Omit<FormattedCategories, 'subCategory'>[];
 }
 
-export { Product, Prices, Images, FormattedPrice, SearchQueryProps, FormattedCategories, CurrencyCodes };
+export { Product, Prices, Images, FormattedPrice, SearchQueryProps, FormattedCategories, CurrencyCodes, PriceFormat };
