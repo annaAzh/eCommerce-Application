@@ -7,6 +7,7 @@ import { Profile } from 'pages/profile/Profile';
 import { Registration } from 'pages/registration/Registration';
 import { Paths } from 'shared/types';
 import { Cart } from 'pages/cart/Cart';
+import { AboutUs } from 'pages/about-us/AboutUs';
 
 export interface Router {
   path: Paths;
@@ -49,5 +50,9 @@ export const rootRouter: Router[] = [
   {
     path: Paths.cart,
     element: <Cart />,
+  },
+  {
+    path: Paths.about,
+    element: <AboutUs />,
   },
 ];

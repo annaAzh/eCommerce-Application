@@ -13,6 +13,7 @@ import {
   LoginOutlined,
   ProductOutlined,
   ShoppingCartOutlined,
+  TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 import { Tooltip } from 'antd';
@@ -39,6 +40,16 @@ const links: LinkOfPage[] = [
       <Link className="link-profile" to={Paths.catalog}>
         <Tooltip title="catalog">
           <ProductOutlined style={{ fontSize: '2rem' }} />
+        </Tooltip>
+      </Link>
+    ),
+  },
+  {
+    key: Paths.about,
+    label: (
+      <Link className="link-profile" to={Paths.about}>
+        <Tooltip title="about us">
+          <TeamOutlined style={{ fontSize: '2rem' }} />
         </Tooltip>
       </Link>
     ),

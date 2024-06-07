@@ -7,5 +7,6 @@ export enum Paths {
   product = 'catalog/:productKey',
   profile = 'profile',
   cart = 'cart',
+  about = 'about',
   notFound = '*',
 }
