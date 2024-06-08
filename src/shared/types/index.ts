@@ -3,3 +3,5 @@ export { Product, FormattedPrice, Prices, Images, SearchQueryProps, CurrencyCode
 export { Paths } from './routerTypes';
 
 export { ErrorWithResponse, BaseTokenError } from './errorResponseTypes';
+
+export { AboutUsType } from './aboutUsType';
