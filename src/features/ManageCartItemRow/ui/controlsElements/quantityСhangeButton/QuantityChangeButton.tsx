@@ -1,9 +1,17 @@
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import style from './QuantityChangeButton.module.css';
-import { getCart, removeFromCart } from 'entities/Cart';
+import { addToCart, getCart, removeFromCart } from 'entities/Cart';
 import { getAccessToken } from 'entities/User';
 
-export const QuantityChangeButton = ({ lineItemId, number }: { lineItemId: string; number: number }): JSX.Element => {
+export const QuantityChangeButton = ({
+  lineItemId,
+  number,
+  productId,
+}: {
+  lineItemId: string;
+  number: number;
+  productId: string;
+}): JSX.Element => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(getAccessToken);
   const cart = useAppSelector(getCart);
@@ -14,6 +22,18 @@ export const QuantityChangeButton = ({ lineItemId, number }: { lineItemId: strin
         removeFromCart({
           token,
           lineItemId,
+          cartId: cart.id,
+          version: cart.version,
+        }),
+      );
+  };
+
+  const addQuantity = () => {
+    if (token && cart.id && cart.version)
+      dispatch(
+        addToCart({
+          token,
+          productId,
           cartId: cart.id,
           version: cart.version,
         }),
@@ -34,7 +54,7 @@ export const QuantityChangeButton = ({ lineItemId, number }: { lineItemId: strin
         inputMode="numeric"
         className={style.inputNumber}
       ></input>
-      <button type="button" className={style.buttonAdd}>
+      <button type="button" className={style.buttonAdd} onClick={addQuantity}>
         {'+'}
       </button>
     </div>
