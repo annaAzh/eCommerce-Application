@@ -1,9 +1,28 @@
+import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import style from './QuantityChangeButton.module.css';
+import { getCart, removeFromCart } from 'entities/Cart';
+import { getAccessToken } from 'entities/User';
 
-export const QuantityChangeButton = ({ number }: { number: number }): JSX.Element => {
+export const QuantityChangeButton = ({ lineItemId, number }: { lineItemId: string; number: number }): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const token = useAppSelector(getAccessToken);
+  const cart = useAppSelector(getCart);
+
+  const reduceQuantity = () => {
+    if (token && cart.id && cart.version)
+      dispatch(
+        removeFromCart({
+          token,
+          lineItemId,
+          cartId: cart.id,
+          version: cart.version,
+        }),
+      );
+  };
+
   return (
     <div className={style.buttonQuantity}>
-      <button type="button" className={style.buttonRemove}>
+      <button type="button" className={style.buttonRemove} onClick={reduceQuantity}>
         {'-'}
       </button>
       <input
