@@ -1,3 +1,5 @@
+export { GreenButtonWithPlus } from './GreenButtonWithPlus/GreenButtonWithPlus';
+
 export { Breadcrumbs } from './Breadcrumb/Breadcrumb';
 
 export { OptionalFilter } from './OptionalFilter/OptionalFilter';
