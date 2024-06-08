@@ -1,6 +1,7 @@
 import { LineItem } from 'entities/Cart';
 import { FormattedPrice, PriceFormat } from 'shared/types';
 import { setPrices } from 'shared/lib/dataConverters';
+import { QuantityChangeButton } from './controlsElements';
 import style from './ProductToCart.module.css';
 
 interface DataProduct {
@@ -52,7 +53,9 @@ export const ProductToCard = ({ product }: { product: LineItem }): JSX.Element =
           )}
           <div className={style.priceProduct}>
             {'Quantity'}
-            <div className={style.quantity}>{quantity}</div>
+            <div className={style.quantity}>
+              <QuantityChangeButton number={quantity} />
+            </div>
           </div>
           <div className={`${style.priceProduct} ${style.amount}`}>
             {'Total Amount'}
