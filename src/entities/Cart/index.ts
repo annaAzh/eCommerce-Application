@@ -1,3 +1,5 @@
+export { getOriginalGoods } from './model/selectors/getOriginalGoods';
+
 export { removeFromCart } from './model/services/removeFromCart';
 
 export { getExistCart } from './model/services/getExistCart';
