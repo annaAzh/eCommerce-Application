@@ -1,12 +1,10 @@
-import { CurrencyCodes, Images, Prices } from 'shared/types';
+import { Images, PriceFormat, Prices } from 'shared/types';
 
 interface CartSchema {
   cart: Partial<Cart>;
   error?: string;
   isLoading: boolean;
 }
-
-type PriceFormat = { centAmount: number; currencyCode: CurrencyCodes; fractionDigits: number };
 
 interface Cart {
   id: string;
@@ -23,7 +21,7 @@ interface LineItem {
   quantity: number;
   totalPrice: PriceFormat;
   variant: {
-    images: Images;
+    images: Images[];
   };
 }
 
