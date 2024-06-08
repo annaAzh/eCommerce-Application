@@ -13,7 +13,6 @@ export const GreenButtonWithPlus: FC<Props> = ({ text, handler, disabled }) => {
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
 
-    console.log(1);
     if (!isDisabled && handler) {
       setIsDisabled(true);
       handler();
