@@ -41,25 +41,21 @@ export const ProductToCard = ({ product }: { product: LineItem }): JSX.Element =
         <div className={style.productPrices}>
           {discountedPrice ? (
             <div className={style.priceProduct}>
-              {' '}
-              Discounted Price
+              {'Discounted Price'}
               <div className={style.discountedPrice}>{discountedPrice}</div>
             </div>
           ) : (
             <div className={`${style.priceProduct} ${style.notDiscount}`}>
-              {' '}
-              Price
+              {'Price'}
               <div className={style.currentPrice}> {currentPrice}</div>
             </div>
           )}
           <div className={style.priceProduct}>
-            {' '}
-            Quantity
+            {'Quantity'}
             <div className={style.quantity}>{quantity}</div>
           </div>
           <div className={`${style.priceProduct} ${style.amount}`}>
-            {' '}
-            Total Amount
+            {'Total Amount'}
             <div className={style.totalAmount}>{totalPriceConversion(totalPrice)}</div>
           </div>
         </div>

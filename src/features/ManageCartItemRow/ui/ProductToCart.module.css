@@ -8,7 +8,10 @@
 }
 
 .imgProduct {
-  width: 130px;
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  border: 1px solid #a7a4a4;
 }
 
 .dataProduct {

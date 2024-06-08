@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo } from 'react';
 import style from './CartPreview.module.css';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { LineItem, getCart, getExistCart } from 'entities/Cart';
-import { ProductToCard } from 'features/ProductToCart';
+import { ProductToCard } from 'features/ManageCartItemRow';
 import { getAccessToken } from 'entities/User';
 
 export const CartPreview: FC = () => {
