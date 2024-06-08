@@ -116,6 +116,7 @@
   display: flex;
   width: 150px;
   height: 40px;
+  margin-right: 2%;
   margin-left: auto;
   justify-content: center;
   align-items: center;

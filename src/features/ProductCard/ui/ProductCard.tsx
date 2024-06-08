@@ -6,7 +6,7 @@ import { GreenButtonWithPlus } from 'shared/ui';
 import { addToCart, createCart, getCart, getOriginalGoods } from 'entities/Cart';
 import { getAccessToken } from 'entities/User';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { PulseLoader } from 'react-spinners';
 
 const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: string) => void }): JSX.Element => {
@@ -36,6 +36,10 @@ const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: st
     setProductId(id);
   };
 
+  const flag = originalGoods.has(id);
+
+  const memoBtn = useMemo(() => <GreenButtonWithPlus disabled={flag} text="Add to Cart" handler={handler} />, [flag]);
+
   return (
     <div className={styles.card} onClick={() => onClick(key)}>
       <p className={styles.name}>{name}</p>
@@ -59,11 +63,7 @@ const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: st
             <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
           )}
           <div className={styles.buttonCover}>
-            {productId ? (
-              <PulseLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={10} />
-            ) : (
-              <GreenButtonWithPlus disabled={originalGoods.has(id)} text="Add to Cart" handler={handler} />
-            )}
+            {productId ? <PulseLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={10} /> : memoBtn}
           </div>
         </div>
       </div>

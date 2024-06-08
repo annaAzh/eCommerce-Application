@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import './style.css';
 
 interface Props {
@@ -8,13 +8,10 @@ interface Props {
 }
 
 export const GreenButtonWithPlus: FC<Props> = ({ text, handler, disabled }) => {
-  const [isDisabled, setIsDisabled] = useState(disabled);
-
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-
-    if (!isDisabled && handler) {
-      setIsDisabled(true);
+    if (!disabled && handler) {
+      disabled = true;
       handler();
     }
   };
