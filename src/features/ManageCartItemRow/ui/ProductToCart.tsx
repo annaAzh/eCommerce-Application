@@ -1,7 +1,7 @@
 import { LineItem } from 'entities/Cart';
 import { FormattedPrice, PriceFormat } from 'shared/types';
 import { setPrices } from 'shared/lib/dataConverters';
-import { QuantityChangeButton } from './controlsElements';
+import { DeleteProductButton, QuantityChangeButton } from './controlsElements';
 import style from './ProductToCart.module.css';
 
 interface DataProduct {
@@ -43,6 +43,7 @@ export const ProductToCard = ({ product }: { product: LineItem }): JSX.Element =
       <img className={style.imgProduct} src={image}></img>
       <div className={style.dataProduct}>
         <h2>{name}</h2>
+        <DeleteProductButton lineItemId={id} />
         <div className={style.productPrices}>
           {discountedPrice ? (
             <div className={style.priceProduct}>
