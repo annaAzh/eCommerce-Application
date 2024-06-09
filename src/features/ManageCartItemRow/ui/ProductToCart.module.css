@@ -1,4 +1,5 @@
 .product {
+  position: relative;
   display: flex;
   width: 70%;
   padding: 1%;
