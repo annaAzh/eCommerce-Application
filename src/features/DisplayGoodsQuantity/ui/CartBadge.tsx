@@ -8,7 +8,7 @@ const CartBadge: FC = () => {
   const cart = useAppSelector(getCart);
   const totalCartQuantity = cart?.lineItems?.reduce((acc, item) => acc + item.quantity, 0) || 0;
 
-  return <Badge count={totalCartQuantity} showZero size="small" style={{ backgroundColor: '#6d972e' }}></Badge>;
+  return <Badge count={totalCartQuantity} size="small" style={{ backgroundColor: '#6d972e' }}></Badge>;
 };
 
 export { CartBadge };
