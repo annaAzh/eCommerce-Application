@@ -1,0 +1,44 @@
+.commonPriceClass {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+  font-size: 42px;
+  font-weight: 600;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.price {
+  color: var(--main-color-4);
+}
+
+.discountedPrice {
+  color: var(--red);
+}
+
+.crossedPrice {
+  color: var(--main-color-4);
+  opacity: 0.7;
+  font-size: 25px;
+  text-decoration: line-through;
+  position: relative;
+}
+
+.containerPrices {
+  width: fit-content;
+}
+
+.cartManage {
+  width: 300px;
+  height: 200px;
+  background: var(--main-color-1);
+  padding: 10px;
+  box-shadow:
+    rgb(6 24 44 / 40%) 0 0 0 2px,
+    rgb(6 24 44 / 65%) 0 4px 6px -1px,
+    rgb(255 255 255 / 8%) 0 1px 0 inset;
+  border-radius: 3px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  flex-direction: column;
+}

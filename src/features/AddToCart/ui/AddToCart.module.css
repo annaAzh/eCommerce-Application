@@ -1,0 +1,7 @@
+.buttonCover {
+  display: flex;
+  width: 150px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+}

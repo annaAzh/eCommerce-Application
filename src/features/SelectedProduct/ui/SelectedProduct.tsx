@@ -11,12 +11,13 @@ import { Breadcrumbs, Slider } from 'shared/ui';
 import { Paths } from 'shared/types';
 import { addSearchCategory, getAllCategories, getAvailableCategories } from 'entities/Product';
 import { getBreadcrumbPaths, getSubCategory } from 'shared/lib/dataConverters';
+import { SaleBlock } from './components/SaleBlock';
 
 export const SelectedProduct = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const token = useAppSelector(getAccessToken);
   const { productKey } = useParams<string>();
-  const { name, description, prices, images, category, subCategory } = useAppSelector(getSelectedProduct);
+  const { name, description, prices, images, category, subCategory, id } = useAppSelector(getSelectedProduct);
   const isLoading = useAppSelector(getSelectedIsLoading);
   const { discountedPrice, currentPrice } = prices;
   const categories = useAppSelector(getAllCategories);
@@ -32,10 +33,10 @@ export const SelectedProduct = (): JSX.Element => {
     dispatch(getProductByKey({ token, productKey }));
   }, [productKey, token, dispatch]);
 
-  const handler = (id: string | undefined) => {
-    if (id) {
+  const handler = (categoriesId?: string) => {
+    if (categoriesId) {
+      dispatch(addSearchCategory({ categoriesId }));
       navigate(`/${Paths.catalog}`);
-      dispatch(addSearchCategory({ categoriesId: id }));
     }
   };
 
@@ -70,16 +71,7 @@ export const SelectedProduct = (): JSX.Element => {
             <h2 className={styles.name}>{name}</h2>
             <div className={styles.topBlock}>
               <div className={styles.slider}>{images.length > 0 && <Slider images={images} />}</div>
-              <div className={styles.containerPrices}>
-                {discountedPrice ? (
-                  <div>
-                    <div className={`${styles.commonPriceClass} ${styles.crossedPrice}`}>{currentPrice}</div>
-                    <div className={`${styles.commonPriceClass} ${styles.discountedPrice}`}>{discountedPrice}</div>
-                  </div>
-                ) : (
-                  <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
-                )}
-              </div>
+              <SaleBlock data={{ discountedPrice, currentPrice, id }} />
             </div>
             <div>
               <p className={styles.titleDescription}>Description:</p>
