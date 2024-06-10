@@ -2,8 +2,7 @@ import { PriceFormat } from 'shared/types';
 import { totalPriceConversion } from 'shared/lib/dataConverters';
 import style from './PriceList.module.css';
 
-export const PriceList = ({ totalAmount }: { totalAmount: PriceFormat | undefined }) => {
-  if (!totalAmount) return;
+export const PriceList = ({ totalAmount }: { totalAmount: PriceFormat }) => {
   return (
     <div className={style.pricesCard}>
       <div className={style.totalAmount}>

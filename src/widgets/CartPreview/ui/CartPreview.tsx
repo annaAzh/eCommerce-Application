@@ -30,7 +30,7 @@ export const CartPreview: FC = () => {
   return (
     <div className={style.container}>
       <ol className={style.productList}>{addedProducts}</ol>
-      <PriceList totalAmount={totalPrice} />
+      {totalPrice && <PriceList totalAmount={totalPrice} />}
     </div>
   );
 };

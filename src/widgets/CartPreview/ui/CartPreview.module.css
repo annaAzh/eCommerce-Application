@@ -11,6 +11,10 @@
 }
 
 .productList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
   width: 70%;
   height: 75vh;
   overflow-y: auto;
