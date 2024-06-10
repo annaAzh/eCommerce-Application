@@ -2,7 +2,6 @@
   position: relative;
   width: 150px;
   height: 40px;
-  cursor: pointer;
   display: flex;
   align-items: center;
   border-radius: 3px;
@@ -38,10 +37,6 @@
   stroke: #fff;
 }
 
-.button:hover {
-  background: #34974d;
-}
-
 .button:not(:disabled):hover .button__text {
   color: transparent;
 }
@@ -57,6 +52,11 @@
 .button:disabled {
   border: 1px solid gray;
   background-color: gray;
+}
+
+.button:not(:disabled):hover {
+  background: #34974d;
+  cursor: pointer;
 }
 
 .button:disabled .button__icon {
