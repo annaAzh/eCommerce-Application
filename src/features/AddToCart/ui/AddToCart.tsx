@@ -24,6 +24,7 @@ export const AddToCart: FC<AddToCartProps> = ({ id }) => {
     } else {
       setTimeout(() => {
         setProductId(undefined);
+        setUsedId(new Set<string>());
       }, 500);
 
       if (!cart.version || usedId.has(id)) return;
