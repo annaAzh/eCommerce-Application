@@ -1,3 +1,5 @@
+export { totalPriceConversion } from './totalPriceConversion';
+
 export { getSubCategory } from './getSubCategory';
 
 export { getBreadcrumbPaths } from './getBreadcrumbPaths';
