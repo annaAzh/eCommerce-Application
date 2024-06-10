@@ -58,33 +58,6 @@
   align-items: center;
 }
 
-.commonPriceClass {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
-  margin-right: 2%;
-  padding: 10px;
-  font-size: 42px;
-  font-weight: 600;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.price {
-  color: var(--main-color-4);
-}
-
-.discountedPrice {
-  color: var(--red);
-}
-
-.crossedPrice {
-  color: var(--main-color-4);
-  opacity: 0.7;
-  font-size: 25px;
-  text-decoration: line-through;
-  position: relative;
-}
-
 .container p {
   margin-top: 10px;
 }
@@ -113,11 +86,13 @@
   scrollbar-color: var(--main-color-3) var(--main-color-1);
 }
 
-@media (width <= 965px) {
+@media (width <= 1050px) {
   .topBlock {
     flex-direction: column;
   }
+}
 
+@media (width <= 965px) {
   .linkBack {
     font-size: 20px;
   }
