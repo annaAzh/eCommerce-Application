@@ -72,3 +72,11 @@
     width: 100%;
   }
 }
+
+@media (width <= 850px) {
+  .cartEmpty {
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+  }
+}
