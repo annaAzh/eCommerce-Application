@@ -17,16 +17,7 @@ export const CartPreview: FC = () => {
   }, [token, dispatch]);
 
   const addedProducts = useMemo(() => {
-    if (!lineItems) return;
-    if (lineItems.length === 0) {
-      return (
-        <div className={style.cartEmpty}>
-          <h2 className={style.messageCartEmpty}>{'Your cart is empty'}</h2>
-          <img className={style.imgCartEmpty} src={ImgKitten}></img>
-        </div>
-      );
-    }
-    return (
+    return lineItems && lineItems.length > 0 ? (
       <ol className={style.productList}>
         {lineItems.map((product: LineItem, index) => {
           return (
@@ -36,6 +27,11 @@ export const CartPreview: FC = () => {
           );
         })}
       </ol>
+    ) : (
+      <div className={style.cartEmpty}>
+        <h2 className={style.messageCartEmpty}>{'Your cart is empty'}</h2>
+        <img className={style.imgCartEmpty} src={ImgKitten}></img>
+      </div>
     );
   }, [lineItems]);
 
