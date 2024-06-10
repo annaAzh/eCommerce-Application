@@ -1,14 +1,38 @@
 .container {
-  width: 80%;
-  padding: 2%;
-  margin: 1% auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2%;
+  width: 95%;
+  padding: 30px;
+  margin: auto;
   border-radius: 4px;
   border: 1px solid var(--main-color-4);
 }
 
+.productList {
+  width: 70%;
+  height: 75vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--main-color-3) var(--main-color-1);
+}
+
 .productCart {
+  flex-grow: 1;
   display: flex;
   width: 100%;
   gap: 10px;
   align-items: start;
+}
+
+@media (width <= 1050px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .productList {
+    width: 100%;
+  }
 }
