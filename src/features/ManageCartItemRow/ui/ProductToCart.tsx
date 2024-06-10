@@ -1,6 +1,6 @@
 import { LineItem } from 'entities/Cart';
 import { FormattedPrice, PriceFormat } from 'shared/types';
-import { setPrices } from 'shared/lib/dataConverters';
+import { setPrices, totalPriceConversion } from 'shared/lib/dataConverters';
 import { DeleteProductButton, QuantityChangeButton } from './controlsElements';
 import style from './ProductToCart.module.css';
 
@@ -13,13 +13,6 @@ interface DataProduct {
   prices: FormattedPrice;
   totalPrice: PriceFormat;
 }
-
-const totalPriceConversion = (totalPrice: PriceFormat): string => {
-  const { currencyCode, centAmount, fractionDigits } = totalPrice;
-  const discountedCurrency = currencyCode === 'USD' ? '$' : '';
-  const discountedPrice = `${(centAmount / 100).toFixed(fractionDigits)}${discountedCurrency}`;
-  return discountedPrice;
-};
 
 const productDataConversion = (product: LineItem): DataProduct => {
   const newProductEntry: DataProduct = {
@@ -42,7 +35,7 @@ export const ProductToCard = ({ product }: { product: LineItem }): JSX.Element =
     <div className={style.product}>
       <img className={style.imgProduct} src={image}></img>
       <div className={style.dataProduct}>
-        <h2>{name}</h2>
+        <h3 className={style.nameProduct}>{name}</h3>
         <DeleteProductButton lineItemId={id} />
         <div className={style.productPrices}>
           {discountedPrice ? (
@@ -63,7 +56,7 @@ export const ProductToCard = ({ product }: { product: LineItem }): JSX.Element =
             </div>
           </div>
           <div className={`${style.priceProduct} ${style.amount}`}>
-            {'Total Amount'}
+            {'Total Price'}
             <div className={style.totalAmount}>{totalPriceConversion(totalPrice)}</div>
           </div>
         </div>
