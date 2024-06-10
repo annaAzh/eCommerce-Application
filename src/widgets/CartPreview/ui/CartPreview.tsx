@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { LineItem, getCart, getExistCart } from 'entities/Cart';
 import { ProductToCard } from 'features/ManageCartItemRow';
 import { getAccessToken } from 'entities/User';
+import ImgKitten from 'shared/assets/img/kittenForCart.png';
 import { PriceList } from 'features/ManageCartPrices';
 import style from './CartPreview.module.css';
 
@@ -17,20 +18,23 @@ export const CartPreview: FC = () => {
   }, [token, dispatch]);
 
   const addedProducts = useMemo(() => {
-    if (!lineItems) return;
-    return lineItems.map((product: LineItem, index) => {
-      return (
-        <li key={index} className={style.productCart}>
-          <ProductToCard product={product} />
-        </li>
-      );
-    });
+    return lineItems && lineItems.length > 0 ? (
+      <ol className={style.productList}>
+        {lineItems.map((product: LineItem, index) => {
+          return (
+            <li key={index} className={style.productCart}>
+              <ProductToCard product={product} />
+            </li>
+          );
+        })}
+      </ol>
+    ) : (
+      <div className={style.cartEmpty}>
+        <h2 className={style.messageCartEmpty}>{'Your cart is empty'}</h2>
+        <img className={style.imgCartEmpty} src={ImgKitten}></img>
+      </div>
+    );
   }, [lineItems]);
-
-  return (
-    <div className={style.container}>
-      <ol className={style.productList}>{addedProducts}</ol>
-      {totalPrice && <PriceList totalAmount={totalPrice} />}
-    </div>
-  );
+  
+  return <div className={style.container}>{addedProducts}</div>;
 };
