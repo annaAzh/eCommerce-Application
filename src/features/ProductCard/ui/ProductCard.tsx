@@ -16,9 +16,11 @@ const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: st
   const originalGoods = useAppSelector(getOriginalGoods);
   const { images, description, name, prices, key, id } = product;
   const { discountedPrice, currentPrice } = prices;
+  const isChosen = originalGoods.has(id);
   const descMaxLength = 300;
   const firstImage = images[0];
   const [productId, setProductId] = useState<string>();
+  const [usedId, setUsedId] = useState<Set<string>>(new Set<string>());
 
   useEffect(() => {
     if (!token || !productId) return;
@@ -26,19 +28,24 @@ const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: st
     if (!cart.id) {
       dispatch(createCart(token));
     } else {
-      if (!cart.version) return;
+      setTimeout(() => {
+        setProductId(undefined);
+      }, 500);
+
+      if (!cart.version || usedId.has(id)) return;
       dispatch(addToCart({ token, productId: id, cartId: cart.id, version: cart.version }));
-      setProductId(undefined);
+      setUsedId((prev) => prev.add(id));
     }
   }, [productId, cart]);
 
-  const handler = () => {
+  const clickHandler = () => {
     setProductId(id);
   };
 
-  const flag = originalGoods.has(id);
-
-  const memoBtn = useMemo(() => <GreenButtonWithPlus disabled={flag} text="Add to Cart" handler={handler} />, [flag]);
+  const memoBtn = useMemo(
+    () => <GreenButtonWithPlus disabled={isChosen} text="Add to Cart" handler={clickHandler} />,
+    [isChosen],
+  );
 
   return (
     <div className={styles.card} onClick={() => onClick(key)}>
@@ -62,7 +69,7 @@ const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: st
           ) : (
             <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
           )}
-          <div className={styles.buttonCover}>
+          <div className={styles.buttonCover} onClick={(e) => e.stopPropagation()}>
             {productId ? <PulseLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={10} /> : memoBtn}
           </div>
         </div>
