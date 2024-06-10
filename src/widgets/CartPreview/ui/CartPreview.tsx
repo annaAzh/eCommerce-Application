@@ -6,6 +6,8 @@ import { getAccessToken } from 'entities/User';
 import ImgKitten from 'shared/assets/img/kittenForCart.png';
 import { PriceList } from 'features/ManageCartPrices';
 import style from './CartPreview.module.css';
+import { Link } from 'react-router-dom';
+import { Paths } from 'shared/types';
 
 export const CartPreview: FC = () => {
   const { lineItems, totalPrice } = useAppSelector(getCart);
@@ -33,7 +35,13 @@ export const CartPreview: FC = () => {
       </>
     ) : (
       <div className={style.cartEmpty}>
-        <h2 className={style.messageCartEmpty}>{'Your cart is empty'}</h2>
+        <div className={style.messageCartEmpty}>
+          <p>{'Your cart is empty'}</p>
+          <p>{'We need to fix this!'}</p>
+          <Link to={`/${Paths.catalog}`} className={style.linkCatalog}>
+            &#10149; Catalog
+          </Link>
+        </div>
         <img className={style.imgCartEmpty} src={ImgKitten}></img>
       </div>
     );
