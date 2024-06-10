@@ -1,0 +1,21 @@
+.pricesCard {
+  width: 30%;
+  height: 30%;
+  padding: 1%;
+  border-radius: 5px;
+  border: 1px solid var(--main-color-4);
+  background: white;
+  font-size: 22px;
+}
+
+.totalAmount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media (width <= 1050px) {
+  .pricesCard {
+    width: 95%;
+  }
+}

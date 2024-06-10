@@ -4,10 +4,11 @@ import { LineItem, getCart, getExistCart } from 'entities/Cart';
 import { ProductToCard } from 'features/ManageCartItemRow';
 import { getAccessToken } from 'entities/User';
 import ImgKitten from 'shared/assets/img/kittenForCart.png';
+import { PriceList } from 'features/ManageCartPrices';
 import style from './CartPreview.module.css';
 
 export const CartPreview: FC = () => {
-  const { lineItems } = useAppSelector(getCart);
+  const { lineItems, totalPrice } = useAppSelector(getCart);
   const token = useAppSelector(getAccessToken);
   const dispatch = useAppDispatch();
 
@@ -34,6 +35,6 @@ export const CartPreview: FC = () => {
       </div>
     );
   }, [lineItems]);
-
+  
   return <div className={style.container}>{addedProducts}</div>;
 };
