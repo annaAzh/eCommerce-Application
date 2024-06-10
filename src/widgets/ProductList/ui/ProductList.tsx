@@ -7,6 +7,7 @@ import { getProducts, getProductIsLoading } from 'entities/Product';
 import { clearCardError } from 'features/SelectedProduct';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from 'shared/lib/hooks';
+import { AddToCart } from 'features/AddToCart';
 
 const ProductList: FC = () => {
   const dispatch = useAppDispatch();
@@ -24,7 +25,7 @@ const ProductList: FC = () => {
     return products.length > 0 ? (
       <div className={styles.listWrapper}>
         {products.map((product) => (
-          <ProductCard key={product.id} product={product} onClick={selectProduct} />
+          <ProductCard key={product.id} product={product} onClick={selectProduct} AddToCartBtn={AddToCart} />
         ))}
       </div>
     ) : (

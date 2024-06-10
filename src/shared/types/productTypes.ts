@@ -52,4 +52,18 @@ interface FormattedCategories {
   subCategory: Omit<FormattedCategories, 'subCategory'>[];
 }
 
-export { Product, Prices, Images, FormattedPrice, SearchQueryProps, FormattedCategories, CurrencyCodes, PriceFormat };
+interface AddToCartProps {
+  id: string;
+}
+
+export {
+  Product,
+  Prices,
+  Images,
+  FormattedPrice,
+  SearchQueryProps,
+  FormattedCategories,
+  CurrencyCodes,
+  PriceFormat,
+  AddToCartProps,
+};
