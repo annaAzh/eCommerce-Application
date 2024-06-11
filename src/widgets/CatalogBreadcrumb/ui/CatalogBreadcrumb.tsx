@@ -1,18 +1,12 @@
-import {
-  getSearchQuery,
-  getAllCategories,
-  addSearchCategory,
-  clearSearchQuery,
-  getAllProducts,
-} from 'entities/Product';
-import { getAccessToken } from 'entities/User';
+import { getSearchQuery, getAllCategories, addSearchCategory, clearSearchQuery } from 'entities/Product';
+import { changeCurrentPage } from 'entities/Product/model/slices/productSlice';
 import { FC, useMemo } from 'react';
+import { DEFAULT_PAGE } from 'shared/consts';
 import { getBreadcrumbPaths } from 'shared/lib/dataConverters';
 import { useAppSelector, useAppDispatch } from 'shared/lib/hooks';
 import { Breadcrumbs } from 'shared/ui';
 
 export const CatalogBreadcrumb: FC = () => {
-  const token = useAppSelector(getAccessToken);
   const categoriesId = useAppSelector(getSearchQuery)?.categoriesId;
   const categories = useAppSelector(getAllCategories);
   const dispatch = useAppDispatch();
@@ -20,10 +14,10 @@ export const CatalogBreadcrumb: FC = () => {
   const handler = (id: string | undefined) => {
     if (!id) {
       dispatch(clearSearchQuery());
-      if (token) dispatch(getAllProducts({ token }));
     } else {
       dispatch(addSearchCategory({ categoriesId: id }));
     }
+    dispatch(changeCurrentPage(DEFAULT_PAGE));
   };
 
   const memoBreadcrumbs = useMemo(() => {

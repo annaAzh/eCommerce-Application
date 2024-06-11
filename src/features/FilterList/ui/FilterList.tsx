@@ -34,7 +34,7 @@ export const FilterList: FC = () => {
     dispatch(addSearchSortBy(data));
   };
 
-  const priceRamgeFilterHandler = (data: Required<Pick<SearchQueryProps, 'priceRange'>> | undefined) => {
+  const priceRangeFilterHandler = (data: Required<Pick<SearchQueryProps, 'priceRange'>> | undefined) => {
     dispatch(addSearchPriceRange(data));
   };
 
@@ -94,6 +94,7 @@ export const FilterList: FC = () => {
     dispatch(getAllProducts({ token }));
     dispatch(getAvailableCategories(token));
     dispatch(getProductsForParsing({ token }));
+
     return () => {
       dispatch(clearSearchQuery());
     };
@@ -104,10 +105,11 @@ export const FilterList: FC = () => {
     dispatch(addSearchPriceRange(undefined));
     setOptionalFilters([]);
     dispatch(getProductsForParsing({ token, filter: getFormattedCategoryId(searchQuery.categoriesId) }));
+    dispatch(changeCurrentPage(DEFAULT_PAGE));
   }, [searchQuery?.categoriesId]);
 
   const memoPriceRangeFilter = useMemo(() => {
-    return <PriceRangeFilter minAndMax={priceRange} handleData={priceRamgeFilterHandler} />;
+    return <PriceRangeFilter minAndMax={priceRange} handleData={priceRangeFilterHandler} />;
   }, [priceRange]);
 
   const memoOptionalFilter = useMemo(() => {

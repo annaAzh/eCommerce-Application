@@ -45,11 +45,11 @@ type CatalogProps = {
   page?: number;
 };
 
-interface GetCategoroesResponse {
-  results: CategoroesResponse[];
+interface GetCategoriesResponse {
+  results: CategoriesResponse[];
 }
 
-interface CategoroesResponse {
+interface CategoriesResponse {
   id: string;
   name: {
     'en-US': string;
@@ -81,7 +81,7 @@ export {
   ProductResponse,
   Prices,
   CatalogProps,
-  GetCategoroesResponse,
+  GetCategoriesResponse,
   FormattedCategories,
   ParseResponse,
   FormattedAttributesType,
