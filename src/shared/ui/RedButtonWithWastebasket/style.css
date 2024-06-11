@@ -1,0 +1,76 @@
+.red-button {
+  position: relative;
+  width: 180px;
+
+  /* width: 150px; */
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-radius: 3px;
+  border: 1px solid #d54b4ba9;
+  background-color: var(--red);
+
+  /* background-color: #e50000; */
+  overflow: hidden;
+}
+
+.red-button,
+.red-button__icon,
+.red-button__text {
+  transition: all 0.3s;
+}
+
+.red-button .red-button__text {
+  transform: translateX(15px);
+
+  /* transform: translateX(35px); */
+  color: #fff;
+  font-weight: 600;
+}
+
+.red-button .red-button__icon {
+  position: absolute;
+  transform: translateX(139px);
+
+  /* transform: translateX(109px); */
+  height: 100%;
+  width: 39px;
+  background-color: #c54b3e;
+
+  /* background-color: #c00; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.red-button .svg {
+  width: 20px;
+}
+
+.red-button:hover {
+  background: #c54b3e;
+
+  /* background: #c00; */
+}
+
+.red-button:hover .red-button__text {
+  color: transparent;
+}
+
+.red-button:hover .red-button__icon {
+  width: 148px;
+  transform: translateX(15px);
+
+  /* transform: translateX(0); */
+}
+
+.red-button:active .red-button__icon {
+  background-color: #c54b3e;
+
+  /* background-color: #b20000; */
+}
+
+.red-button:active {
+  border: 1px solid #b20000;
+}

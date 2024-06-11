@@ -1,3 +1,5 @@
+export { clearRemoteCart } from './model/services/clearRemoteCart';
+
 export { getOriginalGoods } from './model/selectors/getOriginalGoods';
 
 export { removeFromCart } from './model/services/removeFromCart';

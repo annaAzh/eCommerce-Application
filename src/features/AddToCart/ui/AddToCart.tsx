@@ -17,14 +17,18 @@ export const AddToCart: FC<AddToCartProps> = ({ id }) => {
   const [usedId, setUsedId] = useState<Set<string>>(new Set<string>());
 
   useEffect(() => {
-    if (!token || !productId) return;
+    if (!token) return;
+    if (!productId) {
+      setUsedId(new Set<string>());
+      return;
+    }
 
     if (!cart.id) {
       dispatch(createCart(token));
     } else {
       setTimeout(() => {
         setProductId(undefined);
-      }, 500);
+      }, 200);
 
       if (!cart.version || usedId.has(id)) return;
       dispatch(addToCart({ token, productId: id, cartId: cart.id, version: cart.version }));

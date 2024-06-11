@@ -1,17 +1,20 @@
 import { FC } from 'react';
 import style from './SaleBlock.module.css';
 import { AddToCart } from 'features/AddToCart';
+import { RedButtonWithWastebasket } from 'shared/ui';
 
 interface Props {
   data: {
     discountedPrice?: string;
     currentPrice: string;
     id: string;
+    isChosen: boolean;
+    removeFromCartHandler: () => void;
   };
 }
 
 export const SaleBlock: FC<Props> = ({ data }) => {
-  const { discountedPrice, currentPrice, id } = data;
+  const { discountedPrice, currentPrice, id, isChosen, removeFromCartHandler } = data;
 
   return (
     <div className={style.cartManage}>
@@ -26,6 +29,9 @@ export const SaleBlock: FC<Props> = ({ data }) => {
         )}
       </div>
       <AddToCart id={id} />
+      {isChosen && (
+        <RedButtonWithWastebasket handler={removeFromCartHandler} text="Remove from Cart" disabled={false} />
+      )}
     </div>
   );
 };
