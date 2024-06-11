@@ -18,9 +18,7 @@ const PaginationCatalog: FC = () => {
 
   useEffect(() => {
     if (!token || !searchQuery) return;
-    if (searchQuery?.currentPage !== DEFAULT_PAGE) {
-      dispatch(getAllProducts(createSortAndSearchQuery(token, searchQuery)));
-    }
+    dispatch(getAllProducts(createSortAndSearchQuery(token, searchQuery)));
   }, [searchQuery?.currentPage]);
 
   const handlePagination = (page: number) => {
