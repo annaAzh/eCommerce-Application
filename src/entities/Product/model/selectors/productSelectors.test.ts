@@ -2,11 +2,13 @@ import { RootState } from 'app/providers/storeProvider';
 import {
   getAllCategories,
   getAttributes,
+  getCurrentPage,
   getPriceRange,
   getProductError,
   getProductIsLoading,
   getProducts,
   getSearchQuery,
+  getTotalProducts,
 } from './productSelectors';
 import { FormattedCategories } from '../types/productTypes';
 import { SearchQueryProps } from 'shared/types';
@@ -17,11 +19,11 @@ const category: FormattedCategories = {
   subCategory: [{ id: 'another test', name: 'another test' }],
 };
 
-const serch: SearchQueryProps = {
+const search: SearchQueryProps = {
   sortField: 'name.en-US',
   sortBy: 'asc',
 };
-const { sortField, sortBy } = serch;
+const { sortField, sortBy } = search;
 
 const initialState: DeepPartial<RootState> = {
   product: {
@@ -30,6 +32,8 @@ const initialState: DeepPartial<RootState> = {
     searchQueryProps: { sortBy, sortField },
     isLoading: false,
     error: undefined,
+    total: 0,
+    currentPage: 1,
   },
 };
 
@@ -52,9 +56,23 @@ describe('testing product selectors', () => {
     expect(getAttributes(state)).toBeUndefined();
   });
   it('test getSearchQuery', () => {
-    expect(getSearchQuery(state)).toEqual(serch);
+    expect(getSearchQuery(state)).toEqual(search);
   });
   it('test getProductError', () => {
     expect(getProductError(state)).toBeUndefined();
+  });
+  it('test should return 0 on initial state', () => {
+    expect(getTotalProducts(state)).toEqual(0);
+  });
+  it('test should return 10 if total products equal 10', () => {
+    const modifiedState = { ...state, product: { ...state.product, total: 10 } };
+    expect(getTotalProducts(modifiedState)).toEqual(10);
+  });
+  it('test should return 1 on initial state', () => {
+    expect(getCurrentPage(state)).toEqual(1);
+  });
+  it('test should return 3 if current page is 3', () => {
+    const modifiedState = { ...state, product: { ...state.product, currentPage: 3 } };
+    expect(getCurrentPage(modifiedState)).toEqual(3);
   });
 });
