@@ -30,6 +30,14 @@ const getProductError = (state: RootState) => {
   return state.product.error;
 };
 
+const getTotalProducts = (state: RootState): number | undefined => {
+  return state.product.total;
+};
+
+const getCurrentPage = (state: RootState): number | undefined => {
+  return state.product.currentPage;
+};
+
 export {
   getProducts,
   getProductIsLoading,
@@ -38,4 +46,6 @@ export {
   getAttributes,
   getSearchQuery,
   getProductError,
+  getTotalProducts,
+  getCurrentPage,
 };

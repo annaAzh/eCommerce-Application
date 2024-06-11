@@ -8,10 +8,13 @@ import { CARD_ON_PAGE } from '../../../../shared/consts';
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-export const convertDataIntoAppropriateFormat = (products: GetProductResponse): Product[] => {
+export const convertDataIntoAppropriateFormat = (
+  response: GetProductResponse,
+): { result: Product[]; total: number } => {
+  const { results, total } = response;
   const result: Product[] = [];
 
-  products.results.forEach((product: ProductResponse) => {
+  results.forEach((product: ProductResponse) => {
     const pricePath = product.masterVariant.prices[0];
 
     const images: string[] = product.masterVariant.images.map((image: Images) => image.url);
@@ -27,14 +30,15 @@ export const convertDataIntoAppropriateFormat = (products: GetProductResponse): 
     result.push(newProductEntry);
   });
 
-  return result;
+  return { result, total };
 };
 
 export const getAllProducts = createAsyncThunk(
   'product/getAllProducts',
   async (data: CatalogProps, { rejectWithValue }) => {
     try {
-      const { token, sort, filter, fuzzy, search } = data;
+      const { token, sort, filter, fuzzy, search, page } = data;
+
       const res = await axios.get(`${API_URL}${PROJECT_KEY}/product-projections/search`, {
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
         params: {
@@ -43,6 +47,7 @@ export const getAllProducts = createAsyncThunk(
           fuzzy,
           'text.en-US': search || undefined,
           limit: CARD_ON_PAGE,
+          offset: page ? (page - 1) * CARD_ON_PAGE : 0,
         },
       });
       const success: GetProductResponse = res.data;

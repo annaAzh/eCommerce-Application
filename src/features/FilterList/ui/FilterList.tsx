@@ -18,6 +18,8 @@ import {
 import { DefaultFilter, FilterLabel, OptionalFilter, PriceRangeFilter } from 'shared/ui';
 import { SearchQueryProps } from 'shared/types';
 import { createSortAndSearchQuery, getFormattedCategoryId } from 'shared/lib/dataConverters';
+import { changeCurrentPage } from 'entities/Product/model/slices/productSlice';
+import { DEFAULT_PAGE } from 'shared/consts/Products';
 
 export const FilterList: FC = () => {
   const dispatch = useAppDispatch();
@@ -77,6 +79,7 @@ export const FilterList: FC = () => {
 
   useEffect(() => {
     if (!token || !searchQuery) return;
+    dispatch(changeCurrentPage(DEFAULT_PAGE));
     dispatch(getAllProducts(createSortAndSearchQuery(token, searchQuery)));
   }, [
     searchQuery?.sortField,

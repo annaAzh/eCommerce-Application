@@ -12,6 +12,7 @@ import {
   addSearchPriceRange,
   addSearchSortBy,
   addSearchText,
+  changeCurrentPage,
   clearSearchQuery,
   productReducer,
 } from './productSlice';
@@ -24,6 +25,7 @@ const initialState: ProductSchema = {
   priceRange: { min: 0, max: 100 },
   isLoading: false,
   error: undefined,
+  currentPage: 1,
 };
 
 describe('testing product slice', () => {
@@ -72,11 +74,17 @@ describe('testing product slice', () => {
         sortBy: 'asc',
         sortField: 'price',
       },
+      total: 2,
     };
 
     const state = productReducer(searchState, { type: clearSearchQuery.type });
     expect(state.searchQueryProps).toBeUndefined();
   });
+  it('test changeCurrentPage reducer should changeCurrentPageAction', () => {
+    const state = productReducer(initialState, changeCurrentPage(2));
+    expect(state.currentPage).toBe(2);
+  });
+
   it('test getAllProducts/fulfilled', () => {
     const productMock: Product = {
       id: 'test',
@@ -88,7 +96,7 @@ describe('testing product slice', () => {
     };
 
     const data: CatalogProps = { token: 'test' };
-    const payload: Product[] = [productMock];
+    const payload = { result: [productMock], total: 1 };
     const state = productReducer(initialState, getAllProducts.fulfilled(payload, 'getAllProducts/fulfilled', data));
     expect(state.error).toBeUndefined();
     expect(state.isLoading).toBeFalsy();

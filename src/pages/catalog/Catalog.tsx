@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { getProductError } from 'entities/Product';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { CatalogBreadcrumb } from 'widgets/CatalogBreadcrumb';
+import { PaginationCatalog } from 'widgets/PaginationCatalog';
 
 export const Catalog: FC = () => {
   const dispatch = useAppDispatch();
@@ -32,6 +33,7 @@ export const Catalog: FC = () => {
         <div className={style.leftSide}>
           <FilterList />
           <ProductList />
+          <PaginationCatalog />
         </div>
       </div>
     </>

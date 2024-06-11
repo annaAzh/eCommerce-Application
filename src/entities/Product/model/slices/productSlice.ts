@@ -10,6 +10,8 @@ const initialState: ProductSchema = {
   priceRange: { min: 0, max: 100 },
   isLoading: false,
   error: undefined,
+  total: 0,
+  currentPage: 1,
 };
 
 export const productSlice = createSlice({
@@ -82,11 +84,21 @@ export const productSlice = createSlice({
     clearSearchQuery(state: ProductSchema) {
       state.searchQueryProps = undefined;
     },
+    changeCurrentPage(state: ProductSchema, action: PayloadAction<number>) {
+      state.currentPage = action.payload;
+
+      if (state.searchQueryProps) {
+        state.searchQueryProps.currentPage = action.payload;
+      } else {
+        state.searchQueryProps = { currentPage: action.payload };
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.fulfilled, (state, { payload }: PayloadAction<Product[]>) => {
-        state.products = payload;
+      .addCase(getAllProducts.fulfilled, (state, { payload }: PayloadAction<{ result: Product[]; total: number }>) => {
+        state.products = payload.result;
+        state.total = payload.total;
         state.isLoading = false;
         state.error = undefined;
       })
@@ -134,4 +146,5 @@ export const {
   addSearchCategory,
   addSearchText,
   clearSearchQuery,
+  changeCurrentPage,
 } = productSlice.actions;
