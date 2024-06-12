@@ -8,6 +8,7 @@ import { profileReducer } from 'features/EditProfile';
 import { cardReducer } from 'features/SelectedProduct';
 import { productReducer } from 'entities/Product';
 import { cartReducer } from 'entities/Cart';
+import { promoCodeReducer } from 'features/UsePromoCode';
 
 export const rootReducer = combineReducers<StateSchema>({
   user: userReducer,
@@ -18,4 +19,5 @@ export const rootReducer = combineReducers<StateSchema>({
   product: productReducer,
   card: cardReducer,
   cart: cartReducer,
+  promoCode: promoCodeReducer,
 });

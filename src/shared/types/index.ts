@@ -1,3 +1,5 @@
+export { DISCOUNT } from './discountTypes';
+
 export {
   Product,
   FormattedPrice,
