@@ -2,7 +2,6 @@ import { RootState } from 'app/providers/storeProvider';
 import {
   getAllCategories,
   getAttributes,
-  getCurrentPage,
   getPriceRange,
   getProductError,
   getProductIsLoading,
@@ -33,7 +32,6 @@ const initialState: DeepPartial<RootState> = {
     isLoading: false,
     error: undefined,
     total: 0,
-    currentPage: 1,
   },
 };
 
@@ -67,12 +65,5 @@ describe('testing product selectors', () => {
   it('test should return 10 if total products equal 10', () => {
     const modifiedState = { ...state, product: { ...state.product, total: 10 } };
     expect(getTotalProducts(modifiedState)).toEqual(10);
-  });
-  it('test should return 1 on initial state', () => {
-    expect(getCurrentPage(state)).toEqual(1);
-  });
-  it('test should return 3 if current page is 3', () => {
-    const modifiedState = { ...state, product: { ...state.product, currentPage: 3 } };
-    expect(getCurrentPage(modifiedState)).toEqual(3);
   });
 });

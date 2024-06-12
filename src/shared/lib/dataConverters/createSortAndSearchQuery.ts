@@ -1,5 +1,6 @@
 import { SearchQueryProps } from 'shared/types';
 import { getFormattedCategoryId } from './getFormattedCategoryId';
+import { DEFAULT_PAGE } from 'shared/consts';
 
 type CatalogProps = {
   token: string;
@@ -10,16 +11,18 @@ type CatalogProps = {
   page?: number;
 };
 
-export const createSortAndSearchQuery = (token: string, searchQuery?: SearchQueryProps): CatalogProps => {
+export const createSortAndSearchQuery = (
+  token: string,
+  searchQuery?: SearchQueryProps,
+  page: number = DEFAULT_PAGE,
+): CatalogProps => {
   let sort: string | undefined = undefined;
   let filter: string[] = [];
-  let page: number | undefined = undefined;
 
   if (searchQuery?.sortBy && searchQuery.sortField) sort = `${searchQuery.sortField} ${searchQuery.sortBy}`;
   if (searchQuery?.optionalFilters) filter = [...filter, ...searchQuery.optionalFilters];
   if (searchQuery?.priceRange) filter = [...filter, searchQuery?.priceRange];
   if (searchQuery?.categoriesId) filter = [...filter, getFormattedCategoryId(searchQuery.categoriesId)];
-  if (searchQuery?.currentPage) page = searchQuery.currentPage;
 
   if (searchQuery?.search && searchQuery.fuzzy) {
     const { search, fuzzy } = searchQuery;

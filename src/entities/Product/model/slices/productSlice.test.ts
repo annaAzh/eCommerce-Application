@@ -12,7 +12,6 @@ import {
   addSearchPriceRange,
   addSearchSortBy,
   addSearchText,
-  changeCurrentPage,
   clearSearchQuery,
   productReducer,
 } from './productSlice';
@@ -79,10 +78,6 @@ describe('testing product slice', () => {
 
     const state = productReducer(searchState, { type: clearSearchQuery.type });
     expect(state.searchQueryProps).toBeUndefined();
-  });
-  it('test changeCurrentPage reducer should changeCurrentPageAction', () => {
-    const state = productReducer(initialState, changeCurrentPage(2));
-    expect(state.currentPage).toBe(2);
   });
 
   it('test getAllProducts/fulfilled', () => {

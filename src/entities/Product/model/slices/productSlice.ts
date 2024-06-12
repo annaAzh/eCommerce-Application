@@ -55,17 +55,12 @@ export const productSlice = createSlice({
     },
     addSearchCategory(
       state: ProductSchema,
-      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'categoriesId'>> | undefined>,
+      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'categoriesId'>>>,
     ) {
-      if (!payload) {
-        if (state.searchQueryProps?.categoriesId) {
-          const { categoriesId, ...rest } = state.searchQueryProps;
-          state.searchQueryProps = { ...rest };
-        }
-      } else {
-        const { categoriesId } = payload;
-        state.searchQueryProps = { ...state.searchQueryProps, categoriesId };
-      }
+      const { categoriesId } = payload;
+      const priceRange = undefined;
+      const optionalFilters: string[] = [];
+      state.searchQueryProps = { ...state.searchQueryProps, categoriesId, priceRange, optionalFilters };
     },
     addSearchText(
       state: ProductSchema,
@@ -83,15 +78,6 @@ export const productSlice = createSlice({
     },
     clearSearchQuery(state: ProductSchema) {
       state.searchQueryProps = undefined;
-    },
-    changeCurrentPage(state: ProductSchema, action: PayloadAction<number>) {
-      state.currentPage = action.payload;
-
-      if (state.searchQueryProps) {
-        state.searchQueryProps.currentPage = action.payload;
-      } else {
-        state.searchQueryProps = { currentPage: action.payload };
-      }
     },
   },
   extraReducers: (builder) => {
@@ -146,5 +132,4 @@ export const {
   addSearchCategory,
   addSearchText,
   clearSearchQuery,
-  changeCurrentPage,
 } = productSlice.actions;
