@@ -1,0 +1,9 @@
+.pricesAndInput {
+  width: 30%;
+  height: 30%;
+  padding: 1%;
+  border-radius: 5px;
+  border: 1px solid var(--main-color-4);
+  background: white;
+  font-size: 22px;
+}
