@@ -20,6 +20,7 @@ export const CatalogBreadcrumb: FC = () => {
   const handler = (id: string | undefined) => {
     if (!id) {
       dispatch(clearSearchQuery());
+    } else if (id === 'catalog') {
       if (token) dispatch(getAllProducts({ token }));
     } else {
       dispatch(addSearchCategory({ categoriesId: id }));
