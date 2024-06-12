@@ -6,7 +6,7 @@ import { Cart } from '../types/cartTypes';
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-interface RemoveFromCartProps {
+export interface ClearRemoteCartProps {
   token: string;
   version: number;
   cartId: string;
@@ -15,7 +15,7 @@ interface RemoveFromCartProps {
 
 export const clearRemoteCart = createAsyncThunk(
   'cart/clearRemoteCart',
-  async (props: RemoveFromCartProps, { rejectWithValue }) => {
+  async (props: ClearRemoteCartProps, { rejectWithValue }) => {
     try {
       const { token, version, lineItemId, cartId } = props;
 
