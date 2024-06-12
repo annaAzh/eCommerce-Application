@@ -10,7 +10,7 @@ export { addToCart } from './model/services/addToCart';
 
 export { clearCart } from './model/slices/cartSlice';
 
-export { getCart } from './model/selectors/getCartId';
+export { getCart } from './model/selectors/getCart';
 
 export { createCart } from './model/services/createCart';
 
