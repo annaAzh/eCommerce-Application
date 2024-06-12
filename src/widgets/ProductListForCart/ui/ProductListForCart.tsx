@@ -1,16 +1,15 @@
-import { FC, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { LineItem, getCart, getExistCart } from 'entities/Cart';
 import { ProductToCard } from 'features/ManageCartItemRow';
 import { getAccessToken } from 'entities/User';
 import ImgKitten from 'shared/assets/img/kittenForCart.png';
-import { PriceList } from 'features/ManageCartPrices';
-import style from './CartPreview.module.css';
+import style from './ProductListForCart.module.css';
 import { Link } from 'react-router-dom';
 import { Paths } from 'shared/types';
 
-export const CartPreview: FC = () => {
-  const { lineItems, totalPrice } = useAppSelector(getCart);
+export const ProductListForCart = () => {
+  const { lineItems } = useAppSelector(getCart);
   const token = useAppSelector(getAccessToken);
   const dispatch = useAppDispatch();
 
@@ -31,7 +30,6 @@ export const CartPreview: FC = () => {
             );
           })}
         </ol>
-        {totalPrice && <PriceList totalAmount={totalPrice} />}
       </>
     ) : (
       <div className={style.cartEmpty}>
