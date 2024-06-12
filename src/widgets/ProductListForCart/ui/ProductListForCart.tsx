@@ -1,16 +1,13 @@
 import { useEffect, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
-import { LineItem, getCart, getExistCart } from 'entities/Cart';
+import { useAppDispatch } from 'shared/lib/hooks';
+import { LineItem, getExistCart } from 'entities/Cart';
 import { ProductToCard } from 'features/ManageCartItemRow';
-import { getAccessToken } from 'entities/User';
 import ImgKitten from 'shared/assets/img/kittenForCart.png';
 import style from './ProductListForCart.module.css';
 import { Link } from 'react-router-dom';
 import { Paths } from 'shared/types';
 
-export const ProductListForCart = () => {
-  const { lineItems } = useAppSelector(getCart);
-  const token = useAppSelector(getAccessToken);
+export const ProductListForCart = ({ lineItems, token }: { lineItems: LineItem[]; token: string }) => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -45,5 +42,5 @@ export const ProductListForCart = () => {
     );
   }, [lineItems]);
 
-  return <div className={style.container}>{addedProducts}</div>;
+  return <>{lineItems && addedProducts}</>;
 };

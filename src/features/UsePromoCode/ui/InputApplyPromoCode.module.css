@@ -1,0 +1,26 @@
+.applyBlock {
+  display: flex;
+  gap: 30px;
+}
+
+.inputPromoCode {
+  width: 70%;
+  height: 2rem;
+  padding: 10px;
+  border-radius: 5px;
+  border: 2px solid var(--green);
+  font-size: 18px;
+  outline: none;
+}
+
+.buttonApply {
+  width: 25%;
+  border-radius: 5px;
+  font-size: 18px;
+  background-color: var(--green);
+  cursor: pointer;
+}
+
+.buttonApply:hover {
+  background-color: #55ec55;
+}

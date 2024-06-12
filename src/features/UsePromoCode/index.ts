@@ -1,3 +1,5 @@
+export { InputApplyPromoCode } from './ui/InputApplyPromoCode';
+
 export { PromoCode } from './model/types/promoCodesTypes';
 
 export { getPromoCodes } from './model/services/getPromoCodes';
