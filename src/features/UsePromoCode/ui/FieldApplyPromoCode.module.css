@@ -13,8 +13,9 @@
   outline: none;
 }
 
+.cancelPromoCode,
 .buttonApply {
-  width: 25%;
+  width: 30%;
   border-radius: 5px;
   font-size: 18px;
   background-color: var(--green);
@@ -23,4 +24,18 @@
 
 .buttonApply:hover {
   background-color: #55ec55;
+}
+
+.buttonApply:disabled {
+  background-color: #9b9b9b;
+}
+
+.inputPromoCode:disabled {
+  background-color: #9b9b9b;
+  border-color: #9b9b9b;
+}
+
+.cancelPromoCode {
+  display: none;
+  font-size: 13px;
 }
