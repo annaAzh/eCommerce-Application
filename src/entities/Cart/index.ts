@@ -1,5 +1,7 @@
 export { clearRemoteCart } from './model/services/clearRemoteCart';
 
+export { removePromoCode } from './model/services/removePromoCode';
+
 export { DiscountCode } from './model/types/cartTypes';
 
 export { applyPromoCode } from './model/services/applyPromoCode';

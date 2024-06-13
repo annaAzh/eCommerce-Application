@@ -8,20 +8,23 @@ const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
 interface PromoCodeProps extends ActionCartProps {
-  code: string;
+  idCode: string;
 }
 
-export const applyPromoCode = createAsyncThunk(
-  'cart/addDiscountCode',
+export const removePromoCode = createAsyncThunk(
+  'cart/removeDiscountCode',
   async (props: PromoCodeProps, { rejectWithValue }) => {
-    const { token, version, cartId, code } = props;
+    const { token, version, cartId, idCode } = props;
     try {
       const body = {
         version,
         actions: [
           {
-            action: 'addDiscountCode',
-            code,
+            action: 'removeDiscountCode',
+            discountCode: {
+              typeId: 'discount-code',
+              id: idCode,
+            },
           },
         ],
       };
