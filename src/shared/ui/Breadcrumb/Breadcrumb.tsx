@@ -39,7 +39,7 @@ export const Breadcrumbs: FC<BreadcrumbPropsTruthy | BreadcrumbPropsFalsy> = ({
             <Link
               className={!additionalPaths ? style.item : ''}
               to={`/${Paths.catalog}`}
-              onClick={() => handler(`${Paths.catalog}`)}
+              onClick={() => handler(undefined)}
             >
               catalog
             </Link>
