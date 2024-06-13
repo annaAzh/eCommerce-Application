@@ -1,11 +1,14 @@
 .totalAmount {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
 }
 
-@media (width <= 1050px) {
-  .pricesCard {
-    width: 95%;
-  }
+.amountNotDiscount {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 16px;
+  color: var(--main-color-3);
 }
