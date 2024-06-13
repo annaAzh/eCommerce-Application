@@ -8,7 +8,7 @@ import { profileReducer } from 'features/EditProfile';
 import { cardReducer } from 'features/SelectedProduct';
 import { productReducer } from 'entities/Product';
 import { cartReducer } from 'entities/Cart';
-import { promoCodeReducer } from 'features/UsePromoCode';
+import { promoCodeReducer } from 'features/DisplayPromoCode';
 
 export const rootReducer = combineReducers<StateSchema>({
   user: userReducer,

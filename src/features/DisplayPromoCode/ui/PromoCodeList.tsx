@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { getAccessToken } from 'entities/User';
-import { PromoCode, getPromoCodes, takePromoCodes } from 'features/UsePromoCode';
+import { PromoCode, getPromoCodes, takePromoCodes } from 'features/DisplayPromoCode';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { DISCOUNT } from 'shared/types';
 import style from './PromoCodeList.module.css';

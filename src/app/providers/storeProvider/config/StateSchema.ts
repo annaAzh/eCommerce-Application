@@ -7,7 +7,7 @@ import { ProfileSchema } from 'features/EditProfile';
 import { LoginSchema } from 'features/LoginUser';
 import { RegisterSchema } from 'features/RegistrationUser';
 import { CardSchema } from 'features/SelectedProduct';
-import { PromoCodeSchema } from 'features/UsePromoCode';
+import { PromoCodeSchema } from 'features/DisplayPromoCode';
 
 export interface StateSchema {
   user: Reducer<UserSchema>;

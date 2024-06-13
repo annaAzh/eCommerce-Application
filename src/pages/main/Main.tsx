@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import ImgKittens from 'shared/assets/img/kittensMain.png';
 import './Main.css';
-import { PromoCodeList } from 'widgets/PromoCodeList';
+import { PromoCodeList } from 'features/DisplayPromoCode';
 
 export const Main: FC = () => {
   return (
