@@ -44,6 +44,7 @@ interface SearchQueryProps {
   optionalFilters?: string[];
   search?: string;
   fuzzy?: boolean;
+  currentPage?: number;
 }
 
 interface FormattedCategories {

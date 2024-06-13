@@ -15,3 +15,7 @@
   font-size: 17px;
   user-select: none;
 }
+
+.ant-breadcrumb > ol > li:last-child {
+  pointer-events: none;
+}

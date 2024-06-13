@@ -45,31 +45,35 @@ const products: GetProductResponse = {
       },
     },
   ],
+  total: 2,
 };
 
-const expectedResult = [
-  {
-    id: 'prod-dogfood',
-    key: 'dog-food',
-    name: 'Premium Dog Food',
-    description: 'Complete nutrition for adult dogs.',
-    images: ['https://example.com/dog-food-image1.jpg', 'https://example.com/dog-food-image2.jpg'],
-    prices: {
-      currentPrice: '20.99$',
-      discountedPrice: '18.99$',
+const expectedResult = {
+  result: [
+    {
+      id: 'prod-dogfood',
+      key: 'dog-food',
+      name: 'Premium Dog Food',
+      description: 'Complete nutrition for adult dogs.',
+      images: ['https://example.com/dog-food-image1.jpg', 'https://example.com/dog-food-image2.jpg'],
+      prices: {
+        currentPrice: '20.99$',
+        discountedPrice: '18.99$',
+      },
     },
-  },
-  {
-    id: 'prod-cattoy',
-    key: 'cat-toy',
-    name: 'Interactive Cat Toy',
-    description: 'Keeps your cat entertained for hours.',
-    images: ['https://example.com/cat-toy-image1.jpg', 'https://example.com/cat-toy-image2.jpg'],
-    prices: {
-      currentPrice: '9.99$',
+    {
+      id: 'prod-cattoy',
+      key: 'cat-toy',
+      name: 'Interactive Cat Toy',
+      description: 'Keeps your cat entertained for hours.',
+      images: ['https://example.com/cat-toy-image1.jpg', 'https://example.com/cat-toy-image2.jpg'],
+      prices: {
+        currentPrice: '9.99$',
+      },
     },
-  },
-];
+  ],
+  total: 2,
+};
 
 test('test convertDataIntoAppropriateFormat', () => {
   const result = convertDataIntoAppropriateFormat(products);

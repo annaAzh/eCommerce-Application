@@ -10,6 +10,8 @@ const initialState: ProductSchema = {
   priceRange: { min: 0, max: 100 },
   isLoading: false,
   error: undefined,
+  total: 0,
+  currentPage: 1,
 };
 
 export const productSlice = createSlice({
@@ -53,17 +55,12 @@ export const productSlice = createSlice({
     },
     addSearchCategory(
       state: ProductSchema,
-      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'categoriesId'>> | undefined>,
+      { payload }: PayloadAction<Required<Pick<SearchQueryProps, 'categoriesId'>>>,
     ) {
-      if (!payload) {
-        if (state.searchQueryProps?.categoriesId) {
-          const { categoriesId, ...rest } = state.searchQueryProps;
-          state.searchQueryProps = { ...rest };
-        }
-      } else {
-        const { categoriesId } = payload;
-        state.searchQueryProps = { ...state.searchQueryProps, categoriesId };
-      }
+      const { categoriesId } = payload;
+      const priceRange = undefined;
+      const optionalFilters: string[] = [];
+      state.searchQueryProps = { ...state.searchQueryProps, categoriesId, priceRange, optionalFilters };
     },
     addSearchText(
       state: ProductSchema,
@@ -85,8 +82,9 @@ export const productSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getAllProducts.fulfilled, (state, { payload }: PayloadAction<Product[]>) => {
-        state.products = payload;
+      .addCase(getAllProducts.fulfilled, (state, { payload }: PayloadAction<{ result: Product[]; total: number }>) => {
+        state.products = payload.result;
+        state.total = payload.total;
         state.isLoading = false;
         state.error = undefined;
       })

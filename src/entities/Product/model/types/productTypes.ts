@@ -9,10 +9,13 @@ interface ProductSchema {
   searchQueryProps?: SearchQueryProps;
   error?: string;
   isLoading: boolean;
+  total?: number;
+  currentPage?: number;
 }
 
 interface GetProductResponse {
   results: ProductResponse[];
+  total: number;
 }
 
 type ProductResponse = {
@@ -39,13 +42,14 @@ type CatalogProps = {
   sort?: string;
   fuzzy?: boolean;
   search?: string;
+  page?: number;
 };
 
-interface GetCategoroesResponse {
-  results: CategoroesResponse[];
+interface GetCategoriesResponse {
+  results: CategoriesResponse[];
 }
 
-interface CategoroesResponse {
+interface CategoriesResponse {
   id: string;
   name: {
     'en-US': string;
@@ -77,7 +81,7 @@ export {
   ProductResponse,
   Prices,
   CatalogProps,
-  GetCategoroesResponse,
+  GetCategoriesResponse,
   FormattedCategories,
   ParseResponse,
   FormattedAttributesType,
