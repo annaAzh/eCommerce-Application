@@ -1,6 +1,8 @@
 .applyBlock {
+  position: relative;
   display: flex;
-  gap: 30px;
+  gap: 20px;
+  padding-bottom: 30px;
 }
 
 .inputPromoCode {
@@ -13,7 +15,6 @@
   outline: none;
 }
 
-.cancelPromoCode,
 .buttonApply {
   width: 30%;
   border-radius: 5px;
@@ -37,5 +38,10 @@
 
 .cancelPromoCode {
   display: none;
+  position: absolute;
+  right: 0;
+  bottom: 3px;
   font-size: 13px;
+  color: var(--red);
+  cursor: pointer;
 }

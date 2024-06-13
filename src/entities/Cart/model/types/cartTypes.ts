@@ -15,7 +15,9 @@ interface Cart {
 }
 
 interface DiscountCode {
-  codeId: string;
+  discountCode: {
+    id: string;
+  };
 }
 
 interface LineItem {
