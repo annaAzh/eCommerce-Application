@@ -28,11 +28,7 @@ export const Breadcrumbs: FC<BreadcrumbPropsTruthy | BreadcrumbPropsFalsy> = ({
   }[] = useBasePaths
     ? [
         {
-          title: (
-            <Link to={`/${Paths.main}`} onClick={() => handler(undefined)}>
-              main
-            </Link>
-          ),
+          title: <Link to={`/${Paths.main}`}>main</Link>,
         },
         {
           title: (
