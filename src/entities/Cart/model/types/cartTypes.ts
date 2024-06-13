@@ -11,6 +11,11 @@ interface Cart {
   version: number;
   lineItems: LineItem[];
   totalPrice: PriceFormat;
+  discountCodes?: DiscountCode[];
+}
+
+interface DiscountCode {
+  codeId: string;
 }
 
 interface LineItem {
@@ -23,6 +28,13 @@ interface LineItem {
   variant: {
     images: Images[];
   };
+  discountedPrice?: {
+    value: DiscountedPrice;
+  };
+}
+
+interface DiscountedPrice {
+  centAmount: number;
 }
 
 interface ActionCartProps {
@@ -32,4 +44,4 @@ interface ActionCartProps {
   count?: number;
 }
 
-export { CartSchema, Cart, ActionCartProps, LineItem };
+export { CartSchema, Cart, ActionCartProps, LineItem, DiscountCode };

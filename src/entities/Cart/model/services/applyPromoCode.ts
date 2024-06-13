@@ -1,34 +1,39 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { ErrorWithResponse, BaseTokenError } from 'shared/types';
-import { ActionCartProps, Cart } from '../types/cartTypes';
+import { ActionCartProps } from 'entities/Cart';
+import { Cart } from 'entities/Cart/model/types/cartTypes';
+import { BaseTokenError, ErrorWithResponse } from 'shared/types/errorResponseTypes';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-interface RemoveFromCartProps extends ActionCartProps {
-  lineItemId: string;
+interface PromoCodeProps extends ActionCartProps {
+  code: string;
 }
 
-export const removeFromCart = createAsyncThunk(
-  'cart/removeFromCart',
-  async (props: RemoveFromCartProps, { rejectWithValue }) => {
+export const applyPromoCode = createAsyncThunk(
+  'cart/addDiscountCode',
+  async (props: PromoCodeProps, { rejectWithValue }) => {
+    const { token, version, cartId, code } = props;
     try {
-      const { token, version, cartId, count, lineItemId } = props;
-
       const body = {
         version,
         actions: [
           {
-            action: 'removeLineItem',
-            lineItemId,
-            quantity: count || 1,
+            action: 'addDiscountCode',
+            code,
+          },
+          {
+            action: 'recalculate',
+            updateProductData: false,
           },
         ],
       };
 
       const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
       const res = await axios.post<Cart>(`${API_URL}${PROJECT_KEY}/carts/${cartId}`, body, { headers });
+
+      console.log(res.data);
 
       const success: Cart = {
         id: res.data.id,
