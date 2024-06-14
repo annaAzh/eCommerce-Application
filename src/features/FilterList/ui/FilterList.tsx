@@ -10,7 +10,6 @@ import {
   clearSearchQuery,
   getAllProducts,
   getAttributes,
-  getAvailableCategories,
   getPriceRange,
   getProductsForParsing,
   getSearchQuery,
@@ -89,7 +88,6 @@ export const FilterList: FC = () => {
   useEffect(() => {
     if (!token) return;
     dispatch(getAllProducts({ token }));
-    dispatch(getAvailableCategories(token));
     dispatch(getProductsForParsing({ token }));
     return () => {
       dispatch(clearSearchQuery());
