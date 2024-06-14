@@ -27,7 +27,13 @@ const productDataConversion = (product: LineItem): DataProduct => {
   return newProductEntry;
 };
 
-export const ProductToCard = ({ product }: { product: LineItem }): JSX.Element => {
+export const ProductToCard = ({
+  product,
+  deleteProduct,
+}: {
+  product: LineItem;
+  deleteProduct: (value: string) => void;
+}): JSX.Element => {
   const { name, quantity, image, prices, totalPrice, id, productId } = productDataConversion(product);
   const { discountedPrice, currentPrice } = prices;
 
@@ -36,7 +42,7 @@ export const ProductToCard = ({ product }: { product: LineItem }): JSX.Element =
       <img className={style.imgProduct} src={image}></img>
       <div className={style.dataProduct}>
         <h3 className={style.nameProduct}>{name}</h3>
-        <DeleteProductButton lineItemId={id} />
+        <DeleteProductButton deleteProduct={() => deleteProduct(id)} lineItemId={id} />
         <div className={style.productPrices}>
           {discountedPrice ? (
             <div className={style.priceProduct}>
