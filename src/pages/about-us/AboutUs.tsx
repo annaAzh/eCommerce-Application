@@ -42,7 +42,7 @@ export const AboutUs: FC = () => {
               <p>
                 Welcome to the behind-the-scenes peek at the three brilliant (and slightly quirky) minds responsible for
                 Meowww Shop. This team of pet enthusiasts not only brought this purr-fect pet paradise to life but also
-                managed to do so with a blend of new techologies for them, collaboration, and a hefty dose of humor.
+                managed to do so with a blend of new technologies for them, collaboration, and a hefty dose of humor.
                 Let&apos;s introduce you to the masterminds:
               </p>
             </div>
