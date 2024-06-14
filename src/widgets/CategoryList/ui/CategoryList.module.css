@@ -1,0 +1,46 @@
+.wrapper {
+  width: 100%;
+  text-align: center;
+  padding: 1%;
+}
+
+.container {
+  min-height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  gap: 1%;
+}
+
+.wrapper h2 {
+  font-size: 28px;
+  padding: 20px;
+}
+
+.card {
+  width: 250px;
+  height: 345px;
+  border-radius: 20px;
+  box-shadow:
+    rgb(6 24 44 / 40%) 0 0 0 0,
+    rgb(6 24 44 / 65%) 0 4px 6px -1px,
+    rgb(255 255 255 / 8%) 0 1px 0 inset;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: 0 0 14px var(--blue);
+  }
+}
+
+@media (width <= 530px) {
+  .container {
+    column-gap: 20px;
+  }
+
+  .card {
+    width: 150px;
+    height: 200px;
+  }
+}
