@@ -7,6 +7,11 @@
   font-size: 22px;
 }
 
+.title {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
 @media (width <= 1110px) {
   .pricesAndInput {
     width: 100%;

@@ -22,6 +22,7 @@ export const PriceListInCart = () => {
     <>
       {lineItems && lineItems.length > 0 && totalPrice && discountCodes && (
         <div className={style.pricesAndInput}>
+          <h2 className={style.title}>{'Your Cart'}</h2>
           <FieldApplyPromoCode applyCode={applyCode} removeCode={removeCode} discountCodes={discountCodes} />
           <PriceList totalAmount={totalPrice} lineItems={lineItems} />
         </div>
