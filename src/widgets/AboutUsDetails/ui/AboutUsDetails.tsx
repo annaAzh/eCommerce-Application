@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { AboutUsType } from 'shared/types';
 import style from './AboutUsDetails.module.css';
 
-export const AboutUsDetails: FC<AboutUsType> = ({ ...props }) => {
+export const AboutUsDetails: FC<AboutUsType> = (props) => {
   const { name, bio, contribution, role, imgPath, githubLink, color } = props;
   return (
     <div className={style.detailContainer} style={{ backgroundColor: `${color}` }}>
