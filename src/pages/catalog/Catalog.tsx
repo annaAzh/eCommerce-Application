@@ -14,6 +14,7 @@ import {
 } from 'entities/Product';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { CatalogBreadcrumb } from 'widgets/CatalogBreadcrumb';
+import { PaginationCatalog } from 'widgets/PaginationCatalog';
 import { getAccessToken } from 'entities/User';
 
 export const Catalog: FC = () => {
@@ -50,6 +51,7 @@ export const Catalog: FC = () => {
         <div className={style.leftSide}>
           <FilterList />
           <ProductList />
+          <PaginationCatalog />
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
-import { GetCategoroesResponse } from '../types/productTypes';
+import { GetCategoriesResponse } from '../types/productTypes';
 import { convertCategoriesIntoAppropriateFormat } from './getAvailableCategories';
 
-const testData: GetCategoroesResponse = {
+const testData: GetCategoriesResponse = {
   results: [
     { id: '1', name: { 'en-US': 'Pets' } },
     { id: '2', name: { 'en-US': 'Dogs' }, parent: { id: '1' } },
