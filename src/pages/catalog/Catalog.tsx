@@ -5,13 +5,31 @@ import { NavMenu } from 'widgets/NavMenu';
 import { ProductList } from 'widgets/ProductList';
 import style from './Catalog.module.css';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
-import { getProductError } from 'entities/Product';
+import {
+  clearSearchQuery,
+  getAllProducts,
+  getAvailableCategories,
+  getProductError,
+  getProductsForParsing,
+} from 'entities/Product';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { CatalogBreadcrumb } from 'widgets/CatalogBreadcrumb';
+import { getAccessToken } from 'entities/User';
 
 export const Catalog: FC = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(getProductError);
+  const token = useAppSelector(getAccessToken);
+
+  useEffect(() => {
+    if (!token) return;
+    dispatch(getAllProducts({ token }));
+    dispatch(getAvailableCategories(token));
+    dispatch(getProductsForParsing({ token }));
+    return () => {
+      dispatch(clearSearchQuery());
+    };
+  }, [token]);
 
   useEffect(() => {
     if (!error) return;

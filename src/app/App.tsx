@@ -8,7 +8,6 @@ import { getLocalStoreState } from 'shared/lib/storeState/storeState';
 import { refreshFlow } from 'entities/User/model/services/requestRefreshToken';
 import { getExistCart } from 'entities/Cart';
 import { useAppSelector } from 'shared/lib/hooks';
-import { getAvailableCategories } from 'entities/Product';
 
 export const App: FC = () => {
   const dispatch = useAppDispatch();
@@ -39,7 +38,6 @@ export const App: FC = () => {
   useEffect(() => {
     if (!token) return;
     dispatch(getExistCart(token));
-    dispatch(getAvailableCategories(token));
   }, [token]);
 
   return <RouteProvider />;
