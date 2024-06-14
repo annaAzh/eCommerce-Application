@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import { Paths } from 'shared/types';
 import { addSearchCategory, getAllCategories } from 'entities/Product';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
-import { useEffect } from 'react';
 import { HashLoader } from 'react-spinners';
 
 export const CategoryList = () => {
@@ -16,14 +15,8 @@ export const CategoryList = () => {
   const categories = useAppSelector(getAllCategories);
 
   const handler = (categoriesId: string) => {
-    console.log(categoriesId);
     dispatch(addSearchCategory({ categoriesId }));
   };
-
-  useEffect(() => {
-    console.log(categories);
-  }, [categories]);
-  // <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />
 
   return (
     <div className={style.wrapper}>
