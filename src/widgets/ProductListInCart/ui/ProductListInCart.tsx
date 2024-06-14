@@ -10,7 +10,7 @@ import {
   removeFromCart,
   removePromoCode,
 } from 'entities/Cart';
-import { ProductToCard } from 'features/ManageCartItemRow';
+import { ProductToCart } from 'features/ManageCartItemRow';
 import ImgKitten from 'shared/assets/img/kittenForCart.png';
 import { Link } from 'react-router-dom';
 import { CallstackType, Paths } from 'shared/types';
@@ -72,7 +72,7 @@ export const ProductListForCart = () => {
           {lineItems.map((product: LineItem, index) => {
             return (
               <li key={index} className={style.productCart}>
-                <ProductToCard product={product} handler={addToCallstack} />
+                <ProductToCart product={product} handler={addToCallstack} />
               </li>
             );
           })}
