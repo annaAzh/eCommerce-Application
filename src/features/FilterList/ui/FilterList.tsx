@@ -7,10 +7,8 @@ import {
   addSearchOptional,
   addSearchPriceRange,
   addSearchSortBy,
-  clearSearchQuery,
   getAllProducts,
   getAttributes,
-  getAvailableCategories,
   getPriceRange,
   getProductsForParsing,
   getSearchQuery,
@@ -88,23 +86,13 @@ export const FilterList: FC = () => {
 
   useEffect(() => {
     if (!token) return;
-    if (searchQuery?.categoriesId) {
-      dispatch(getAvailableCategories(token));
-    } else {
-      dispatch(getAllProducts({ token }));
-      dispatch(getAvailableCategories(token));
-      dispatch(getProductsForParsing({ token }));
-    }
-
-    return () => {
-      dispatch(clearSearchQuery());
-    };
-  }, [token]);
-
-  useEffect(() => {
-    if (!token || !searchQuery?.categoriesId) return;
     setOptionalFilters(undefined);
-    dispatch(getProductsForParsing({ token, filter: getFormattedCategoryId(searchQuery.categoriesId) }));
+    dispatch(
+      getProductsForParsing({
+        token,
+        filter: searchQuery?.categoriesId ? getFormattedCategoryId(searchQuery.categoriesId) : undefined,
+      }),
+    );
   }, [searchQuery?.categoriesId]);
 
   const memoPriceRangeFilter = useMemo(() => {
