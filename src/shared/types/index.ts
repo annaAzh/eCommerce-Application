@@ -1,4 +1,4 @@
-export { DISCOUNT } from './discountTypes';
+export { Discount } from './discountTypes';
 
 export {
   Product,

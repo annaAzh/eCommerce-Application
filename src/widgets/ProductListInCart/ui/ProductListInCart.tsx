@@ -60,5 +60,5 @@ export const ProductListForCart = () => {
     );
   }, [lineItems]);
 
-  return <>{lineItems && addedProducts}</>;
+  return <>{addedProducts}</>;
 };

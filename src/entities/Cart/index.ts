@@ -1,3 +1,5 @@
+export { clearCartError } from './model/slices/cartSlice';
+
 export { clearRemoteCart } from './model/services/clearRemoteCart';
 
 export { removePromoCode } from './model/services/removePromoCode';

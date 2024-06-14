@@ -14,10 +14,9 @@ export const PriceListInCart = () => {
     if (token && id && version) dispatch(applyPromoCode({ code, token, cartId: id, version }));
   };
 
-  const removeCode = (clearInput: (value: string) => void) => {
+  const removeCode = () => {
     if (token && version && id && discountCodes)
       dispatch(removePromoCode({ token, version, cartId: id, idCode: discountCodes[0].discountCode.id }));
-    clearInput('');
   };
   return (
     <>
