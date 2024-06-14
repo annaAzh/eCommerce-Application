@@ -4,6 +4,7 @@ import { CategoryList } from 'widgets/CategoryList';
 import { getAvailableCategories } from 'entities/Product';
 import { getAccessToken } from 'entities/User';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
+import { PromoCodeList } from 'features/DisplayPromoCode';
 
 export const Main: FC = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ export const Main: FC = () => {
 
   return (
     <div className="wrapper-main">
+      <PromoCodeList />
       <CategoryList />
     </div>
   );

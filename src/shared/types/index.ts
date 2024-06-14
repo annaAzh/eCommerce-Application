@@ -1,3 +1,5 @@
+export { Discount } from './discountTypes';
+
 export {
   Product,
   FormattedPrice,
@@ -12,3 +14,5 @@ export {
 export { Paths } from './routerTypes';
 
 export { ErrorWithResponse, BaseTokenError } from './errorResponseTypes';
+
+export { AboutUsType } from './aboutUsType';

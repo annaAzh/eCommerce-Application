@@ -35,6 +35,7 @@ export const removeFromCart = createAsyncThunk(
         version: res.data.version,
         lineItems: res.data.lineItems,
         totalPrice: res.data.totalPrice,
+        discountCodes: res.data.discountCodes,
       };
 
       return success;

@@ -2,6 +2,7 @@
   width: 100%;
   text-align: center;
   padding: 1%;
+  background: var(--main-color-0);
 }
 
 .container {
@@ -16,7 +17,7 @@
 
 .wrapper h2 {
   font-size: 28px;
-  padding: 20px;
+  padding: 0 0 20px;
 }
 
 .card {
