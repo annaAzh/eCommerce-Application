@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { LineItem, clearRemoteCart, getCart, getExistCart, removePromoCode } from 'entities/Cart';
-import { ProductToCard } from 'features/ManageCartItemRow';
+import { ProductToCart } from 'features/ManageCartItemRow';
 import ImgKitten from 'shared/assets/img/kittenForCart.png';
 import { Link } from 'react-router-dom';
 import { Paths } from 'shared/types';
@@ -40,7 +40,7 @@ export const ProductListForCart = () => {
           {lineItems.map((product: LineItem, index) => {
             return (
               <li key={index} className={style.productCart}>
-                <ProductToCard deleteProduct={deleteProduct} product={product} />
+                <ProductToCart deleteProduct={deleteProduct} product={product} />
               </li>
             );
           })}

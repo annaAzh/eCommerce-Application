@@ -1,6 +1,6 @@
 import { LineItem } from 'entities/Cart';
-import { FormattedPrice, PriceFormat } from 'shared/types';
-import { setPrices, totalPriceConversion } from 'shared/lib/dataConverters';
+import { FormattedPrice } from 'shared/types';
+import { setPrices, totalPriceConversion, totalPriceWithoutDiscounts } from 'shared/lib/dataConverters';
 import { DeleteProductButton, QuantityChangeButton } from './controlsElements';
 import style from './ProductToCart.module.css';
 
@@ -11,7 +11,9 @@ interface DataProduct {
   quantity: number;
   image: string;
   prices: FormattedPrice;
-  totalPrice: PriceFormat;
+  totalPrice: string;
+  totalPriseNotDiscount: string;
+  discountPrice: string | undefined;
 }
 
 const productDataConversion = (product: LineItem): DataProduct => {
@@ -22,19 +24,22 @@ const productDataConversion = (product: LineItem): DataProduct => {
     quantity: product.quantity,
     image: product.variant.images[0].url,
     prices: setPrices(product.price),
-    totalPrice: product.totalPrice,
+    totalPrice: totalPriceConversion(product.totalPrice),
+    totalPriseNotDiscount: totalPriceWithoutDiscounts(product),
+    discountPrice: product.discountedPrice ? totalPriceConversion(product.discountedPrice.value) : undefined,
   };
   return newProductEntry;
 };
 
-export const ProductToCard = ({
+export const ProductToCart = ({
   product,
   deleteProduct,
 }: {
   product: LineItem;
   deleteProduct: (value: string) => void;
 }): JSX.Element => {
-  const { name, quantity, image, prices, totalPrice, id, productId } = productDataConversion(product);
+  const { name, quantity, image, prices, totalPrice, id, productId, discountPrice, totalPriseNotDiscount } =
+    productDataConversion(product);
   const { discountedPrice, currentPrice } = prices;
 
   return (
@@ -44,15 +49,24 @@ export const ProductToCard = ({
         <h3 className={style.nameProduct}>{name}</h3>
         <DeleteProductButton deleteProduct={() => deleteProduct(id)} lineItemId={id} />
         <div className={style.productPrices}>
-          {discountedPrice ? (
+          {discountedPrice && (
             <div className={style.priceProduct}>
-              {'Discounted Price'}
+              {'Sale Price'}
               <div className={style.discountedPrice}>{discountedPrice}</div>
+              <div className={style.priceNotDiscount}>{currentPrice}</div>
             </div>
-          ) : (
+          )}
+          {discountPrice && (
+            <div className={`${style.priceProduct} ${style.notDiscount}`}>
+              {'Discounted Price'}
+              <div className={style.discountedPrice}>{discountPrice}</div>
+              <div className={style.priceNotDiscount}>{currentPrice}</div>
+            </div>
+          )}
+          {!discountPrice && !discountedPrice && (
             <div className={`${style.priceProduct} ${style.notDiscount}`}>
               {'Price'}
-              <div className={style.currentPrice}> {currentPrice}</div>
+              <div className={style.currentPrice}>{currentPrice}</div>
             </div>
           )}
           <div className={style.priceProduct}>
@@ -63,7 +77,19 @@ export const ProductToCard = ({
           </div>
           <div className={`${style.priceProduct} ${style.amount}`}>
             {'Total Price'}
-            <div className={style.totalAmount}>{totalPriceConversion(totalPrice)}</div>
+            {discountedPrice && (
+              <>
+                <div className={`${style.totalAmount} ${style.sale}`}>{totalPrice}</div>
+                <div className={style.totalAmountNotDiscount}>{totalPriseNotDiscount}</div>
+              </>
+            )}
+            {discountPrice && (
+              <>
+                <div className={`${style.totalAmount} ${style.sale}`}>{totalPrice}</div>
+                <div className={style.totalAmountNotDiscount}>{totalPriseNotDiscount}</div>
+              </>
+            )}
+            {!discountedPrice && !discountPrice && <div className={style.totalAmount}>{totalPrice}</div>}
           </div>
         </div>
       </div>
