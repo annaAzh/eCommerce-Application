@@ -1,0 +1,79 @@
+.item0 {
+  background: url('../../../shared/assets/img/pets/all.jpg');
+}
+
+.item1 {
+  background: url('../../../shared/assets/img/pets/cat.jpg');
+}
+
+.item2 {
+  background: url('../../../shared/assets/img/pets/dog.jpg');
+}
+
+.item3 {
+  background: url('../../../shared/assets/img/pets/rabbit.jpg');
+}
+
+.item {
+  width: 800px;
+  height: 400px;
+  border-radius: 5px;
+  background-size: cover;
+  margin: 10px;
+  background-position: center;
+  box-shadow:
+    rgb(6 24 44 / 40%) 0 0 0 0,
+    rgb(6 24 44 / 65%) 0 4px 6px -1px,
+    rgb(255 255 255 / 8%) 0 1px 0 inset;
+}
+
+.promoCover {
+  display: flex;
+  padding: 0 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.promo {
+  color: var(--main-color-0);
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.description {
+  color: var(--main-color-0);
+  font-size: 11px;
+}
+
+@media (width <= 1050px) {
+  .item {
+    width: 600px;
+    height: 300px;
+  }
+}
+
+@media (width <= 750px) {
+  .item {
+    width: 500px;
+    height: 200px;
+  }
+}
+
+@media (width <= 610px) {
+  .promo {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 8px;
+  }
+
+  .item {
+    width: 300px;
+    height: 150px;
+  }
+}
