@@ -1,7 +1,18 @@
+.wrapper {
+  width: 100%;
+  text-align: center;
+  padding: 1%;
+  background-color: var(--main-color-0);
+}
+
+.title {
+  font-size: 28px;
+}
+
 .containerPromoCodes {
   display: flex;
-  padding: 5%;
-  gap: 50px;
+  padding: 2% 5%;
+  gap: 40px;
 }
 
 .promoCode {
