@@ -1,5 +1,5 @@
 import { LineItem } from 'entities/Cart';
-import { FormattedPrice, PriceFormat } from 'shared/types';
+import { CallstackType, FormattedPrice, PriceFormat } from 'shared/types';
 import { setPrices, totalPriceConversion } from 'shared/lib/dataConverters';
 import { DeleteProductButton, QuantityChangeButton } from './controlsElements';
 import style from './ProductToCart.module.css';
@@ -29,12 +29,12 @@ const productDataConversion = (product: LineItem): DataProduct => {
 
 export const ProductToCard = ({
   product,
-  deleteProduct,
+  handler,
 }: {
   product: LineItem;
-  deleteProduct: (value: string) => void;
+  handler: (data: CallstackType) => void;
 }): JSX.Element => {
-  const { name, quantity, image, prices, totalPrice, id, productId } = productDataConversion(product);
+  const { name, quantity, image, prices, totalPrice, productId } = productDataConversion(product);
   const { discountedPrice, currentPrice } = prices;
 
   return (
@@ -42,7 +42,7 @@ export const ProductToCard = ({
       <img className={style.imgProduct} src={image}></img>
       <div className={style.dataProduct}>
         <h3 className={style.nameProduct}>{name}</h3>
-        <DeleteProductButton deleteProduct={() => deleteProduct(id)} lineItemId={id} />
+        <DeleteProductButton productId={productId} handler={handler} />
         <div className={style.productPrices}>
           {discountedPrice ? (
             <div className={style.priceProduct}>
@@ -58,7 +58,7 @@ export const ProductToCard = ({
           <div className={style.priceProduct}>
             {'Quantity'}
             <div className={style.quantity}>
-              <QuantityChangeButton number={quantity} lineItemId={id} productId={productId} />
+              <QuantityChangeButton handler={handler} number={quantity} productId={productId} />
             </div>
           </div>
           <div className={`${style.priceProduct} ${style.amount}`}>

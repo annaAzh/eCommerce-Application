@@ -9,6 +9,7 @@ export {
   CurrencyCodes,
   PriceFormat,
   AddToCartProps,
+  CallstackType,
 } from './productTypes';
 
 export { Paths } from './routerTypes';

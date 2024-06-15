@@ -1,13 +1,14 @@
 import { Popconfirm } from 'antd';
 import style from './DeleteProductButton.module.css';
 import DeleteIcon from 'shared/assets/img/deleteProduct.svg';
+import { CallstackType } from 'shared/types';
 
 export const DeleteProductButton = ({
-  deleteProduct,
-  lineItemId,
+  handler,
+  productId,
 }: {
-  deleteProduct: (value: string) => void;
-  lineItemId: string;
+  handler: (data: CallstackType) => void;
+  productId: string;
 }) => {
   return (
     <Popconfirm
@@ -16,7 +17,7 @@ export const DeleteProductButton = ({
       okText="Yes"
       okType="default"
       cancelText="No"
-      onConfirm={() => deleteProduct(lineItemId)}
+      onConfirm={() => handler({ type: 'clear', payload: productId })}
     >
       <img src={DeleteIcon} className={style.deleteButton}></img>
     </Popconfirm>
