@@ -10,7 +10,7 @@ export const PriceListInCart = () => {
   const token = useAppSelector(getAccessToken);
   const dispatch = useAppDispatch();
   const { lineItems, totalPrice, version, id: cartId, discountCodes } = useAppSelector(getCart);
-  const originalGooads = useAppSelector(getOriginalGoods);
+  const originalGoods = useAppSelector(getOriginalGoods);
 
   const applyCode = (code: string) => {
     if (token && cartId && version) dispatch(applyPromoCode({ code, token, cartId, version }));
@@ -25,7 +25,7 @@ export const PriceListInCart = () => {
     if (!token || !cartId || !version) return;
     const lineItemId: string[] = [];
 
-    originalGooads.forEach((value) => lineItemId.push(value));
+    originalGoods.forEach((value) => lineItemId.push(value));
     dispatch(clearRemoteCart({ token, cartId, version, lineItemId }));
   };
 

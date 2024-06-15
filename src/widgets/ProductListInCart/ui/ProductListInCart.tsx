@@ -21,7 +21,7 @@ export const ProductListForCart = () => {
   const { lineItems, version, id: cartId, discountCodes } = useAppSelector(getCart);
   const dispatch = useAppDispatch();
   const token = useAppSelector(getAccessToken);
-  const originalGooads = useAppSelector(getOriginalGoods);
+  const originalGoods = useAppSelector(getOriginalGoods);
   const [callstack, setCallstack] = useState<CallstackType[]>([]);
   const [usedVersion, setUsedVersion] = useState<number>();
 
@@ -32,7 +32,7 @@ export const ProductListForCart = () => {
   useEffect(() => {
     if (!callstack.length || !token || !cartId || !version || usedVersion === version) return;
     const line: CallstackType = callstack[0];
-    const item: string | undefined = originalGooads.get(line.payload);
+    const item: string | undefined = originalGoods.get(line.payload);
     setCallstack((prev) => prev.slice(1));
 
     if (!item) return;
