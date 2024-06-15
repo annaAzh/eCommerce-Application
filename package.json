@@ -57,6 +57,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
+    "@egjs/flicking-plugins": "^4.7.1",
+    "@egjs/react-flicking": "^4.11.3",
     "@reduxjs/toolkit": "^2.2.3",
     "antd": "^5.17.0",
     "axios": "^1.6.8",
