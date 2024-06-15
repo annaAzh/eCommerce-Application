@@ -15,12 +15,17 @@
 }
 
 .item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0 10px;
   width: 800px;
   height: 400px;
   border-radius: 5px;
   background-size: cover;
   margin: 10px;
   background-position: center;
+  cursor: pointer;
   box-shadow:
     rgb(6 24 44 / 40%) 0 0 0 0,
     rgb(6 24 44 / 65%) 0 4px 6px -1px,
@@ -29,7 +34,6 @@
 
 .promoCover {
   display: flex;
-  padding: 0 10px;
   align-items: center;
   justify-content: space-between;
 }
@@ -38,15 +42,17 @@
   color: var(--main-color-0);
   font-size: 30px;
   font-weight: bold;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
 }
 
 .description {
   color: var(--main-color-0);
   font-size: 11px;
+}
+
+.code {
+  color: var(--green);
+  font-size: 35px;
+  font-weight: bold;
 }
 
 @media (width <= 1050px) {
@@ -70,6 +76,10 @@
 
   .description {
     font-size: 8px;
+  }
+
+  .code {
+    font-size: 25px;
   }
 
   .item {
