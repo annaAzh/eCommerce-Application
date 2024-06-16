@@ -6,6 +6,7 @@ import { getAccessToken } from 'entities/User';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { PromoCodeList } from 'features/DisplayPromoCode';
 import { PromoList } from 'widgets/PromoList';
+import { OnSaleBlock } from 'widgets/OnSaleBlock';
 
 export const Main: FC = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ export const Main: FC = () => {
       <PromoList />
       <PromoCodeList />
       <CategoryList />
+      <OnSaleBlock />
     </div>
   );
 };
