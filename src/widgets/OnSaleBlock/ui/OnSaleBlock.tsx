@@ -4,6 +4,8 @@ import style from './OnSaleBlock.module.css';
 import '@egjs/react-flicking/dist/flicking.css';
 import saleIcon from '../../../shared/assets/img/onSale.svg';
 import { GreenButtonWithPlus } from 'shared/ui';
+import { useNavigate } from 'react-router-dom';
+import { Paths } from 'shared/types';
 
 const pluginsLeft = [new AutoPlay({ duration: 4000, direction: 'NEXT', stopOnHover: false })];
 const pluginsRight = [new AutoPlay({ duration: 4000, direction: 'PREV', stopOnHover: false })];
@@ -11,6 +13,12 @@ const pluginsRight = [new AutoPlay({ duration: 4000, direction: 'PREV', stopOnHo
 const saleCategories = ['dry food', 'dry food', 'treats', 'beds', 'cages'];
 
 export const OnSaleBlock = () => {
+  const navigate = useNavigate();
+
+  const click = () => {
+    navigate(`/${Paths.catalog}`);
+  };
+
   return (
     <div className={style.wrapper}>
       <h3>Sales</h3>
@@ -22,7 +30,7 @@ export const OnSaleBlock = () => {
                 <div className={style.saleLeft}>
                   <img className={style.svgLeft} src={saleIcon} alt="sale" />
                   {title}
-                  <GreenButtonWithPlus disabled={false} text="shop now" />
+                  <GreenButtonWithPlus disabled={false} text="shop now" handler={click} />
                 </div>
               </div>
             ))}
@@ -42,7 +50,8 @@ export const OnSaleBlock = () => {
                 <div className={style.saleRight}>
                   <img className={style.svgRight} src={saleIcon} alt="sale" />
                   {title}
-                  <GreenButtonWithPlus disabled={false} text="shop now" />
+
+                  <GreenButtonWithPlus disabled={false} text="shop now" handler={click} />
                 </div>
               </div>
             ))}
