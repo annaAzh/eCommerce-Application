@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
 import { getAccessToken } from 'entities/User';
 import { takePromoCodes, getPromoCodes, PromoCode } from 'features/DisplayPromoCode';
 import { Discount } from 'shared/types';
+import { HashLoader } from 'react-spinners';
 const plugins = [new AutoPlay({ duration: 3000, direction: 'NEXT', stopOnHover: true })];
 
 export const PromoList: FC = () => {
@@ -42,19 +43,31 @@ export const PromoList: FC = () => {
   };
 
   return (
-    <Flicking circular={true} renderOnlyVisible={true} plugins={plugins}>
-      {promoCodes.map((promo: PromoCode, index: number) => {
-        const name: keyof typeof Discount = promo.code as keyof typeof Discount;
-        return (
-          <div className={`${style[`item${index}`]} ${style.item}`} onClick={() => click(promo.code)} key={index}>
-            <div className={style.promoCover}>
-              <div className={style.description}> {`${promo.description['en-US']}`}</div>
-              <div className={style.promo}>{`${Discount[name]}`}</div>
-            </div>
-            <div className={style.code}>{promo.code}</div>
-          </div>
-        );
-      })}
-    </Flicking>
+    <>
+      {promoCodes.length > 0 ? (
+        <Flicking circular={true} renderOnlyVisible={true} plugins={plugins}>
+          {promoCodes.map((promo: PromoCode, index: number) => {
+            const name: keyof typeof Discount = promo.code as keyof typeof Discount;
+            return (
+              <div className={`${style[`item${index}`]} ${style.item}`} onClick={() => click(promo.code)} key={index}>
+                <div className={style.promoCover}>
+                  <div className={style.description}> {`${promo.description['en-US']}`}</div>
+                  <div className={style.promo}>{`${Discount[name]}`}</div>
+                </div>
+                <div className={style.code}>{promo.code}</div>
+              </div>
+            );
+          })}
+        </Flicking>
+      ) : (
+        <div style={{ flexGrow: '1', minHeight: '400px', display: 'flex' }}>
+          <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />
+        </div>
+      )}
+    </>
   );
 };
+
+{
+  /* <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} /> */
+}

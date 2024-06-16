@@ -20,6 +20,7 @@
   display: flex;
   justify-content: center;
   gap: 10px;
+  flex-grow: 1;
 }
 
 .leftSide,
@@ -65,7 +66,7 @@
   display: flex;
   justify-content: end;
   cursor: pointer;
-  border: 1px solid var(--main-color-0);
+  border: 1px solid var(--main-color-3);
 }
 
 .leftItem {
