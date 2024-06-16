@@ -31,12 +31,8 @@ interface LineItem {
     images: Images[];
   };
   discountedPrice?: {
-    value: DiscountedPrice;
+    value: PriceFormat;
   };
-}
-
-interface DiscountedPrice {
-  centAmount: number;
 }
 
 interface ActionCartProps {

@@ -1,18 +1,31 @@
+.wrapper {
+  width: 100%;
+  text-align: center;
+  padding: 1%;
+  background-color: var(--main-color-0);
+}
+
+.title {
+  font-size: 28px;
+}
+
 .containerPromoCodes {
   display: flex;
-  padding: 5%;
-  gap: 50px;
+  padding: 2% 5%;
+  gap: 40px;
 }
 
 .promoCode {
-  width: 25%;
+  max-width: 25%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .promoCodeName {
-  width: 200px;
+  max-width: 200px;
+  width: 100%;
   height: 100px;
   padding: 7px;
   background: radial-gradient(#c1e28e, #527223);
@@ -36,8 +49,46 @@
 }
 
 .promoCodeDescription {
+  max-width: 70%;
+  width: 100%;
   margin-top: 10px;
-  width: 70%;
   text-align: center;
   font-size: 12px;
+}
+
+@media (width <= 1050px) {
+  .promoCodeDiscount {
+    font-size: 24px;
+  }
+
+  .promoCodeName {
+    max-width: 150px;
+    width: 100%;
+    height: 75px;
+    font-size: 22px;
+  }
+}
+
+@media (width <= 830px) {
+  .containerPromoCodes {
+    flex-direction: column;
+  }
+
+  .promoCode {
+    max-width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .promoCodeDescription {
+    margin-top: 5px;
+    margin-left: 20px;
+    text-align: left;
+  }
+}
+
+@media (width <= 600px) {
+  .promoCode {
+    flex-grow: 1;
+  }
 }
