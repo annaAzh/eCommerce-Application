@@ -37,7 +37,7 @@
 .img1 {
   background:
     url('../../../shared/assets/img/sale/cat.png') left / contain no-repeat,
-    linear-gradient(90deg, #848383 0%, #fdffb6 100%);
+    linear-gradient(90deg, #dfdede 0%, #fdffb6 100%);
 }
 
 .img2 {
@@ -54,8 +54,8 @@
 
 .img4 {
   background:
-    url('../../../shared/assets/img/sale/cage.png') left / contain no-repeat,
-    linear-gradient(90deg, #848383 0%, #fdffb6 100%);
+    url('../../../shared/assets/img/sale/cage.png') left / cover no-repeat,
+    linear-gradient(90deg, #dfdede 0%, #fdffb6 100%);
 }
 
 .leftItem,
