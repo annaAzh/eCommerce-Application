@@ -1,5 +1,5 @@
 import { LineItem } from 'entities/Cart';
-import { CallstackType, FormattedPrice, PriceFormat } from 'shared/types';
+import { CallstackType, FormattedPrice } from 'shared/types';
 import { setPrices, totalPriceConversion, totalPriceWithoutDiscounts } from 'shared/lib/dataConverters';
 import { DeleteProductButton, QuantityChangeButton } from './controlsElements';
 import style from './ProductToCart.module.css';
@@ -38,7 +38,7 @@ export const ProductToCart = ({
   product: LineItem;
   handler: (data: CallstackType) => void;
 }): JSX.Element => {
-  const { name, quantity, image, prices, totalPrice, id, productId, discountPrice, totalPriseNotDiscount } =
+  const { name, quantity, image, prices, totalPrice, productId, discountPrice, totalPriseNotDiscount } =
     productDataConversion(product);
   const { discountedPrice, currentPrice } = prices;
 

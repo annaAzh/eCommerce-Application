@@ -13,7 +13,7 @@ export const PriceListInCart = () => {
   const originalGoods = useAppSelector(getOriginalGoods);
 
   const applyCode = (code: string) => {
-    if (token && cartId && version) dispatch(applyPromoCode({ code, token, cartId, version }));
+    if (token && cartId && version && code.trim().length) dispatch(applyPromoCode({ code, token, cartId, version }));
   };
 
   const removeCode = () => {

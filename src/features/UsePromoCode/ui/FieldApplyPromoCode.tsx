@@ -45,7 +45,7 @@ export const FieldApplyPromoCode = ({
 
   return (
     <>
-      <div className={style.applyBlock}>
+      <form className={style.applyBlock}>
         <input
           className={style.inputPromoCode}
           type="text"
@@ -54,7 +54,15 @@ export const FieldApplyPromoCode = ({
           value={inputValue}
           onChange={(event) => getInputValue(event.target.value)}
         ></input>
-        <button className={style.buttonApply} disabled={disabled} type="button" onClick={() => applyCode(inputValue)}>
+        <button
+          className={style.buttonApply}
+          disabled={disabled}
+          type="submit"
+          onClick={(e) => {
+            e.preventDefault();
+            applyCode(inputValue);
+          }}
+        >
           Apply
         </button>
         <div
@@ -67,7 +75,7 @@ export const FieldApplyPromoCode = ({
         >
           {'Cancel promo code'} &#10006;
         </div>
-      </div>
+      </form>
     </>
   );
 };

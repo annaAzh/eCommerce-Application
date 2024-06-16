@@ -8,7 +8,7 @@
 .inputPromoCode {
   width: 70%;
   height: 2rem;
-  padding: 10px;
+  padding: 3px 10px 0;
   border-radius: 5px;
   border: 2px solid var(--green);
   font-size: 18px;
