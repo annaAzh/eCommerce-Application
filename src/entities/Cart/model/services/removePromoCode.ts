@@ -32,8 +32,6 @@ export const removePromoCode = createAsyncThunk(
       const headers = { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' };
       const res = await axios.post<Cart>(`${API_URL}${PROJECT_KEY}/carts/${cartId}`, body, { headers });
 
-      console.log(res.data);
-
       const success: Cart = {
         id: res.data.id,
         version: res.data.version,
