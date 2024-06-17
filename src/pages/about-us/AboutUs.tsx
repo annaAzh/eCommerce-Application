@@ -1,11 +1,14 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, Suspense, lazy } from 'react';
 import style from './AboutUs.module.css';
-import { AboutUsDetails } from 'widgets/AboutUsDetails';
 import { HashLoader } from 'react-spinners';
 import img from 'shared/assets/img/aboutUsCat.png';
 import imgLogo from 'shared/assets/img/rsLogo.webp';
 import { Link } from 'react-router-dom';
 import { aboutUs } from 'shared/consts';
+
+const AboutUsDetails = lazy(() =>
+  import('widgets/AboutUsDetails').then((module) => ({ default: module.AboutUsDetails })),
+);
 
 const RSSLink: FC = () => (
   <Link to="https://rs.school/" target="_blank">
@@ -45,24 +48,20 @@ const AboutUsTop: FC = () => (
   </div>
 );
 
+const Loader: FC = () => {
+  return <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />;
+};
+
 export const AboutUs: FC = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    setIsLoading(false);
-  }, []);
-
-  if (isLoading) {
-    return <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />;
-  }
-
   return (
-    <div className={style.cover}>
-      <div className={style.wrapper}>
-        <h2 className={style.title}>About us</h2>
-        <AboutUsTop />
-        <AboutUsContent />
+    <Suspense fallback={<Loader />}>
+      <div className={style.cover}>
+        <div className={style.wrapper}>
+          <h2 className={style.title}>About us</h2>
+          <AboutUsTop />
+          <AboutUsContent />
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 };
