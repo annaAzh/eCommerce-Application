@@ -3,7 +3,7 @@ export type AboutUsType = {
   role: string;
   bio: string;
   contribution: string;
-  imgPath: string;
   githubLink: string;
   color: string;
+  images: string[];
 };
