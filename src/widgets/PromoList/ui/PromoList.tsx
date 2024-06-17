@@ -43,7 +43,7 @@ export const PromoList: FC = () => {
   };
 
   return (
-    <>
+    <div className={style.cover}>
       {promoCodes.length > 0 ? (
         <Flicking circular={true} renderOnlyVisible={true} plugins={plugins}>
           {promoCodes.map((promo: PromoCode, index: number) => {
@@ -60,14 +60,8 @@ export const PromoList: FC = () => {
           })}
         </Flicking>
       ) : (
-        <div style={{ flexGrow: '1', minHeight: '400px', display: 'flex' }}>
-          <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />
-        </div>
+        <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} />
       )}
-    </>
+    </div>
   );
 };
-
-{
-  /* <HashLoader color="#6d972e" cssOverride={{ margin: 'auto' }} size={80} /> */
-}

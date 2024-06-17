@@ -1,6 +1,6 @@
 import { SearchQueryProps } from 'shared/types';
 import { getFormattedCategoryId } from './getFormattedCategoryId';
-import { DEFAULT_PAGE } from 'shared/consts';
+import { DEFAULT_PAGE } from '../../../shared/consts';
 
 type CatalogProps = {
   token: string;

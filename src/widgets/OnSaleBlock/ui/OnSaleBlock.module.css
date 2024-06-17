@@ -1,6 +1,6 @@
 .wrapper {
   width: 100%;
-  padding: 10px;
+  padding: 20px 10px;
   background: var(--main-color-1);
   display: flex;
   justify-content: center;
@@ -14,7 +14,7 @@
 }
 
 .container {
-  width: 1000px;
+  min-height: 420px;
   padding: 10px;
   background: var(--main-color-1);
   display: flex;
@@ -49,12 +49,6 @@
 
 .img3 {
   background:
-    url('../../../shared/assets/img/sale/bed.png') left / contain no-repeat,
-    linear-gradient(90deg, #e9c46a 0%, #fdffb6 100%);
-}
-
-.img4 {
-  background:
     url('../../../shared/assets/img/sale/cage.png') left / cover no-repeat,
     linear-gradient(90deg, #dfdede 0%, #fdffb6 100%);
 }
@@ -70,13 +64,13 @@
 }
 
 .leftItem {
-  width: 600px;
+  width: 650px;
   align-items: top;
   padding: 20px;
 }
 
 .rightItem {
-  width: 350px;
+  width: 375px;
   padding: 10px;
 }
 
@@ -86,7 +80,13 @@
   font-weight: bold;
   display: flex;
   flex-direction: column;
+  justify-content: end;
   align-items: end;
+  text-shadow:
+    -1px -1px 0 var(--main-color-0),
+    1px -1px 0 var(--main-color-0),
+    -1px 1px 0 var(--main-color-0),
+    1px 1px 0 var(--main-color-0);
 }
 
 .saleLeft {
@@ -98,6 +98,12 @@
 .saleRight {
   font-size: 20px;
   gap: 5px;
+}
+
+.saleCover {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
 }
 
 .svgLeft,
@@ -115,6 +121,16 @@
   width: 50px;
 }
 
+@media (width <= 1150px) {
+  .leftItem {
+    width: 550px;
+  }
+
+  .rightItem {
+    width: 325px;
+  }
+}
+
 @media (width <= 1050px) {
   .leftItem {
     width: 500px;
@@ -126,27 +142,17 @@
 }
 
 @media (width <= 900px) {
-  .leftSide,
-  .rightSide {
-    height: 350px;
-  }
-
-  .leftItem {
-    width: 400px;
-    padding: 10px;
-  }
-
-  .rightItem {
-    width: 250px;
-  }
-}
-
-@media (width <= 750px) {
   .leftSide {
     display: none;
   }
 
   .rightItem {
-    width: 350px;
+    width: 400px;
+  }
+}
+
+@media (width <= 500px) {
+  .rightItem {
+    width: 325px;
   }
 }

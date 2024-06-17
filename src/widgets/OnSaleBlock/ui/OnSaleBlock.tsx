@@ -13,19 +13,19 @@ import { HashLoader } from 'react-spinners';
 interface CategoryList {
   category: string;
   title: string;
+  discount: string;
 }
 
 const pluginsLeft = [new AutoPlay({ duration: 3000, direction: 'NEXT', stopOnHover: true })];
 const pluginsRight = [new AutoPlay({ duration: 3000, direction: 'PREV', stopOnHover: true })];
 
-// const saleCategories = ['dry food', 'dry food', 'treats', 'beds', 'cages'];
 const saleCategories: CategoryList[] = [
-  { category: 'Cats', title: 'Dry food' },
-  { category: 'Dogs', title: 'Dry food' },
-  { category: 'Dogs', title: 'Treats' },
-  { category: 'Dogs', title: 'Beds' },
-  { category: 'Small Pets', title: 'Cages' },
+  { category: 'Dogs', title: 'Beds', discount: '30%' },
+  { category: 'Cats', title: 'Dry food', discount: '10%' },
+  { category: 'Dogs', title: 'Treats', discount: '15%' },
+  { category: 'Small Pets', title: 'Cages', discount: '50%' },
 ];
+
 export const OnSaleBlock = () => {
   const navigate = useNavigate();
   const categories = useAppSelector(getAllCategories);
@@ -44,7 +44,6 @@ export const OnSaleBlock = () => {
 
   return (
     <div className={style.wrapper}>
-      <h3>Sales</h3>
       {categories.length > 0 ? (
         <div className={style.container}>
           <div className={style.leftSide}>
@@ -53,7 +52,10 @@ export const OnSaleBlock = () => {
                 <div className={`${style.leftItem} ${style[`img${index}`]}`} key={index}>
                   <div className={style.saleLeft}>
                     <img className={style.svgLeft} src={saleIcon} alt="sale" />
-                    {line.title}
+                    <div className={style.saleCover}>
+                      <div>{line.discount}</div>
+                      <div>{line.title}</div>
+                    </div>
                     <GreenButtonWithPlus
                       disabled={false}
                       text="shop now"
@@ -77,8 +79,10 @@ export const OnSaleBlock = () => {
                 <div className={`${style.rightItem} ${style[`img${index}`]}`} key={index}>
                   <div className={style.saleRight}>
                     <img className={style.svgRight} src={saleIcon} alt="sale" />
-                    {line.title}
-
+                    <div className={style.saleCover}>
+                      <div>{line.discount}</div>
+                      <div>{line.title}</div>
+                    </div>
                     <GreenButtonWithPlus
                       disabled={false}
                       text="shop now"
