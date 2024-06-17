@@ -1,1 +1,1 @@
-export { ProductToCard } from './ui/ProductToCart';
+export { ProductToCart } from './ui/ProductToCart';

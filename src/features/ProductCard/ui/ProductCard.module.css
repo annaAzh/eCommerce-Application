@@ -10,10 +10,16 @@
   padding: 1%;
   background: white;
   user-select: none;
+  box-shadow:
+    rgb(6 24 44 / 40%) 0 0 0 0,
+    rgb(6 24 44 / 65%) 0 4px 4px -1px,
+    rgb(255 255 255 / 8%) 0 1px 0 inset;
 
   &:hover {
     cursor: pointer;
-    box-shadow: 0 0 4px var(--blue);
+    box-shadow:
+      var(--blue) 0 1px 10px -12px inset,
+      var(--blue) 0 0 4px;
   }
 }
 

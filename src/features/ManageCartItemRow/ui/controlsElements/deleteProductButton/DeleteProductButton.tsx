@@ -1,22 +1,15 @@
 import { Popconfirm } from 'antd';
-import { getCart } from 'entities/Cart';
-import { getAccessToken } from 'entities/User';
-import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
-import { clearRemoteCart } from 'entities/Cart/model/services/clearRemoteCart';
 import style from './DeleteProductButton.module.css';
 import DeleteIcon from 'shared/assets/img/deleteProduct.svg';
+import { CallstackType } from 'shared/types';
 
-export const DeleteProductButton = ({ lineItemId }: { lineItemId: string }) => {
-  const dispatch = useAppDispatch();
-  const token = useAppSelector(getAccessToken);
-  const cart = useAppSelector(getCart);
-
-  const deleteProduct = () => {
-    if (token && cart.id && cart.version) {
-      dispatch(clearRemoteCart({ token, version: cart.version, cartId: cart.id, lineItemId: [lineItemId] }));
-    }
-  };
-
+export const DeleteProductButton = ({
+  handler,
+  productId,
+}: {
+  handler: (data: CallstackType) => void;
+  productId: string;
+}) => {
   return (
     <Popconfirm
       title="Delete product"
@@ -24,7 +17,7 @@ export const DeleteProductButton = ({ lineItemId }: { lineItemId: string }) => {
       okText="Yes"
       okType="default"
       cancelText="No"
-      onConfirm={deleteProduct}
+      onConfirm={() => handler({ type: 'clear', payload: productId })}
     >
       <img src={DeleteIcon} className={style.deleteButton}></img>
     </Popconfirm>

@@ -1,48 +1,22 @@
-import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
+import { CallstackType } from 'shared/types';
 import style from './QuantityChangeButton.module.css';
-import { addToCart, getCart, removeFromCart } from 'entities/Cart';
-import { getAccessToken } from 'entities/User';
 
 export const QuantityChangeButton = ({
-  lineItemId,
   number,
   productId,
+  handler,
 }: {
-  lineItemId: string;
   number: number;
   productId: string;
+  handler: (data: CallstackType) => void;
 }): JSX.Element => {
-  const dispatch = useAppDispatch();
-  const token = useAppSelector(getAccessToken);
-  const cart = useAppSelector(getCart);
-
-  const reduceQuantity = () => {
-    if (token && cart.id && cart.version)
-      dispatch(
-        removeFromCart({
-          token,
-          lineItemId,
-          cartId: cart.id,
-          version: cart.version,
-        }),
-      );
-  };
-
-  const addQuantity = () => {
-    if (token && cart.id && cart.version)
-      dispatch(
-        addToCart({
-          token,
-          productId,
-          cartId: cart.id,
-          version: cart.version,
-        }),
-      );
-  };
-
   return (
     <div className={style.buttonQuantity}>
-      <button type="button" className={style.buttonRemove} onClick={reduceQuantity}>
+      <button
+        type="button"
+        className={style.buttonRemove}
+        onClick={() => handler({ type: 'remove', payload: productId })}
+      >
         {'-'}
       </button>
       <input
@@ -54,7 +28,7 @@ export const QuantityChangeButton = ({
         inputMode="numeric"
         className={style.inputNumber}
       ></input>
-      <button type="button" className={style.buttonAdd} onClick={addQuantity}>
+      <button type="button" className={style.buttonAdd} onClick={() => handler({ type: 'add', payload: productId })}>
         {'+'}
       </button>
     </div>

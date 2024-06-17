@@ -60,8 +60,9 @@ const links: LinkOfPage[] = [
     label: (
       <Link className="link-profile" to={Paths.cart}>
         <Tooltip title="cart">
-          <CartBadge />
-          <ShoppingCartOutlined style={{ fontSize: '2rem' }} />
+          <CartBadge>
+            <ShoppingCartOutlined style={{ fontSize: '2rem' }} />
+          </CartBadge>
         </Tooltip>
       </Link>
     ),

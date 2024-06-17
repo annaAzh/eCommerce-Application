@@ -1,0 +1,20 @@
+.pricesAndInput {
+  width: 30%;
+  padding: 1%;
+  border-radius: 5px;
+  border: 1px solid var(--main-color-4);
+  background: white;
+  font-size: 22px;
+}
+
+.title {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+@media (width <= 1110px) {
+  .pricesAndInput {
+    width: 100%;
+    padding: 2%;
+  }
+}

@@ -1,0 +1,119 @@
+.item0 {
+  background: url('../../../shared/assets/img/pets/all.jpg');
+}
+
+.item1 {
+  background: url('../../../shared/assets/img/pets/cat.jpg');
+}
+
+.item2 {
+  background: url('../../../shared/assets/img/pets/dog.jpg');
+}
+
+.item3 {
+  background: url('../../../shared/assets/img/pets/rabbit.jpg');
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 800px;
+  height: 400px;
+  padding: 0 10px;
+  border-radius: 5px;
+  background-size: cover;
+  margin: 10px;
+  background-position: center;
+  cursor: pointer;
+  box-shadow:
+    rgb(6 24 44 / 40%) 0 0 0 0,
+    rgb(6 24 44 / 65%) 0 4px 6px -1px,
+    rgb(255 255 255 / 8%) 0 1px 0 inset;
+}
+
+.promoCover {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.promo {
+  color: var(--main-color-4);
+  font-size: 35px;
+  font-weight: bold;
+  text-shadow:
+    -1px -1px 0 var(--main-color-0),
+    1px -1px 0 var(--main-color-0),
+    -1px 1px 0 var(--main-color-0),
+    1px 1px 0 var(--main-color-0);
+}
+
+.description {
+  color: var(--main-color-0);
+  font-size: 11px;
+}
+
+.code {
+  color: var(--main-color-4);
+  font-size: 45px;
+  font-weight: bold;
+  text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
+}
+
+.cover {
+  min-height: 400px;
+  display: flex;
+  flex-grow: 1;
+  padding-bottom: 10px;
+}
+
+@media (width <= 1050px) {
+  .item {
+    width: 600px;
+    height: 300px;
+  }
+
+  .cover {
+    min-height: 300px;
+    padding-bottom: 0;
+  }
+}
+
+@media (width <= 750px) {
+  .item {
+    width: 500px;
+    height: 200px;
+  }
+
+  .cover {
+    min-height: 200px;
+  }
+}
+
+@media (width <= 610px) {
+  .promo {
+    font-size: 20px;
+  }
+
+  .description {
+    font-size: 8px;
+  }
+
+  .code {
+    font-size: 25px;
+  }
+
+  .item {
+    width: 300px;
+    height: 150px;
+  }
+
+  .cover {
+    min-height: 150px;
+  }
+}

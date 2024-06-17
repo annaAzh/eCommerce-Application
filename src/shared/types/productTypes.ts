@@ -44,6 +44,7 @@ interface SearchQueryProps {
   optionalFilters?: string[];
   search?: string;
   fuzzy?: boolean;
+  currentPage?: number;
 }
 
 interface FormattedCategories {
@@ -56,6 +57,11 @@ interface AddToCartProps {
   id: string;
 }
 
+interface CallstackType {
+  type: 'add' | 'remove' | 'clear';
+  payload: string;
+}
+
 export {
   Product,
   Prices,
@@ -66,4 +72,5 @@ export {
   CurrencyCodes,
   PriceFormat,
   AddToCartProps,
+  CallstackType,
 };

@@ -35,6 +35,7 @@
 }
 
 .priceProduct {
+  position: relative;
   color: var(--main-color-3);
   display: flex;
   flex-direction: column;
@@ -51,8 +52,20 @@
   font-weight: 600;
 }
 
+.sale,
 .discountedPrice {
   color: var(--red);
+}
+
+.totalAmountNotDiscount,
+.priceNotDiscount {
+  position: absolute;
+  top: 23px;
+  right: -20px;
+  color: var(--main-color-3);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: line-through;
 }
 
 @media (width <= 780px) {
@@ -76,6 +89,12 @@
   .discountedPrice {
     font-size: 22px;
     padding-left: 20px;
+    padding-top: 15px;
+  }
+
+  .totalAmountNotDiscount,
+  .priceNotDiscount {
+    top: 0;
   }
 }
 
@@ -92,5 +111,10 @@
 
   .nameProduct {
     text-align: center;
+  }
+
+  .totalAmountNotDiscount,
+  .priceNotDiscount {
+    right: 0;
   }
 }

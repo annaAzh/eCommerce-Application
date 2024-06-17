@@ -1,3 +1,9 @@
+export { amountOfDiscountByPromoCode } from './amountOfDiscountByPromoCode';
+
+export { amountOfDiscountOnSale } from './amountOfDiscountOnSale';
+
+export { totalPriceWithoutDiscounts } from './totalPriceWithoutDiscounts';
+
 export { totalPriceConversion } from './totalPriceConversion';
 
 export { getSubCategory } from './getSubCategory';
