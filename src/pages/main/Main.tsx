@@ -4,7 +4,8 @@ import { CategoryList } from 'widgets/CategoryList';
 import { getAvailableCategories } from 'entities/Product';
 import { getAccessToken } from 'entities/User';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
-import { PromoCodeList } from 'features/DisplayPromoCode';
+import { PromoList } from 'widgets/PromoList';
+import { OnSaleBlock } from 'widgets/OnSaleBlock';
 
 export const Main: FC = () => {
   const dispatch = useAppDispatch();
@@ -17,8 +18,9 @@ export const Main: FC = () => {
 
   return (
     <div className="wrapper-main">
-      <PromoCodeList />
+      <PromoList />
       <CategoryList />
+      <OnSaleBlock />
     </div>
   );
 };

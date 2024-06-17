@@ -10,7 +10,7 @@ import {
   getAllProducts,
   getAvailableCategories,
   getProductError,
-  getProductsForParsing,
+  getSearchQuery,
 } from 'entities/Product';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { CatalogBreadcrumb } from 'widgets/CatalogBreadcrumb';
@@ -21,12 +21,15 @@ export const Catalog: FC = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(getProductError);
   const token = useAppSelector(getAccessToken);
+  const searchQuery = useAppSelector(getSearchQuery);
 
   useEffect(() => {
     if (!token) return;
-    dispatch(getAllProducts({ token }));
+    if (!searchQuery?.categoriesId) {
+      dispatch(getAllProducts({ token }));
+    }
     dispatch(getAvailableCategories(token));
-    dispatch(getProductsForParsing({ token }));
+
     return () => {
       dispatch(clearSearchQuery());
     };
