@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Cart, CartSchema } from '../types/cartTypes';
-import { createCart } from 'entities/Cart/model/services/createCart';
-import { getExistCart } from 'entities/Cart/model/services/getExistCart';
-import { addToCart } from 'entities/Cart/model/services/addToCart';
-import { removeFromCart } from 'entities/Cart/model/services/removeFromCart';
-import { clearRemoteCart } from 'entities/Cart/model/services/clearRemoteCart';
+import { createCart } from '../services/createCart';
+import { getExistCart } from '../services/getExistCart';
+import { addToCart } from '../services/addToCart';
+import { removeFromCart } from '../services/removeFromCart';
+import { clearRemoteCart } from '../services/clearRemoteCart';
 import { applyPromoCode } from '../services/applyPromoCode';
 import { removePromoCode } from '../services/removePromoCode';
 

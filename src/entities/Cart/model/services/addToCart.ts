@@ -6,7 +6,7 @@ import { ActionCartProps, Cart } from '../types/cartTypes';
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-interface AddToCartProps extends ActionCartProps {
+export interface AddToCartProps extends ActionCartProps {
   productId: string;
 }
 

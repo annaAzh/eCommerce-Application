@@ -6,7 +6,7 @@ import axios from 'axios';
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-const changeFormatOfIncomingData = (data: PromoCodeResponse): PromoCode[] => {
+export const changeFormatOfIncomingData = (data: PromoCodeResponse): PromoCode[] => {
   const result: PromoCode[] = [];
 
   data.results.forEach((item: PromoCode) => {

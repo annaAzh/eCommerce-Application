@@ -12,8 +12,8 @@ export const createCart = createAsyncThunk('cart/createCart', async (token: stri
     const res = await axios.post<Cart>(`${API_URL}${PROJECT_KEY}/me/carts`, { currency: 'USD' }, { headers });
 
     const { id, version, lineItems, totalPrice, discountCodes } = res.data;
-
-    return { id, version, lineItems, totalPrice, discountCodes };
+    const result: Cart = { id, version, lineItems, totalPrice, discountCodes };
+    return result;
   } catch (error) {
     let errorMsg = 'error';
     const reject: ErrorWithResponse = error as ErrorWithResponse;

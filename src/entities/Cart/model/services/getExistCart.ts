@@ -13,8 +13,8 @@ export const getExistCart = createAsyncThunk('cart/getExistCart', async (token: 
     });
 
     const { id, version, lineItems, totalPrice, discountCodes } = res.data;
-
-    return { id, version, lineItems, totalPrice, discountCodes };
+    const result: Cart = { id, version, lineItems, totalPrice, discountCodes };
+    return result;
   } catch (error) {
     let errorMsg = 'error';
     const reject: ErrorWithResponse = error as ErrorWithResponse;

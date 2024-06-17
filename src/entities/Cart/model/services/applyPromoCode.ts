@@ -7,7 +7,7 @@ import { BaseTokenError, ErrorWithResponse } from 'shared/types/errorResponseTyp
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-interface PromoCodeProps extends ActionCartProps {
+export interface PromoCodeProps extends ActionCartProps {
   code: string;
 }
 

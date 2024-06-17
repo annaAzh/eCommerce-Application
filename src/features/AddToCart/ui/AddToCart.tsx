@@ -28,7 +28,7 @@ export const AddToCart: FC<AddToCartProps> = ({ id }) => {
     } else {
       setTimeout(() => {
         setProductId(undefined);
-      }, 200);
+      }, 400);
 
       if (!cart.version || usedId.has(id)) return;
       dispatch(addToCart({ token, productId: id, cartId: cart.id, version: cart.version }));
