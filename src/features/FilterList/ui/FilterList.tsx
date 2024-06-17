@@ -93,7 +93,7 @@ export const FilterList: FC = () => {
         filter: searchQuery?.categoriesId ? getFormattedCategoryId(searchQuery.categoriesId) : undefined,
       }),
     );
-  }, [searchQuery?.categoriesId]);
+  }, [searchQuery?.categoriesId, token]);
 
   const memoPriceRangeFilter = useMemo(() => {
     return <PriceRangeFilter minAndMax={priceRange} handleData={priceRangeFilterHandler} />;

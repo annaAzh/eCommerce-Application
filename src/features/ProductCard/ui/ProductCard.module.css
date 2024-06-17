@@ -17,7 +17,9 @@
 
   &:hover {
     cursor: pointer;
-    box-shadow: var(--blue) 0 1px 30px -12px inset;
+    box-shadow:
+      var(--blue) 0 1px 10px -12px inset,
+      var(--blue) 0 0 4px;
   }
 }
 

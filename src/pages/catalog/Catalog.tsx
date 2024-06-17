@@ -10,7 +10,6 @@ import {
   getAllProducts,
   getAvailableCategories,
   getProductError,
-  getProductsForParsing,
   getSearchQuery,
 } from 'entities/Product';
 import { setNotificationMessage } from 'entities/NotificationTool';
@@ -28,7 +27,6 @@ export const Catalog: FC = () => {
     if (!token) return;
     if (!searchQuery?.categoriesId) {
       dispatch(getAllProducts({ token }));
-      dispatch(getProductsForParsing({ token }));
     }
     dispatch(getAvailableCategories(token));
 
