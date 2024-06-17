@@ -55,9 +55,10 @@ describe('testing product slice', () => {
     expect(state.searchQueryProps).toEqual(payload);
   });
   it('test addSearchCategory reducer', () => {
-    const payload: Required<Pick<SearchQueryProps, 'categoriesId'>> | undefined = undefined;
+    const testData = '123S';
+    const payload: Required<Pick<SearchQueryProps, 'categoriesId'>> = { categoriesId: testData };
     const state = productReducer(initialState, { type: addSearchCategory.type, payload });
-    expect(state.searchQueryProps).toBeUndefined();
+    expect(state.searchQueryProps?.categoriesId).toBe(testData);
   });
   it('test addSearchText reducer', () => {
     const payload: Required<Pick<SearchQueryProps, 'search' | 'fuzzy'>> | undefined = { search: 'test', fuzzy: true };

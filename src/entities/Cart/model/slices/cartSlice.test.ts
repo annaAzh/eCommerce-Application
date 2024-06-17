@@ -1,8 +1,10 @@
 import { AddToCartProps, addToCart } from '../services/addToCart';
+import { PromoCodeProps, applyPromoCode } from '../services/applyPromoCode';
 import { ClearRemoteCartProps, clearRemoteCart } from '../services/clearRemoteCart';
 import { createCart } from '../services/createCart';
 import { getExistCart } from '../services/getExistCart';
 import { RemoveFromCartProps, removeFromCart } from '../services/removeFromCart';
+import { RemovePromoCodeProps, removePromoCode } from '../services/removePromoCode';
 import { Cart, CartSchema } from '../types/cartTypes';
 import { cartReducer, clearCart } from './cartSlice';
 
@@ -18,6 +20,7 @@ const cart: Cart = {
   version: 1,
   lineItems: [],
   totalPrice: { centAmount: 1300, currencyCode: 'USD', fractionDigits: 2 },
+  discountCodes: undefined,
 };
 
 const addToCartTestData: AddToCartProps = {
@@ -39,6 +42,22 @@ const clearRemoteCartTestData: ClearRemoteCartProps = {
   version: 1,
   cartId: 'test',
   lineItemId: [],
+};
+
+const applyPromoCodeTestData: PromoCodeProps = {
+  token: '12345abcde-token',
+  version: 1,
+  cartId: 'cart12345',
+  count: 3,
+  code: 'PROMO2024',
+};
+
+const removePromoCodeTestData: RemovePromoCodeProps = {
+  token: 'abc123xyz',
+  version: 1,
+  cartId: 'cart-001',
+  count: 2,
+  idCode: 'PROMO2024',
 };
 
 describe('testing cart slice', () => {
@@ -107,6 +126,37 @@ describe('testing cart slice', () => {
     const state = cartReducer(
       initialState,
       clearRemoteCart.pending('clearRemoteCart/pending', clearRemoteCartTestData),
+    );
+    expect(state.isLoading).toBeTruthy();
+  });
+  it('test applyPromoCode/fulfilled', () => {
+    const state = cartReducer(
+      initialState,
+      applyPromoCode.fulfilled(cart, 'applyPromoCode/fulfilled', applyPromoCodeTestData),
+    );
+    expect(state.error).toBeUndefined();
+    expect(state.isLoading).toBeFalsy();
+    expect(state.cart).toBeDefined();
+    expect(state.cart).toEqual(cart);
+  });
+  it('test applyPromoCode/pending', () => {
+    const state = cartReducer(initialState, applyPromoCode.pending('applyPromoCode/pending', applyPromoCodeTestData));
+    expect(state.isLoading).toBeTruthy();
+  });
+  it('test removePromoCode/fulfilled', () => {
+    const state = cartReducer(
+      initialState,
+      removePromoCode.fulfilled(cart, 'removePromoCode/fulfilled', removePromoCodeTestData),
+    );
+    expect(state.error).toBeUndefined();
+    expect(state.isLoading).toBeFalsy();
+    expect(state.cart).toBeDefined();
+    expect(state.cart).toEqual(cart);
+  });
+  it('test removePromoCode/pending', () => {
+    const state = cartReducer(
+      initialState,
+      removePromoCode.pending('removePromoCode/pending', removePromoCodeTestData),
     );
     expect(state.isLoading).toBeTruthy();
   });

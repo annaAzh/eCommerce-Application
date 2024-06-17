@@ -7,13 +7,13 @@ import { BaseTokenError, ErrorWithResponse } from 'shared/types/errorResponseTyp
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-interface PromoCodeProps extends ActionCartProps {
+export interface RemovePromoCodeProps extends ActionCartProps {
   idCode: string;
 }
 
 export const removePromoCode = createAsyncThunk(
   'cart/removeDiscountCode',
-  async (props: PromoCodeProps, { rejectWithValue }) => {
+  async (props: RemovePromoCodeProps, { rejectWithValue }) => {
     const { token, version, cartId, idCode } = props;
     try {
       const body = {
