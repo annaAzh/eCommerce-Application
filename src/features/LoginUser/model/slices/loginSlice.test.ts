@@ -1,10 +1,10 @@
 import { requestLogin } from '../services/requestLogin';
 import { LoginData, LoginSchema, RefreshTokenSucces } from '../types/loginTypes';
-import { clearLoginError, loginReducer } from './loginSlice';
+import { clearCustomerId, clearLoginError, loginReducer } from './loginSlice';
 
 const loginData: LoginData = { username: 'test', password: 'test', token: 'test' };
 const initialState: LoginSchema = {
-  customerId: undefined,
+  customerId: 'test',
   isLoading: false,
   error: { header: 'test', message: 'another test' },
   responseId: Math.random(),
@@ -18,6 +18,10 @@ describe('Testing login slice', () => {
   it('should return error equal undefined', () => {
     const state = loginReducer(initialState, { type: clearLoginError.type });
     expect(state.error).toBeUndefined();
+  });
+  it('should return customerId equal undefined', () => {
+    const state = loginReducer(initialState, { type: clearCustomerId.type });
+    expect(state.customerId).toBeUndefined();
   });
   it('should return new customer id', () => {
     const mockData: RefreshTokenSucces = {

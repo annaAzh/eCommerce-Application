@@ -1,0 +1,44 @@
+.buttonQuantity {
+  display: flex;
+  border-radius: 5px;
+  border: 1px solid #a7a4a4;
+}
+
+.inputNumber {
+  width: 60px;
+  appearance: none;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+  border: none;
+}
+
+.buttonAdd,
+.buttonRemove {
+  font-size: 24px;
+  border: none;
+  padding: 0 5px;
+  cursor: pointer;
+}
+
+.buttonRemove {
+  padding: 0 7px;
+  font-size: 26px;
+  border-right: 1px solid #a7a4a4;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.buttonAdd {
+  border-left: 1px solid #a7a4a4;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.buttonAdd:hover {
+  background: var(--green);
+}
+
+.buttonRemove:hover {
+  background: var(--red);
+}

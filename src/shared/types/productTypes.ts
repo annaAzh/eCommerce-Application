@@ -34,6 +34,8 @@ type Images = {
 
 type FormattedPrice = { currentPrice: string; discountedPrice?: string };
 
+type PriceFormat = { centAmount: number; currencyCode: CurrencyCodes; fractionDigits: number };
+
 interface SearchQueryProps {
   sortField?: 'name.en-US' | 'price';
   sortBy?: 'asc' | 'desc';
@@ -42,6 +44,7 @@ interface SearchQueryProps {
   optionalFilters?: string[];
   search?: string;
   fuzzy?: boolean;
+  currentPage?: number;
 }
 
 interface FormattedCategories {
@@ -50,4 +53,24 @@ interface FormattedCategories {
   subCategory: Omit<FormattedCategories, 'subCategory'>[];
 }
 
-export { Product, Prices, Images, FormattedPrice, SearchQueryProps, FormattedCategories };
+interface AddToCartProps {
+  id: string;
+}
+
+interface CallstackType {
+  type: 'add' | 'remove' | 'clear';
+  payload: string;
+}
+
+export {
+  Product,
+  Prices,
+  Images,
+  FormattedPrice,
+  SearchQueryProps,
+  FormattedCategories,
+  CurrencyCodes,
+  PriceFormat,
+  AddToCartProps,
+  CallstackType,
+};

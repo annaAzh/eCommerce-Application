@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { FormattedCategories, GetCategoroesResponse } from '../types/productTypes';
+import { FormattedCategories, GetCategoriesResponse } from '../types/productTypes';
 import { BaseTokenError, ErrorWithResponse } from 'shared/types';
 
 const PROJECT_KEY = process.env.PROJECT_KEY;
 const API_URL = process.env.API_URL;
 
-export const convertCategoriesIntoAppropriateFormat = (data: GetCategoroesResponse) => {
+export const convertCategoriesIntoAppropriateFormat = (data: GetCategoriesResponse) => {
   const result: FormattedCategories[] = [];
   data.results.forEach((category) => {
     const { name, id } = category;
@@ -33,7 +33,7 @@ export const getAvailableCategories = createAsyncThunk(
         headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
       });
 
-      const success: GetCategoroesResponse = res.data;
+      const success: GetCategoriesResponse = res.data;
       return convertCategoriesIntoAppropriateFormat(success);
     } catch (error) {
       let errorMsg = 'error';

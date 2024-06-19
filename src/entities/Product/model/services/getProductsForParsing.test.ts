@@ -51,6 +51,7 @@ const products: GetProductResponse = {
       },
     },
   ],
+  total: 2,
 };
 
 const expectedResults = {

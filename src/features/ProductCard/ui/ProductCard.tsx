@@ -1,10 +1,17 @@
-import { Product } from 'shared/types';
+import { AddToCartProps, Product } from 'shared/types';
 import styles from './ProductCard.module.css';
 import onSale from 'shared/assets/img/onSale.svg';
 import parse from 'html-react-parser';
+import { FC } from 'react';
 
-const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: string) => void }): JSX.Element => {
-  const { images, description, name, prices, key } = product;
+interface Props {
+  product: Product;
+  onClick: (key: string) => void;
+  AddToCartBtn: FC<AddToCartProps>;
+}
+
+const ProductCard: FC<Props> = ({ product, onClick, AddToCartBtn }) => {
+  const { images, description, name, prices, key, id } = product;
   const { discountedPrice, currentPrice } = prices;
   const descMaxLength = 300;
   const firstImage = images[0];
@@ -31,6 +38,9 @@ const ProductCard = ({ product, onClick }: { product: Product; onClick: (key: st
           ) : (
             <div className={`${styles.commonPriceClass} ${styles.price}`}>{currentPrice}</div>
           )}
+          <div className={styles.buttonCover} onClick={(e) => e.stopPropagation()}>
+            <AddToCartBtn id={id} />
+          </div>
         </div>
       </div>
     </div>

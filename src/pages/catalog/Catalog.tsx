@@ -5,13 +5,35 @@ import { NavMenu } from 'widgets/NavMenu';
 import { ProductList } from 'widgets/ProductList';
 import style from './Catalog.module.css';
 import { useAppDispatch, useAppSelector } from 'shared/lib/hooks';
-import { getProductError } from 'entities/Product';
+import {
+  clearSearchQuery,
+  getAllProducts,
+  getAvailableCategories,
+  getProductError,
+  getSearchQuery,
+} from 'entities/Product';
 import { setNotificationMessage } from 'entities/NotificationTool';
 import { CatalogBreadcrumb } from 'widgets/CatalogBreadcrumb';
+import { PaginationCatalog } from 'widgets/PaginationCatalog';
+import { getAccessToken } from 'entities/User';
 
 export const Catalog: FC = () => {
   const dispatch = useAppDispatch();
   const error = useAppSelector(getProductError);
+  const token = useAppSelector(getAccessToken);
+  const searchQuery = useAppSelector(getSearchQuery);
+
+  useEffect(() => {
+    if (!token) return;
+    if (!searchQuery?.categoriesId) {
+      dispatch(getAllProducts({ token }));
+    }
+    dispatch(getAvailableCategories(token));
+
+    return () => {
+      dispatch(clearSearchQuery());
+    };
+  }, [token]);
 
   useEffect(() => {
     if (!error) return;
@@ -32,6 +54,7 @@ export const Catalog: FC = () => {
         <div className={style.leftSide}>
           <FilterList />
           <ProductList />
+          <PaginationCatalog />
         </div>
       </div>
     </>

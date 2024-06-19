@@ -7,6 +7,7 @@ import { clearLocalStoreState } from 'shared/lib/storeState/storeState';
 import { Paths } from 'shared/types';
 import './LogoutButton.css';
 import { LogoutOutlined } from '@ant-design/icons';
+import { clearCart } from 'entities/Cart';
 
 export const ButtonLogOut = (): JSX.Element => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,7 @@ export const ButtonLogOut = (): JSX.Element => {
 
   const LogoutUser = () => {
     dispatch(setUserIsLoginedStatus(isLogin));
+    dispatch(clearCart());
     dispatch(
       setNotificationMessage({
         message: "You're logged out",

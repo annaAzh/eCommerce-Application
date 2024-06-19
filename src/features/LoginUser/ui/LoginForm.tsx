@@ -20,6 +20,7 @@ import { setNotificationMessage } from 'entities/NotificationTool';
 import { getLoginCustomerId, getLoginError, getLoginResponseId } from '../model/selectors/loginSelectors';
 import { clearCustomerId, clearLoginError } from '../model/slices/loginSlice';
 import { Paths } from 'shared/types';
+import { clearCart } from 'entities/Cart';
 
 type LoginData = { email: string; password: string };
 
@@ -42,6 +43,7 @@ const LoginForm: FC = () => {
     if (!loginCustomerId || !loginData) return;
     const { email, password } = loginData;
     dispatch(setUserId(loginCustomerId));
+    dispatch(clearCart());
     dispatch(passwordFlow({ username: email, password }));
     dispatch(
       setNotificationMessage({

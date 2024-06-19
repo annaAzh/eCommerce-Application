@@ -7,10 +7,8 @@ import {
   addSearchOptional,
   addSearchPriceRange,
   addSearchSortBy,
-  clearSearchQuery,
   getAllProducts,
   getAttributes,
-  getAvailableCategories,
   getPriceRange,
   getProductsForParsing,
   getSearchQuery,
@@ -32,7 +30,7 @@ export const FilterList: FC = () => {
     dispatch(addSearchSortBy(data));
   };
 
-  const priceRamgeFilterHandler = (data: Required<Pick<SearchQueryProps, 'priceRange'>> | undefined) => {
+  const priceRangeFilterHandler = (data: Required<Pick<SearchQueryProps, 'priceRange'>> | undefined) => {
     dispatch(addSearchPriceRange(data));
   };
 
@@ -78,27 +76,27 @@ export const FilterList: FC = () => {
   useEffect(() => {
     if (!token || !searchQuery) return;
     dispatch(getAllProducts(createSortAndSearchQuery(token, searchQuery)));
-  }, [searchQuery?.sortBy, searchQuery?.optionalFilters, searchQuery?.priceRange, searchQuery?.search]);
+  }, [
+    searchQuery?.sortField,
+    searchQuery?.sortBy,
+    searchQuery?.optionalFilters,
+    searchQuery?.priceRange,
+    searchQuery?.search,
+  ]);
 
   useEffect(() => {
     if (!token) return;
-    dispatch(getAllProducts({ token }));
-    dispatch(getAvailableCategories(token));
-    dispatch(getProductsForParsing({ token }));
-    return () => {
-      dispatch(clearSearchQuery());
-    };
-  }, [token]);
-
-  useEffect(() => {
-    if (!token || !searchQuery?.categoriesId) return;
-    dispatch(addSearchPriceRange(undefined));
-    setOptionalFilters([]);
-    dispatch(getProductsForParsing({ token, filter: getFormattedCategoryId(searchQuery.categoriesId) }));
-  }, [searchQuery?.categoriesId]);
+    setOptionalFilters(undefined);
+    dispatch(
+      getProductsForParsing({
+        token,
+        filter: searchQuery?.categoriesId ? getFormattedCategoryId(searchQuery.categoriesId) : undefined,
+      }),
+    );
+  }, [searchQuery?.categoriesId, token]);
 
   const memoPriceRangeFilter = useMemo(() => {
-    return <PriceRangeFilter minAndMax={priceRange} handleData={priceRamgeFilterHandler} />;
+    return <PriceRangeFilter minAndMax={priceRange} handleData={priceRangeFilterHandler} />;
   }, [priceRange]);
 
   const memoOptionalFilter = useMemo(() => {
