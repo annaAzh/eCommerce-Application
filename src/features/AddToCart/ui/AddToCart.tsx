@@ -17,6 +17,14 @@ export const AddToCart: FC<AddToCartProps> = ({ id }) => {
   const [usedId, setUsedId] = useState<Set<string>>(new Set<string>());
 
   useEffect(() => {
+    if (originalGoods.has(id)) {
+      setTimeout(() => {
+        setProductId(undefined);
+      }, 200);
+    }
+  }, [originalGoods]);
+
+  useEffect(() => {
     if (!token) return;
     if (!productId) {
       setUsedId(new Set<string>());
@@ -26,10 +34,6 @@ export const AddToCart: FC<AddToCartProps> = ({ id }) => {
     if (!cart.id) {
       dispatch(createCart(token));
     } else {
-      setTimeout(() => {
-        setProductId(undefined);
-      }, 400);
-
       if (!cart.version || usedId.has(id)) return;
       dispatch(addToCart({ token, productId: id, cartId: cart.id, version: cart.version }));
       setUsedId((prev) => prev.add(id));
