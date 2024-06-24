@@ -1,0 +1,7 @@
+const CARD_ON_PAGE = 4;
+
+const ITEMS_FOR_PARSING = 200;
+
+const DEFAULT_PAGE = 1;
+
+export { ITEMS_FOR_PARSING, CARD_ON_PAGE, DEFAULT_PAGE };

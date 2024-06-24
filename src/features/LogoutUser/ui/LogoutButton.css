@@ -1,0 +1,13 @@
+.logOut-header-button {
+  display: flex;
+  align-items: center;
+  height: 2.4rem;
+  margin-top: 2px;
+  background-color: var(--main-color-4) !important;
+  color: var(--green);
+  font-size: 20px;
+}
+
+.logOut-header-button:hover {
+  color: var(--red) !important;
+}

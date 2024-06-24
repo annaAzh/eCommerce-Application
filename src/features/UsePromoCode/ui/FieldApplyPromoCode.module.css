@@ -1,0 +1,47 @@
+.applyBlock {
+  position: relative;
+  display: flex;
+  gap: 20px;
+  padding-bottom: 30px;
+}
+
+.inputPromoCode {
+  width: 70%;
+  height: 2rem;
+  padding: 3px 10px 0;
+  border-radius: 5px;
+  border: 2px solid var(--green);
+  font-size: 18px;
+  outline: none;
+}
+
+.buttonApply {
+  width: 30%;
+  border-radius: 5px;
+  font-size: 18px;
+  background-color: var(--green);
+  cursor: pointer;
+}
+
+.buttonApply:hover {
+  background-color: #55ec55;
+}
+
+.buttonApply:disabled {
+  background-color: #9b9b9b;
+}
+
+.inputPromoCode:disabled {
+  background-color: #9b9b9b;
+  border-color: #9b9b9b;
+}
+
+.cancelPromoCode {
+  display: none;
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  font-size: 13px;
+  color: var(--red);
+  cursor: pointer;
+}

@@ -1,0 +1,16 @@
+#register .ant-form-item-label {
+  text-transform: uppercase;
+  font-family: Poppins, sans-serif;
+  font-weight: 400;
+}
+
+#register .ant-form-item .ant-form-item-label > label {
+  color: var(--main-color-3);
+  font-size: 12px;
+}
+
+@media (width <= 575px) {
+  #register > .ant-form-item {
+    margin-bottom: 8px;
+  }
+}

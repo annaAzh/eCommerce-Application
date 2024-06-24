@@ -1,0 +1,20 @@
+.wrapper-main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: 15px;
+}
+
+.img-kittens {
+  display: block;
+  width: 74%;
+  margin: auto;
+  object-fit: contain;
+  object-position: top;
+}
+
+@media (width <= 1050px) {
+  .wrapper-main {
+    flex-direction: column;
+  }
+}

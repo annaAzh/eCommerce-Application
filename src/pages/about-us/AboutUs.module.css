@@ -1,0 +1,106 @@
+.cover {
+  background: url('../../shared/assets/img/aboutUsBg.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.wrapper {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.aboutContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 70%;
+  margin-left: auto;
+
+  @media (width <= 1240px) {
+    max-width: 50%;
+  }
+
+  @media (width <= 768px) {
+    max-width: 100%;
+  }
+}
+
+.title {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.text {
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  column-gap: 30px;
+  margin-bottom: 40px;
+
+  @media (width <= 768px) {
+    flex-direction: column;
+  }
+}
+
+.imgContainer {
+  position: relative;
+
+  & > .link {
+    position: absolute;
+    font-size: 28px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    z-index: 100;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  & > .linkTop {
+    top: 13px;
+    left: 37%;
+  }
+
+  & > .linkBottom {
+    bottom: 30%;
+    right: 8%;
+  }
+
+  @media (width <= 768px) {
+    max-width: 400px;
+    margin-bottom: 30px;
+  }
+}
+
+.img {
+  width: 80px;
+  height: 80px;
+}
+
+.aboutImg {
+  width: 100%;
+  height: auto;
+}
+
+.trioTitle {
+  margin-bottom: 20px;
+
+  @media (width <= 768px) {
+    text-align: center;
+  }
+}
