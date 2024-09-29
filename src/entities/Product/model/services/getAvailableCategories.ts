@@ -8,6 +8,7 @@ const API_URL = process.env.API_URL;
 
 export const convertCategoriesIntoAppropriateFormat = (data: GetCategoriesResponse) => {
   const result: FormattedCategories[] = [];
+  data.results.sort((category) => (category.parent ? 1 : -1));
   data.results.forEach((category) => {
     const { name, id } = category;
 
@@ -22,7 +23,7 @@ export const convertCategoriesIntoAppropriateFormat = (data: GetCategoriesRespon
       });
     }
   });
-  return result;
+  return result.sort((category1, category2) => (category1.subCategory.length < category2.subCategory.length ? 1 : -1));
 };
 
 export const getAvailableCategories = createAsyncThunk(
